@@ -1,0 +1,25 @@
+.layout {
+  grid-template-rows: 1fr var(--app-navbar-height);
+  grid-template-columns: 1fr;
+}
+
+main {
+  grid-row: 1;
+}
+
+.footer-nav {
+  grid-row: 2;
+}
+
+.nav-link.active {
+  color: var(--app-accent-color);
+}
+
+.text-expense {
+  color: theme('colors.rose.500')
+}
+
+.text-income {
+  color: theme('colors.emerald.500');
+}
+
