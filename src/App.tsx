@@ -1,7 +1,5 @@
-import { IoWalletOutline } from "solid-icons/io";
 import "./App.css";
 import {
-  AccountNavLink,
   AddNewNavButton,
   BottomNavigation,
   ExpenseAmountCard,
@@ -46,7 +44,7 @@ function App() {
         <HistoryNavLink />
       </BottomNavigation>
     </div>
-  )
+  );
 }
 
 export default App
