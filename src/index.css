@@ -5,17 +5,13 @@
 
 :root {
   font-family: 'Montserrat', sans-serif;
-  --app-navbar-height: 75px;
+  --app-navbar-height: 64px;
   --app-text-color: theme('colors.sky.900');
-  --app-accent-color: theme('colors.indigo.800');
 }
 
 body {
   color: var(--app-text-color);
   margin: 0;
   padding: 0;
-}
-
-.text-accent {
-  color: var(--app-accent-color);
+  overflow: hidden;
 }

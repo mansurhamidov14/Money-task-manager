@@ -10,5 +10,6 @@ export default {
   "category.other": "Other",
   "expense": "Expense",
   "income": "Income",
-  "totalBalance": "totalBalance"
+  "totalBalance": "totalBalance",
+  "recentTransactions": "Recent transactions"
 }

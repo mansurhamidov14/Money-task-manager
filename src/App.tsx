@@ -1,45 +1,21 @@
-import "./App.css";
+import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
 import {
   AddNewNavButton,
   BottomNavigation,
-  ExpenseAmountCard,
   HistoryNavLink,
-  HomeNavLink,
-  IncomeAmountCard,
-  TransactionGroup,
-  TransactionList,
-  TransactionListItem
+  HomeNavLink
 } from "./components";
-import { t } from "./i18n";
-import { groupTransactionsByDate, transactions } from "./stores";
+import { HistoryScreen, HomeScreen } from "./screens";
+import "./App.css";
+import { HistoryRecordsScreen } from "./screens/HistoryScreen/HistoryRecords";
 
 
-function App() {
+function App({ children }: RouteSectionProps) {
   return (
     <div class="layout grid h-screen">
-      <main class="bg-slate-50 py-3 px-5">
-        <div class="flex flex-col items-center gap-3 py-5">
-          <div class="font-bold text-3xl">
-            $2,500.50
-          </div>
-          <div class="text-slate-400 font-medium text-sm">{t("totalBalance")}</div>
-        </div>
-        <div class="flex gap-5 mb-6">
-          <IncomeAmountCard amount="$540" />
-          <ExpenseAmountCard amount="$200" />
-        </div>
-        <TransactionList>
-          {groupTransactionsByDate(transactions.getLatestTransactions()).map((group) => (
-            <TransactionGroup date={group.date}>
-              {group.transactions.map(transaction => (
-                <TransactionListItem {...transaction} />
-              ))}
-            </TransactionGroup>
-          ))}          
-        </TransactionList>
-      </main>
+      {children}
       <BottomNavigation>
-        <HomeNavLink active />
+        <HomeNavLink />
         <AddNewNavButton />
         <HistoryNavLink />
       </BottomNavigation>
@@ -47,4 +23,13 @@ function App() {
   );
 }
 
-export default App
+export default function() {
+  return (
+    <Router root={App}>
+      <Route path="/" component={() => <Navigate href="/home" />} />
+      <Route path="/home" component={HomeScreen} />
+      <Route path="/history" component={HistoryScreen} />
+      <Route path="/history/records" component={HistoryRecordsScreen} />
+    </Router>
+  );
+}

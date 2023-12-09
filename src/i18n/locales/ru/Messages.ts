@@ -10,5 +10,6 @@ export default {
   "category.other": "Другое",
   "expense": "Расходы",
   "income": "Доходы",
-  "totalBalance": "Общий баланс"
+  "totalBalance": "Общий баланс",
+  "recentTransactions": "Недавние транзакции"
 }

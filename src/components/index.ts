@@ -6,6 +6,7 @@ export * from "./ExpenseAmountCard";
 export * from "./HistoryNavLink";
 export * from "./HomeNavLink";
 export * from "./IncomeAmountCard";
+export * from "./SectionTitle";
 export * from "./TransactionGroup";
 export * from "./TransactionList";
 export * from "./TransactionListItem";

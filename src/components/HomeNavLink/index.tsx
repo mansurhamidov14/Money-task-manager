@@ -1,15 +1,21 @@
-import { AiFillHome, AiOutlineHome } from "solid-icons/ai";
+import { createMemo } from "solid-js";
+import { FaSolidHouseChimney } from "solid-icons/fa";
+import { Link, navigation } from "../../stores";
 
-export type HomeNavLinkProps = {
-  active?: boolean;
-}
+export function HomeNavLink() {
+  const href = createMemo(() => {
+    return navigation.getNavLinkPath("home");
+  });
 
-export function HomeNavLink({ active }: HomeNavLinkProps) {
   return (
     <li>
-      <a href="#" classList={{ active, 'nav-link': true }}>
-        {active ?  <AiFillHome /> : <AiOutlineHome />}
-      </a>
+      <Link
+        href={href()}
+        screen="home"
+        class={`nav-link${navigation.isScreenActive("home") ? ' active' : ''}`}
+      >
+        <FaSolidHouseChimney />
+      </Link>
     </li>
   );
 }

@@ -47,13 +47,22 @@ const initData: Transaction[] = [
     type: "expense",
     amount: 60
   },
+  {
+    id: "5",
+    title: "Üregim tutdu, aptekə qaçdım",
+    date: "2023-12-05T17:42:24.803Z",
+    category: "health",
+    currency: "USD",
+    type: "expense",
+    amount: 3.2
+  },
 ];
 
 function initTransactions() {
   const [getTransactions, setTransactions] = createSignal<Transaction[]>(initData);
 
   const addTransaction = (data: Transaction) => {
-    setTransactions([...getTransactions(), data]);
+    setTransactions(prev => ([...prev, data]));
   }
 
   const removeTransaction = (id: string) => setTransactions(getTransactions().filter(t => t.id !== id));

@@ -10,5 +10,6 @@ export default {
   "category.other": "Digər",
   "expense": "Xərclər",
   "income": "Gəlir",
-  "totalBalance": "Ümumi balans"
+  "totalBalance": "Ümumi balans",
+  "recentTransactions": "Son əməliyyatlar"
 }

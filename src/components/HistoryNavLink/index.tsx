@@ -1,15 +1,21 @@
-import { HiOutlineChartBarSquare, HiSolidChartBarSquare } from "solid-icons/hi";
+import { FaSolidChartSimple } from "solid-icons/fa";
+import { Link, navigation } from "../../stores";
+import { createMemo } from "solid-js";
 
-export type HistoryNavLinkProps = {
-  active?: boolean;
-}
+export function HistoryNavLink() {
+  const href = createMemo(() => {
+    return navigation.getNavLinkPath("history");
+  });
 
-export function HistoryNavLink({ active }: HistoryNavLinkProps) {
   return (
     <li>
-      <a href="#" classList={{ active, 'nav-link': true }}>
-        {active ?  <HiSolidChartBarSquare /> : <HiOutlineChartBarSquare />}
-      </a>
+      <Link
+        href={href()}
+        screen="history"
+        class={`nav-link${navigation.isScreenActive("history") ? ' active' : ''}`}
+      >
+        <FaSolidChartSimple />
+      </Link>
     </li>
   );
 }
