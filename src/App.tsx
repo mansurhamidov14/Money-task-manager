@@ -6,13 +6,13 @@ import {
   HomeNavLink
 } from "./components";
 import { HistoryScreen, HomeScreen } from "./screens";
-import "./App.css";
 import { HistoryRecordsScreen } from "./screens/HistoryScreen/HistoryRecords";
 
+import "./App.css";
 
 function App({ children }: RouteSectionProps) {
   return (
-    <div class="layout grid h-screen">
+    <div class="layout grid h-[100svh]">
       {children}
       <BottomNavigation>
         <HomeNavLink />

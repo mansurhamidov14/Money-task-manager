@@ -1,7 +1,6 @@
 import { A, AnchorProps, useNavigate } from "@solidjs/router";
 import { navigation } from "../index";
 import { Screen } from "../types";
-import { createMemo } from "solid-js";
 
 export interface LinkProps extends AnchorProps {
   screen?: Screen;

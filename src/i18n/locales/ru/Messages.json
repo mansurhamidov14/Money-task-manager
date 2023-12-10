@@ -1,0 +1,30 @@
+{
+  "common": {
+    "expense": "Расходы",
+    "income": "Доходы"
+  },
+  "category": {
+    "all": "Все",
+    "health": "Здоровье",
+    "market": "Маркет",
+    "restaurant": "Кафе/Ресторан",
+    "transfer": "Трансфер",
+    "transport": "Транспорт",
+    "clothing": "Одежда",
+    "education": "Образование",
+    "entertainment": "Развлечения",
+    "other": "Другое"
+  },
+  "HomeScreen": {
+    "totalBalance": "Общий баланс",
+    "recentTransactions": "Недавние транзакции"
+  },
+  "HistoryScreen": {
+    "detailTransactions": "Детализация транзакций",
+    "DateFilters": {
+      "day": "День",
+      "week": "Неделя",
+      "month": "Месяц"
+    }
+  }
+}

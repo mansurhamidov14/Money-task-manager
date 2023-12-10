@@ -10,7 +10,7 @@ export function IncomeAmountCard(props: IncomeAmountCardProps) {
   return (
     <div class="bg-emerald-400 shadow-lg shadow-emerald-400/50 flex-1 rounded-lg">
       <AmountCardContent
-        label={t("income")}
+        label={t("common.income")}
         amount={props.amount}
         icon={<FaSolidArrowTrendUp />}
       />

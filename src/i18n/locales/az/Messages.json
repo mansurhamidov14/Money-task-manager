@@ -1,0 +1,30 @@
+{
+  "common": {
+    "expense": "Xərclər",
+    "income": "Gəlir"
+  },
+  "Category": {
+    "all": "Hamısı",
+    "health": "Sağlamlıq",
+    "market": "Market",
+    "restaurant": "Kafe/Restoran",
+    "transfer": "Pul köçürmələri",
+    "transport": "Yol xərcləri",
+    "clothing": "Geyim",
+    "education": "Təhsil",
+    "entertainment": "Əyləncə",
+    "other": "Digər"
+  },
+  "HomeScreen": {
+    "totalBalance": "Ümumi balans",
+    "recentTransactions": "Son əməliyyatlar"
+  },
+  "HistoryScreen": {
+    "detailTransactions": "Əməliyyat Təfərrüatları",
+    "DateFilters": {
+      "day": "Gün",
+      "week": "Həftə",
+      "month": "Ay"
+    }
+  }
+}

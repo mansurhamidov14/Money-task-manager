@@ -9,6 +9,7 @@ export default {
     extend: {
       colors: {
         primary: colors.indigo,
+        secondary: colors.slate
       }
     }
   },

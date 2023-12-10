@@ -1,5 +1,6 @@
 import { createRoot, createSignal } from "solid-js";
 import { Transaction } from "./types";
+import { CategoryId } from "../../constants";
 
 const initData: Transaction[] = [
   {
@@ -92,9 +93,18 @@ function initTransactions() {
       .slice(0, 3);
   }
 
+  // TODO create filtering
+  const getFilteredTransactions = (category: CategoryId | null) => {
+    const filteredData = category
+      ? getTransactions().filter(t => t.category === category)
+      : [...getTransactions()];
+    return filteredData.sort((a, b) => a.date > b.date ? -1 : 1);
+  }
+
   return {
     getTransactions,
     getLatestTransactions,
+    getFilteredTransactions,
     addTransaction,
     removeTransaction,
     updateTransaction

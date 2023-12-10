@@ -1,0 +1,30 @@
+{
+  "common": {
+    "expense": "Expense",
+    "income": "Income"
+  },
+  "Category": {
+    "all": "All",
+    "health": "Health",
+    "market": "Market",
+    "restaurant": "Cafe/Restaurant",
+    "transfer": "Transfers",
+    "transport": "Transport",
+    "clothing": "Clothing",
+    "education": "Education",
+    "entertainment": "Entertainment",
+    "other": "Other"
+  },
+  "HomeScreen": {
+    "totalBalance": "totalBalance",
+    "recentTransactions": "Recent transactions"
+  },
+  "HistoryScreen": {
+    "detailTransactions": "Detail Transactions",
+    "DateFilters": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month"
+    }
+  }
+}

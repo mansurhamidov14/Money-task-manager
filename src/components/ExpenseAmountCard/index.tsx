@@ -10,7 +10,7 @@ export function ExpenseAmountCard(props: ExpenseAmountCardProps) {
   return (
     <div class="bg-rose-400 shadow-lg shadow-rose-400/50 flex-1 rounded-lg">
       <AmountCardContent
-        label={t("expense")}
+        label={t("common.expense")}
         amount={`-${props.amount}`}
         icon={<FaSolidArrowTrendDown />}
       />

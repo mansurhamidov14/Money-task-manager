@@ -1,31 +1,42 @@
 import { createSignal } from "solid-js";
-import messagesAz from "./locales/az/Messages";
-import messagesEn from "./locales/en/Messages";
-import messagesRu from "./locales/ru/Messages";
 
-type Langs = "az" | "en" | "ru";
+import messagesAz from "./locales/az/Messages.json";
+import messagesEn from "./locales/en/Messages.json";
+import messagesRu from "./locales/ru/Messages.json";
 
-const [getLocale, setLocale] = createSignal<Langs>("az");
-const translations: Record<Langs, any> = {
+import actionsAz from "./locales/az/Actions.json";
+import actionsEn from "./locales/en/Actions.json";
+import actionsRu from "./locales/ru/Actions.json";
+
+import { i18nConfig, initI18n, translations } from "./init";
+import { Lang } from "./types";
+
+const [getLocale, setLocale] = createSignal<Lang>("az");
+
+const resources: Record<Lang, any> = {
   az: {
-    Messages: messagesAz
+    Messages: messagesAz,
+    Actions: actionsAz
   },
   en: {
-    Messages: messagesEn
+    Messages: messagesEn,
+    Actions: actionsEn
   },
   ru: {
-    Messages: messagesRu
+    Messages: messagesRu,
+    Actions: actionsRu
   }
 };
 
 function t(
   key: string,
-  ns: string = "Messages",
+  ns?: string,
   params?: Record<string, number | string>,
-  lang?: Langs
+  lang?: Lang
 ): string {
+  const _ns = ns ?? i18nConfig.defaultNs;
   const locale = lang ?? getLocale();
-  const message = translations[locale][ns][key] ?? key;
+  const message = translations[locale][_ns][key] ?? key;
   if (!params) {
     return message;
   }
@@ -37,6 +48,8 @@ function bindParams(text: string, params: Record<string, number | string>) {
     return acc.replace(`{{${key}}}`, String(val));
   }, text);
 }
+
+initI18n({ resources });
 
 export {
   getLocale,

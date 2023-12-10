@@ -3,6 +3,7 @@ export * from "./AddNewNavButton";
 export * from "./AmountCardContent";
 export * from "./BottomNavigation";
 export * from "./ExpenseAmountCard";
+export * from "./FilterTab";
 export * from "./HistoryNavLink";
 export * from "./HomeNavLink";
 export * from "./IncomeAmountCard";
