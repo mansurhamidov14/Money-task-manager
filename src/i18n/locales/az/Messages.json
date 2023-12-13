@@ -24,7 +24,8 @@
     "DateFilters": {
       "day": "Gün",
       "week": "Həftə",
-      "month": "Ay"
+      "month": "Ay",
+      "custom": "Tarixlər"
     }
   }
 }

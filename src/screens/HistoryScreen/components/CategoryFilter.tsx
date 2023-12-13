@@ -14,7 +14,7 @@ export function CategoryFilter({
 }: CategoryFilterProps) {
   return (
     <div class="overflow-x-auto mx-[-1.2rem] px-5">
-      <div class="flex gap-2 py-5 w-fit">
+      <div class="flex gap-2 pb-4 w-fit">
         <FilterTab
           id={null}
           onSwitch={setActiveCategoryFilter}

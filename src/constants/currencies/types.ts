@@ -1,4 +1,11 @@
-export type CurrencyCode = "AZN" | "USD" | "UAH" | "RUB" | "TRY" | "EUR";
+export enum CurrencyCode {
+  AZN = "AZN",
+  USD = "USD",
+  UAH = "UAH",
+  RUB = "RUB",
+  TRY = "TRY",
+  EUR = "EUR",
+};
 
 export type Currency = {
   code: CurrencyCode;

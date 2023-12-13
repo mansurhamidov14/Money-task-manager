@@ -17,13 +17,10 @@ export let i18nConfig: Required<Omit<I18nOptions, "resources">> = {} as any;
 
 export function initI18n(options: I18nOptions) {
   i18nConfig = { ...defaulti18nConfig, ...options };
-  console.log('boyuguvun agzini');
-  console.log(options);
   Object.entries(options.resources).forEach(([lang, nss]) => {
     Object.entries(nss).forEach(([ns, obj]) => {
       translations[lang as Lang][ns] = flattenObject(obj, "", {}, i18nConfig.keySeparator);
     });
   });
-  console.log(translations);
 }
 

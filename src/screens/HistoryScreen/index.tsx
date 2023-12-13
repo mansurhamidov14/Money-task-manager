@@ -17,13 +17,13 @@ export function HistoryScreen() {
   const [filterDateRanges, setFilterDateRanges] = createSignal<PickerValue>(initialDateRange);
   const [activeCategoryFilter, setActiveCategoryFilter] = createSignal<CategoryId | null>(null);
 
-  const filteredTransactions = () => {
+  const filteredTransactions = createMemo(() => {
     return groupTransactionsByDate(
       transactions.getFilteredTransactions(
         activeCategoryFilter()
       )
     );
-  };
+  });
 
   return (
     <main class="bg-secondary-50 py-3 px-5 overflow-y-scroll">

@@ -20,10 +20,10 @@ const generateCurrency = (
 ): Currency => ({ code, sign, precision, formatter: formatter(sign, precision) });
 
 export const currencies: Record<CurrencyCode, Currency> = {
-  AZN: generateCurrency("AZN", "₼", 2, trailingSignFormatter),
-  EUR: generateCurrency("EUR", "€", 2),
-  RUB: generateCurrency("RUB", "₽", 2, trailingSignFormatter),
-  TRY: generateCurrency("TRY", "₺", 2),
-  UAH: generateCurrency("UAH", "₴", 2),
-  USD: generateCurrency("USD", "$", 2),
+  AZN: generateCurrency(CurrencyCode.AZN, "₼", 2, trailingSignFormatter),
+  EUR: generateCurrency(CurrencyCode.EUR, "€", 2),
+  RUB: generateCurrency(CurrencyCode.RUB, "₽", 2, trailingSignFormatter),
+  TRY: generateCurrency(CurrencyCode.TRY, "₺", 2),
+  UAH: generateCurrency(CurrencyCode.UAH, "₴", 2),
+  USD: generateCurrency(CurrencyCode.USD, "$", 2),
 };

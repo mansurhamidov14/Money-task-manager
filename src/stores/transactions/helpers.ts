@@ -4,7 +4,7 @@ export const groupTransactionsByDate = (transactions: Transaction[]): Transactio
   const tempObj: Record<string, TransactionsGroup> = {};
 
   transactions.forEach(transaction => {
-    const transactionDate = new Date(transaction.date).toISOString().split('T')[0];
+    const transactionDate = new Date(transaction.createdAt).toISOString().split('T')[0];
     if (tempObj[transactionDate]) {
       tempObj[transactionDate].transactions.push(transaction);
     } else {

@@ -1,81 +1,117 @@
 import { createRoot, createSignal } from "solid-js";
-import { Transaction } from "./types";
-import { CategoryId } from "../../constants";
+import { Transaction, TransactionsStore } from "./types";
+import { CategoryId, CurrencyCode } from "../../constants";
 
-const initData: Transaction[] = [
+export const mockTransactions: Omit<Transaction, "id">[] = [
   {
-    id: "1",
+    user: 2,
     title: "Maaş",
-    date: "2023-11-30T10:37:24.803Z",
+    createdAt: new Date("2023-11-30T10:37:24.803Z").getTime(),
     category: "transfer",
-    currency: "USD",
+    currency: CurrencyCode.USD,
     type: "income",
     amount: 2500
   },
   {
-    id: "2",
+    user: 2,
     title: "Vergilər",
-    date: "2023-12-02T12:37:24.803Z",
+    createdAt: new Date("2023-12-02T12:37:24.803Z").getTime(),
     category: "transfer",
-    currency: "USD",
+    currency: CurrencyCode.USD,
     type: "expense",
     amount: 120
   },
   {
-    id: "3",
+    user: 2,
     title: "Evə bazarlıq",
-    date: "2023-12-03T17:42:24.803Z",
+    createdAt: new Date("2023-12-03T17:42:24.803Z").getTime(),
     category: "market",
-    currency: "USD",
+    currency: CurrencyCode.USD,
     type: "expense",
     amount: 70
   },
   {
-    id: "4",
+    user: 2,
     title: "Qış ayaqqabısı",
-    date: "2023-12-02T17:42:24.803Z",
+    createdAt: new Date("2023-12-02T17:42:24.803Z").getTime(),
     category: "clothing",
-    currency: "USD",
+    currency: CurrencyCode.USD,
     type: "expense",
     amount: 60
   },
   {
-    id: "5",
+    user: 2,
     title: "PS çırpırıq manslar",
-    date: "2023-11-29T17:42:24.803Z",
+    createdAt: new Date("2023-11-29T17:42:24.803Z").getTime(),
     category: "entertainment",
-    currency: "USD",
+    currency: CurrencyCode.USD,
     type: "expense",
     amount: 60
   },
   {
-    id: "5",
+    user: 2,
     title: "Üregim tutdu, aptekə qaçdım",
-    date: "2023-12-05T17:42:24.803Z",
+    createdAt: new Date("2023-12-05T17:42:24.803Z").getTime(),
     category: "health",
-    currency: "USD",
+    currency: CurrencyCode.USD,
     type: "expense",
     amount: 3.2
   },
 ];
 
-function initTransactions() {
-  const [getTransactions, setTransactions] = createSignal<Transaction[]>(initData);
+function initTransactionsStore() {
+  const [transactionsStore, setTransactionsStore] = createSignal<TransactionsStore>({
+    isLoading: false,
+    hasError: false,
+  });
 
-  const addTransaction = (data: Transaction) => {
-    setTransactions(prev => ([...prev, data]));
+  const setTransactionsStoreError = (error: string) => {
+    setTransactionsStore({
+      isLoading: false,
+      hasError: true,
+      error
+    });
   }
 
-  const removeTransaction = (id: string) => setTransactions(getTransactions().filter(t => t.id !== id));
+  const setTransactionsStoreLoading = () => {
+    setTransactionsStore({
+      isLoading: true,
+      hasError: false,
+    });
+  }
 
-  const updateTransaction = (id: string, data: Partial<Transaction>) => {
-    setTransactions(
-      getTransactions().map(transaction => {
+  const setTransactionsStoreData = (data: Transaction[]) => {
+    setTransactionsStore({
+      isLoading: false,
+      hasError: false,
+      data
+    });
+  }
+
+  const addTransaction = (data: Transaction) => {
+    // TODO: add service method adding record to db
+    const prevData = transactionsStore().data ?? [];
+    setTransactionsStoreData([...prevData, data]);
+  }
+
+  const removeTransaction = (id: number) => {
+    // TODO: add service method deleting record from db
+    setTransactionsStoreData(
+      transactionsStore().data!.filter(t => t.id !== id)
+    );
+  }
+
+  const updateTransaction = (id: number, data: Partial<Transaction>) => {
+    // TODO: add service method modifying record in db
+    setTransactionsStoreData(
+      transactionsStore().data!.map(transaction => {
         if (transaction.id !== id) return transaction;
         return { ...transaction, ...data }
       })
     );
   }
+
+  const descSorter = (a: Transaction, b: Transaction) => a.createdAt > b.createdAt ? -1 : 1;
 
   const getLatestTransactions = () => {
     const now = Date.now();
@@ -83,32 +119,33 @@ function initTransactions() {
     const nowDate = new Date(now).toISOString().split('T')[0];
     const minDate = new Date(min).toISOString().split('T')[0];
 
-    const last10daysTransactions = getTransactions().filter(transaction => {
-      const transactionDate = new Date(transaction.date).toISOString().split('T')[0];
+    const last10daysTransactions = transactionsStore().data!.filter(transaction => {
+      const transactionDate = new Date(transaction.createdAt).toISOString().split('T')[0];
       return transactionDate <= nowDate && transactionDate >= minDate;
     });
 
-    return [...last10daysTransactions]
-      .sort((a, b) => a.date > b.date ? -1 : 1)
-      .slice(0, 3);
+    return [...last10daysTransactions].sort(descSorter).slice(0, 3);
   }
 
   // TODO create filtering
   const getFilteredTransactions = (category: CategoryId | null) => {
     const filteredData = category
-      ? getTransactions().filter(t => t.category === category)
-      : [...getTransactions()];
-    return filteredData.sort((a, b) => a.date > b.date ? -1 : 1);
+      ? transactionsStore().data!.filter(t => t.category === category)
+      : [...transactionsStore().data!];
+    return filteredData.sort(descSorter);
   }
 
   return {
-    getTransactions,
+    transactionsStore,
     getLatestTransactions,
     getFilteredTransactions,
     addTransaction,
     removeTransaction,
-    updateTransaction
+    updateTransaction,
+    setTransactionsStoreError,
+    setTransactionsStoreLoading,
+    setTransactionsStoreData,
   };
 }
 
-export const transactions = createRoot(initTransactions);
+export const transactions = createRoot(initTransactionsStore);

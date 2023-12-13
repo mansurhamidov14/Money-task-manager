@@ -1,5 +1,9 @@
-import { Categories, CategoryId, CurrencyCode, currencies } from "../../constants";
-import { t } from "../../i18n";
+import {
+  Categories,
+  CategoryId,
+  CurrencyCode,
+  currencies
+} from "../../constants";
 import { Message } from "../../i18n/components";
 import { Transaction } from "../../stores";
 
@@ -26,7 +30,7 @@ export function TransactionListItem({
   title,
   amount,
   type,
-  date
+  createdAt
 }: Transaction) {
   const Category = Categories[category];
   return (
@@ -43,17 +47,19 @@ export function TransactionListItem({
             <Category.Icon />
           </div>
           <div class="flex-1 min-w-0">
-            <div class="font-semibold">
+            <div class="font-medium text-ellipsis overflow-hidden whitespace-nowrap">
+              {title}
+            </div>
+            <div class="text-secondary-400 font-normal text-sm mt-1">
               <Message>{`Category.${category}`}</Message>
             </div>
-            <div class="text-secondary-400 font-normal text-sm mt-1 text-ellipsis overflow-hidden whitespace-nowrap">{title}</div>
           </div>
           <div class="text-right">
             <div class={`text font-bold text-${type}`}>
               {getTransactionValue(amount, currency, type)}
             </div>
             <div class="text-secondary-400 text-xs mt-1.5">
-              {new Date(date).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}
+              {new Date(createdAt).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}
             </div>
           </div>
         </div>

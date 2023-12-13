@@ -11,6 +11,10 @@ main {
   grid-row: 2;
 }
 
+.nav-link {
+  color: theme('colors.secondary.400');
+}
+
 .nav-link.active {
   color: theme('colors.primary.800');
 }

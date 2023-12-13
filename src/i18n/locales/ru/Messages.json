@@ -24,7 +24,8 @@
     "DateFilters": {
       "day": "День",
       "week": "Неделя",
-      "month": "Месяц"
+      "month": "Месяц",
+      "custom": "Даты"
     }
   }
 }

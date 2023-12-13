@@ -24,7 +24,8 @@
     "DateFilters": {
       "day": "Day",
       "week": "Week",
-      "month": "Month"
+      "month": "Month",
+      "custom": "Dates"
     }
   }
 }
