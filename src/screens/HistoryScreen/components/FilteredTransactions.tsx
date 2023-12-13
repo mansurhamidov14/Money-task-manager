@@ -1,32 +1,43 @@
-import { Accessor, For, createMemo } from "solid-js";
-import { TransactionGroup, TransactionList, TransactionListItem } from "@app/components";
+import { Accessor, For, Show, createMemo } from "solid-js";
+import { EmptyList, TransactionGroup, TransactionList, TransactionListItem } from "@app/components";
 import { CategoryId } from "@app/constants";
 import { groupTransactionsByDate, transactions } from "@app/stores";
+import { DateFilter } from "../types";
+import { FaSolidFilterCircleXmark } from "solid-icons/fa";
+import { Message } from "@app/i18n/components";
 
 type FilteredTransactionsProps = {
-  activeCategoryFilter: Accessor<CategoryId | null>
+  categoryFilter: Accessor<CategoryId | null>;
+  dateFilter: Accessor<DateFilter>
 }
 
-export function FilteredTransactions({ activeCategoryFilter }: FilteredTransactionsProps) {
+export function FilteredTransactions({ categoryFilter, dateFilter }: FilteredTransactionsProps) {
   const filteredTransactions = createMemo(() => {
     return groupTransactionsByDate(
-      transactions.getFilteredTransactions(
-        activeCategoryFilter()
-      )
+      transactions.getFilteredTransactions(categoryFilter(), dateFilter())
     );
   });
 
   return (
-    <TransactionList>
-      <For each={filteredTransactions()}>
-        {group => (
-          <TransactionGroup date={group.date}>
-            <For each={group.transactions}>
-              {transaction => <TransactionListItem {...transaction} />}
-            </For>
-          </TransactionGroup>
-        )}
-      </For>
-    </TransactionList>
+    <Show
+      when={filteredTransactions()[0]}
+      fallback={(
+        <EmptyList icon={<FaSolidFilterCircleXmark />}>
+          <Message>HistoryScreen.noTransactionForTheFilter</Message>
+        </EmptyList>
+      )}
+    >
+      <TransactionList>
+        <For each={filteredTransactions()}>
+          {group => (
+            <TransactionGroup date={group.date}>
+              <For each={group.transactions}>
+                {transaction => <TransactionListItem {...transaction} />}
+              </For>
+            </TransactionGroup>
+          )}
+        </For>
+      </TransactionList>
+    </Show>
   );
 }

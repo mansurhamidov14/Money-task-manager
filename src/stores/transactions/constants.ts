@@ -1,0 +1,1 @@
+export const RECENT_TRANSACTIONS_MAX_DAYS = 10;

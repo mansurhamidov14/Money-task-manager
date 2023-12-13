@@ -11,8 +11,6 @@ import actionsRu from "./locales/ru/Actions.json";
 import { i18nConfig, initI18n, translations } from "./init";
 import { Lang } from "./types";
 
-const [getLocale, setLocale] = createSignal<Lang>("az");
-
 const resources: Record<Lang, any> = {
   az: {
     Messages: messagesAz,
@@ -50,6 +48,7 @@ function bindParams(text: string, params: Record<string, number | string>) {
 }
 
 initI18n({ resources });
+const [getLocale, setLocale] = createSignal<Lang>(i18nConfig.defaultLang);
 
 export {
   getLocale,

@@ -1,5 +1,5 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
-import { onMount } from "solid-js";
+import { Show, onMount } from "solid-js";
 import {
   AddNewNavButton,
   BottomNavigation,
@@ -47,19 +47,20 @@ export default function() {
   });
 
   return (
-    <>
-      {user.currentUser().isLoading ? (
+    <Show
+      when={!user.currentUser().isLoading}
+      fallback={(
         <div class="h-[100svh] flex items-center">
           <Loading />
         </div>
-      ) : (
-        <Router root={App}>
-          <Route path="/" component={() => <Navigate href="/home" />} />
-          <Route path="/home" component={HomeScreen} />
-          <Route path="/history" component={HistoryScreen} />
-          <Route path="/history/records" component={HistoryRecordsScreen} />
-        </Router>
       )}
-    </>
+    >
+      <Router root={App}>
+        <Route path="/" component={() => <Navigate href="/home" />} />
+        <Route path="/home" component={HomeScreen} />
+        <Route path="/history" component={HistoryScreen} />
+        <Route path="/history/records" component={HistoryRecordsScreen} />
+      </Router>
+    </Show>
   )
 }

@@ -1,6 +1,6 @@
 import { createMemo } from "solid-js";
 import { FaSolidHouseChimney } from "solid-icons/fa";
-import { Link, navigation } from "../../stores";
+import { Link, navigation } from "@app/stores";
 
 export function HomeNavLink() {
   const href = createMemo(() => {

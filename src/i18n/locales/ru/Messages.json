@@ -3,7 +3,7 @@
     "expense": "Расходы",
     "income": "Доходы"
   },
-  "category": {
+  "Category": {
     "all": "Все",
     "health": "Здоровье",
     "market": "Маркет",
@@ -17,10 +17,12 @@
   },
   "HomeScreen": {
     "totalBalance": "Общий баланс",
-    "recentTransactions": "Недавние транзакции"
+    "recentTransactions": "Недавние транзакции",
+    "noRecentTransactions": "Нет транзакций за последние {{count}} дней"
   },
   "HistoryScreen": {
     "detailTransactions": "Детализация транзакций",
+    "noTransactionForTheFilter": "Не найдено транзакций по заданному фильтру",
     "DateFilters": {
       "day": "День",
       "week": "Неделя",

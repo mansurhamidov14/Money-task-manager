@@ -6,36 +6,38 @@ import { CategoryId } from "@app/constants";
 import { transactions } from "@app/stores";
 import { initialDateRange } from "./consts";
 import { CategoryFilter, DateFilter, FilteredTransactions } from "./components";
-
-export type DateFilter = "day" | "week" | "month" | "custom";
+import { DateFilter as TDateFilter, DateFilterTab } from "./types";
+import { getDateFilters } from "./helpers";
 
 export function HistoryScreen() {
-  const [previousDateFilter, setPreviousDateFilter] = createSignal<DateFilter>("month");
-  const [activeDateFilter, setActiveDateFilter] = createSignal<DateFilter>("month");
+  const [prevDateFilterTab, setPrevDateFilterTab] = createSignal<DateFilterTab>("month");
+  const [dateFilterTab, setDateFilterTab] = createSignal<DateFilterTab>("month");
   const [filterDateRanges, setFilterDateRanges] = createSignal<PickerValue>(initialDateRange);
-  const [activeCategoryFilter, setActiveCategoryFilter] = createSignal<CategoryId | null>(null);
+  const [categoryFilter, setCategoryFilter] = createSignal<CategoryId | null>(null);
+  const [dateFilter, setDateFilter] = createSignal<TDateFilter>(getDateFilters(dateFilterTab()));
 
   return (
     <main class="bg-secondary-50 py-3 px-5 overflow-y-scroll">
       <h1 class="text-center text-4xl">History Screen</h1>
       <DateFilter
-        previousDateFilter={previousDateFilter}
-        setPreviousDateFilter={setPreviousDateFilter}
-        activeDateFilter={activeDateFilter}
-        setActiveDateFilter={setActiveDateFilter}
+        previousTab={prevDateFilterTab}
+        setPreviousTab={setPrevDateFilterTab}
+        activeTab={dateFilterTab}
+        setActiveTab={setDateFilterTab}
         filterDateRanges={filterDateRanges}
         setFilterDateRanges={setFilterDateRanges}
+        setDateFilter={setDateFilter}
       />
       <SectionTitle>
         <Message>HistoryScreen.detailTransactions</Message>
       </SectionTitle>
-      <CategoryFilter
-        activeCategoryFilter={activeCategoryFilter}
-        setActiveCategoryFilter={setActiveCategoryFilter}
-      />
+      <CategoryFilter filter={categoryFilter} setFilter={setCategoryFilter} />
       {transactions.transactionsStore().isLoading
         ? <Loading />
-        : <FilteredTransactions activeCategoryFilter={activeCategoryFilter} />
+        : <FilteredTransactions
+            dateFilter={dateFilter}
+            categoryFilter={categoryFilter}
+          />
       }
     </main>
   );

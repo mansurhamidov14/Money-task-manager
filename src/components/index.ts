@@ -2,6 +2,7 @@ export * from "./AccountNavLink";
 export * from "./AddNewNavButton";
 export * from "./AmountCardContent";
 export * from "./BottomNavigation";
+export * from "./EmptyList";
 export * from "./ExpenseAmountCard";
 export * from "./FilterTab";
 export * from "./HistoryNavLink";

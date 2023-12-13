@@ -1,1 +1,5 @@
-export type DateFilterType = "day" | "week" | "month" | "custom";
+export type DateFilterTab = "day" | "week" | "month" | "custom";
+export type DateFilter = {
+  startTimestamp: number;
+  endTimestamp: number;
+}

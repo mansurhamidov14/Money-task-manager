@@ -8,7 +8,7 @@ export const translations: Record<Lang, { [key: string ]: any }> = {
 };
 
 const defaulti18nConfig: Required<Omit<I18nOptions, "resources">> = {
-  defaultLang: "az",
+  defaultLang: "ru",
   defaultNs: "Messages",
   keySeparator: "."
 };

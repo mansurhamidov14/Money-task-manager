@@ -1,5 +1,5 @@
 import { FaSolidChartSimple } from "solid-icons/fa";
-import { Link, navigation } from "../../stores";
+import { Link, navigation } from "@app/stores";
 import { createMemo } from "solid-js";
 
 export function HistoryNavLink() {

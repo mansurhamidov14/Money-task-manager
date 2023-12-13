@@ -1,6 +1,8 @@
-import { createRoot, createSignal } from "solid-js";
+import { createMemo, createRoot, createSignal } from "solid-js";
 import { CategoryId, CurrencyCode } from "@app/constants";
 import { Transaction, TransactionsStore } from "./types";
+import { DateFilter } from "@app/screens/HistoryScreen/types";
+import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
 
 export const mockTransactions: Omit<Transaction, "id">[] = [
   {
@@ -113,9 +115,12 @@ function initTransactionsStore() {
 
   const descSorter = (a: Transaction, b: Transaction) => a.createdAt > b.createdAt ? -1 : 1;
 
-  const getLatestTransactions = () => {
+  const latestTransactions = createMemo(() => {
+    if (transactionsStore().isLoading) {
+      return null;
+    }
     const now = Date.now();
-    const min = now - 864000000;
+    const min = now - RECENT_TRANSACTIONS_MAX_DAYS * 86400000;
     const nowDate = new Date(now).toISOString().split('T')[0];
     const minDate = new Date(min).toISOString().split('T')[0];
 
@@ -125,19 +130,20 @@ function initTransactionsStore() {
     });
 
     return [...last10daysTransactions].sort(descSorter).slice(0, 3);
-  }
+  })
 
   // TODO create filtering
-  const getFilteredTransactions = (category: CategoryId | null) => {
-    const filteredData = category
-      ? transactionsStore().data!.filter(t => t.category === category)
-      : [...transactionsStore().data!];
+  const getFilteredTransactions = (category: CategoryId | null, dateFilter: DateFilter) => {
+    const filteredData = transactions.transactionsStore().data!.filter(t => {
+      const dateMatches = t.createdAt >= dateFilter.startTimestamp && t.createdAt <= dateFilter.endTimestamp;
+      return dateMatches && (category ? t.category === category : true)
+    });
     return filteredData.sort(descSorter);
   }
 
   return {
     transactionsStore,
-    getLatestTransactions,
+    latestTransactions,
     getFilteredTransactions,
     addTransaction,
     removeTransaction,

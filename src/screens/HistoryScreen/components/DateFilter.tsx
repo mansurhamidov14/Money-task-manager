@@ -4,28 +4,34 @@ import { IoCalendarOutline } from "solid-icons/io";
 import { FilterTab } from "@app/components";
 import { Action, Message } from "@app/i18n/components";
 import { initialDateRange } from "../consts";
-import { DateFilterType } from "../types"
+import { DateFilter as TDateFilter, DateFilterTab } from "../types"
+import { getDateFilters } from "../helpers";
 
 let closeDatePickerRef: HTMLButtonElement;
 export type DateFilterProps = {
-  activeDateFilter: Accessor<DateFilterType>;
-  setActiveDateFilter: Setter<DateFilterType>;
-  previousDateFilter: Accessor<DateFilterType>;
-  setPreviousDateFilter: Setter<DateFilterType>;
+  activeTab: Accessor<DateFilterTab>;
+  setActiveTab: Setter<DateFilterTab>;
+  previousTab: Accessor<DateFilterTab>;
+  setPreviousTab: Setter<DateFilterTab>;
   filterDateRanges: Accessor<PickerValue>;
   setFilterDateRanges: Setter<PickerValue>;
+  setDateFilter: Setter<TDateFilter>;
 }
 
 export function DateFilter({
-  activeDateFilter,
-  setActiveDateFilter,
-  previousDateFilter,
-  setPreviousDateFilter,
+  activeTab,
+  setActiveTab,
+  previousTab,
+  setPreviousTab,
   filterDateRanges,
-  setFilterDateRanges
+  setFilterDateRanges,
+  setDateFilter
 }: DateFilterProps) {
-  const handleDateFilterSwitch = (filter: DateFilterType) => {
-    setActiveDateFilter(filter);
+  const handleDateFilterSwitch = (filter: DateFilterTab) => {
+    setActiveTab(filter);
+    if (filter !== "custom") {
+      setDateFilter(getDateFilters(filter));
+    }
   }
 
   const handleDateRangeApply = () => {
@@ -34,11 +40,11 @@ export function DateFilter({
   return (
     <div class="overflow-x-auto mx-[-1.2rem] px-5">
       <div class="flex gap-2 py-5 w-fit">
-        {(["day", "week", "month"] as DateFilterType[]).map((filterType) => (
+        {(["day", "week", "month"] as DateFilterTab[]).map((filterType) => (
           <FilterTab
             id={filterType}
             onSwitch={handleDateFilterSwitch}
-            active={() => activeDateFilter() === filterType}
+            active={() => activeTab() === filterType}
           >
             <Message>{`HistoryScreen.DateFilters.${filterType}`}</Message>
           </FilterTab>
@@ -48,9 +54,12 @@ export function DateFilter({
           setValue={setFilterDateRanges}
           type="range"
           onClose={() => {
-            if (!filterDateRanges().value.end || !filterDateRanges().value.start) {
-              setActiveDateFilter(previousDateFilter());
+            const filterRanges = filterDateRanges();
+            if (!filterRanges.value.end || !filterRanges.value.start) {
+              setActiveTab(previousTab());
               setFilterDateRanges(initialDateRange);
+            } else {
+              setDateFilter(getDateFilters(activeTab(), filterRanges))
             }
           }}
           formatInputLabelRangeStart="d/m/yy"
@@ -70,15 +79,15 @@ export function DateFilter({
             return (
               <FilterTab
                 id="custom"
-                active={() => activeDateFilter() === "custom"}
+                active={() => activeTab() === "custom"}
                 onClick={() => {
                   showDate();
-                  setPreviousDateFilter(activeDateFilter());
-                  setActiveDateFilter("custom");
+                  setPreviousTab(activeTab());
+                  setActiveTab("custom");
                 }}
               >
                 <span
-                  class={`text-xl ${activeDateFilter() === "custom" ? "text-primary-500" : "text-secondary-900"}`}
+                  class={`text-xl ${activeTab() === "custom" ? "text-primary-500" : "text-secondary-900"}`}
                 >
                   <IoCalendarOutline />
                 </span>&nbsp;&nbsp;{value().label || <Message>{`HistoryScreen.DateFilters.custom`}</Message>}

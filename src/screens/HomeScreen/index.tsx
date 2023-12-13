@@ -3,10 +3,11 @@ import {
   IncomeAmountCard,
   Loading,
   SectionTitle
-} from "../../components";
-import { Message } from "../../i18n/components";
-import { transactions } from "../../stores";
+} from "@app/components";
+import { Message } from "@app/i18n/components";
+import { transactions } from "@app/stores";
 import { LatestTransactions } from "./components";
+import { Show } from "solid-js";
 
 export function HomeScreen() {
   return (
@@ -26,10 +27,9 @@ export function HomeScreen() {
       <SectionTitle>
         <Message>HomeScreen.recentTransactions</Message>  
       </SectionTitle>
-      {transactions.transactionsStore().isLoading
-        ? <Loading />
-        : <LatestTransactions />
-      }
+      <Show when={!transactions.transactionsStore().isLoading} fallback={<Loading />}>
+        <LatestTransactions />
+      </Show>
     </main>
   );
 }

@@ -17,10 +17,12 @@
   },
   "HomeScreen": {
     "totalBalance": "Ümumi balans",
-    "recentTransactions": "Son əməliyyatlar"
+    "recentTransactions": "Son əməliyyatlar",
+    "noRecentTransactions": "Son {{count}} gündə heç bir əməliyyat olmayıb"
   },
   "HistoryScreen": {
     "detailTransactions": "Əməliyyat Təfərrüatları",
+    "noTransactionForTheFilter": "Filtr üzrə heç bir əməliyyat tapılmadı",
     "DateFilters": {
       "day": "Gün",
       "week": "Həftə",
