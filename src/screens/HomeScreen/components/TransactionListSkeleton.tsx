@@ -9,6 +9,8 @@ export function TransactionListSkeleton() {
     <TransactionList>
       <TransactionGroupSkeleton>
         <TransactionListItemSkeleton />
+      </TransactionGroupSkeleton>
+      <TransactionGroupSkeleton>
         <TransactionListItemSkeleton />
       </TransactionGroupSkeleton>
       <TransactionGroupSkeleton>

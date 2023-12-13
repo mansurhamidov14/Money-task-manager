@@ -3,6 +3,7 @@ import { CategoryId, CurrencyCode } from "@app/constants";
 import { Transaction, TransactionsStore } from "./types";
 import { DateFilter } from "@app/screens/HistoryScreen/types";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
+import { sumAmountSinceMonthStart } from "..";
 
 export const mockTransactions: Omit<Transaction, "id">[] = [
   {
@@ -130,9 +131,22 @@ function initTransactionsStore() {
     });
 
     return [...last10daysTransactions].sort(descSorter).slice(0, 3);
-  })
+  });
 
-  // TODO create filtering
+  const incomeForTheMonth = createMemo(() => {
+    if (transactionsStore().isLoading) {
+      return null;
+    }
+    return sumAmountSinceMonthStart(transactionsStore().data!, "income");
+  });
+
+  const expensesForTheMonth = createMemo(() => {
+    if (transactionsStore().isLoading) {
+      return null;
+    }
+    return sumAmountSinceMonthStart(transactionsStore().data!, "expense");
+  });
+
   const getFilteredTransactions = (category: CategoryId | null, dateFilter: DateFilter) => {
     const filteredData = transactions.transactionsStore().data!.filter(t => {
       const dateMatches = t.createdAt >= dateFilter.startTimestamp && t.createdAt <= dateFilter.endTimestamp;
@@ -148,6 +162,8 @@ function initTransactionsStore() {
     addTransaction,
     removeTransaction,
     updateTransaction,
+    incomeForTheMonth,
+    expensesForTheMonth,
     setTransactionsStoreError,
     setTransactionsStoreLoading,
     setTransactionsStoreData,

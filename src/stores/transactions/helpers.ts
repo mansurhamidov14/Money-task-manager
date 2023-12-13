@@ -17,3 +17,21 @@ export const groupTransactionsByDate = (transactions: Transaction[]): Transactio
 
   return Object.values(tempObj);
 }
+
+export const sumAmountSinceMonthStart = (
+  transactions: Transaction[],
+  transactionType: Transaction['type']
+) => {
+  const endTimestamp = Date.now();
+  const startDate = new Date(endTimestamp);
+  startDate.setDate(1);
+  startDate.setHours(0, 0, 0, 0);
+  const startTimestamp = startDate.getTime();
+  return transactions
+    .filter(
+      t => t.createdAt >= startTimestamp &&
+        t.createdAt <= endTimestamp &&
+        t.type === transactionType
+    )
+    .reduce((acc, val) => acc + val.amount, 0);
+}
