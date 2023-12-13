@@ -13,8 +13,8 @@ export function HomeScreen() {
     return transactions.transactionsStore().isLoading;
   })
   return (
-    <main class="bg-secondary-50 py-3 px-5 overflow-y-scroll">
-      <div class="flex flex-col items-center gap-3 py-5">
+    <main class="bg-secondary-50 p-3 overflow-y-scroll">
+      <div class="flex flex-col items-center gap-1 py-5">
         <div class="font-bold text-3xl">
           $2,500.50
         </div>
@@ -22,7 +22,7 @@ export function HomeScreen() {
           <Message>HomeScreen.totalBalance</Message>
         </div>
       </div>
-      <div class="flex gap-5 mb-6">
+      <div class="flex gap-5 mb-6 mt-4">
         <IncomeAmountCard amount={transactions.incomeForTheMonth} currencySign="$" loading={loadingTransactions} />
         <ExpenseAmountCard amount={transactions.expensesForTheMonth} currencySign="$" loading={loadingTransactions} />
       </div>

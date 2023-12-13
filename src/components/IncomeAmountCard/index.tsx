@@ -11,7 +11,7 @@ export type IncomeAmountCardProps = {
 
 export function IncomeAmountCard({ amount, currencySign, loading }: IncomeAmountCardProps) {
   const formattedAmount = createMemo(() => {
-    return `${currencySign}${amount()?.toFixed(2)}`;
+    return `${currencySign}${Math.round(amount() || 0)}`;
   });
 
   return (

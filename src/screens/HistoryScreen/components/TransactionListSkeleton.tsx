@@ -5,12 +5,12 @@ export function TransactionListSkeleton() {
     <TransactionList>
       <TransactionGroupSkeleton>
         <TransactionListItemSkeleton />
-        <TransactionListItemSkeleton />
+        <TransactionListItemSkeleton amountColor="bg-teal-200" />
       </TransactionGroupSkeleton>
       <TransactionGroupSkeleton>
         <TransactionListItemSkeleton />
         <TransactionListItemSkeleton />
-        <TransactionListItemSkeleton />
+        <TransactionListItemSkeleton amountColor="bg-teal-200" />
       </TransactionGroupSkeleton>
     </TransactionList>
   );

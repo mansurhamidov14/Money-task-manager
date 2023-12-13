@@ -1,4 +1,8 @@
-export function TransactionListItemSkeleton() {
+type Props = {
+  amountColor?: string;
+}
+
+export function TransactionListItemSkeleton({ amountColor = "bg-rose-200" }: Props) {
   return (
     <div class="bg-white shadow rounded-lg pl-3 pr-6 py-4">
       <div class="flex justify-between gap-3 animate-pulse">
@@ -10,7 +14,7 @@ export function TransactionListItemSkeleton() {
           <div class="bg-gray-200 h-[12px] w-[80px] mt-3 rounded-md" />
         </div>
         <div class="flex flex-col items-end">
-          <div class="w-[45px] h-[16px] bg-gray-300 rounded-md mt-1" />
+          <div class={`w-[45px] h-[16px] ${amountColor} rounded-md mt-1`} />
           <div class="bg-gray-200 h-[12px] w-[32px] rounded-md mt-3" />
         </div>
       </div>

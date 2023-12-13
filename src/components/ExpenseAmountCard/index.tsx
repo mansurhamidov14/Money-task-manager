@@ -12,7 +12,7 @@ export type ExpenseAmountCardProps = {
 
 export function ExpenseAmountCard({ amount, currencySign, loading }: ExpenseAmountCardProps) {
   const formattedAmount = createMemo(() => {
-    return `-${currencySign}${amount()?.toFixed(2)}`
+    return `-${currencySign}${Math.round(amount() || 0)}`
   });
 
   return (
