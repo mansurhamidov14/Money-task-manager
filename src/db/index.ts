@@ -1,8 +1,8 @@
-import { DB_NAME, TABLES } from "./consts";
+import { DB_NAME, DB_VERSION, TABLES } from "./consts";
 import { CreatedRecord } from "./types";
 
 export class Database {
-  constructor(private dbName: string) {}
+  constructor(private dbName: string, private dbVersion: number) {}
 
   async queryAll<T>(collection: string, condition?: [accessor: string | string[], value: any]): Promise<T[]> {
     const db = await this.openDbConnection();
@@ -75,7 +75,7 @@ export class Database {
   }
 
   private async openDbConnection(): Promise<IDBDatabase> {
-    const openOrCreateDB = window.indexedDB.open(this.dbName, 1);
+    const openOrCreateDB = window.indexedDB.open(this.dbName, this.dbVersion);
 
     return new Promise((res, rej) => {
       openOrCreateDB.addEventListener("success", () => {
@@ -83,7 +83,7 @@ export class Database {
         res(db);
       });
       
-      openOrCreateDB.addEventListener("upgradeneeded", () => {
+      openOrCreateDB.addEventListener("upgradeneeded", (event) => {
         const db = openOrCreateDB.result;
       
         db.onerror = () => {
@@ -91,12 +91,22 @@ export class Database {
         };
       
         TABLES.forEach(tableData => {
-          const table = db.createObjectStore(tableData.name, tableData.config);
+          let table: IDBObjectStore
+          if (tableData.version > event.oldVersion) {
+            table = db.createObjectStore(tableData.name, tableData.config);
+          } else {
+            const target = event.target as IDBOpenDBRequest;
+            table = target!.transaction!.objectStore(tableData.name) as IDBObjectStore;
+          }
           tableData.fields.forEach(field => {
-            table.createIndex(field.key, field.key, { unique: field.unique });
+            if (field.version > event.oldVersion) {
+              table.createIndex(field.key, field.key, { unique: field.unique });
+            }
           });
-          tableData.complexIndices?.forEach(({ fields, unique }) => {
-            table.createIndex(fields.join(", "), fields, { unique })
+          tableData.complexIndices?.forEach(({ fields, unique, version }) => {
+            if (version > event.oldVersion) {
+              table.createIndex(fields.join(", "), fields, { unique })
+            }
           });
         });
       });
@@ -104,4 +114,4 @@ export class Database {
   }
 }
 
-export const database = new Database(DB_NAME);
+export const database = new Database(DB_NAME, DB_VERSION);

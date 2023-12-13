@@ -1,23 +1,27 @@
-export type DbTableField = {
+type Upgradable<T> = {
+  version: number;
+} & T;
+
+export type DbTableField = Upgradable<{
   key: string;
   unique: boolean;
-}
+}>;
 
 export type DbTableConfig = {
   keyPath: string;
   autoIncrement: boolean;
-}
+};
 
-export type ComlexIndex = {
+export type ComlpexIndex = Upgradable<{
   fields: string[];
   unique: boolean;
-}
+}>;
 
-export type DbTable = {
+export type DbTable = Upgradable<{
   name: string;
   config: DbTableConfig;
   fields: DbTableField[];
-  complexIndices?: ComlexIndex[]; 
-}
+  complexIndices?: ComlpexIndex[]; 
+}>;
 
 export type CreatedRecord<T> = Promise<{ id: number } & T>;

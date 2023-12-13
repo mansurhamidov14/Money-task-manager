@@ -61,7 +61,7 @@ export const mockTransactions: Omit<Transaction, "id">[] = [
 
 function initTransactionsStore() {
   const [transactionsStore, setTransactionsStore] = createSignal<TransactionsStore>({
-    isLoading: false,
+    isLoading: true,
     hasError: false,
   });
 

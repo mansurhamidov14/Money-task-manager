@@ -13,8 +13,8 @@ export function CategoryFilter({
   setActiveCategoryFilter
 }: CategoryFilterProps) {
   return (
-    <div class="overflow-x-auto mx-[-1.2rem] px-5">
-      <div class="flex gap-2 pb-4 w-fit">
+    <div class="overflow-x-auto mx-[-1.2rem] px-5 mb-3">
+      <div class="flex gap-2 pb-1 w-fit">
         <FilterTab
           id={null}
           onSwitch={setActiveCategoryFilter}
