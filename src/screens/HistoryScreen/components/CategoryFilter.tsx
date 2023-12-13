@@ -1,7 +1,7 @@
 import { Accessor, Setter } from "solid-js"
-import { Categories, CategoryId } from "../../../constants"
-import { FilterTab } from "../../../components";
-import { Message } from "../../../i18n/components";
+import { Categories, CategoryId } from "@app/constants"
+import { FilterTab } from "@app/components";
+import { Message } from "@app/i18n/components";
 
 export type CategoryFilterProps = {
   activeCategoryFilter: Accessor<CategoryId | null>;

@@ -1,4 +1,4 @@
-import { CategoryId, CurrencyCode } from "../../constants";
+import { CategoryId, CurrencyCode } from "@app/constants";
 import { AsyncStore } from "../types";
 
 export type TransactionType = "expense" | "income";

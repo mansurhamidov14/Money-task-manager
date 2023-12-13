@@ -1,5 +1,5 @@
-import { database, type Database } from "../db";
-import { User } from "../stores";
+import { database, type Database } from "@app/db";
+import { User } from "@app/stores";
 import { RegisterUser } from "./types";
 
 class UserService {

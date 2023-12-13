@@ -1,6 +1,6 @@
 import { createRoot, createSignal } from "solid-js";
+import { CategoryId, CurrencyCode } from "@app/constants";
 import { Transaction, TransactionsStore } from "./types";
-import { CategoryId, CurrencyCode } from "../../constants";
 
 export const mockTransactions: Omit<Transaction, "id">[] = [
   {

@@ -1,4 +1,4 @@
-import { Link } from "../../stores";
+import { Link } from "@app/stores";
 
 export function HistoryRecordsScreen() {
   return (

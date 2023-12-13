@@ -1,4 +1,4 @@
-import { Transaction, User } from "../stores";
+import { Transaction, User } from "@app/stores";
 
 type CreationRequestData<T> = Omit<T, "id">
 

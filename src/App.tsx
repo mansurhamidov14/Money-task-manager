@@ -4,15 +4,15 @@ import {
   AddNewNavButton,
   BottomNavigation,
   HistoryNavLink,
-  HomeNavLink
-} from "./components";
-import { HistoryScreen, HomeScreen } from "./screens";
-import { HistoryRecordsScreen } from "./screens/HistoryScreen/HistoryRecords";
-import { userService } from "./services";
-import { transactions, user } from "./stores";
+  HomeNavLink,
+  Loading
+} from "@app/components";
+import { HistoryScreen, HomeScreen } from "@app/screens";
+import { HistoryRecordsScreen } from "@app/screens/HistoryScreen/HistoryRecords";
+import { userService, transactionService } from "@app/services";
+import { transactions, user } from "@app/stores";
 
 import "./App.css";
-import { transactionService } from "./services/TransactionService";
 
 function App({ children }: RouteSectionProps) {
   return (
@@ -29,27 +29,29 @@ function App({ children }: RouteSectionProps) {
 
 export default function() {  
   onMount(async () => {
-    console.log("Fetching authorized user");
     transactions.setTransactionsStoreLoading();
     const authorizedUser = await userService.getAuthorizedUser();
     if (authorizedUser) {
-      console.log("authorized", authorizedUser);
       const userTransactions = await transactionService.getUserTransactions(authorizedUser.id);
-      transactions.setTransactionsStoreData(userTransactions);
-      // console.log(transactions.transactionsStore());
-      console.log("user tr", userTransactions);
-      user.setCurrentUser({
-        isAuthorized: true,
-        isLoading: false,
-        data: authorizedUser
-      });
+      setTimeout(() => {
+        transactions.setTransactionsStoreData(userTransactions);
+      }, 5000);
+      setTimeout(() => {
+        user.setCurrentUser({
+          isAuthorized: true,
+          isLoading: false,
+          data: authorizedUser
+        });
+      }, 2000);
     }
   });
 
   return (
     <>
       {user.currentUser().isLoading ? (
-        <div>...Loading</div>
+        <div class="h-[100svh] flex items-center">
+          <Loading />
+        </div>
       ) : (
         <Router root={App}>
           <Route path="/" component={() => <Navigate href="/home" />} />

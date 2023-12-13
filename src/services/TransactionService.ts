@@ -1,6 +1,6 @@
+import { database, type Database } from "@app/db";
+import { Transaction } from "@app/stores";
 import { NewTransaction } from "./types";
-import { database, type Database } from "../db";
-import { Transaction } from "../stores";
 
 class TransactionService {
   constructor (private database: Database) { }

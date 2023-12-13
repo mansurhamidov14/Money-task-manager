@@ -115,3 +115,4 @@ export class Database {
 }
 
 export const database = new Database(DB_NAME, DB_VERSION);
+(window as any).db = database;

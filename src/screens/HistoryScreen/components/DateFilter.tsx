@@ -1,10 +1,10 @@
-import { Accessor, Setter } from "solid-js"
-import { DateFilterType } from "../types"
 import DatePicker, { PickerValue } from "@rnwonder/solid-date-picker";
-import { FilterTab } from "../../../components";
-import { Action, Message } from "../../../i18n/components";
+import { Accessor, Setter } from "solid-js"
 import { IoCalendarOutline } from "solid-icons/io";
+import { FilterTab } from "@app/components";
+import { Action, Message } from "@app/i18n/components";
 import { initialDateRange } from "../consts";
+import { DateFilterType } from "../types"
 
 let closeDatePickerRef: HTMLButtonElement;
 export type DateFilterProps = {

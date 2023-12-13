@@ -1,16 +1,14 @@
 import {
   ExpenseAmountCard,
   IncomeAmountCard,
-  SectionTitle,
-  TransactionGroup,
-  TransactionList,
-  TransactionListItem
+  Loading,
+  SectionTitle
 } from "../../components";
 import { Message } from "../../i18n/components";
-import { groupTransactionsByDate, transactions } from "../../stores";
+import { transactions } from "../../stores";
+import { LatestTransactions } from "./components";
 
 export function HomeScreen() {
-  console.log(transactions.transactionsStore());
   return (
     <main class="bg-secondary-50 py-3 px-5 overflow-y-scroll">
       <div class="flex flex-col items-center gap-3 py-5">
@@ -28,15 +26,10 @@ export function HomeScreen() {
       <SectionTitle>
         <Message>HomeScreen.recentTransactions</Message>  
       </SectionTitle>
-      <TransactionList>
-        {!transactions.transactionsStore().isLoading && groupTransactionsByDate(transactions.getLatestTransactions()).map((group) => (
-          <TransactionGroup date={group.date}>
-            {group.transactions.map(transaction => (
-              <TransactionListItem {...transaction} />
-            ))}
-          </TransactionGroup>
-        ))}          
-      </TransactionList>
+      {transactions.transactionsStore().isLoading
+        ? <Loading />
+        : <LatestTransactions />
+      }
     </main>
   );
 }

@@ -7,6 +7,7 @@ export * from "./FilterTab";
 export * from "./HistoryNavLink";
 export * from "./HomeNavLink";
 export * from "./IncomeAmountCard";
+export * from "./Loading";
 export * from "./SectionTitle";
 export * from "./TransactionGroup";
 export * from "./TransactionList";

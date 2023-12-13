@@ -1,4 +1,4 @@
-import { flattenObject } from "../helpers";
+import { flattenObject } from "@app/helpers";
 import { I18nOptions, Lang } from "./types";
 
 export const translations: Record<Lang, { [key: string ]: any }> = {
