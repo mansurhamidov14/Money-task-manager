@@ -1,12 +1,11 @@
 import {
   ExpenseAmountCard,
   IncomeAmountCard,
-  Loading,
   SectionTitle
 } from "@app/components";
 import { Message } from "@app/i18n/components";
 import { transactions } from "@app/stores";
-import { LatestTransactions } from "./components";
+import { LatestTransactions, TransactionListSkeleton } from "./components";
 import { Show } from "solid-js";
 
 export function HomeScreen() {
@@ -27,7 +26,10 @@ export function HomeScreen() {
       <SectionTitle>
         <Message>HomeScreen.recentTransactions</Message>  
       </SectionTitle>
-      <Show when={!transactions.transactionsStore().isLoading} fallback={<Loading />}>
+      <Show
+        when={!transactions.transactionsStore().isLoading}
+        fallback={<TransactionListSkeleton />}
+      >
         <LatestTransactions />
       </Show>
     </main>

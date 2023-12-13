@@ -1,11 +1,11 @@
-import { createSignal } from "solid-js";
+import { Show, createSignal } from "solid-js";
 import { PickerValue } from "@rnwonder/solid-date-picker";
-import { Loading, SectionTitle } from "@app/components";
+import { SectionTitle } from "@app/components";
 import { Message } from "@app/i18n/components";
 import { CategoryId } from "@app/constants";
 import { transactions } from "@app/stores";
 import { initialDateRange } from "./consts";
-import { CategoryFilter, DateFilter, FilteredTransactions } from "./components";
+import { CategoryFilter, DateFilter, FilteredTransactions, TransactionListSkeleton } from "./components";
 import { DateFilter as TDateFilter, DateFilterTab } from "./types";
 import { getDateFilters } from "./helpers";
 
@@ -32,13 +32,15 @@ export function HistoryScreen() {
         <Message>HistoryScreen.detailTransactions</Message>
       </SectionTitle>
       <CategoryFilter filter={categoryFilter} setFilter={setCategoryFilter} />
-      {transactions.transactionsStore().isLoading
-        ? <Loading />
-        : <FilteredTransactions
-            dateFilter={dateFilter}
-            categoryFilter={categoryFilter}
-          />
-      }
+      <Show
+        when={!transactions.transactionsStore().isLoading}
+        fallback={<TransactionListSkeleton />}
+      >
+        <FilteredTransactions
+          dateFilter={dateFilter}
+          categoryFilter={categoryFilter}
+        />
+      </Show>
     </main>
   );
 }

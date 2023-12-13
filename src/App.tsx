@@ -35,14 +35,12 @@ export default function() {
       const userTransactions = await transactionService.getUserTransactions(authorizedUser.id);
       setTimeout(() => {
         transactions.setTransactionsStoreData(userTransactions);
-      }, 5000);
-      setTimeout(() => {
-        user.setCurrentUser({
-          isAuthorized: true,
-          isLoading: false,
-          data: authorizedUser
-        });
-      }, 2000);
+      }, 3500);
+      user.setCurrentUser({
+        isAuthorized: true,
+        isLoading: false,
+        data: authorizedUser
+      });
     }
   });
 
