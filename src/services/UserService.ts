@@ -3,6 +3,7 @@ import { User } from "@app/stores";
 import { RegisterUser } from "./types";
 
 class UserService {
+  private collection = "transactions";
   private static EmailAlreadyRegisteredException = "EmailAlreadyRegisteredException";
   private static WrongEmailOrPasswordException = "WrongEmailOrPasswordException";
   private static BrowserStorageItemKey = "moneyAppAuthorizedUser";
@@ -10,7 +11,7 @@ class UserService {
   constructor (private db: Database) {}
   async signUp(user: RegisterUser): Promise<User> {
     try {
-      const newUser = await this.db.create<RegisterUser>("users", user);
+      const newUser = await this.db.create<RegisterUser>(this.collection, user);
       return newUser;
     } catch (error) {
       throw new Error(UserService.EmailAlreadyRegisteredException);
@@ -22,7 +23,7 @@ class UserService {
 
     if (userDataStr) {
       const userData: Pick<User, "id" | "email"> = JSON.parse(userDataStr);
-      const user = await this.db.getById<User>("users", userData.id);
+      const user = await this.db.getById<User>(this.collection, userData.id);
 
       if (!user) {
         localStorage.removeItem(UserService.BrowserStorageItemKey);
@@ -35,17 +36,17 @@ class UserService {
   }
 
   async auth(email: string, password: string): Promise<User> {
-    const [user] = await this.db.queryAll<User>("users", [
+    const [user] = await this.db.queryAll<User>(this.collection, [
       ["email", "password"],
       [email, password]
     ]);
 
     if (!user) {
-      localStorage.removeItem("moneyAppAuthorizedUser");
+      localStorage.removeItem(UserService.BrowserStorageItemKey);
       throw new Error(UserService.WrongEmailOrPasswordException)
     }
 
-    localStorage.setItem("moneyAppAuthorizedUser", JSON.stringify({
+    localStorage.setItem(UserService.BrowserStorageItemKey, JSON.stringify({
       id: user.id,
       email: user.email
     }));

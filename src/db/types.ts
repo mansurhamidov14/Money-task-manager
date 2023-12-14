@@ -24,4 +24,8 @@ export type DbTable = Upgradable<{
   complexIndices?: ComlpexIndex[]; 
 }>;
 
+export type DbStructure = Upgradable<{
+  name: string;
+  tables: DbTable[]
+}>;
 export type CreatedRecord<T> = Promise<{ id: number } & T>;

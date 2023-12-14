@@ -5,7 +5,12 @@ import { Message } from "@app/i18n/components";
 import { CategoryId } from "@app/constants";
 import { transactions } from "@app/stores";
 import { initialDateRange } from "./consts";
-import { CategoryFilter, DateFilter, FilteredTransactions, TransactionListSkeleton } from "./components";
+import {
+  CategoryFilter,
+  DateFilter,
+  FilteredTransactions,
+  TransactionListSkeleton
+} from "./components";
 import { DateFilter as TDateFilter, DateFilterTab } from "./types";
 import { getDateFilters } from "./helpers";
 
