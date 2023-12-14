@@ -4,9 +4,10 @@ import {
   SectionTitle
 } from "@app/components";
 import { Message } from "@app/i18n/components";
-import { transactions } from "@app/stores";
+import { transactions, user } from "@app/stores";
 import { LatestTransactions, TransactionListSkeleton } from "./components";
 import { Show, createMemo } from "solid-js";
+import { CurrencyCode } from "@app/constants";
 
 export function HomeScreen() {
   const loadingTransactions = createMemo(() => {
@@ -23,8 +24,16 @@ export function HomeScreen() {
         </div>
       </div>
       <div class="flex gap-5 mb-6 mt-4">
-        <IncomeAmountCard amount={transactions.incomeForTheMonth} currencySign="$" loading={loadingTransactions} />
-        <ExpenseAmountCard amount={transactions.expensesForTheMonth} currencySign="$" loading={loadingTransactions} />
+        <IncomeAmountCard
+          amount={transactions.incomeForTheMonth}
+          currency={user.currentUser().data!.currency ?? CurrencyCode.USD}
+          loading={loadingTransactions}
+        />
+        <ExpenseAmountCard
+          amount={transactions.expensesForTheMonth}
+          currency={user.currentUser().data!.currency ?? CurrencyCode.USD}
+          loading={loadingTransactions}
+        />
       </div>
       <SectionTitle>
         <Message>HomeScreen.recentTransactions</Message>  

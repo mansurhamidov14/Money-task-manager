@@ -2,13 +2,23 @@ import { Currency, CurrencyCode } from "./types";
 
 const leadingSignFormatter = function(sign: string, precision: number) {
   return function (value: number): string {
-    return `${sign}${value.toFixed(precision)}`;
+    const isWhole = value % 1 === 0;
+    const amount = new Intl.NumberFormat("en-US", {
+      minimumFractionDigits: isWhole ? 0 : precision,
+      maximumFractionDigits: precision
+    }).format(Math.abs(value));
+    return `${sign}${amount}`;
   }
 }
 
 const trailingSignFormatter = function(sign: string, precision: number) {
   return function (value: number): string {
-    return `${value.toFixed(precision)}${sign}`;
+    const isWhole = value % 1 === 0;
+    const amount = new Intl.NumberFormat("en-US", {
+      minimumFractionDigits: isWhole ? 0 : precision,
+      maximumFractionDigits: precision
+    }).format(Math.abs(value));
+    return `${amount}${sign}`;
   }
 }
 

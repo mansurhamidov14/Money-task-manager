@@ -17,7 +17,7 @@ export function HistoryScreen() {
   const [dateFilter, setDateFilter] = createSignal<TDateFilter>(getDateFilters(dateFilterTab()));
 
   return (
-    <main class="bg-secondary-50 py-3 px-5 overflow-y-scroll">
+    <main class="bg-secondary-50 p-3 overflow-y-scroll">
       <h1 class="text-center text-4xl">History Screen</h1>
       <DateFilter
         previousTab={prevDateFilterTab}

@@ -15,6 +15,7 @@ export type Transaction = {
 
 export type TransactionsGroup = {
   date: string;
+  amount: number | null;
   transactions: Transaction[];
 }
 

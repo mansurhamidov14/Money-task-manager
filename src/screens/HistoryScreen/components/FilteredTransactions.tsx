@@ -1,7 +1,7 @@
 import { Accessor, For, Show, createMemo } from "solid-js";
 import { EmptyList, TransactionGroup, TransactionList, TransactionListItem } from "@app/components";
-import { CategoryId } from "@app/constants";
-import { groupTransactionsByDate, transactions } from "@app/stores";
+import { CategoryId, CurrencyCode } from "@app/constants";
+import { groupTransactionsByDate, transactions, user } from "@app/stores";
 import { DateFilter } from "../types";
 import { FaSolidFilterCircleXmark } from "solid-icons/fa";
 import { Message } from "@app/i18n/components";
@@ -14,7 +14,8 @@ type FilteredTransactionsProps = {
 export function FilteredTransactions({ categoryFilter, dateFilter }: FilteredTransactionsProps) {
   const filteredTransactions = createMemo(() => {
     return groupTransactionsByDate(
-      transactions.getFilteredTransactions(categoryFilter(), dateFilter())
+      transactions.getFilteredTransactions(categoryFilter(), dateFilter()),
+      true
     );
   });
 
@@ -30,7 +31,11 @@ export function FilteredTransactions({ categoryFilter, dateFilter }: FilteredTra
       <TransactionList>
         <For each={filteredTransactions()}>
           {group => (
-            <TransactionGroup date={group.date}>
+            <TransactionGroup
+              date={group.date}
+              amount={() => group.amount}
+              currency={user.currentUser().data!.currency || CurrencyCode.USD}
+            >
               <For each={group.transactions}>
                 {transaction => <TransactionListItem {...transaction} />}
               </For>

@@ -3,7 +3,7 @@ import { CategoryId, CurrencyCode } from "@app/constants";
 import { Transaction, TransactionsStore } from "./types";
 import { DateFilter } from "@app/screens/HistoryScreen/types";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
-import { sumAmountSinceMonthStart } from "..";
+import { sumAmountForTheLastMonth } from "..";
 
 export const mockTransactions: Omit<Transaction, "id">[] = [
   {
@@ -137,14 +137,14 @@ function initTransactionsStore() {
     if (transactionsStore().isLoading) {
       return null;
     }
-    return sumAmountSinceMonthStart(transactionsStore().data!, "income");
+    return sumAmountForTheLastMonth(transactionsStore().data!, "income");
   });
 
   const expensesForTheMonth = createMemo(() => {
     if (transactionsStore().isLoading) {
       return null;
     }
-    return sumAmountSinceMonthStart(transactionsStore().data!, "expense");
+    return sumAmountForTheLastMonth(transactionsStore().data!, "expense");
   });
 
   const getFilteredTransactions = (category: CategoryId | null, dateFilter: DateFilter) => {

@@ -13,7 +13,7 @@ export function CategoryFilter({
   setFilter
 }: CategoryFilterProps) {
   return (
-    <div class="overflow-x-auto mx-[-1.2rem] px-5 mb-3 pb-3">
+    <div class="overflow-x-auto mx-[-0.5em] px-2 mb-3 pb-3">
       <div class="flex gap-2 w-fit">
         <FilterTab
           id={null}

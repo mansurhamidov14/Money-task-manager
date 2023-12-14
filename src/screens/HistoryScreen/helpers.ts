@@ -1,7 +1,6 @@
 import { PickerValue } from "@rnwonder/solid-date-picker";
 import { DateFilter, DateFilterTab } from "./types";
-
-const msInDay = 24 * 3600000;
+import { MS_IN_DAY } from "@app/constants";
 
 export function getDateFilters(filterType: DateFilterTab, ranges?: PickerValue): DateFilter {
   if (filterType === "custom" && !ranges) {
@@ -22,22 +21,23 @@ export function getDateFilters(filterType: DateFilterTab, ranges?: PickerValue):
   };
 
   const currentTimestamp = Date.now();
+  let startDate: Date;
   switch(filterType) {
     case "month":
-      return {
-        startTimestamp: currentTimestamp - 30 * msInDay,
-        endTimestamp: currentTimestamp
-      };
+      startDate = new Date(currentTimestamp - 30 * MS_IN_DAY);
+      break;
     case "week":
-      return {
-        startTimestamp: currentTimestamp - 7 * msInDay,
-        endTimestamp: currentTimestamp
-      };
+      startDate = new Date(currentTimestamp - 7 * MS_IN_DAY);
+      break;
     case "day":
     default:
-      return {
-        startTimestamp: currentTimestamp - msInDay,
-        endTimestamp: currentTimestamp
-      };
+      startDate = new Date(currentTimestamp - 7 * MS_IN_DAY);
+      break;
   }
+
+  startDate.setHours(0, 0, 0, 0);
+  return {
+    startTimestamp: startDate.getTime(),
+    endTimestamp: currentTimestamp
+  };
 }

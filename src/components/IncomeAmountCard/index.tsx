@@ -2,16 +2,20 @@ import { createMemo } from "solid-js";
 import { FaSolidArrowTrendUp } from "solid-icons/fa";
 import { t } from "@app/i18n";
 import { AmountCardContent } from "../AmountCardContent";
+import { CurrencyCode, currencies } from "@app/constants";
 
 export type IncomeAmountCardProps = {
   amount: () => number | null;
-  currencySign: string;
+  currency: CurrencyCode;
   loading: () => boolean;
 }
 
-export function IncomeAmountCard({ amount, currencySign, loading }: IncomeAmountCardProps) {
+export function IncomeAmountCard({ amount, currency, loading }: IncomeAmountCardProps) {
   const formattedAmount = createMemo(() => {
-    return `${currencySign}${Math.round(amount() || 0)}`;
+    if (amount() == null) {
+      return "";
+    }
+    return currencies[currency].formatter(amount()! || 0);
   });
 
   return (
