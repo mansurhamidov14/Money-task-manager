@@ -12,7 +12,7 @@ export function TransactionGroup({ amount, date, currency, children }: Transacti
   return (
     <div class="flex flex-col gap-3">
       <div class="flex justify-between items-end">
-        <div class="text-secondary-500 font-medium mt-1">{new Date(date).toLocaleDateString("en-EN", { month: "short", day: "2-digit" })}</div>
+        <div class="text-secondary-500 font-medium mt-1">{date}</div>
         <Show when={amount() !== null}>
           <div classList={{
             "rounded-lg font-medium px-2 py-0.5 mr-1 text-xs": true,

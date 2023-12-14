@@ -10,8 +10,11 @@ import { ImFilesEmpty } from "solid-icons/im";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "@app/stores/transactions/constants";
 import { Message } from "@app/i18n/components";
 import { CurrencyCode } from "@app/constants";
+import { DateFormatter } from "@app/helpers";
+import { t } from "@app/i18n";
 
 export function LatestTransactions() {
+  const dateFormatter = new DateFormatter(t);
   return (
     <Show
       when={transactions.latestTransactions()?.[0]}
@@ -26,7 +29,7 @@ export function LatestTransactions() {
       <TransactionList>
         {groupTransactionsByDate(transactions.latestTransactions()!).map(group => (
           <TransactionGroup
-            date={group.date}
+            date={dateFormatter.humanize(group.date)}
             amount={() => group.amount}
             currency={user.currentUser().data!.currency ?? CurrencyCode.USD}
           >

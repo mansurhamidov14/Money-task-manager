@@ -8,18 +8,20 @@ export const groupTransactionsByDate = (
   const tempObj: Record<string, TransactionsGroup> = {};
 
   transactions.forEach(transaction => {
-    const transactionDate = new Date(transaction.createdAt).toISOString().split('T')[0];
-    if (tempObj[transactionDate]) {
-      tempObj[transactionDate].transactions.push(transaction);
+    const transactionDate = new Date(transaction.createdAt);
+    transactionDate.setHours(0, 0, 0, 0);
+    const transactionDateString = transactionDate.toISOString().split('T')[0]
+    if (tempObj[transactionDateString]) {
+      tempObj[transactionDateString].transactions.push(transaction);
       if (calculateAmountPerDate) {
-        tempObj[transactionDate].amount! += (
+        tempObj[transactionDateString].amount! += (
           transaction.type === "income"
             ? transaction.amount
             : transaction.amount * -1
         );
       }
     } else {
-      tempObj[transactionDate] = {
+      tempObj[transactionDateString] = {
         date: transactionDate,
         amount: !calculateAmountPerDate
           ? null

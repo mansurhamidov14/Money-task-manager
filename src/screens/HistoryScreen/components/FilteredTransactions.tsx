@@ -5,6 +5,8 @@ import { groupTransactionsByDate, transactions, user } from "@app/stores";
 import { DateFilter } from "../types";
 import { FaSolidFilterCircleXmark } from "solid-icons/fa";
 import { Message } from "@app/i18n/components";
+import { DateFormatter } from "@app/helpers";
+import { t } from "@app/i18n";
 
 type FilteredTransactionsProps = {
   categoryFilter: Accessor<CategoryId | null>;
@@ -19,6 +21,8 @@ export function FilteredTransactions({ categoryFilter, dateFilter }: FilteredTra
     );
   });
 
+  const dateFormatter = new DateFormatter(t);
+
   return (
     <Show
       when={filteredTransactions()[0]}
@@ -32,7 +36,7 @@ export function FilteredTransactions({ categoryFilter, dateFilter }: FilteredTra
         <For each={filteredTransactions()}>
           {group => (
             <TransactionGroup
-              date={group.date}
+              date={dateFormatter.humanize(group.date)}
               amount={() => group.amount}
               currency={user.currentUser().data!.currency || CurrencyCode.USD}
             >

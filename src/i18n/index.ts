@@ -1,28 +1,35 @@
 import { createSignal } from "solid-js";
 
-import messagesAz from "./locales/az/Messages.json";
-import messagesEn from "./locales/en/Messages.json";
-import messagesRu from "./locales/ru/Messages.json";
-
 import actionsAz from "./locales/az/Actions.json";
 import actionsEn from "./locales/en/Actions.json";
 import actionsRu from "./locales/ru/Actions.json";
+
+import dateAz from "./locales/az/Date.json";
+import dateEn from "./locales/en/Date.json";
+import dateRu from "./locales/ru/Date.json";
+
+import messagesAz from "./locales/az/Messages.json";
+import messagesEn from "./locales/en/Messages.json";
+import messagesRu from "./locales/ru/Messages.json";
 
 import { i18nConfig, initI18n, translations } from "./init";
 import { Lang } from "./types";
 
 const resources: Record<Lang, any> = {
   az: {
+    Actions: actionsAz,
+    Date: dateAz,
     Messages: messagesAz,
-    Actions: actionsAz
   },
   en: {
+    Actions: actionsEn,
+    Date: dateEn,
     Messages: messagesEn,
-    Actions: actionsEn
   },
   ru: {
+    Actions: actionsRu,
+    Date: dateRu,
     Messages: messagesRu,
-    Actions: actionsRu
   }
 };
 

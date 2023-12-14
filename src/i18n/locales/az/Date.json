@@ -1,0 +1,41 @@
+{
+  "today": "Bugün",
+  "yesterday": "Dünən",
+  "tomorrow": "Sabah",
+  "short": {
+    "months": ["Yan", "Fev", "Mar", "Apr", "May", "İyun", "İyul", "Avq", "Sen", "Okt", "Noy", "Dek"],
+    "date": [
+      "{{date}} yan",
+      "{{date}} fev",
+      "{{date}} mar",
+      "{{date}} apr",
+      "{{date}} may",
+      "{{date}} i̇yun",
+      "{{date}} i̇yul",
+      "{{date}} avq",
+      "{{date}} sen",
+      "{{date}} okt",
+      "{{date}} noy",
+      "{{date}} dek"
+    ],
+    "weekdays": ["Baz.", "B.e.", "Ç.a.", "Çərş.", "C.a.", "Cümə", "Şən."]
+  },
+  "long": {
+    "months": ["Yanvar", "Fevral", "Mart", "Aprel", "May", "İyun", "İyul", "Avqust", "Sentyabr", "Oktabr", "Noyabr", "Dekabr"],
+    "date": [
+      "{{date}} yanvar",
+      "{{date}} fevral",
+      "{{date}} mart",
+      "{{date}} aprel",
+      "{{date}} may",
+      "{{date}} i̇yun",
+      "{{date}} i̇yul",
+      "{{date}} avqust",
+      "{{date}} sentyabr",
+      "{{date}} oktabr",
+      "{{date}} noyabr",
+      "{{date}} dekabr"
+    ],
+    "weekdays": ["Bazar", "Bazar ertəsi", "Çərşənbə axşamı", "Çərşənbə", "Cümə axşamı", "Cümə", "Şənbə"]
+  }
+}
