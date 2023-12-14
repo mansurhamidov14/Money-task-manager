@@ -1,26 +1,26 @@
-import { database, type Database } from "@app/db";
+import { IDBCollection } from "@app/adapters/IDB";
+import { transactionCollection } from "@app/db";
 import { Transaction } from "@app/stores";
 import { NewTransaction } from "./types";
 
 class TransactionService {
-  private collection = "transactions";
-  constructor (private database: Database) { }
+  constructor (private collection: IDBCollection<Transaction>) { }
 
-  create(transaction: NewTransaction): Promise<Transaction> {
-    return this.database.create<NewTransaction>(this.collection, transaction);
+  create(transaction: NewTransaction) {
+    return this.collection.create(transaction);
   }
 
-  getUserTransactions(userId: number): Promise<Transaction[]> {
-    return this.database.queryAll<Transaction>(this.collection, ["user", userId]);
+  getUserTransactions(userId: number) {
+    return this.collection.queryAll(["user", userId]);
   }
 
   updateTransaction(id: number, data: Partial<Transaction>) {
-    return this.database.update(this.collection, id, data);
+    return this.collection.update(id, data);
   }
 
   deleteTransaction(id: number) {
-    return this.database.delete(this.collection, id);
+    return this.collection.delete(id);
   }
 }
 
-export const transactionService = new TransactionService(database);
+export const transactionService = new TransactionService(transactionCollection);

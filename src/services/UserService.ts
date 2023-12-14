@@ -1,17 +1,17 @@
-import { database, type Database } from "@app/db";
+import type { IDBCollection } from "@app/adapters/IDB";
+import { userCollection } from "@app/db";
 import { User } from "@app/stores";
 import { RegisterUser } from "./types";
 
 class UserService {
-  private collection = "transactions";
   private static EmailAlreadyRegisteredException = "EmailAlreadyRegisteredException";
   private static WrongEmailOrPasswordException = "WrongEmailOrPasswordException";
   private static BrowserStorageItemKey = "moneyAppAuthorizedUser";
 
-  constructor (private db: Database) {}
+  constructor (private collection: IDBCollection<User>) {}
   async signUp(user: RegisterUser): Promise<User> {
     try {
-      const newUser = await this.db.create<RegisterUser>(this.collection, user);
+      const newUser = await this.collection.create(user);
       return newUser;
     } catch (error) {
       throw new Error(UserService.EmailAlreadyRegisteredException);
@@ -23,7 +23,7 @@ class UserService {
 
     if (userDataStr) {
       const userData: Pick<User, "id" | "email"> = JSON.parse(userDataStr);
-      const user = await this.db.getById<User>(this.collection, userData.id);
+      const user = await this.collection.queryOne(userData.id);
 
       if (!user) {
         localStorage.removeItem(UserService.BrowserStorageItemKey);
@@ -36,7 +36,7 @@ class UserService {
   }
 
   async auth(email: string, password: string): Promise<User> {
-    const [user] = await this.db.queryAll<User>(this.collection, [
+    const [user] = await this.collection.queryAll([
       ["email", "password"],
       [email, password]
     ]);
@@ -54,4 +54,4 @@ class UserService {
   }
 }
 
-export const userService = new UserService(database);
+export const userService = new UserService(userCollection);

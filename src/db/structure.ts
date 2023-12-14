@@ -1,15 +1,15 @@
 import { DB_NAME, DB_VERSION } from "./consts";
-import { DbStructure } from "./types";
+import { Structure } from "../adapters/IDB";
 
 const defaultTableConfig = {
   keyPath: "id",
   autoIncrement: true
 };
 
-const structure: DbStructure = {
+const structure: Structure = {
   name: DB_NAME,
   version: DB_VERSION,
-  tables: [
+  collections: [
     {
       name: "users",
       config: defaultTableConfig,
