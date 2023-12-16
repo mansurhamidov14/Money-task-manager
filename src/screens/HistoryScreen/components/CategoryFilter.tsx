@@ -24,10 +24,10 @@ export function CategoryFilter({
         </FilterTab>
           {Object.keys(Categories).map((category) => (
             <FilterTab
-            id={category}
-            onSwitch={setFilter}
-            active={() => filter() === category}
-          >
+              id={category}
+              onSwitch={setFilter}
+              active={() => filter() === category}
+            >
             <Message>{`Category.${category}`}</Message>
           </FilterTab>
         ))}

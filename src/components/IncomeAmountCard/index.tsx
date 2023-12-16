@@ -19,7 +19,7 @@ export function IncomeAmountCard({ amount, currency, loading }: IncomeAmountCard
   });
 
   return (
-    <div class="bg-emerald-400 shadow-lg shadow-emerald-400/50 flex-1 rounded-lg">
+    <div class="bg-teal-400 dark:bg-teal-400/90 shadow-lg shadow-teal-400/50 dark:shadow-teal-400/30 flex-1 rounded-lg">
       <AmountCardContent
         loading={loading}
         label={t("common.income")}

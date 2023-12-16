@@ -4,7 +4,7 @@ import logoLight from "@app/assets/logo-7-light.png";
 import logoDark from "@app/assets/logo-7.png";
 import { LoginScreen } from "./LoginScreen";
 import { RegisterScreen } from "./RegisterScreen";
-import themeStore from "@app/stores/theme";
+import { themeStore } from "@app/stores";
 
 const logos: Record<"dark" | "light", string> = {
   dark: logoDark,
@@ -22,6 +22,8 @@ export function AuthScreen() {
       </div>
       <Router>
         <Route path="/" component={() => <Navigate href="/auth/signin" />} />
+        <Route path="/history" component={() => <Navigate href="/auth/signin" />} />
+        <Route path="/home" component={() => <Navigate href="/auth/signin" />} />
         <Route path="/auth/signin" component={LoginScreen} />
         <Route path="/auth/register" component={RegisterScreen} />
       </Router>

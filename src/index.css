@@ -11,6 +11,7 @@
 
 .dark {
   --app-text-color: theme('colors.gray.50');
+  color-scheme: dark;
 }
 
 body {

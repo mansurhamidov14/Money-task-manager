@@ -1,7 +1,8 @@
 import {
   ExpenseAmountCard,
   IncomeAmountCard,
-  SectionTitle
+  SectionTitle,
+  ThemeToggleButton
 } from "@app/components";
 import { Message } from "@app/i18n/components";
 import { transactions, user } from "@app/stores";
@@ -14,12 +15,15 @@ export function HomeScreen() {
     return transactions.transactionsStore().isLoading;
   })
   return (
-    <main class="bg-secondary-50 p-3 overflow-y-scroll">
+    <main class="bg-secondary-50 dark:bg-gray-800 p-3 overflow-y-scroll">
+      <div class="text-right">
+        <ThemeToggleButton />
+      </div>
       <div class="flex flex-col items-center gap-1 py-5">
         <div class="font-bold text-3xl">
           $2,500.50
         </div>
-        <div class="text-secondary-400 font-medium text-sm">
+        <div class="text-secondary-400 dark:text-secondary-300 font-medium text-sm">
           <Message>HomeScreen.totalBalance</Message>
         </div>
       </div>

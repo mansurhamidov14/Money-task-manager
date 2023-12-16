@@ -14,10 +14,10 @@ import {
 } from "@app/screens";
 import { HistoryRecordsScreen } from "@app/screens/HistoryScreen/HistoryRecords";
 import { userService, transactionService } from "@app/services";
-import { transactions, user } from "@app/stores";
+import { getLocale } from "@app/i18n";
+import { transactions, user, themeStore } from "@app/stores";
 
 import "./App.css";
-import themeStore from "./stores/theme";
 
 function App({ children }: RouteSectionProps) {
   return (
@@ -41,7 +41,7 @@ export default function() {
       const userTransactions = await transactionService.getUserTransactions(authorizedUser.id);
       setTimeout(() => {
         transactions.setTransactionsStoreData(userTransactions);
-      }, 3500);
+      }, 0);
       user.setCurrentUser({
         isAuthorized: true,
         isLoading: false,
@@ -56,7 +56,7 @@ export default function() {
   });
 
   return (
-    <div class={`${theme()} app-container`}>
+    <div lang={getLocale()} class={`${theme()} app-container`}>
       <Switch
         fallback={(
           <div class="h-[100svh] flex items-center">

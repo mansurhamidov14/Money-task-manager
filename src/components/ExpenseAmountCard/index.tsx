@@ -20,7 +20,7 @@ export function ExpenseAmountCard({ amount, currency, loading }: ExpenseAmountCa
   });
 
   return (
-    <div class="bg-rose-400 shadow-lg shadow-rose-400/50 flex-1 rounded-lg">
+    <div class="bg-rose-400 dark:bg-rose-400/90 shadow-lg shadow-rose-400/50 dark:shadow-rose-400/30 flex-1 rounded-lg">
       <AmountCardContent
         loading={loading}
         label={t("common.expense")}

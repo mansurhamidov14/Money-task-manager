@@ -28,7 +28,7 @@ export function LoginScreen() {
   }
 
   return (
-    <form onSubmit={handleSubmit} class="flex flex-col gap-5 justify-around max-w-sm mx-auto px-3">
+    <form onSubmit={handleSubmit} class="flex flex-col gap-5 justify-around max-w-sm mx-auto px-5">
       <TextInput
         autocomplete="off"
         id="email"
@@ -52,10 +52,10 @@ export function LoginScreen() {
       <Button variant="primary" size="md" type="submit">
         <Action>SignIn</Action>
       </Button>
-      <div class="text-center pt-10 pb-4 font-medium">
+      <div class="text-center text-sm pt-10 pb-4 font-medium">
         <span>
           <Message>AuthScreen.dontHaveAnAccount</Message>
-          <br />
+          {" "}
           <Link class="text-primary-500 font-semibold" href="/auth/register">
             <Message>
               AuthScreen.signUp

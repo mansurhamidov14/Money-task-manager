@@ -87,7 +87,7 @@ export function DateFilter({
                 }}
               >
                 <span
-                  class={`text-xl ${activeTab() === "custom" ? "text-primary-500" : "text-secondary-900"}`}
+                  class={`text-xl ${activeTab() === "custom" ? "text-primary-500" : "text-secondary-900 dark:text-secondary-100"}`}
                 >
                   <IoCalendarOutline />
                 </span>&nbsp;&nbsp;{value().label || <Message>{`HistoryScreen.DateFilters.custom`}</Message>}

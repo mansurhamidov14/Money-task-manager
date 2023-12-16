@@ -41,7 +41,7 @@ export function RegisterScreen() {
   }
 
   return (
-    <form onSubmit={handleSubmit} class="flex flex-col gap-5 justify-around max-w-sm mx-auto px-3">
+    <form onSubmit={handleSubmit} class="flex flex-col gap-5 justify-around max-w-sm mx-auto px-5">
       <TextInput
         autocomplete="off"
         id="firstName"
@@ -85,7 +85,7 @@ export function RegisterScreen() {
       <Button variant="primary" size="md" type="submit">
         <Action>SignUp</Action>
       </Button>
-      <div class="text-center pt-6 pb-4 font-medium">
+      <div class="text-center text-sm pt-6 pb-4 font-medium">
         <span>
           <Message>AuthScreen.alreadyHaveAnAccount</Message>
           {" "}

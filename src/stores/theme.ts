@@ -25,5 +25,4 @@ function initThemeStore() {
   return { theme, toggleTheme }
 }
 
-const themeStore = createRoot(initThemeStore);
-export default themeStore;
+export const themeStore = createRoot(initThemeStore);

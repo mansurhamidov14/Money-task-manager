@@ -19,6 +19,10 @@ main {
   color: theme('colors.primary.800');
 }
 
+.dark .nav-link.active {
+  color: theme('colors.primary.600');
+}
+
 .text-expense {
   color: theme('colors.rose.500')
 }

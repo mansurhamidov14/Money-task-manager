@@ -14,7 +14,7 @@ export function TransactionListSkeleton() {
         <TransactionListItemSkeleton />
       </TransactionGroupSkeleton>
       <TransactionGroupSkeleton>
-        <TransactionListItemSkeleton amountColor="bg-teal-200" />
+        <TransactionListItemSkeleton amountColor="bg-teal-200 dark:bg-teal-400/30" />
       </TransactionGroupSkeleton>
     </TransactionList>
   );

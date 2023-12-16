@@ -35,7 +35,7 @@ export function TransactionListItem({
   const Category = Categories[category];
   return (
     <a href="#">
-      <div class="bg-white shadow rounded-lg pl-3 pr-6 py-4">
+      <div class="bg-white dark:bg-gray-700 shadow rounded-lg pl-3 pr-6 py-4">
         <div class="flex font-medium justify-between gap-3">
           <div
             style={{
@@ -50,7 +50,7 @@ export function TransactionListItem({
             <div class="font-medium text-ellipsis overflow-hidden whitespace-nowrap">
               {title}
             </div>
-            <div class="text-secondary-400 font-normal text-sm mt-1">
+            <div class="text-secondary-400 dark:text-secondary-300 font-normal text-sm mt-1">
               <Message>{`Category.${category}`}</Message>
             </div>
           </div>
@@ -58,7 +58,7 @@ export function TransactionListItem({
             <div class={`text font-bold text-${type}`}>
               {getTransactionValue(amount, currency, type)}
             </div>
-            <div class="text-secondary-400 text-xs mt-1.5">
+            <div class="text-secondary-400 dark:text-secondary-300 text-xs mt-1.5">
               {new Date(createdAt).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}
             </div>
           </div>

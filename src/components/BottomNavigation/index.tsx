@@ -6,7 +6,7 @@ export type BottomNavigationProps = {
 
 export function BottomNavigation({ children }: BottomNavigationProps) {
   return (
-    <nav class="footer-nav text-gray-500">
+    <nav class="footer-nav text-secondary-500 dark:text-secondary-300 dark:bg-gray-700">
       <ul class="h-full flex justify-around items-center text-2xl">
         {children}
       </ul>
