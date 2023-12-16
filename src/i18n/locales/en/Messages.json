@@ -3,6 +3,12 @@
     "expense": "Expense",
     "income": "Income"
   },
+  "Toasts": {
+    "warning": "Warning!",
+    "error": "Error!",
+    "success": "Success!",
+    "info": "Info!"
+  },
   "Category": {
     "all": "All",
     "health": "Health",
@@ -50,6 +56,10 @@
     "alreadyHaveAnAccount": "Already have an account?",
     "signIn": "Sign In",
     "dontHaveAnAccount": "Don't have an account?",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "Exceptions": {
+      "EmailAlreadyRegisteredException": "This email is already taken!",
+      "WrongEmailOrPasswordException": "Invalid email or password!"
+    }
   }
 }

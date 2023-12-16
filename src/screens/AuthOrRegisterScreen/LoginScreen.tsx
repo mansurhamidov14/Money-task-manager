@@ -7,6 +7,7 @@ import { t } from "@app/i18n";
 import { Action, Message } from "@app/i18n/components";
 import { Link, user } from "@app/stores";
 import { userService } from "@app/services";
+import { toastStore } from "@app/stores/toasts";
 
 export function LoginScreen() {
   const [email, setEmail] = createSignal("");
@@ -22,8 +23,9 @@ export function LoginScreen() {
         data
       });
       navigate("/");
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      toastStore.pushToast("error", t(`AuthScreen.Exceptions.${e.message}`));
+      setPassword("");
     }
   }
 

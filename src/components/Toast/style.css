@@ -1,0 +1,13 @@
+@keyframes slideDown {
+  0% {
+    transform: translateY(-1000px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.toast {
+  animation-name: slideDown;
+  animation-duration: 500ms;
+}

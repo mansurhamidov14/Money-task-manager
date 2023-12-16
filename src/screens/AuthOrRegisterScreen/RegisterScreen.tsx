@@ -8,6 +8,7 @@ import { Action, Message } from "@app/i18n/components";
 import { Link, user } from "@app/stores";
 import { CurrencyCode } from "@app/constants";
 import { userService } from "@app/services";
+import { toastStore } from "@app/stores/toasts";
 
 export function RegisterScreen() {
   const [firstName, setFirstName] = createSignal("");
@@ -35,8 +36,8 @@ export function RegisterScreen() {
         data: newUser
       });
       navigate("/");
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      toastStore.pushToast("error", t(`AuthScreen.Exceptions.${e.message}`));
     }
   }
 

@@ -3,6 +3,12 @@
     "expense": "Xərclər",
     "income": "Gəlir"
   },
+  "Toasts": {
+    "warning": "Xəbərdarlıq!",
+    "error": "Xəta!",
+    "success": "Müvəfəqiyyət!",
+    "info": "Məlumat!"
+  },
   "Category": {
     "all": "Hamısı",
     "health": "Sağlamlıq",
@@ -50,6 +56,10 @@
     "alreadyHaveAnAccount": "Artıq hesabınız var?",
     "signIn": "Daxil ol",
     "dontHaveAnAccount": "Hesabınız yoxdur?",
-    "signUp": "Hesab yarat"
+    "signUp": "Hesab yarat",
+    "Exceptions": {
+      "EmailAlreadyRegisteredException": "Bu email ünvanı artıq qeydiyyatdan keçib!",
+      "WrongEmailOrPasswordException": "Email ünvanı və ya şifrə yanlışdır!"
+    }
   }
 }

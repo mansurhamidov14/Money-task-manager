@@ -1,10 +1,9 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
 import { Match, Switch, onMount } from "solid-js";
 import { FaSolidChartSimple, FaSolidHouseChimney } from "solid-icons/fa";
-import { AddNewNavButton, BottomNavigation, Loading, NavLink } from "@app/components";
+import { AddNewNavButton, BottomNavigation, Loading, NavLink, ToastList } from "@app/components";
 import { AuthScreen, HistoryScreen, HomeScreen } from "@app/screens";
 import { userService, transactionService } from "@app/services";
-import { getLocale } from "@app/i18n";
 import { transactions, user, themeStore } from "@app/stores";
 
 import "./App.css";
@@ -64,6 +63,7 @@ export default function() {
           <AuthScreen />
         </Match>
       </Switch>
+      <ToastList />
     </div>
   );
 }

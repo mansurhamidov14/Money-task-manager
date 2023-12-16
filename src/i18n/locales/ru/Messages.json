@@ -3,6 +3,12 @@
     "expense": "Расходы",
     "income": "Доходы"
   },
+  "Toasts": {
+    "warning": "Предупреждение!",
+    "error": "Ошибка!",
+    "success": "Успешно!",
+    "info": "Информация!"
+  },
   "Category": {
     "all": "Все",
     "health": "Здоровье",
@@ -50,6 +56,10 @@
     "alreadyHaveAnAccount": "У вас уже есть аккаунт?",
     "signIn": "Войти",
     "dontHaveAnAccount": "Еще не зарегистрировались?",
-    "signUp": "Создать аккаунт"
+    "signUp": "Создать аккаунт",
+    "Exceptions": {
+      "EmailAlreadyRegisteredException": "Этот адрес электронной почты уже зарегистрирован!",
+      "WrongEmailOrPasswordException": "Неверный пароль или адрес электронной почты!"
+    }
   }
 }
