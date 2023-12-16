@@ -29,5 +29,27 @@
       "month": "Месяц",
       "custom": "Даты"
     }
+  },
+  "AuthScreen": {
+    "FormFields": {
+      "Email": {
+        "label": "Электронная почта"
+      },
+      "Password": {
+        "label": "Пароль"
+      },
+      "FirstName": {
+        "label": "Ваше имя",
+        "placeholder": "Иван"
+      },
+      "LastName": {
+        "label": "Ваша фамилия",
+        "placeholder": "Иванов"
+      }
+    },
+    "alreadyHaveAnAccount": "У вас уже есть аккаунт?",
+    "signIn": "Войти",
+    "dontHaveAnAccount": "Еще не зарегистрировались?",
+    "signUp": "Создать аккаунт"
   }
 }

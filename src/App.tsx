@@ -1,5 +1,5 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
-import { Show, onMount } from "solid-js";
+import { Match, Switch, onMount } from "solid-js";
 import {
   AddNewNavButton,
   BottomNavigation,
@@ -7,12 +7,17 @@ import {
   HomeNavLink,
   Loading
 } from "@app/components";
-import { HistoryScreen, HomeScreen } from "@app/screens";
+import {
+  AuthScreen,
+  HistoryScreen,
+  HomeScreen
+} from "@app/screens";
 import { HistoryRecordsScreen } from "@app/screens/HistoryScreen/HistoryRecords";
 import { userService, transactionService } from "@app/services";
 import { transactions, user } from "@app/stores";
 
 import "./App.css";
+import themeStore from "./stores/theme";
 
 function App({ children }: RouteSectionProps) {
   return (
@@ -27,7 +32,8 @@ function App({ children }: RouteSectionProps) {
   );
 }
 
-export default function() {  
+export default function() {
+  const { theme } = themeStore;
   onMount(async () => {
     transactions.setTransactionsStoreLoading();
     const authorizedUser = await userService.getAuthorizedUser();
@@ -41,24 +47,35 @@ export default function() {
         isLoading: false,
         data: authorizedUser
       });
+    } else {
+      user.setCurrentUser({
+        isAuthorized: false,
+        isLoading: false
+      });
     }
   });
 
   return (
-    <Show
-      when={!user.currentUser().isLoading}
-      fallback={(
-        <div class="h-[100svh] flex items-center">
-          <Loading />
-        </div>
-      )}
-    >
-      <Router root={App}>
-        <Route path="/" component={() => <Navigate href="/home" />} />
-        <Route path="/home" component={HomeScreen} />
-        <Route path="/history" component={HistoryScreen} />
-        <Route path="/history/records" component={HistoryRecordsScreen} />
-      </Router>
-    </Show>
-  )
+    <div class={`${theme()} app-container`}>
+      <Switch
+        fallback={(
+          <div class="h-[100svh] flex items-center">
+            <Loading />
+          </div>
+        )}
+      >
+        <Match when={!user.currentUser().isLoading && user.currentUser().isAuthorized}>
+          <Router root={App}>
+            <Route path="/" component={() => <Navigate href="/home" />} />
+            <Route path="/home" component={HomeScreen} />
+            <Route path="/history" component={HistoryScreen} />
+            <Route path="/history/records" component={HistoryRecordsScreen} />
+          </Router>
+        </Match>
+        <Match when={!user.currentUser().isLoading && !user.currentUser().isAuthorized}>
+          <AuthScreen />
+        </Match>
+      </Switch>
+    </div>
+  );
 }

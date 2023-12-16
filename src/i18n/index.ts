@@ -15,6 +15,7 @@ import messagesRu from "./locales/ru/Messages.json";
 import { i18nConfig, initI18n, translations } from "./init";
 import { Lang } from "./types";
 
+const localStorageAccessKey = "WFOAppLang";
 const resources: Record<Lang, any> = {
   az: {
     Actions: actionsAz,
@@ -55,10 +56,19 @@ function bindParams(text: string, params: Record<string, number | string>) {
 }
 
 initI18n({ resources });
-const [getLocale, setLocale] = createSignal<Lang>(i18nConfig.defaultLang);
+
+const [getLocale, setLocale] = createSignal<Lang>(
+  localStorage.getItem(localStorageAccessKey) as Lang | null ||
+  i18nConfig.defaultLang
+);
+
+const setLocaleWrapper = (locale: Lang) => {
+  setLocale(locale);
+  localStorage.setItem(localStorageAccessKey, locale);
+}
 
 export {
   getLocale,
-  setLocale,
+  setLocaleWrapper as setLocale,
   t
 }

@@ -29,5 +29,27 @@
       "month": "Ay",
       "custom": "Tarixlər"
     }
+  },
+  "AuthScreen": {
+    "FormFields": {
+      "Email": {
+        "label": "Email ünvanı"
+      },
+      "Password": {
+        "label": "Şifrə"
+      },
+      "FirstName": {
+        "label": "Adınız",
+        "placeholder": "Məmməd"
+      },
+      "LastName": {
+        "label": "Soyadınız",
+        "placeholder": "Əliyev"
+      }
+    },
+    "alreadyHaveAnAccount": "Artıq hesabınız var?",
+    "signIn": "Daxil ol",
+    "dontHaveAnAccount": "Hesabınız yoxdur?",
+    "signUp": "Hesab yarat"
   }
 }

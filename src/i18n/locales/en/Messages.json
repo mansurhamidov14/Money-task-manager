@@ -29,5 +29,27 @@
       "month": "Month",
       "custom": "Dates"
     }
+  },
+  "AuthScreen": {
+    "FormFields": {
+      "Email": {
+        "label": "Your Email"
+      },
+      "Password": {
+        "label": "Password"
+      },
+      "FirstName": {
+        "label": "First Name",
+        "placeholder": "John"
+      },
+      "LastName": {
+        "label": "Last Name",
+        "placeholder": "Doe"
+      }
+    },
+    "alreadyHaveAnAccount": "Already have an account?",
+    "signIn": "Sign In",
+    "dontHaveAnAccount": "Don't have an account?",
+    "signUp": "Sign Up"
   }
 }

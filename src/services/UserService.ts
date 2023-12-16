@@ -6,12 +6,16 @@ import { RegisterUser } from "./types";
 class UserService {
   private static EmailAlreadyRegisteredException = "EmailAlreadyRegisteredException";
   private static WrongEmailOrPasswordException = "WrongEmailOrPasswordException";
-  private static BrowserStorageItemKey = "moneyAppAuthorizedUser";
+  private static BrowserStorageItemKey = "WFOAppAuthorizedUser";
 
   constructor (private collection: IDBCollection<User>) {}
   async signUp(user: RegisterUser): Promise<User> {
     try {
       const newUser = await this.collection.create(user);
+      localStorage.setItem(UserService.BrowserStorageItemKey, JSON.stringify({
+        id: newUser.id,
+        email: newUser.email
+      }));
       return newUser;
     } catch (error) {
       throw new Error(UserService.EmailAlreadyRegisteredException);

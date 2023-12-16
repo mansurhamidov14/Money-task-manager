@@ -20,9 +20,7 @@ const structure: Structure = {
         { key: "lastName", unique: false, version: 1 },
         { key: "password", unique: false, version: 1 },
         { key: "avatar", unique: false, version: 1 },
-        { key: "lang", unique: false, version: 1 },
         { key: "currency", unique: false, version: 1 },
-        { key: "theme", unique: false, version: 1 },
         { key: "createdAt", unique: false, version: 1 },
       ],
       complexIndices: [
