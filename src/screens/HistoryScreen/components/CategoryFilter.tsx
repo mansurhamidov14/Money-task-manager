@@ -18,7 +18,7 @@ export function CategoryFilter({
         <FilterTab
           id={null}
           onSwitch={setFilter}
-          active={() => filter() === null}
+          active={filter() === null}
         >
           <Message>Category.all</Message>
         </FilterTab>
@@ -26,7 +26,7 @@ export function CategoryFilter({
             <FilterTab
               id={category}
               onSwitch={setFilter}
-              active={() => filter() === category}
+              active={filter() === category}
             >
             <Message>{`Category.${category}`}</Message>
           </FilterTab>

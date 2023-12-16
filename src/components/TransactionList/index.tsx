@@ -4,10 +4,10 @@ export type TransactionListGroupProps = {
   children: JSXElement | JSXElement[];
 }
 
-export function TransactionList({ children }: TransactionListGroupProps) {
+export function TransactionList(props: TransactionListGroupProps) {
   return (
     <div class="flex flex-col gap-4">
-      {children}
+      {props.children}
     </div>
   );
 }

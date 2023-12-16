@@ -3,28 +3,28 @@ import { JSXElement, Show } from "solid-js";
 
 export type TransactionGroupProps = {
   date: string;
-  amount: () => (null | number),
+  amount: null | number,
   currency: CurrencyCode;
   children: JSXElement | JSXElement[];
 }
 
-export function TransactionGroup({ amount, date, currency, children }: TransactionGroupProps) {
+export function TransactionGroup(props: TransactionGroupProps) {
   return (
     <div class="flex flex-col gap-3">
       <div class="flex justify-between items-end">
-        <div class="text-secondary-500 dark:text-secondary-300 font-medium mt-1">{date}</div>
-        <Show when={amount() !== null}>
+        <div class="text-secondary-500 dark:text-secondary-300 font-medium mt-1">{props.date}</div>
+        <Show when={props.amount}>
           <div classList={{
             "rounded-lg font-medium px-2 py-0.5 mr-1 text-xs": true,
-            "bg-rose-500/10 text-rose-500/70": amount()! < 0,
-            "bg-teal-500/10 text-teal-500/70": amount()! > 0,
-            "bg-amber-500/10 text-amber-500/70": amount() === 0
+            "bg-rose-500/10 text-rose-500/70": props.amount! < 0,
+            "bg-teal-500/10 text-teal-500/70": props.amount! > 0,
+            "bg-amber-500/10 text-amber-500/70": props.amount === 0
             }}>
-              {`${amount()! < 0 ? "-" : ""}${currencies[currency].formatter(amount()!)}`}
+              {`${props.amount! < 0 ? "-" : ""}${currencies[props.currency].formatter(props.amount!)}`}
           </div>
         </Show>
       </div>
-      {children}
+      {props.children}
     </div>
   );
 }

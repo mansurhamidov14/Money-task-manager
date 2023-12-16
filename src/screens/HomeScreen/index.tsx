@@ -29,14 +29,14 @@ export function HomeScreen() {
       </div>
       <div class="flex gap-5 mb-6 mt-4">
         <IncomeAmountCard
-          amount={transactions.incomeForTheMonth}
+          amount={transactions.incomeForTheMonth()}
           currency={user.currentUser().data!.currency ?? CurrencyCode.USD}
-          loading={loadingTransactions}
+          loading={loadingTransactions()}
         />
         <ExpenseAmountCard
-          amount={transactions.expensesForTheMonth}
+          amount={transactions.expensesForTheMonth()}
           currency={user.currentUser().data!.currency ?? CurrencyCode.USD}
-          loading={loadingTransactions}
+          loading={loadingTransactions()}
         />
       </div>
       <SectionTitle>

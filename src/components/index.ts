@@ -1,4 +1,3 @@
-export * from "./AccountNavLink";
 export * from "./AddNewNavButton";
 export * from "./AmountCardContent";
 export * from "./BottomNavigation";
@@ -6,10 +5,9 @@ export * from "./Button";
 export * from "./EmptyList";
 export * from "./ExpenseAmountCard";
 export * from "./FilterTab";
-export * from "./HistoryNavLink";
-export * from "./HomeNavLink";
 export * from "./IncomeAmountCard";
 export * from "./Loading";
+export * from "./NavLink";
 export * from "./SectionTitle";
 export * from "./TextInput";
 export * from "./TextInputWithFloatingLabel";

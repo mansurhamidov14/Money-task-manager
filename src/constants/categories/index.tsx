@@ -17,7 +17,7 @@ const generateCategory = (
   [accentColor, iconColor]: string[]
 ): Category => ({
   id,
-  Icon: icon,
+  icon,
   colors: {
     accent: accentColor,
     icon: iconColor

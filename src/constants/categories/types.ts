@@ -13,7 +13,7 @@ export type CategoryId =
 
 export type Category = {
   id: CategoryId,
-  Icon: IconTypes,
+  icon: IconTypes,
   colors: {
     accent: string;
     icon: string;

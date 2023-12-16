@@ -30,7 +30,7 @@ export function LatestTransactions() {
         {groupTransactionsByDate(transactions.latestTransactions()!).map(group => (
           <TransactionGroup
             date={dateFormatter.humanize(group.date)}
-            amount={() => group.amount}
+            amount={group.amount}
             currency={user.currentUser().data!.currency ?? CurrencyCode.USD}
           >
             {group.transactions.map(transaction => (

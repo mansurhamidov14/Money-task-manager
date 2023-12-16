@@ -44,7 +44,7 @@ export function DateFilter({
           <FilterTab
             id={filterType}
             onSwitch={handleDateFilterSwitch}
-            active={() => activeTab() === filterType}
+            active={activeTab() === filterType}
           >
             <Message>{`HistoryScreen.DateFilters.${filterType}`}</Message>
           </FilterTab>
@@ -79,7 +79,7 @@ export function DateFilter({
             return (
               <FilterTab
                 id="custom"
-                active={() => activeTab() === "custom"}
+                active={activeTab() === "custom"}
                 onClick={() => {
                   showDate();
                   setPreviousTab(activeTab());

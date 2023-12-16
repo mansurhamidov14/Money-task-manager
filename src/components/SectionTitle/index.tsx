@@ -4,8 +4,8 @@ export type SectionTitleProps = {
   children: JSXElement;
 }
 
-export function SectionTitle({ children }: SectionTitleProps) {
+export function SectionTitle(props: SectionTitleProps) {
   return (
-    <h3 class="text-xl font-bold py-3">{children}</h3>
+    <h3 class="text-xl font-bold py-3">{props.children}</h3>
   );
 }

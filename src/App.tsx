@@ -1,18 +1,8 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
 import { Match, Switch, onMount } from "solid-js";
-import {
-  AddNewNavButton,
-  BottomNavigation,
-  HistoryNavLink,
-  HomeNavLink,
-  Loading
-} from "@app/components";
-import {
-  AuthScreen,
-  HistoryScreen,
-  HomeScreen
-} from "@app/screens";
-import { HistoryRecordsScreen } from "@app/screens/HistoryScreen/HistoryRecords";
+import { FaSolidChartSimple, FaSolidHouseChimney } from "solid-icons/fa";
+import { AddNewNavButton, BottomNavigation, Loading, NavLink } from "@app/components";
+import { AuthScreen, HistoryScreen, HomeScreen } from "@app/screens";
 import { userService, transactionService } from "@app/services";
 import { getLocale } from "@app/i18n";
 import { transactions, user, themeStore } from "@app/stores";
@@ -24,9 +14,9 @@ function App({ children }: RouteSectionProps) {
     <div class="layout grid h-[100svh]">
       {children}
       <BottomNavigation>
-        <HomeNavLink />
+        <NavLink screen="home" icon={<FaSolidHouseChimney />} />
         <AddNewNavButton />
-        <HistoryNavLink />
+        <NavLink screen="history" icon={<FaSolidChartSimple />} />
       </BottomNavigation>
     </div>
   );
@@ -35,13 +25,12 @@ function App({ children }: RouteSectionProps) {
 export default function() {
   const { theme } = themeStore;
   onMount(async () => {
-    transactions.setTransactionsStoreLoading();
     const authorizedUser = await userService.getAuthorizedUser();
     if (authorizedUser) {
       const userTransactions = await transactionService.getUserTransactions(authorizedUser.id);
       setTimeout(() => {
         transactions.setTransactionsStoreData(userTransactions);
-      }, 0);
+      }, 500);
       user.setCurrentUser({
         isAuthorized: true,
         isLoading: false,
@@ -69,7 +58,6 @@ export default function() {
             <Route path="/" component={() => <Navigate href="/home" />} />
             <Route path="/home" component={HomeScreen} />
             <Route path="/history" component={HistoryScreen} />
-            <Route path="/history/records" component={HistoryRecordsScreen} />
           </Router>
         </Match>
         <Match when={!user.currentUser().isLoading && !user.currentUser().isAuthorized}>

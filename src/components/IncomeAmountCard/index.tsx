@@ -5,25 +5,25 @@ import { AmountCardContent } from "../AmountCardContent";
 import { CurrencyCode, currencies } from "@app/constants";
 
 export type IncomeAmountCardProps = {
-  amount: () => number | null;
+  amount: number | null;
   currency: CurrencyCode;
-  loading: () => boolean;
+  loading: boolean;
 }
 
-export function IncomeAmountCard({ amount, currency, loading }: IncomeAmountCardProps) {
+export function IncomeAmountCard(props: IncomeAmountCardProps) {
   const formattedAmount = createMemo(() => {
-    if (amount() == null) {
+    if (props.amount == null) {
       return "";
     }
-    return currencies[currency].formatter(amount()! || 0);
+    return currencies[props.currency].formatter(props.amount || 0);
   });
 
   return (
     <div class="bg-teal-400 dark:bg-teal-400/90 shadow-lg shadow-teal-400/50 dark:shadow-teal-400/30 flex-1 rounded-lg">
       <AmountCardContent
-        loading={loading}
+        loading={props.loading}
         label={t("common.income")}
-        amount={formattedAmount}
+        amount={formattedAmount()}
         icon={<FaSolidArrowTrendUp />}
       />
     </div>

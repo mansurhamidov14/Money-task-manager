@@ -1,3 +1,4 @@
+import { createMemo } from "solid-js";
 import {
   Categories,
   CategoryId,
@@ -24,42 +25,39 @@ function getTransactionValue(
   return `${(transactionType === "expense" ? "-" : "+")}${currencies[currency].formatter(amount)}`;
 }
 
-export function TransactionListItem({
-  category,
-  currency,
-  title,
-  amount,
-  type,
-  createdAt
-}: Transaction) {
-  const Category = Categories[category];
+export function TransactionListItem(props: Transaction) {
+  const categoryIcon = createMemo(() => {
+    const Icon = Categories[props.category].icon;
+    return <Icon />;
+  });
+  
   return (
     <a href="#">
       <div class="bg-white dark:bg-gray-700 shadow rounded-lg pl-3 pr-6 py-4">
         <div class="flex font-medium justify-between gap-3">
           <div
             style={{
-              "background-color": Category.colors.accent,
-              "color": Category.colors.icon
+              "background-color": Categories[props.category].colors.accent,
+              "color": Categories[props.category].colors.icon
             }}
             class="rounded-lg flex justify-center items-center aspect-square h-12 text-3xl"
           >
-            <Category.Icon />
+            {categoryIcon()}
           </div>
           <div class="flex-1 min-w-0">
             <div class="font-medium text-ellipsis overflow-hidden whitespace-nowrap">
-              {title}
+              {props.title}
             </div>
             <div class="text-secondary-400 dark:text-secondary-300 font-normal text-sm mt-1">
-              <Message>{`Category.${category}`}</Message>
+              <Message>{`Category.${props.category}`}</Message>
             </div>
           </div>
           <div class="text-right">
-            <div class={`text font-bold text-${type}`}>
-              {getTransactionValue(amount, currency, type)}
+            <div class={`text font-bold text-${props.type}`}>
+              {getTransactionValue(props.amount, props.currency, props.type)}
             </div>
             <div class="text-secondary-400 dark:text-secondary-300 text-xs mt-1.5">
-              {new Date(createdAt).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}
+              {new Date(props.createdAt).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}
             </div>
           </div>
         </div>
