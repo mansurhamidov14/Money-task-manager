@@ -1,11 +1,11 @@
-import { Button, TextInputWithFloatingLabel as TextInput } from "@app/components";
+import { createSignal } from "solid-js";
+import { useNavigate } from "@solidjs/router";
 import { IoKey } from "solid-icons/io";
 import { FiAtSign } from "solid-icons/fi";
+import { Button, TextInputWithFloatingLabel as TextInput } from "@app/components";
 import { t } from "@app/i18n";
 import { Action, Message } from "@app/i18n/components";
 import { Link, user } from "@app/stores";
-import { createSignal } from "solid-js";
-import { useNavigate } from "@solidjs/router";
 import { CurrencyCode } from "@app/constants";
 import { userService } from "@app/services";
 
@@ -17,7 +17,7 @@ export function RegisterScreen() {
   const navigate = useNavigate();
   const handleSubmit = async (event: Event) => {
     event.preventDefault();
-    const createdAt = Date.now()
+    const createdAt = Date.now();
     const userData = {
       firstName: firstName(),
       lastName: lastName(),

@@ -1,13 +1,34 @@
-import { Button, TextInputWithFloatingLabel as TextInput } from "@app/components";
+import { createSignal } from "solid-js";
+import { useNavigate } from "@solidjs/router";
 import { IoKey } from "solid-icons/io";
 import { FiAtSign } from "solid-icons/fi";
+import { Button, TextInputWithFloatingLabel as TextInput } from "@app/components";
 import { t } from "@app/i18n";
 import { Action, Message } from "@app/i18n/components";
-import { Link } from "@app/stores";
+import { Link, user } from "@app/stores";
+import { userService } from "@app/services";
 
 export function LoginScreen() {
+  const [email, setEmail] = createSignal("");
+  const [password, setPassword] = createSignal("");
+  const navigate = useNavigate();
+  const handleSubmit = async (event: Event) => {
+    event.preventDefault();
+    try {
+      const data = await userService.auth(email(), password());
+      user.setCurrentUser({
+        isLoading: false,
+        isAuthorized: true,
+        data
+      });
+      navigate("/");
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
-    <form class="flex flex-col gap-5 justify-around max-w-sm mx-auto px-3">
+    <form onSubmit={handleSubmit} class="flex flex-col gap-5 justify-around max-w-sm mx-auto px-3">
       <TextInput
         autocomplete="off"
         id="email"
@@ -15,6 +36,8 @@ export function LoginScreen() {
         label={t("AuthScreen.FormFields.Email.label")}
         placeholder="youremail@example.com"
         addonStart={<FiAtSign />}
+        value={email()}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <TextInput
         autocomplete="off"
@@ -23,6 +46,8 @@ export function LoginScreen() {
         label={t("AuthScreen.FormFields.Password.label")}
         placeholder="••••••••••"
         addonStart={<IoKey />}
+        value={password()}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <Button variant="primary" size="md" type="submit">
         <Action>SignIn</Action>
