@@ -49,14 +49,14 @@ export function LoginScreen() {
         value={password()}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button variant="primary" size="md" type="submit">
+      <Button variant="primary" size="lg" type="submit">
         <Action>SignIn</Action>
       </Button>
-      <div class="text-center text-sm pt-10 pb-4 font-medium">
-        <span>
+      <div class="text-sm pt-10 pb-4 font-medium">
+        <span class="flex gap-2 justify-center">
           <Message>AuthScreen.dontHaveAnAccount</Message>
           {" "}
-          <Link class="text-primary-500 font-semibold" href="/auth/register">
+          <Link class="text-primary-500 dark:text-primary-400 font-semibold" href="/auth/register">
             <Message>
               AuthScreen.signUp
             </Message>

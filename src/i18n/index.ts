@@ -1,5 +1,9 @@
 import { createSignal } from "solid-js";
 
+import flagAz from "@app/assets/langs/az-circle.png";
+import flagEn from "@app/assets/langs/en-circle.png";
+import flagRu from "@app/assets/langs/ru-circle.png";
+
 import actionsAz from "./locales/az/Actions.json";
 import actionsEn from "./locales/en/Actions.json";
 import actionsRu from "./locales/ru/Actions.json";
@@ -13,9 +17,27 @@ import messagesEn from "./locales/en/Messages.json";
 import messagesRu from "./locales/ru/Messages.json";
 
 import { i18nConfig, initI18n, translations } from "./init";
-import { Lang } from "./types";
+import { Lang, LangData } from "./types";
 
 const localStorageAccessKey = "WFOAppLang";
+export const langData: LangData = {
+  az: {
+    code: "AZ",
+    name: "Azərbaycan dili",
+    flag: flagAz
+  },
+  en: {
+    code: "EN",
+    name: "English",
+    flag: flagEn
+  },
+  ru: {
+    code: "RU",
+    name: "Русский язык",
+    flag: flagRu
+  }
+};
+
 const resources: Record<Lang, any> = {
   az: {
     Actions: actionsAz,
@@ -56,15 +78,16 @@ function bindParams(text: string, params: Record<string, number | string>) {
 }
 
 initI18n({ resources });
-
-const [getLocale, setLocale] = createSignal<Lang>(
-  localStorage.getItem(localStorageAccessKey) as Lang | null ||
-  i18nConfig.defaultLang
-);
+const initialLang = localStorage.getItem(localStorageAccessKey) as Lang | null || i18nConfig.defaultLang;
+const [getLocale, setLocale] = createSignal<Lang>(initialLang);
+document.getElementsByTagName("html")[0]!.setAttribute("lang", initialLang);
 
 const setLocaleWrapper = (locale: Lang) => {
-  setLocale(locale);
-  localStorage.setItem(localStorageAccessKey, locale);
+  document.getElementsByTagName("html")[0]!.setAttribute("lang", locale);
+  setTimeout(() => {
+    setLocale(locale);
+    localStorage.setItem(localStorageAccessKey, locale);
+  });
 }
 
 export {

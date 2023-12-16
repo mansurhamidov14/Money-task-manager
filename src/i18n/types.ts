@@ -9,3 +9,9 @@ export type I18nOptions = {
 export type TrComponentProps = {
   children: string;
 } & { [key: string]: string | number }
+
+export type LangData = Record<Lang, {
+  flag: string;
+  name: string;
+  code: string;
+}>

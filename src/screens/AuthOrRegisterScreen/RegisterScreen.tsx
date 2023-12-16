@@ -82,14 +82,14 @@ export function RegisterScreen() {
         onChange={e => setPassword(e.target.value)}
         required
       />
-      <Button variant="primary" size="md" type="submit">
+      <Button variant="primary" size="lg" type="submit">
         <Action>SignUp</Action>
       </Button>
-      <div class="text-center text-sm pt-6 pb-4 font-medium">
-        <span>
+      <div class="text-sm pt-6 pb-4 font-medium">
+        <span class="flex justify-center gap-2">
           <Message>AuthScreen.alreadyHaveAnAccount</Message>
           {" "}
-          <Link class="text-primary-500 font-semibold" href="/auth/signin">
+          <Link class="text-primary-500 dark:text-primary-400 font-semibold" href="/auth/signin">
             <Message>
               AuthScreen.signIn
             </Message>

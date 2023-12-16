@@ -45,7 +45,7 @@ export default function() {
   });
 
   return (
-    <div lang={getLocale()} class={`${theme()} app-container`}>
+    <div class={`${theme()} app-container`}>
       <Switch
         fallback={(
           <div class="h-[100svh] flex items-center">

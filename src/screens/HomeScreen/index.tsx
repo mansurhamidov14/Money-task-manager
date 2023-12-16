@@ -15,7 +15,7 @@ export function HomeScreen() {
     return transactions.transactionsStore().isLoading;
   })
   return (
-    <main class="bg-secondary-50 dark:bg-gray-800 p-3 overflow-y-scroll">
+    <main class="bg-secondary-50 dark:bg-gray-800 p-3 overflow-y-auto">
       <div class="text-right">
         <ThemeToggleButton />
       </div>

@@ -22,7 +22,7 @@ export function HistoryScreen() {
   const [dateFilter, setDateFilter] = createSignal<TDateFilter>(getDateFilters(dateFilterTab()));
 
   return (
-    <main class="bg-secondary-50 dark:bg-gray-800 p-3 overflow-y-scroll">
+    <main class="bg-secondary-50 dark:bg-gray-800 p-3 overflow-y-auto">
       <h1 class="text-center text-4xl">History Screen</h1>
       <DateFilter
         previousTab={prevDateFilterTab}
