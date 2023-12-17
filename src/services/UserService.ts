@@ -56,6 +56,11 @@ class UserService {
     }));
     return user;
   }
+
+  async userExist(email: string): Promise<boolean> {
+    const user = await this.collection.queryOne(["email", email]);
+    return Boolean(user);
+  }
 }
 
 export const userService = new UserService(userCollection);

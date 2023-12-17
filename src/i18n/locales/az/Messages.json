@@ -38,8 +38,14 @@
   },
   "AuthScreen": {
     "FormFields": {
+      "common": {
+        "required": "Xana boş ola bilməz",
+        "tooShort": "Ən az {{count}} simvoldan ibarət olmalıdır"
+      },
       "Email": {
-        "label": "Email ünvanı"
+        "label": "Email ünvanı",
+        "invalidFormat": "Email yanlış formatdadır",
+        "notUnique": "Bu email ünvanı artıq qeydiyyatdan keçib!"
       },
       "Password": {
         "label": "Şifrə"

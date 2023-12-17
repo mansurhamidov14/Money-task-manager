@@ -1,7 +1,7 @@
 import { Navigate, Route, HashRouter as Router } from "@solidjs/router";
 import { ThemeToggleButton } from "@app/components";
 import { LoginScreen } from "./LoginScreen";
-import { RegisterScreen } from "./RegisterScreen";
+import { RegisterScreen } from "./SignUpForm";
 import { themeStore } from "@app/stores";
 import { Dropdown } from "@app/components/Dropdown";
 
