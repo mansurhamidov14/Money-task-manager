@@ -22,7 +22,7 @@
     "other": "Other"
   },
   "HomeScreen": {
-    "totalBalance": "totalBalance",
+    "totalBalance": "Total Balance",
     "recentTransactions": "Recent transactions",
     "noRecentTransactions": "No transactions in the last {{count}} days"
   },
@@ -37,11 +37,11 @@
     }
   },
   "AuthScreen": {
-    "common": {
-      "required": "This field is required",
-      "tooShort": "Length can not be less than {{count}} characters"
-    },
     "FormFields": {
+      "common": {
+        "required": "This field is required",
+        "tooShort": "Can not be shorter than {{count}} characters"
+      },
       "Email": {
         "label": "Your Email",
         "invalidFormat": "Invalid email format",

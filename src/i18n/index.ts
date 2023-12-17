@@ -87,6 +87,7 @@ const setLocaleWrapper = (locale: Lang) => {
   setTimeout(() => {
     setLocale(locale);
     localStorage.setItem(localStorageAccessKey, locale);
+    window.dispatchEvent(new CustomEvent("appLanguageChange"))
   });
 }
 

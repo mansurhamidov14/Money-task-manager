@@ -25,7 +25,7 @@ export function SignupForm() {
         firstName: formHandler.getFieldValue("firstName"),
         lastName: formHandler.getFieldValue("lastName"),
         email: formHandler.getFieldValue("email"),
-        password:  formHandler.getFieldValue("password"),
+        password:  formHandler.getFieldValue("newPassword"),
         currency: CurrencyCode.USD,
         createdAt,
         updatedAt: createdAt
@@ -90,11 +90,11 @@ export function SignupForm() {
       />
       <Field
         mode="input"
-        name="password"
+        name="newPassword"
         formHandler={formHandler}
         render={(field) => (
           <TextInput
-            id="password"
+            id="newPassword"
             type="password"
             label={t("AuthScreen.FormFields.Password.label")}
             placeholder="••••••••••"

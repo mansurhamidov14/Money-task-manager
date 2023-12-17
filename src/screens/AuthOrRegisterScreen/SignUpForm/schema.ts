@@ -7,7 +7,7 @@ type SignUpForm = {
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
+  newPassword: string;
 }
 
 export function getSignUpFormSchema(): yup.Schema<SignUpForm> {
@@ -24,7 +24,7 @@ export function getSignUpFormSchema(): yup.Schema<SignUpForm> {
       .test("unique", t("AuthScreen.FormFields.Email.notUnique"), async (value) => {
         return !(await userService.userExist(value))
       }),
-    password: yup.string()
+    newPassword: yup.string()
       .required(t("AuthScreen.FormFields.common.required"))
       .min(MIN_PASSWORD_LENGTH, t("AuthScreen.FormFields.common.tooShort", undefined, { count: MIN_PASSWORD_LENGTH }))
   });

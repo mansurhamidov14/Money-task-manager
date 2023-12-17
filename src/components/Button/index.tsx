@@ -4,14 +4,14 @@ import { JSX, createMemo, splitProps } from "solid-js";
 export type ButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant: "primary" | "secondary" | "glass",
   size: "sm" | "md" | "lg",
-  full?: boolean
+  full?: boolean;
 }
 
 export function Button(props: ButtonProps) {
   const [localProps, nativeProps] = splitProps(props, ["class", "full", "variant", "size"]);
   const getClassNames = createMemo(() => {
     return classNames(
-      `focus:outline-none font-semibold rounded-lg text-sm uppercase flex justify-center items-center px-1.5`,
+      `focus:outline-none font-semibold rounded-lg text-sm uppercase flex justify-center items-center px-1.5 disabled:opacity-50`,
       localProps.class,
       {
         "w-full": localProps.full,

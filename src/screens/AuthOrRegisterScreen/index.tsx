@@ -10,6 +10,7 @@ import logoDark from "@app/assets/logo-dark.png";
 import { getLocale, langData, setLocale } from "@app/i18n";
 import { For } from "solid-js";
 import { availableLangs } from "@app/i18n/init";
+import { RerenderOnLangChange } from "@app/i18n/components";
 
 const logos: Record<"dark" | "light", string> = {
   dark: logoDark,
@@ -45,13 +46,15 @@ export function AuthScreen() {
       <div class="flex justify-center py-5">
         <img src={logos[themeStore.theme()]} class="w-[230px] h-auto" />
       </div>
-      <Router>
-        <Route path="/" component={() => <Navigate href="/auth/signin" />} />
-        <Route path="/history" component={() => <Navigate href="/auth/signin" />} />
-        <Route path="/home" component={() => <Navigate href="/auth/signin" />} />
-        <Route path="/auth/signin" component={LoginForm} />
-        <Route path="/auth/register" component={SignupForm} />
-      </Router>
+      <RerenderOnLangChange>
+        <Router>
+          <Route path="/" component={() => <Navigate href="/auth/signin" />} />
+          <Route path="/history" component={() => <Navigate href="/auth/signin" />} />
+          <Route path="/home" component={() => <Navigate href="/auth/signin" />} />
+          <Route path="/auth/signin" component={LoginForm} />
+          <Route path="/auth/register" component={SignupForm} />
+        </Router>
+      </RerenderOnLangChange>
     </div>
   );
 }

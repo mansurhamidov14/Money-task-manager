@@ -1,7 +1,7 @@
 import DatePicker, { PickerValue } from "@rnwonder/solid-date-picker";
 import { Accessor, Setter } from "solid-js"
 import { IoCalendarOutline } from "solid-icons/io";
-import { FilterTab } from "@app/components";
+import { Button, FilterTab } from "@app/components";
 import { Action, Message } from "@app/i18n/components";
 import { initialDateRange } from "../consts";
 import { DateFilter as TDateFilter, DateFilterTab } from "../types"
@@ -66,13 +66,16 @@ export function DateFilter({
           formatInputLabelRangeEnd="d/m/yy"
           calendarBottomAreaJSX={() => (
             <div class="flex p-3">
-              <button
-                class="flex w-full justify-center rounded-md bg-primary-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:opacity-50"
+              <Button
+                variant="primary"
+                size="sm"
+                type="button"
+                full
                 disabled={!filterDateRanges().value.start || !filterDateRanges().value.end}
                 onClick={handleDateRangeApply}
               >
                 <Action>Apply</Action>
-              </button>
+              </Button>
             </div>
           )}
           renderInput={({ showDate, value }) => {
