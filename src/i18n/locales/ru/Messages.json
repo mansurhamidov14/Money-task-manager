@@ -38,8 +38,14 @@
   },
   "AuthScreen": {
     "FormFields": {
+      "common": {
+        "required": "Поле не может быть пустым",
+        "tooShort": "Длина должна быть не менее {{count}} символов"
+      },
       "Email": {
-        "label": "Электронная почта"
+        "label": "Электронная почта",
+        "invalidFormat": "Неверный формат электронной почты",
+        "notUnique": "Эта почта уже используется"
       },
       "Password": {
         "label": "Пароль"
@@ -58,7 +64,6 @@
     "dontHaveAnAccount": "Еще не зарегистрировались?",
     "signUp": "Создать аккаунт",
     "Exceptions": {
-      "EmailAlreadyRegisteredException": "Этот адрес электронной почты уже зарегистрирован!",
       "WrongEmailOrPasswordException": "Неверный пароль или адрес электронной почты!"
     }
   }

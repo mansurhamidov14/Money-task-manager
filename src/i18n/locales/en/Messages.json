@@ -37,9 +37,15 @@
     }
   },
   "AuthScreen": {
+    "common": {
+      "required": "This field is required",
+      "tooShort": "Length can not be less than {{count}} characters"
+    },
     "FormFields": {
       "Email": {
-        "label": "Your Email"
+        "label": "Your Email",
+        "invalidFormat": "Invalid email format",
+        "notUnique": "This email is already taken"
       },
       "Password": {
         "label": "Password"
@@ -58,7 +64,6 @@
     "dontHaveAnAccount": "Don't have an account?",
     "signUp": "Sign Up",
     "Exceptions": {
-      "EmailAlreadyRegisteredException": "This email is already taken!",
       "WrongEmailOrPasswordException": "Invalid email or password!"
     }
   }

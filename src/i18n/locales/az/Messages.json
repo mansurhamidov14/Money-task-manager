@@ -45,7 +45,7 @@
       "Email": {
         "label": "Email ünvanı",
         "invalidFormat": "Email yanlış formatdadır",
-        "notUnique": "Bu email ünvanı artıq qeydiyyatdan keçib!"
+        "notUnique": "Bu email ünvanı artıq qeydiyyatdan keçib"
       },
       "Password": {
         "label": "Şifrə"
@@ -64,7 +64,6 @@
     "dontHaveAnAccount": "Hesabınız yoxdur?",
     "signUp": "Hesab yarat",
     "Exceptions": {
-      "EmailAlreadyRegisteredException": "Bu email ünvanı artıq qeydiyyatdan keçib!",
       "WrongEmailOrPasswordException": "Email ünvanı və ya şifrə yanlışdır!"
     }
   }
