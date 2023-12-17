@@ -9,10 +9,10 @@ import { Link, user } from "@app/stores";
 import { CurrencyCode } from "@app/constants";
 import { userService } from "@app/services";
 import { Field, useFormHandler } from "solid-form-handler";
-import { signUpFormSchema } from "./schema";
+import { getSignUpFormSchema } from "./schema";
 
-export function RegisterScreen() {
-  const formHandler = useFormHandler(yupSchema(signUpFormSchema), {
+export function SignupForm() {
+  const formHandler = useFormHandler(yupSchema(getSignUpFormSchema()), {
     validateOn: ["blur"],
   });
   const navigate = useNavigate();
@@ -79,7 +79,7 @@ export function RegisterScreen() {
         render={(field) => (
           <TextInput
             autocomplete="off"
-            id="lastName"
+            id="email"
             label={t("AuthScreen.FormFields.Email.label")}
             placeholder="youremail@example.com"
             addonStart={<FiAtSign />}

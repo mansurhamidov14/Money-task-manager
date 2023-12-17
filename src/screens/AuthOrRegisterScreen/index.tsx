@@ -1,7 +1,7 @@
 import { Navigate, Route, HashRouter as Router } from "@solidjs/router";
 import { ThemeToggleButton } from "@app/components";
-import { LoginScreen } from "./LoginScreen";
-import { RegisterScreen } from "./SignUpForm";
+import { LoginForm } from "./LoginForm";
+import { SignupForm } from "./SignUpForm";
 import { themeStore } from "@app/stores";
 import { Dropdown } from "@app/components/Dropdown";
 
@@ -49,8 +49,8 @@ export function AuthScreen() {
         <Route path="/" component={() => <Navigate href="/auth/signin" />} />
         <Route path="/history" component={() => <Navigate href="/auth/signin" />} />
         <Route path="/home" component={() => <Navigate href="/auth/signin" />} />
-        <Route path="/auth/signin" component={LoginScreen} />
-        <Route path="/auth/register" component={RegisterScreen} />
+        <Route path="/auth/signin" component={LoginForm} />
+        <Route path="/auth/register" component={SignupForm} />
       </Router>
     </div>
   );
