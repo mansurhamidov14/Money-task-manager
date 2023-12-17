@@ -39,7 +39,7 @@
   "AuthScreen": {
     "FormFields": {
       "common": {
-        "required": "Поле не может быть пустым",
+        "required": "Значение поля не может быть пустым",
         "tooShort": "Длина должна быть не менее {{count}} символов"
       },
       "Email": {
@@ -61,7 +61,7 @@
     },
     "alreadyHaveAnAccount": "У вас уже есть аккаунт?",
     "signIn": "Войти",
-    "dontHaveAnAccount": "Еще не зарегистрировались?",
+    "dontHaveAnAccount": "Не зарегистрированы?",
     "signUp": "Создать аккаунт",
     "Exceptions": {
       "WrongEmailOrPasswordException": "Неверный пароль или адрес электронной почты!"

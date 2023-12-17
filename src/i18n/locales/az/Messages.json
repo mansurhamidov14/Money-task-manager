@@ -62,7 +62,7 @@
     "alreadyHaveAnAccount": "Artıq hesabınız var?",
     "signIn": "Daxil ol",
     "dontHaveAnAccount": "Hesabınız yoxdur?",
-    "signUp": "Hesab yarat",
+    "signUp": "Hesab yaradın",
     "Exceptions": {
       "WrongEmailOrPasswordException": "Email ünvanı və ya şifrə yanlışdır!"
     }
