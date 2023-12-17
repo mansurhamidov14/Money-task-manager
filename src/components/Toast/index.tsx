@@ -1,4 +1,5 @@
 import { t } from "@app/i18n";
+import classNames from "classnames";
 import {
   FaSolidCircleCheck as IconSuccess,
   FaSolidCircleExclamation as IconWarning,
@@ -11,6 +12,7 @@ import { JSX, Show, createMemo } from "solid-js";
 export type ToastVariant = "error" | "success" | "warning" | "info"
 export type ToastProps = {
   id: string | number;
+  class?: string;
   closable?: boolean;
   onClose?: () => void;
   variant: ToastVariant,
@@ -54,7 +56,7 @@ export function Toast(props: ToastProps) {
   });
 
   return (
-    <div id={String(props.id)} class="flex flex-wrap relative gap-3 pr-3 w-full max-w-sm bg-white rounded-lg overflow-hidden shadow dark:bg-gray-700/30 dark:backdrop-blur mx-auto animate-slide-down-in">
+    <div id={String(props.id)} class={classNames("flex flex-wrap relative gap-3 pr-3 w-full max-w-sm bg-white rounded-lg overflow-hidden shadow dark:bg-gray-700/30 dark:backdrop-blur mx-auto animate-slide-down-in", props.class)}>
       <div class={`w-[0.5em] ${getRenderData().lineColor}`}/>
       <div class="text-4xl flex items-center" style="flex 0 0 auto;">{getRenderData().icon}</div>
       <div class="pl-1 pr-3 py-2 w-[calc(100%-4.25em)]">

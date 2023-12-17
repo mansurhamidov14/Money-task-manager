@@ -10,13 +10,13 @@ function initToastStore() {
     type: ToastVariant,
     text: string,
     title: string | null = null,
-    autocloseTimeout: number | null = 5000,
+    autocloseTimeout: number | null = 3000,
     closable = true
   ) => {
     const id = `toast-${Date.now()}`;
     const toastTitle = title ?? t(`Toasts.${type}`);
     const closeTimeout = autocloseTimeout
-      ? setTimeout(() => setToasts(toasts().filter(t => t.id !== id)), autocloseTimeout)
+      ? putToClosingState(id, autocloseTimeout)
       : undefined;
     setToasts([
       ...toasts(),
@@ -29,6 +29,17 @@ function initToastStore() {
         closeTimeout
       }
     ]);
+  }
+
+  const putToClosingState = (toastId: string | number, timeoutMs: number) => {
+    return setTimeout(() => {
+      setToasts(toasts().map(t => {
+        if (t.id !== toastId) return t;
+        return { ...t, isClosing: true }
+      }));
+
+      setTimeout(() => setToasts(toasts().filter(t => t.id !== toastId)), 400)
+    }, timeoutMs);
   }
 
   const closeToast = (toast: ToastData) => {

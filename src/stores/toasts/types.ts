@@ -7,4 +7,5 @@ export type ToastData = {
   text: string;
   closeTimeout?: NodeJS.Timeout;
   closable: boolean;
+  isClosing?: boolean;
 }

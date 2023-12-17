@@ -9,6 +9,7 @@ export function ToastList() {
         {toast => (
           <Toast
             id={toast.id}
+            class={toast.isClosing ? "animate-slide-up-out" : undefined}
             title={toast.title}
             variant={toast.variant}
             text={toast.text}
