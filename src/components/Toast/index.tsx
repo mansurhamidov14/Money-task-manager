@@ -8,8 +8,6 @@ import {
 import { IoCloseOutline } from "solid-icons/io";
 import { JSX, Show, createMemo } from "solid-js";
 
-import "./style.css";
-
 export type ToastVariant = "error" | "success" | "warning" | "info"
 export type ToastProps = {
   id: string | number;
@@ -56,7 +54,7 @@ export function Toast(props: ToastProps) {
   });
 
   return (
-    <div id={String(props.id)} class="toast flex flex-wrap relative gap-3 pr-3 w-full max-w-sm bg-white rounded-lg overflow-hidden shadow dark:bg-gray-700/30 dark:backdrop-blur mx-auto translate-y-0 duration-500">
+    <div id={String(props.id)} class="flex flex-wrap relative gap-3 pr-3 w-full max-w-sm bg-white rounded-lg overflow-hidden shadow dark:bg-gray-700/30 dark:backdrop-blur mx-auto animate-slide-down-in">
       <div class={`w-[0.5em] ${getRenderData().lineColor}`}/>
       <div class="text-4xl flex items-center" style="flex 0 0 auto;">{getRenderData().icon}</div>
       <div class="pl-1 pr-3 py-2 w-[calc(100%-4.25em)]">

@@ -11,6 +11,15 @@ export default {
       colors: {
         primary: colors.indigo,
         secondary: colors.slate
+      },
+      keyframes: {
+        slideDownIn: {
+          '0%': { transform: 'translateY(-200%)' },
+          '100%': { transform: 'translateY(0)' }
+        }
+      },
+      animation: {
+        'slide-down-in': 'slideDownIn 500ms'
       }
     }
   },
