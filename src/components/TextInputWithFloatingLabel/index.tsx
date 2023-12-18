@@ -59,8 +59,9 @@ export function TextInputWithFloatingLabel(props: TextInputWithFloatingLabelProp
         <label
           for={nativeProps.id}
           classList={{
-            "absolute text-sm font-medium text-secondary-500 dark:text-secondary-400 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] start-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto": true,
-            "ps-12 peer-placeholder-shown:ps-9 peer-focus:ps-12 inset-0": Boolean(localProps.addonStart),
+            "absolute text-sm font-medium text-secondary-500 dark:text-secondary-400 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto": true,
+            "ps-12 peer-placeholder-shown:ps-9 peer-focus:ps-12 inset-0 start-3": Boolean(localProps.addonStart),
+            "start-2.5": !Boolean(localProps.addonStart),
             "peer-focus:text-primary-500 peer-focus:dark:text-primary-400": !hasError(),
             "peer-focus:text-red-700 peer-focus:dark:text-red-400": hasError(),
           }}
