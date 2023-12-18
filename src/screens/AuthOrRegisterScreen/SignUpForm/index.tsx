@@ -84,7 +84,7 @@ export function SignupForm() {
             id="email"
             label={t("AuthScreen.FormFields.Email.label")}
             placeholder="youremail@example.com"
-            addonStart={<FiAtSign class="text-xl" />}
+            addonStart={<FiAtSign class="text-lg" />}
             errorMessage={field.helpers.errorMessage}
             {...field.props}
           />
@@ -100,7 +100,7 @@ export function SignupForm() {
             type="password"
             label={t("AuthScreen.FormFields.Password.label")}
             placeholder="••••••••••"
-            addonStart={<IoKey class="text-xl" />}
+            addonStart={<IoKey class="text-lg" />}
             errorMessage={field.helpers.errorMessage}
             {...field.props}
           />
