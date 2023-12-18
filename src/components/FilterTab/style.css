@@ -1,0 +1,20 @@
+.filter-tab {
+  @apply
+    inline-flex
+    items-center
+    rounded-3xl
+    bg-white
+    dark:bg-gray-700
+    px-3
+    py-1
+    text-sm
+    whitespace-nowrap
+    font-medium
+    text-secondary-400
+    dark:text-secondary-300
+    shadow-sm;
+}
+
+.filter-tab.active {
+  @apply text-primary-500 dark:text-primary-400 shadow-md font-semibold;
+}

@@ -12,15 +12,11 @@ main {
 }
 
 .nav-link {
-  color: theme('colors.secondary.400');
+  @apply text-secondary-400 dark:text-secondary-300;
 }
 
 .nav-link.active {
-  color: theme('colors.primary.800');
-}
-
-.dark .nav-link.active {
-  color: theme('colors.primary.600');
+  @apply text-primary-800 dark:text-primary-500;
 }
 
 .text-expense {

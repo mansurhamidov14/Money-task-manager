@@ -1,0 +1,51 @@
+.btn {
+  @apply
+    focus:outline-none
+    font-semibold
+    rounded-lg
+    text-sm
+    uppercase
+    flex
+    justify-center
+    items-center
+    px-1.5
+    disabled:opacity-50;
+}
+
+.btn-full {
+  @apply w-full;
+}
+
+.btn-sm {
+  @apply h-8;
+}
+
+.btn-md {
+  @apply h-10;
+}
+
+.btn-lg {
+  @apply h-12;
+}
+
+button[type].btn-primary, .btn-primary {
+  @apply text-white bg-primary-700 hover:bg-primary-800 dark:bg-primary-600 dark:hover:bg-primary-700;
+}
+
+button[type].btn-secondary, .btn-secondary {
+  @apply
+    text-sky-950
+    bg-secondary-200
+    hover:bg-secondary-300
+    dark:bg-secondary-200
+    dark:hover:bg-secondary-300
+}
+
+button[type].btn-glass, .btn-glass {
+  @apply
+    dark:text-secondary-200
+    inline-flex
+    items-center
+    hover:bg-gray-200
+    dark:hover:bg-gray-700;
+}

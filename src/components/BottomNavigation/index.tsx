@@ -1,4 +1,5 @@
 import { JSXElement } from "solid-js";
+import "./style.css";
 
 export type BottomNavigationProps = {
   children: JSXElement[];
@@ -6,8 +7,8 @@ export type BottomNavigationProps = {
 
 export function BottomNavigation(props: BottomNavigationProps) {
   return (
-    <nav class="footer-nav text-secondary-500 dark:text-secondary-300 dark:bg-gray-700 shadow-md shadow-gray-900 dark:shadow-gray-400">
-      <ul class="h-full flex justify-around items-center text-2xl">
+    <nav class="footer-nav">
+      <ul>
         {props.children}
       </ul>
     </nav>

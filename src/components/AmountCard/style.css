@@ -1,0 +1,11 @@
+.amount-card {
+  @apply flex flex-1 gap-3 justify-between items-center pt-2 pb-3 px-3 text-white rounded-lg;
+}
+
+.amount-card.expense {
+  @apply bg-rose-400 dark:bg-rose-400/90 shadow-lg shadow-rose-400/50 dark:shadow-rose-400/30;
+}
+
+.amount-card.income {
+  @apply bg-teal-400 dark:bg-teal-400/90 shadow-lg shadow-teal-400/50 dark:shadow-teal-400/30;
+}

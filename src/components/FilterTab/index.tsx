@@ -1,4 +1,5 @@
 import { ParentProps } from "solid-js";
+import "./style.css";
 
 export type FilterTabProps<T = any> = {
   active: boolean;
@@ -17,15 +18,7 @@ export function FilterTab(props: ParentProps<FilterTabProps>) {
   }
 
   return (
-    <a
-      href="#"
-      onClick={handleClick}
-      classList={{
-        "filter-tab inline-flex items-center rounded-3xl bg-white dark:bg-gray-700 px-3 py-1 text-sm whitespace-nowrap": true,
-        "text-primary-500 shadow-md font-semibold": props.active,
-        "shadow-sm text-secondary-400 dark:text-secondary-300 font-medium": !props.active
-      }}
-    >
+    <a href="#" onClick={handleClick} classList={{ "filter-tab": true, active: props.active }}>
       {props.children}
     </a>
   );

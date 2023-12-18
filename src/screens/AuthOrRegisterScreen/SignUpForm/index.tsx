@@ -31,7 +31,6 @@ export function SignupForm() {
         createdAt,
         updatedAt: createdAt
       };
-      console.log(userData);
       const newUser = await userService.signUp(userData);
       user.setCurrentUser({
         isLoading: false,
@@ -114,7 +113,8 @@ export function SignupForm() {
           <Select
             id="primaryCurrency"
             label={t("AuthScreen.FormFields.Currency.label")}
-            addonStart={<img src={currencies[formHandler.getFieldValue("primaryCurrency") as CurrencyCode].flag} class="w-full" />}
+            addonStart={<img src={currencies[formHandler.getFieldValue("primaryCurrency") as CurrencyCode]?.flag} class="w-full" />}
+            errorMessage={field.helpers.errorMessage}
             {...field.props}
           >
             <For each={Object.values(currencies)}>

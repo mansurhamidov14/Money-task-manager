@@ -58,7 +58,7 @@ class UserService {
   }
 
   async userExist(email: string): Promise<boolean> {
-    const user = await this.collection.queryOne(["email", email]);
+    const user = await this.collection.queryOne(["email", email.toLowerCase()]);
     return Boolean(user);
   }
 }

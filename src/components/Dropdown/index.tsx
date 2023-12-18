@@ -2,6 +2,7 @@ import { ParentProps, createContext, createSignal, mergeProps, useContext } from
 import DropdownMenu from "./DropdownMenu";
 import DropdownToggleButton from "./DropdownToggleButton";
 import { DropdownContextType, DropdownProps } from "./types";
+import "./style.css";
 
 const DropdownContext = createContext<DropdownContextType>();
 
@@ -15,13 +16,10 @@ export function Dropdown(props: ParentProps<DropdownProps>) {
   const finalProps = mergeProps(defaultProps, props);
 
   return (
-    <DropdownContext.Provider value={{ isOpen, setIsOpen, id: finalProps.id, horizontalAlign: finalProps.horizontalAlign }}>
-      <div
-        classList={{
-          "relative inline-flex": true,
-          open: isOpen()
-        }}
-      >
+    <DropdownContext.Provider value={{
+      isOpen, setIsOpen, id: finalProps.id, horizontalAlign: finalProps.horizontalAlign
+    }}>
+      <div classList={{ "relative inline-flex": true, open: isOpen() }}>
         {props.children}
       </div>
     </DropdownContext.Provider>

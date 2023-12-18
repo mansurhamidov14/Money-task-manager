@@ -1,6 +1,5 @@
 import {
-  ExpenseAmountCard,
-  IncomeAmountCard,
+  AmountCard,
   SectionTitle,
   ThemeToggleButton
 } from "@app/components";
@@ -27,15 +26,17 @@ export function HomeScreen() {
         </div>
       </div>
       <div class="flex gap-5 mb-6 mt-4">
-        <IncomeAmountCard
+        <AmountCard
           amount={transactions.incomeForTheMonth()}
           currency={user.currentUser().data!.primaryCurrency}
           loading={loadingTransactions()}
+          type="income"
         />
-        <ExpenseAmountCard
+        <AmountCard
           amount={transactions.expensesForTheMonth()}
           currency={user.currentUser().data!.primaryCurrency}
           loading={loadingTransactions()}
+          type="expense"
         />
       </div>
       <SectionTitle>

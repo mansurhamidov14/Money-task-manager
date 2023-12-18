@@ -30,7 +30,6 @@ export function getSignUpFormSchema(): yup.Schema<SignUpForm> {
       .required(t("AuthScreen.FormFields.common.required"))
       .min(MIN_PASSWORD_LENGTH, t("AuthScreen.FormFields.common.tooShort", undefined, { count: MIN_PASSWORD_LENGTH })),
     primaryCurrency: yup.string()
-      .required(t("AuthScreen.FormFields.common.required"))
       .oneOf(Object.values(CurrencyCode))
       .default(CurrencyCode.AZN)
   });
