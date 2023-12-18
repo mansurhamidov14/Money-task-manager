@@ -9,6 +9,7 @@ export * from "./IncomeAmountCard";
 export * from "./Loading";
 export * from "./NavLink";
 export * from "./SectionTitle";
+export * from "./Select";
 export * from "./TextInput";
 export * from "./TextInputWithFloatingLabel";
 export * from "./ThemeToggleButton";
