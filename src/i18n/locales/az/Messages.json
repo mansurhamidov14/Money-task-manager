@@ -57,6 +57,18 @@
       "LastName": {
         "label": "Soyadınız",
         "placeholder": "Əliyev"
+      },
+      "Currency": {
+        "label": "Əsas valyuta",
+        "Options": {
+          "AZN": "Azərbaycan manatı (₼)",
+          "GBP": "İngilis funt sterlinqi (£)",
+          "USD": "ABŞ dolları ($)",
+          "EUR": "Avro (€)",
+          "TRY": "Türk lirəsi (₺)",
+          "UAH": "Ukrayna qrivnası (₴)",
+          "RUB": "Rusiya rublu (₽)"
+        }
       }
     },
     "alreadyHaveAnAccount": "Artıq hesabınız var?",

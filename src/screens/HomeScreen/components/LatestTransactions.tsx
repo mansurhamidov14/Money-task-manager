@@ -9,7 +9,6 @@ import { groupTransactionsByDate, transactions, user } from "@app/stores";
 import { ImFilesEmpty } from "solid-icons/im";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "@app/stores/transactions/constants";
 import { Message } from "@app/i18n/components";
-import { CurrencyCode } from "@app/constants";
 import { DateFormatter } from "@app/helpers";
 import { t } from "@app/i18n";
 
@@ -31,7 +30,7 @@ export function LatestTransactions() {
           <TransactionGroup
             date={dateFormatter.humanize(group.date)}
             amount={group.amount}
-            currency={user.currentUser().data!.currency ?? CurrencyCode.USD}
+            currency={user.currentUser().data!.primaryCurrency}
           >
             {group.transactions.map(transaction => (
               <TransactionListItem {...transaction} />

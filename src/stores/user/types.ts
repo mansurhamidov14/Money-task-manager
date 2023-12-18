@@ -8,7 +8,7 @@ export type User = {
   email: string;
   createdAt: number;
   updatedAt: number;
-  currency: CurrencyCode;
+  primaryCurrency: CurrencyCode;
 }
 
 export type UserStore = {

@@ -1,16 +1,14 @@
+import { For } from "solid-js";
 import { Navigate, Route, HashRouter as Router } from "@solidjs/router";
 import { ThemeToggleButton } from "@app/components";
 import { LoginForm } from "./LoginForm";
 import { SignupForm } from "./SignUpForm";
-import { themeStore } from "@app/stores";
+import { logoDark, logoLight } from "@app/assets";
 import { Dropdown } from "@app/components/Dropdown";
-
-import logoLight from "@app/assets/logo-light.png";
-import logoDark from "@app/assets/logo-dark.png";
 import { getLocale, langData, setLocale } from "@app/i18n";
-import { For } from "solid-js";
-import { availableLangs } from "@app/i18n/init";
 import { RerenderOnLangChange } from "@app/i18n/components";
+import { availableLangs } from "@app/i18n/init";
+import { themeStore } from "@app/stores";
 
 const logos: Record<"dark" | "light", string> = {
   dark: logoDark,
@@ -19,7 +17,7 @@ const logos: Record<"dark" | "light", string> = {
 
 export function AuthScreen() {
   return (
-    <div class="bg-secondary-100 h-[100svh] dark:bg-gray-800 overflow-y-auto">
+    <div class="bg-secondary-100 h-[100svh] dark:bg-gray-800 overflow-y-auto pb-3">
       <div class="flex justify-between max-w-sm mx-auto px-6 pt-2">
         <Dropdown id="langDropdown">
           <Dropdown.ToggleButton variant="glass" size="md">

@@ -2,14 +2,15 @@ import { useNavigate } from "@solidjs/router";
 import { yupSchema } from "solid-form-handler/yup";
 import { IoKey } from "solid-icons/io";
 import { FiAtSign } from "solid-icons/fi";
-import { Button, TextInputWithFloatingLabel as TextInput } from "@app/components";
+import { Button, Select, TextInputWithFloatingLabel as TextInput } from "@app/components";
 import { t } from "@app/i18n";
 import { Action, Message } from "@app/i18n/components";
 import { Link, user } from "@app/stores";
-import { CurrencyCode } from "@app/constants";
+import { CurrencyCode, currencies } from "@app/constants";
 import { userService } from "@app/services";
 import { Field, useFormHandler } from "solid-form-handler";
 import { getSignUpFormSchema } from "./schema";
+import { For } from "solid-js";
 
 export function SignupForm() {
   const formHandler = useFormHandler(yupSchema(getSignUpFormSchema()), {
@@ -25,11 +26,12 @@ export function SignupForm() {
         firstName: formHandler.getFieldValue("firstName"),
         lastName: formHandler.getFieldValue("lastName"),
         email: formHandler.getFieldValue("email"),
-        password:  formHandler.getFieldValue("newPassword"),
-        currency: CurrencyCode.USD,
+        password: formHandler.getFieldValue("newPassword"),
+        primaryCurrency: formHandler.getFieldValue("primaryCurrency"),
         createdAt,
         updatedAt: createdAt
       };
+      console.log(userData);
       const newUser = await userService.signUp(userData);
       user.setCurrentUser({
         isLoading: false,
@@ -82,7 +84,7 @@ export function SignupForm() {
             id="email"
             label={t("AuthScreen.FormFields.Email.label")}
             placeholder="youremail@example.com"
-            addonStart={<FiAtSign />}
+            addonStart={<FiAtSign class="text-xl" />}
             errorMessage={field.helpers.errorMessage}
             {...field.props}
           />
@@ -98,16 +100,37 @@ export function SignupForm() {
             type="password"
             label={t("AuthScreen.FormFields.Password.label")}
             placeholder="••••••••••"
-            addonStart={<IoKey />}
+            addonStart={<IoKey class="text-xl" />}
             errorMessage={field.helpers.errorMessage}
             {...field.props}
           />
         )}
       />
+      <Field
+        mode="input"
+        name="primaryCurrency"
+        formHandler={formHandler}
+        render={(field) => (
+          <Select
+            id="primaryCurrency"
+            label={t("AuthScreen.FormFields.Currency.label")}
+            addonStart={<img src={currencies[formHandler.getFieldValue("primaryCurrency") as CurrencyCode].flag} class="w-full" />}
+            {...field.props}
+          >
+            <For each={Object.values(currencies)}>
+              {currency => (
+                <option value={currency.code}>
+                  {t(`AuthScreen.FormFields.Currency.Options.${currency.code}`)}
+                </option>
+              )}
+            </For>
+          </Select>
+        )}
+      />
       <Button variant="primary" size="lg" type="submit">
         <Action>SignUp</Action>
       </Button>
-      <div class="text-sm pt-6 pb-4 font-medium">
+      <div class="text-sm pt-3 pb-4 font-medium">
         <span class="flex justify-center gap-2">
           <Message>AuthScreen.alreadyHaveAnAccount</Message>
           {" "}

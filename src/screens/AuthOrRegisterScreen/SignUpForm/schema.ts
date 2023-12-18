@@ -2,12 +2,14 @@ import * as yup from 'yup';
 import { t } from '@app/i18n';
 import { userService } from '@app/services';
 import { MIN_FIRST_NAME_LENGTH, MIN_LAST_NAME_LENGTH, MIN_PASSWORD_LENGTH } from './constants';
+import { CurrencyCode } from '@app/constants';
 
 type SignUpForm = {
   firstName: string;
   lastName: string;
   email: string;
   newPassword: string;
+  primaryCurrency: CurrencyCode;
 }
 
 export function getSignUpFormSchema(): yup.Schema<SignUpForm> {
@@ -26,6 +28,10 @@ export function getSignUpFormSchema(): yup.Schema<SignUpForm> {
       }),
     newPassword: yup.string()
       .required(t("AuthScreen.FormFields.common.required"))
-      .min(MIN_PASSWORD_LENGTH, t("AuthScreen.FormFields.common.tooShort", undefined, { count: MIN_PASSWORD_LENGTH }))
+      .min(MIN_PASSWORD_LENGTH, t("AuthScreen.FormFields.common.tooShort", undefined, { count: MIN_PASSWORD_LENGTH })),
+    primaryCurrency: yup.string()
+      .required(t("AuthScreen.FormFields.common.required"))
+      .oneOf(Object.values(CurrencyCode))
+      .default(CurrencyCode.AZN)
   });
 }

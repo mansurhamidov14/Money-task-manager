@@ -57,6 +57,18 @@
       "LastName": {
         "label": "Last Name",
         "placeholder": "Doe"
+      },
+      "Currency": {
+        "label": "Primary Currency",
+        "Options": {
+          "AZN": "Azerbaijanian Manat (₼)",
+          "GBP": "Pound Sterling (£)",
+          "USD": "US Dolları ($)",
+          "EUR": "Euro (€)",
+          "TRY": "Turkish Lira (₺)",
+          "UAH": "Ukrainian Hryvnia (₴)",
+          "RUB": "Russian Ruble (₽)"
+        }
       }
     },
     "alreadyHaveAnAccount": "Already have an account?",

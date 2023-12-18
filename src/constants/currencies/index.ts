@@ -1,3 +1,4 @@
+import { azFlag, euFlag, gbFlag, ruFlag, trFlag, uaFlag, usFlag } from "@app/assets";
 import { Currency, CurrencyCode } from "./types";
 
 const leadingSignFormatter = function(sign: string, precision: number) {
@@ -26,14 +27,16 @@ const generateCurrency = (
   code: CurrencyCode,
   sign: string,
   precision: number,
-  formatter: (sign: string, precision: number) => (value: number) => string = leadingSignFormatter
-): Currency => ({ code, sign, precision, formatter: formatter(sign, precision) });
+  flag: string,
+  formatter: (sign: string, precision: number) => (value: number) => string = leadingSignFormatter,
+): Currency => ({ code, sign, precision, flag, formatter: formatter(sign, precision) });
 
 export const currencies: Record<CurrencyCode, Currency> = {
-  AZN: generateCurrency(CurrencyCode.AZN, "₼", 2, trailingSignFormatter),
-  EUR: generateCurrency(CurrencyCode.EUR, "€", 2),
-  RUB: generateCurrency(CurrencyCode.RUB, "₽", 2, trailingSignFormatter),
-  TRY: generateCurrency(CurrencyCode.TRY, "₺", 2),
-  UAH: generateCurrency(CurrencyCode.UAH, "₴", 2),
-  USD: generateCurrency(CurrencyCode.USD, "$", 2),
+  AZN: generateCurrency(CurrencyCode.AZN, "₼", 2, azFlag, trailingSignFormatter),
+  USD: generateCurrency(CurrencyCode.USD, "$", 2, usFlag),
+  EUR: generateCurrency(CurrencyCode.EUR, "€", 2, euFlag, ),
+  GBP: generateCurrency(CurrencyCode.GBP, "£", 2, gbFlag),
+  TRY: generateCurrency(CurrencyCode.TRY, "₺", 2, trFlag),
+  UAH: generateCurrency(CurrencyCode.UAH, "₴", 2, uaFlag),
+  RUB: generateCurrency(CurrencyCode.RUB, "₽", 2, ruFlag, trailingSignFormatter),
 };

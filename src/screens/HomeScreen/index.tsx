@@ -8,7 +8,6 @@ import { Message } from "@app/i18n/components";
 import { transactions, user } from "@app/stores";
 import { LatestTransactions, TransactionListSkeleton } from "./components";
 import { Show, createMemo } from "solid-js";
-import { CurrencyCode } from "@app/constants";
 
 export function HomeScreen() {
   const loadingTransactions = createMemo(() => {
@@ -30,12 +29,12 @@ export function HomeScreen() {
       <div class="flex gap-5 mb-6 mt-4">
         <IncomeAmountCard
           amount={transactions.incomeForTheMonth()}
-          currency={user.currentUser().data!.currency ?? CurrencyCode.USD}
+          currency={user.currentUser().data!.primaryCurrency}
           loading={loadingTransactions()}
         />
         <ExpenseAmountCard
           amount={transactions.expensesForTheMonth()}
-          currency={user.currentUser().data!.currency ?? CurrencyCode.USD}
+          currency={user.currentUser().data!.primaryCurrency}
           loading={loadingTransactions()}
         />
       </div>

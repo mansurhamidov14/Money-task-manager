@@ -38,7 +38,7 @@ export function FilteredTransactions({ categoryFilter, dateFilter }: FilteredTra
             <TransactionGroup
               date={dateFormatter.humanize(group.date)}
               amount={group.amount}
-              currency={user.currentUser().data!.currency || CurrencyCode.USD}
+              currency={user.currentUser().data!.primaryCurrency || CurrencyCode.USD}
             >
               <For each={group.transactions}>
                 {transaction => <TransactionListItem {...transaction} />}

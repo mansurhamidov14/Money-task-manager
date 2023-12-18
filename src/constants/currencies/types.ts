@@ -1,5 +1,6 @@
 export enum CurrencyCode {
   AZN = "AZN",
+  GBP = "GBP",
   USD = "USD",
   UAH = "UAH",
   RUB = "RUB",
@@ -12,4 +13,5 @@ export type Currency = {
   sign: string;
   precision: number;
   formatter: (value: number) => string;
+  flag: string;
 }

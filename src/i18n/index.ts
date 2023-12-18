@@ -1,9 +1,5 @@
 import { createSignal } from "solid-js";
 
-import flagAz from "@app/assets/langs/az-circle.png";
-import flagEn from "@app/assets/langs/en-circle.png";
-import flagRu from "@app/assets/langs/ru-circle.png";
-
 import actionsAz from "./locales/az/Actions.json";
 import actionsEn from "./locales/en/Actions.json";
 import actionsRu from "./locales/ru/Actions.json";
@@ -18,23 +14,24 @@ import messagesRu from "./locales/ru/Messages.json";
 
 import { i18nConfig, initI18n, translations } from "./init";
 import { Lang, LangData } from "./types";
+import { azFlag, ruFlag, usFlag } from "@app/assets";
 
 const localStorageAccessKey = "WFOAppLang";
 export const langData: LangData = {
   az: {
     code: "AZ",
     name: "Azərbaycan dili",
-    flag: flagAz
+    flag: azFlag
   },
   en: {
     code: "EN",
     name: "English",
-    flag: flagEn
+    flag: usFlag
   },
   ru: {
     code: "RU",
     name: "Русский язык",
-    flag: flagRu
+    flag: ruFlag
   }
 };
 
