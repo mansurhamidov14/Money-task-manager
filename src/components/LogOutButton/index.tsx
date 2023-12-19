@@ -1,5 +1,5 @@
 import { IoLogOutOutline } from "solid-icons/io";
-import { user } from "@app/stores"
+import { transactionsStore, user } from "@app/stores"
 import { Button } from "../Button";
 import { userService } from "@app/services";
 
@@ -12,6 +12,7 @@ export function LogOutButton() {
     });
     setTimeout(() => {
       user.setCurrentUser({ isLoading: false, isAuthorized: false });
+      transactionsStore.setTransactionsoreLoading();
     }, 500);
   }
   return (

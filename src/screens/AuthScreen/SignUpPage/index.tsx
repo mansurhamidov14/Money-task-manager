@@ -39,7 +39,7 @@ export function SignUpPage() {
         data: newUser
       });
       const transactions = await transactionService.getUserTransactions(newUser.id);
-      setTimeout(() => transactionsStore.setTransactions(transactions), 500);
+      setTimeout(() => transactionsStore.setTransactions(transactions), 2000);
       navigate("/");
     } catch (e) { }
   }

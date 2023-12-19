@@ -47,7 +47,7 @@ export default function() {
     <div class={`${theme()} app-container`}>
       <Show
         when={!user.currentUser().isLoading} fallback={(
-          <div class="h-[100svh] flex items-center">
+          <div class="h-[100svh] flex items-center bg-secondary-100 dark:bg-gray-800">
             <Loading />
           </div>
         )}

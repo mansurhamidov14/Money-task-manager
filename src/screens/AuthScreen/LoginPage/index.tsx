@@ -22,14 +22,14 @@ export function LoginPage() {
     try {
       const email = formHandler.getFieldValue("email");
       const password = formHandler.getFieldValue("password");
-      const data = await userService.auth(email, password);
+      const data = await userService.auth(email.toLowerCase(), password);
       user.setCurrentUser({
         isLoading: false,
         isAuthorized: true,
         data
       });
       const transactions = await transactionService.getUserTransactions(data.id);
-      setTimeout(() => transactionsStore.setTransactions(transactions), 500);
+      setTimeout(() => transactionsStore.setTransactions(transactions), 2000);
       navigate("/");
     } catch (e: any) {
       toastStore.pushToast("error", t(`AuthScreen.Exceptions.${e.message}`));
