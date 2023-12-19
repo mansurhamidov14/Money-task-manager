@@ -1,7 +1,7 @@
 import { IoMoon, IoSunny } from "solid-icons/io";
 import { Show } from "solid-js";
 import { themeStore } from "@app/stores"
-import { Button } from "./Button";
+import { Button } from "../Button";
 
 export function ThemeToggleButton() {
   const { theme, toggleTheme } = themeStore;

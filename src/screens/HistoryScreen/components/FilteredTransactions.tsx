@@ -1,7 +1,7 @@
 import { Accessor, For, Show, createMemo } from "solid-js";
 import { EmptyList, TransactionGroup, TransactionList, TransactionListItem } from "@app/components";
 import { CategoryId, CurrencyCode } from "@app/constants";
-import { groupTransactionsByDate, transactions, user } from "@app/stores";
+import { groupTransactionsByDate, transactionsStore, user } from "@app/stores";
 import { DateFilter } from "../types";
 import { FaSolidFilterCircleXmark } from "solid-icons/fa";
 import { Message } from "@app/i18n/components";
@@ -16,7 +16,7 @@ type FilteredTransactionsProps = {
 export function FilteredTransactions({ categoryFilter, dateFilter }: FilteredTransactionsProps) {
   const filteredTransactions = createMemo(() => {
     return groupTransactionsByDate(
-      transactions.getFilteredTransactions(categoryFilter(), dateFilter()),
+      transactionsStore.getFilteredTransactions(categoryFilter(), dateFilter()),
       true
     );
   });

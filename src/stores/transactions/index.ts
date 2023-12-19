@@ -63,28 +63,28 @@ export const mockTransactions: Omit<Transaction, "id">[] = [
 ];
 
 function initTransactionsStore() {
-  const [transactionsStore, setTransactionsStore] = createSignal<TransactionsStore>({
+  const [transactions, setTransactionsore] = createSignal<TransactionsStore>({
     isLoading: true,
     hasError: false,
   });
 
-  const setTransactionsStoreError = (error: string) => {
-    setTransactionsStore({
+  const setTransactionsoreError = (error: string) => {
+    setTransactionsore({
       isLoading: false,
       hasError: true,
       error
     });
   }
 
-  const setTransactionsStoreLoading = () => {
-    setTransactionsStore({
+  const setTransactionsoreLoading = () => {
+    setTransactionsore({
       isLoading: true,
       hasError: false,
     });
   }
 
-  const setTransactionsStoreData = (data: Transaction[]) => {
-    setTransactionsStore({
+  const setTransactionsoreData = (data: Transaction[]) => {
+    setTransactionsore({
       isLoading: false,
       hasError: false,
       data
@@ -93,21 +93,21 @@ function initTransactionsStore() {
 
   const addTransaction = (data: Transaction) => {
     // TODO: add service method adding record to db
-    const prevData = transactionsStore().data ?? [];
-    setTransactionsStoreData([...prevData, data]);
+    const prevData = transactions().data ?? [];
+    setTransactionsoreData([...prevData, data]);
   }
 
   const removeTransaction = (id: number) => {
     // TODO: add service method deleting record from db
-    setTransactionsStoreData(
-      transactionsStore().data!.filter(t => t.id !== id)
+    setTransactionsoreData(
+      transactions().data!.filter(t => t.id !== id)
     );
   }
 
   const updateTransaction = (id: number, data: Partial<Transaction>) => {
     // TODO: add service method modifying record in db
-    setTransactionsStoreData(
-      transactionsStore().data!.map(transaction => {
+    setTransactionsoreData(
+      transactions().data!.map(transaction => {
         if (transaction.id !== id) return transaction;
         return { ...transaction, ...data }
       })
@@ -117,7 +117,7 @@ function initTransactionsStore() {
   const descSorter = (a: Transaction, b: Transaction) => a.createdAt > b.createdAt ? -1 : 1;
 
   const latestTransactions = createMemo(() => {
-    if (transactionsStore().isLoading) {
+    if (transactions().isLoading) {
       return null;
     }
     const now = Date.now();
@@ -125,7 +125,7 @@ function initTransactionsStore() {
     const nowDate = new Date(now).toISOString().split('T')[0];
     const minDate = new Date(min).toISOString().split('T')[0];
 
-    const last10daysTransactions = transactionsStore().data!.filter(transaction => {
+    const last10daysTransactions = transactions().data!.filter(transaction => {
       const transactionDate = new Date(transaction.createdAt).toISOString().split('T')[0];
       return transactionDate <= nowDate && transactionDate >= minDate;
     });
@@ -134,21 +134,21 @@ function initTransactionsStore() {
   });
 
   const incomeForTheMonth = createMemo(() => {
-    if (transactionsStore().isLoading) {
+    if (transactions().isLoading) {
       return null;
     }
-    return sumAmountForTheLastMonth(transactionsStore().data!, "income");
+    return sumAmountForTheLastMonth(transactions().data!, "income");
   });
 
   const expensesForTheMonth = createMemo(() => {
-    if (transactionsStore().isLoading) {
+    if (transactions().isLoading) {
       return null;
     }
-    return sumAmountForTheLastMonth(transactionsStore().data!, "expense");
+    return sumAmountForTheLastMonth(transactions().data!, "expense");
   });
 
   const getFilteredTransactions = (category: CategoryId | null, dateFilter: DateFilter) => {
-    const filteredData = transactions.transactionsStore().data!.filter(t => {
+    const filteredData = transactions().data!.filter(t => {
       const dateMatches = t.createdAt >= dateFilter.startTimestamp && t.createdAt <= dateFilter.endTimestamp;
       return dateMatches && (category ? t.category === category : true)
     });
@@ -156,7 +156,7 @@ function initTransactionsStore() {
   }
 
   return {
-    transactionsStore,
+    transactions,
     latestTransactions,
     getFilteredTransactions,
     addTransaction,
@@ -164,10 +164,10 @@ function initTransactionsStore() {
     updateTransaction,
     incomeForTheMonth,
     expensesForTheMonth,
-    setTransactionsStoreError,
-    setTransactionsStoreLoading,
-    setTransactionsStoreData,
+    setTransactionsoreError,
+    setTransactionsoreLoading,
+    setTransactionsoreData,
   };
 }
 
-export const transactions = createRoot(initTransactionsStore);
+export const transactionsStore = createRoot(initTransactionsStore);

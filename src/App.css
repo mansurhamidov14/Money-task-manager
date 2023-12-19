@@ -1,22 +1,9 @@
-.layout {
-  grid-template-rows: 1fr var(--app-navbar-height);
-  grid-template-columns: 1fr;
-}
-
 main {
   grid-row: 1;
 }
 
 .footer-nav {
   grid-row: 2;
-}
-
-.nav-link {
-  @apply text-secondary-400 dark:text-secondary-300;
-}
-
-.nav-link.active {
-  @apply text-primary-800 dark:text-primary-500;
 }
 
 .text-expense {

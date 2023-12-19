@@ -5,7 +5,7 @@ import {
   TransactionList,
   TransactionListItem
 } from "@app/components";
-import { groupTransactionsByDate, transactions, user } from "@app/stores";
+import { groupTransactionsByDate, transactionsStore, user } from "@app/stores";
 import { ImFilesEmpty } from "solid-icons/im";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "@app/stores/transactions/constants";
 import { Message } from "@app/i18n/components";
@@ -16,7 +16,7 @@ export function LatestTransactions() {
   const dateFormatter = new DateFormatter(t);
   return (
     <Show
-      when={transactions.latestTransactions()?.[0]}
+      when={transactionsStore.latestTransactions()?.[0]}
       fallback={(
         <EmptyList icon={<ImFilesEmpty />}>
           <Message count={RECENT_TRANSACTIONS_MAX_DAYS}>
@@ -26,7 +26,7 @@ export function LatestTransactions() {
       )}
     >
       <TransactionList>
-        {groupTransactionsByDate(transactions.latestTransactions()!).map(group => (
+        {groupTransactionsByDate(transactionsStore.latestTransactions()!).map(group => (
           <TransactionGroup
             date={dateFormatter.humanize(group.date)}
             amount={group.amount}

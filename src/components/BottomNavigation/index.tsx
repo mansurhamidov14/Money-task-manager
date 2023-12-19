@@ -1,16 +1,16 @@
-import { JSXElement } from "solid-js";
+import { FaSolidChartSimple, FaSolidHouseChimney } from "solid-icons/fa";
+import { NavLink } from "./NavLink";
 import "./style.css";
+import { NewItemButton } from "./NewItemButton";
 
-export type BottomNavigationProps = {
-  children: JSXElement[];
-}
-
-export function BottomNavigation(props: BottomNavigationProps) {
+export function BottomNavigation() {
   return (
-    <nav class="footer-nav">
-      <ul>
-        {props.children}
-      </ul>
+    <nav class="bottom-nav group">
+      <div class="grid-cols-3">
+        <NavLink screen="home" icon={<FaSolidHouseChimney />} />
+        <NewItemButton />
+        <NavLink screen="history" icon={<FaSolidChartSimple />} />
+      </div>
     </nav>
   );
 }

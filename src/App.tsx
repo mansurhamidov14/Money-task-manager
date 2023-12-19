@@ -1,23 +1,20 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
-import { Match, Switch, onMount } from "solid-js";
-import { FaSolidChartSimple, FaSolidHouseChimney } from "solid-icons/fa";
-import { AddNewNavButton, BottomNavigation, Loading, NavLink, ToastList } from "@app/components";
-import { AuthScreen, HistoryScreen, HomeScreen } from "@app/screens";
+import { Show, onMount } from "solid-js";
+import { BottomNavigation, Layout, Loading, ToastList } from "@app/components";
+import { HistoryScreen, HomeScreen, LoginPage, SignupPage } from "@app/screens";
 import { userService, transactionService } from "@app/services";
-import { transactions, user, themeStore } from "@app/stores";
+import { transactionsStore, user, themeStore } from "@app/stores";
 
 import "./App.css";
 
-function App({ children }: RouteSectionProps) {
+function App(props: RouteSectionProps) {
   return (
-    <div class="layout grid h-[100svh]">
-      {children}
-      <BottomNavigation>
-        <NavLink screen="home" icon={<FaSolidHouseChimney />} />
-        <AddNewNavButton />
-        <NavLink screen="history" icon={<FaSolidChartSimple />} />
-      </BottomNavigation>
-    </div>
+    <Layout>
+      {props.children}
+      <Show when={user.currentUser().isAuthorized}>
+        <BottomNavigation />
+      </Show>
+    </Layout>
   );
 }
 
@@ -28,7 +25,7 @@ export default function() {
     if (authorizedUser) {
       const userTransactions = await transactionService.getUserTransactions(authorizedUser.id);
       setTimeout(() => {
-        transactions.setTransactionsStoreData(userTransactions);
+        transactionsStore.setTransactionsoreData(userTransactions);
       }, 500);
       user.setCurrentUser({
         isAuthorized: true,
@@ -45,24 +42,23 @@ export default function() {
 
   return (
     <div class={`${theme()} app-container`}>
-      <Switch
-        fallback={(
+      <Show
+        when={!user.currentUser().isLoading} fallback={(
           <div class="h-[100svh] flex items-center">
             <Loading />
           </div>
         )}
       >
-        <Match when={!user.currentUser().isLoading && user.currentUser().isAuthorized}>
-          <Router root={App}>
-            <Route path="/" component={() => <Navigate href="/home" />} />
-            <Route path="/home" component={HomeScreen} />
-            <Route path="/history" component={HistoryScreen} />
-          </Router>
-        </Match>
-        <Match when={!user.currentUser().isLoading && !user.currentUser().isAuthorized}>
-          <AuthScreen />
-        </Match>
-      </Switch>
+        <Router root={App}>
+          <Route path="/" component={() => <Navigate href="/home" />} />
+          <Route path="/auth">
+            <Route path="/" component={LoginPage} />
+            <Route path="/signup" component={SignupPage} />
+          </Route>
+          <Route path="/home" component={HomeScreen} />
+          <Route path="/history" component={HistoryScreen} />
+        </Router>
+      </Show>
       <ToastList />
     </div>
   );

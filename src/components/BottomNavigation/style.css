@@ -1,7 +1,76 @@
-.footer-nav {
-  @apply text-secondary-500 dark:text-secondary-300 dark:bg-gray-700 shadow-md shadow-gray-900 dark:shadow-gray-400;
+.bottom-nav {
+  @apply
+    fixed
+    z-50
+    w-[calc(100%-2em)]
+    mx-auto
+    h-14
+    max-w-lg
+    -translate-x-1/2
+    bg-white
+    border
+    border-gray-200
+    rounded-full
+    bottom-2
+    left-1/2
+    dark:bg-gray-700
+    dark:border-gray-600;
 }
 
-.footer-nav > ul {
-  @apply h-full flex justify-around items-center text-2xl;
+.bottom-nav > div {
+  @apply grid h-full max-w-lg mx-auto;
 }
+
+.bottom-nav .nav-link {
+  @apply
+    inline-flex
+    flex-col
+    items-center
+    justify-center
+    px-5
+    active:bg-gray-50
+    dark:active:bg-gray-800
+    text-gray-500
+    dark:text-gray-400
+    active:text-primary-600
+    dark:active:text-primary-500
+    text-2xl;
+}
+
+.bottom-nav .nav-link:first-child {
+  @apply rounded-s-full;
+}
+
+.bottom-nav .nav-link:last-child {
+  @apply rounded-e-full;
+}
+
+.bottom-nav .nav-link.active {
+  @apply text-primary-600 dark:text-primary-500 bg-gray-50 dark:bg-gray-800/50;
+}
+
+.bottom-nav .nav-link > svg {
+  @apply w-5 h-5;
+}
+
+.bottom-nav .new-item-btn {
+  @apply
+    inline-flex
+    items-center
+    justify-center
+    w-9
+    h-9
+    font-medium
+    bg-primary-600
+    dark:bg-primary-500
+    rounded-full
+    focus:bg-primary-700
+    dark:active:bg-primary-600
+    focus:outline-none
+    text-white;
+}
+
+.bottom-nav .new-item-btn > svg {
+  @apply w-4 h-4;
+}
+

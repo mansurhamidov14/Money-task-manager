@@ -1,3 +1,3 @@
-export * from "./AuthOrRegisterScreen";
+export * from "./AuthScreen";
 export * from "./HistoryScreen"
 export * from "./HomeScreen";

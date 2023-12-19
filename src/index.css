@@ -365,12 +365,9 @@
 
 :root {
   font-family: 'Montserrat', sans-serif;
-  --app-navbar-height: 64px;
-  --app-text-color: theme('colors.sky.900');
 }
 
 .dark {
-  --app-text-color: theme('colors.gray.50');
   color-scheme: dark;
 }
 
@@ -378,12 +375,4 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-}
-
-.app-container {
-  color: var(--app-text-color);
-}
-
-input {
-  color: var(--app-text-color);
 }

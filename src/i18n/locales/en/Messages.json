@@ -3,6 +3,10 @@
     "expense": "Expense",
     "income": "Income"
   },
+  "BottomNavigation": {
+    "home": "Home screen",
+    "history": "History screen"
+  },
   "Toasts": {
     "warning": "Warning!",
     "error": "Error!",

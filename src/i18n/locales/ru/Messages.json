@@ -3,6 +3,10 @@
     "expense": "Расходы",
     "income": "Доходы"
   },
+  "BottomNavigation": {
+    "home": "Главный экран",
+    "history": "Экран истории"
+  },
   "Toasts": {
     "warning": "Предупреждение!",
     "error": "Ошибка!",

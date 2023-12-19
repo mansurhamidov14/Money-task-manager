@@ -3,6 +3,10 @@
     "expense": "Xərclər",
     "income": "Gəlir"
   },
+  "BottomNavigation": {
+    "home": "Əsas ekran",
+    "history": "Tarixçə ekranı"
+  },
   "Toasts": {
     "warning": "Xəbərdarlıq!",
     "error": "Xəta!",

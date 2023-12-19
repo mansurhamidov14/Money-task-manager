@@ -1,21 +1,26 @@
-import { For } from "solid-js";
-import { Navigate, Route, HashRouter as Router } from "@solidjs/router";
-import { ThemeToggleButton } from "@app/components";
-import { LoginForm } from "./LoginForm";
-import { SignupForm } from "./SignUpForm";
 import { logoDark, logoLight } from "@app/assets";
+import { ThemeToggleButton } from "@app/components";
 import { Dropdown } from "@app/components/Dropdown";
 import { getLocale, langData, setLocale } from "@app/i18n";
 import { RerenderOnLangChange } from "@app/i18n/components";
 import { availableLangs } from "@app/i18n/init";
-import { themeStore } from "@app/stores";
+import { themeStore, user } from "@app/stores";
+import { useNavigate } from "@solidjs/router";
+import { For, ParentProps, onMount } from "solid-js";
 
 const logos: Record<"dark" | "light", string> = {
   dark: logoDark,
   light: logoLight
 };
 
-export function AuthScreen() {
+export function AuthLayout(props: ParentProps) {
+  const navigate = useNavigate();
+  onMount(() => {
+    if (user.currentUser().isAuthorized) {
+      navigate("/home");
+    }
+  });
+
   return (
     <div class="bg-secondary-100 h-[100svh] dark:bg-gray-800 overflow-y-auto pb-3">
       <div class="flex justify-between max-w-sm mx-auto px-6 pt-2">
@@ -45,13 +50,7 @@ export function AuthScreen() {
         <img src={logos[themeStore.theme()]} class="w-[230px] h-auto" />
       </div>
       <RerenderOnLangChange>
-        <Router>
-          <Route path="/" component={() => <Navigate href="/auth/signin" />} />
-          <Route path="/history" component={() => <Navigate href="/auth/signin" />} />
-          <Route path="/home" component={() => <Navigate href="/auth/signin" />} />
-          <Route path="/auth/signin" component={LoginForm} />
-          <Route path="/auth/register" component={SignupForm} />
-        </Router>
+        {props.children}
       </RerenderOnLangChange>
     </div>
   );
