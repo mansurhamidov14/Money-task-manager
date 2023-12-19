@@ -11,7 +11,8 @@ import { Show, createMemo } from "solid-js";
 export function HomeScreen() {
   const loadingTransactions = createMemo(() => {
     return transactionsStore.transactions().isLoading;
-  })
+  });
+
   return (
     <ProtectedPage>
       <main class="p-3 overflow-y-auto">

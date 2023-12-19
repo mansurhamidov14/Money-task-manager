@@ -83,7 +83,7 @@ function initTransactionsStore() {
     });
   }
 
-  const setTransactionsoreData = (data: Transaction[]) => {
+  const setTransactions = (data: Transaction[]) => {
     setTransactionsore({
       isLoading: false,
       hasError: false,
@@ -94,19 +94,19 @@ function initTransactionsStore() {
   const addTransaction = (data: Transaction) => {
     // TODO: add service method adding record to db
     const prevData = transactions().data ?? [];
-    setTransactionsoreData([...prevData, data]);
+    setTransactions([...prevData, data]);
   }
 
   const removeTransaction = (id: number) => {
     // TODO: add service method deleting record from db
-    setTransactionsoreData(
+    setTransactions(
       transactions().data!.filter(t => t.id !== id)
     );
   }
 
   const updateTransaction = (id: number, data: Partial<Transaction>) => {
     // TODO: add service method modifying record in db
-    setTransactionsoreData(
+    setTransactions(
       transactions().data!.map(transaction => {
         if (transaction.id !== id) return transaction;
         return { ...transaction, ...data }
@@ -166,7 +166,7 @@ function initTransactionsStore() {
     expensesForTheMonth,
     setTransactionsoreError,
     setTransactionsoreLoading,
-    setTransactionsoreData,
+    setTransactions,
   };
 }
 

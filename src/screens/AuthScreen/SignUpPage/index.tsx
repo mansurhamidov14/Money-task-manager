@@ -5,15 +5,15 @@ import { FiAtSign } from "solid-icons/fi";
 import { Button, Select, TextInputWithFloatingLabel as TextInput } from "@app/components";
 import { t } from "@app/i18n";
 import { Action, Message } from "@app/i18n/components";
-import { Link, user } from "@app/stores";
+import { Link, transactionsStore, user } from "@app/stores";
 import { CurrencyCode, currencies } from "@app/constants";
-import { userService } from "@app/services";
+import { transactionService, userService } from "@app/services";
 import { Field, useFormHandler } from "solid-form-handler";
 import { getSignUpFormSchema } from "./schema";
 import { For } from "solid-js";
 import { AuthLayout } from "../AuthLayout";
 
-export function SignupPage() {
+export function SignUpPage() {
   const formHandler = useFormHandler(yupSchema(getSignUpFormSchema()), {
     validateOn: ["blur"],
   });
@@ -26,7 +26,7 @@ export function SignupPage() {
       const userData = {
         firstName: formHandler.getFieldValue("firstName"),
         lastName: formHandler.getFieldValue("lastName"),
-        email: formHandler.getFieldValue("email"),
+        email: formHandler.getFieldValue("email").toLowerCase(),
         password: formHandler.getFieldValue("newPassword"),
         primaryCurrency: formHandler.getFieldValue("primaryCurrency"),
         createdAt,
@@ -38,6 +38,8 @@ export function SignupPage() {
         isAuthorized: true,
         data: newUser
       });
+      const transactions = await transactionService.getUserTransactions(newUser.id);
+      setTimeout(() => transactionsStore.setTransactions(transactions), 500);
       navigate("/");
     } catch (e) { }
   }

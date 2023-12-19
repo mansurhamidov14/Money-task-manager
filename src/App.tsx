@@ -1,7 +1,7 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
 import { Show, onMount } from "solid-js";
 import { BottomNavigation, Layout, Loading, ToastList } from "@app/components";
-import { HistoryScreen, HomeScreen, LoginPage, SignupPage } from "@app/screens";
+import { HistoryScreen, HomeScreen, LoginPage, SignUpPage } from "@app/screens";
 import { userService, transactionService } from "@app/services";
 import { transactionsStore, user, themeStore } from "@app/stores";
 
@@ -28,7 +28,7 @@ export default function() {
     if (authorizedUser) {
       const userTransactions = await transactionService.getUserTransactions(authorizedUser.id);
       setTimeout(() => {
-        transactionsStore.setTransactionsoreData(userTransactions);
+        transactionsStore.setTransactions(userTransactions);
       }, 500);
       user.setCurrentUser({
         isAuthorized: true,
@@ -56,7 +56,7 @@ export default function() {
           <Route path="/" component={() => <Navigate href="/home" />} />
           <Route path="/auth">
             <Route path="/" component={LoginPage} />
-            <Route path="/signup" component={SignupPage} />
+            <Route path="/signup" component={SignUpPage} />
           </Route>
           <Route path="/home" component={HomeScreen} />
           <Route path="/history" component={HistoryScreen} />
