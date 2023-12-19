@@ -6,7 +6,7 @@ export function RerenderOnLangChange(props: ParentProps) {
 
   const langChangeHandler = () => {
     setRerender(true);
-    setTimeout(() => setRerender(false))
+    setTimeout(() => setRerender(false), 500);
   };
 
   onMount(() => {

@@ -2,7 +2,6 @@ import { logoDark, logoLight } from "@app/assets";
 import { ThemeToggleButton } from "@app/components";
 import { Dropdown } from "@app/components/Dropdown";
 import { getLocale, langData, setLocale } from "@app/i18n";
-import { RerenderOnLangChange } from "@app/i18n/components";
 import { availableLangs } from "@app/i18n/init";
 import { themeStore, user } from "@app/stores";
 import { useNavigate } from "@solidjs/router";
@@ -22,7 +21,7 @@ export function AuthLayout(props: ParentProps) {
   });
 
   return (
-    <div class="bg-secondary-100 h-[100svh] dark:bg-gray-800 overflow-y-auto pb-3">
+    <div class="pb-3">
       <div class="flex justify-between max-w-sm mx-auto px-6 pt-2">
         <Dropdown id="langDropdown">
           <Dropdown.ToggleButton variant="glass" size="md">
@@ -49,9 +48,7 @@ export function AuthLayout(props: ParentProps) {
       <div class="flex justify-center py-5">
         <img src={logos[themeStore.theme()]} class="w-[230px] h-auto" />
       </div>
-      <RerenderOnLangChange>
-        {props.children}
-      </RerenderOnLangChange>
+      {props.children}
     </div>
   );
 }

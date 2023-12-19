@@ -6,11 +6,14 @@ import { userService, transactionService } from "@app/services";
 import { transactionsStore, user, themeStore } from "@app/stores";
 
 import "./App.css";
+import { RerenderOnLangChange } from "./i18n/components";
 
 function App(props: RouteSectionProps) {
   return (
     <Layout>
-      {props.children}
+      <RerenderOnLangChange>
+        {props.children}
+      </RerenderOnLangChange>
       <Show when={user.currentUser().isAuthorized}>
         <BottomNavigation />
       </Show>

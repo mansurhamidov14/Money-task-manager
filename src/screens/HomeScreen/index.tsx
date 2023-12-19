@@ -14,7 +14,7 @@ export function HomeScreen() {
   })
   return (
     <ProtectedPage>
-      <main class="bg-secondary-50 dark:bg-gray-800 p-3 overflow-y-auto">
+      <main class="p-3 overflow-y-auto">
         <div class="text-right">
           <ThemeToggleButton />
         </div>

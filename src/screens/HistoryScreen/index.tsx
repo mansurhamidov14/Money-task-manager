@@ -23,7 +23,7 @@ export function HistoryScreen() {
 
   return (
     <ProtectedPage>
-      <main class="bg-secondary-50 dark:bg-gray-800 p-3 overflow-y-auto">
+      <main class="p-3">
         <h1 class="text-center text-4xl">History Screen</h1>
         <DateFilter
           previousTab={prevDateFilterTab}

@@ -136,7 +136,7 @@ export function SignupPage() {
           <span class="flex justify-center gap-2">
             <Message>AuthScreen.alreadyHaveAnAccount</Message>
             {" "}
-            <Link class="text-primary-500 dark:text-primary-400 font-semibold" href="/auth/signin">
+            <Link class="text-primary-500 dark:text-primary-400 font-semibold" href="/auth">
               <Message>
                 AuthScreen.signIn
               </Message>
