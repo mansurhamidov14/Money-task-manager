@@ -1,16 +1,11 @@
 import { user } from "@app/stores";
-import { useNavigate } from "@solidjs/router";
-import { ParentProps, onMount } from "solid-js";
+import { Navigate } from "@solidjs/router";
+import { ParentProps, Show } from "solid-js";
 
 export function ProtectedPage(props: ParentProps) {
-  const navigate = useNavigate();
-  onMount(() => {
-    if (!user.currentUser().isAuthorized) {
-      navigate("/auth")
-    }
-  });
-
   return (
-    <>{props.children}</>
+    <Show when={user.currentUser().isAuthorized} fallback={<Navigate href="/auth" />}>
+      {props.children}
+    </Show>
   );
 }

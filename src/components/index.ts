@@ -5,6 +5,7 @@ export * from "./EmptyList";
 export * from "./FilterTab";
 export * from "./Layout";
 export * from "./Loading";
+export * from "./LogOutButton";
 export * from "./SectionTitle";
 export * from "./Select";
 export * from "./TextInput";

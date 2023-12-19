@@ -61,6 +61,11 @@ class UserService {
     const user = await this.collection.queryOne(["email", email.toLowerCase()]);
     return Boolean(user);
   }
+
+  async logOut() {
+    localStorage.removeItem(UserService.BrowserStorageItemKey);
+    return true;
+  }
 }
 
 export const userService = new UserService(userCollection);

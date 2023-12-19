@@ -1,5 +1,6 @@
 import {
   AmountCard,
+  LogOutButton,
   SectionTitle,
   ThemeToggleButton
 } from "@app/components";
@@ -16,8 +17,9 @@ export function HomeScreen() {
   return (
     <ProtectedPage>
       <main class="p-3 overflow-y-auto">
-        <div class="text-right">
+        <div class="flex justify-end gap-2">
           <ThemeToggleButton />
+          <LogOutButton />
         </div>
         <div class="flex flex-col items-center gap-1 py-5">
           <div class="font-bold text-3xl">
