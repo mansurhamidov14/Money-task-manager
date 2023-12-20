@@ -1,4 +1,5 @@
 import { createSignal } from "solid-js";
+import { azFlag, ruFlag, usFlag } from "@app/assets";
 
 import actionsAz from "./locales/az/Actions.json";
 import actionsEn from "./locales/en/Actions.json";
@@ -14,7 +15,8 @@ import messagesRu from "./locales/ru/Messages.json";
 
 import { i18nConfig, initI18n, translations } from "./init";
 import { Lang, LangData } from "./types";
-import { azFlag, ruFlag, usFlag } from "@app/assets";
+
+export * from "./components";
 
 const localStorageAccessKey = "WFOAppLang";
 export const langData: LangData = {

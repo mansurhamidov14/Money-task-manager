@@ -4,9 +4,9 @@ import {
   CategoryId,
   CurrencyCode,
   currencies
-} from "../../constants";
-import { Message } from "../../i18n/components";
-import { Transaction } from "../../stores";
+} from "@app/constants";
+import { Message } from "@app/i18n";
+import { Transaction } from "@app/stores";
 
 export type TransactionListItemProps = {
   category: CategoryId;

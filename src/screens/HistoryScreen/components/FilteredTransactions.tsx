@@ -4,9 +4,8 @@ import { CategoryId, CurrencyCode } from "@app/constants";
 import { groupTransactionsByDate, transactionsStore, user } from "@app/stores";
 import { DateFilter } from "../types";
 import { FaSolidFilterCircleXmark } from "solid-icons/fa";
-import { Message } from "@app/i18n/components";
+import { Message, t } from "@app/i18n";
 import { DateFormatter } from "@app/helpers";
-import { t } from "@app/i18n";
 
 type FilteredTransactionsProps = {
   categoryFilter: Accessor<CategoryId | null>;

@@ -1,13 +1,13 @@
+import { Show, createMemo } from "solid-js";
 import {
   AmountCard,
   LogOutButton,
   SectionTitle,
   ThemeToggleButton
 } from "@app/components";
-import { Message } from "@app/i18n/components";
+import { Message } from "@app/i18n";
 import { ProtectedPage, transactionsStore, user } from "@app/stores";
 import { LatestTransactions, TransactionListSkeleton } from "./components";
-import { Show, createMemo } from "solid-js";
 
 export function HomeScreen() {
   const loadingTransactions = createMemo(() => {

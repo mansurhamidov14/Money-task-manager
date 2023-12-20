@@ -1,7 +1,7 @@
 import { Show, createSignal } from "solid-js";
 import { PickerValue } from "@rnwonder/solid-date-picker";
 import { SectionTitle } from "@app/components";
-import { Message } from "@app/i18n/components";
+import { Message } from "@app/i18n";
 import { CategoryId } from "@app/constants";
 import { ProtectedPage, transactionsStore } from "@app/stores";
 import { initialDateRange } from "./consts";

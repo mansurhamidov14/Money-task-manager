@@ -1,5 +1,5 @@
 import { DB_NAME, DB_VERSION } from "./consts";
-import { Structure } from "../adapters/IDB";
+import { Structure } from "@app/adapters/IDB";
 
 const defaultTableConfig = {
   keyPath: "id",

@@ -1,4 +1,4 @@
-import { Message } from "@app/i18n/components";
+import { Message } from "@app/i18n";
 import { Link, Screen, navigation } from "@app/stores";
 import { JSX } from "solid-js";
 

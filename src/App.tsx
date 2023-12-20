@@ -1,12 +1,12 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
 import { Show, onMount } from "solid-js";
 import { BottomNavigation, Layout, Loading, ToastList } from "@app/components";
+import { RerenderOnLangChange } from "@app/i18n";
 import { HistoryScreen, HomeScreen, LoginPage, SignUpPage } from "@app/screens";
 import { userService, transactionService } from "@app/services";
 import { transactionsStore, user, themeStore } from "@app/stores";
 
 import "./App.css";
-import { RerenderOnLangChange } from "./i18n/components";
 
 function App(props: RouteSectionProps) {
   return (

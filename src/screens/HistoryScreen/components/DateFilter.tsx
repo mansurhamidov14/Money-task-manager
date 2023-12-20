@@ -2,7 +2,7 @@ import DatePicker, { PickerValue } from "@rnwonder/solid-date-picker";
 import { Accessor, Setter } from "solid-js"
 import { IoCalendarOutline } from "solid-icons/io";
 import { Button, FilterTab } from "@app/components";
-import { Action, Message } from "@app/i18n/components";
+import { Action, Message } from "@app/i18n";
 import { initialDateRange } from "../consts";
 import { DateFilter as TDateFilter, DateFilterTab } from "../types"
 import { getDateFilters } from "../helpers";

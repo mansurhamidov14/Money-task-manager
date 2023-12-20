@@ -1,4 +1,5 @@
 import { Show } from "solid-js";
+import { ImFilesEmpty } from "solid-icons/im";
 import {
   EmptyList,
   TransactionGroup,
@@ -6,11 +7,9 @@ import {
   TransactionListItem
 } from "@app/components";
 import { groupTransactionsByDate, transactionsStore, user } from "@app/stores";
-import { ImFilesEmpty } from "solid-icons/im";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "@app/stores/transactions/constants";
-import { Message } from "@app/i18n/components";
+import { Message, t } from "@app/i18n";
 import { DateFormatter } from "@app/helpers";
-import { t } from "@app/i18n";
 
 export function LatestTransactions() {
   const dateFormatter = new DateFormatter(t);
