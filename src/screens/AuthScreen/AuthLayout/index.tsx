@@ -1,6 +1,6 @@
 import { logoDark, logoLight } from "@app/assets";
 import { ThemeToggleButton } from "@app/components";
-import { Dropdown } from "@app/components/Dropdown";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggleButton } from "@app/components/Dropdown";
 import { getLocale, langData, setLocale } from "@app/i18n";
 import { availableLangs } from "@app/i18n/init";
 import { themeStore, user } from "@app/stores";
@@ -24,24 +24,24 @@ export function AuthLayout(props: ParentProps) {
     <div class="pb-3">
       <div class="flex justify-between max-w-sm mx-auto px-6 pt-2">
         <Dropdown id="langDropdown" horizontalPlacement="left">
-          <Dropdown.ToggleButton variant="glass" size="md">
+          <DropdownToggleButton variant="glass" size="md">
             <div class="flex items-center gap-2">
               <img class="w-5 h-5" src={langData[getLocale()].flag} />
               <span>{langData[getLocale()].code}</span>
             </div>
-          </Dropdown.ToggleButton>
-          <Dropdown.Menu class="font-medium w-[11em]">
+          </DropdownToggleButton>
+          <DropdownMenu class="font-medium w-[11em]">
             <For each={availableLangs}>
               {lang => (
-                <Dropdown.Menu.Item onClick={() => setLocale(lang)}>
+                <DropdownItem onClick={() => setLocale(lang)}>
                   <div class="flex gap-2">
                     <img class="w-5 h-5" src={langData[lang].flag} />
                     <span>{langData[lang].name}</span>
                   </div>
-                </Dropdown.Menu.Item>
+                </DropdownItem>
               )}
             </For>
-          </Dropdown.Menu>
+          </DropdownMenu>
         </Dropdown>
         <ThemeToggleButton />
       </div>

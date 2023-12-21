@@ -1,7 +1,7 @@
 import { ParentProps, mergeProps } from "solid-js";
 import { useDropdown } from ".";
 
-function DropdownItem(props: ParentProps<{ href?: string, class?: string, onClick?: () => void, unstyled?: boolean }>) {
+export function DropdownItem(props: ParentProps<{ href?: string, class?: string, onClick?: () => void, unstyled?: boolean }>) {
   const finalProps = mergeProps({ href: "#", class: "" }, props);
   const dropdown = useDropdown();
   const handleClick = (e: MouseEvent) => {
@@ -26,5 +26,3 @@ function DropdownItem(props: ParentProps<{ href?: string, class?: string, onClic
     </a>
   );
 }
-
-export default DropdownItem;

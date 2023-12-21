@@ -1,9 +1,8 @@
 import { ParentProps } from "solid-js";
 import { useDropdown } from "./";
-import DropdownItem from "./DropdownItem";
 import classNames from "classnames";
 
-function DropdownMenu(props: ParentProps<{class?: string, unstyled?: boolean }>) {
+export function DropdownMenu(props: ParentProps<{class?: string, unstyled?: boolean }>) {
   const dropdownContext = useDropdown()!;
 
   return (
@@ -26,5 +25,4 @@ function DropdownMenu(props: ParentProps<{class?: string, unstyled?: boolean }>)
   );
 }
 
-DropdownMenu.Item = DropdownItem;
 export default DropdownMenu;

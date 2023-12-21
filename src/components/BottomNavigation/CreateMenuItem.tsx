@@ -1,5 +1,5 @@
 import { JSX } from "solid-js";
-import DropdownItem from "../Dropdown/DropdownItem";
+import { DropdownItem } from "../Dropdown";
 
 type CreateMenuItemProps = {
   href: string;

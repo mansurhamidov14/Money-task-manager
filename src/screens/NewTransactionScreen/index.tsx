@@ -4,8 +4,7 @@ import { IoCloseOutline } from "solid-icons/io";
 import { Button } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
 import { accountService, transactionService } from "@app/services";
-import { accountsStore, transactionsStore, user } from "@app/stores";
-import { toastStore } from "@app/stores/toasts";
+import { accountsStore, transactionsStore, toastStore, user } from "@app/stores";
 import {
   AmountInput,
   CategorySelect,
@@ -52,8 +51,8 @@ export function NewTransactionScreen() {
       transactionsStore.addTransaction(newTransaction);
       toastStore.pushToast("success", t("NewTransactionScreen.success"));
       history.back();
-    } catch (e) {
-      toastStore.pushToast("error", t("NewTransactionScreen.success"));
+    } catch (e: any) {
+      toastStore.pushToast("error", t("NewTransactionScreen.error", undefined, { error: e.message }));
     }
   }
 

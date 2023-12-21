@@ -2,7 +2,7 @@ import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solid
 import { Show, onMount } from "solid-js";
 import { BottomNavigation, Layout, Loading, ToastList } from "@app/components";
 import { RerenderOnLangChange } from "@app/i18n";
-import { HistoryScreen, HomeScreen, LoginPage, NewTransactionScreen, SignUpPage } from "@app/screens";
+import { HistoryScreen, HomeScreen, LoginPage, NewAccountScreen, NewTransactionScreen, SignUpPage } from "@app/screens";
 import { userService } from "@app/services";
 import { transactionsStore, user, themeStore, accountsStore } from "@app/stores";
 
@@ -59,6 +59,7 @@ export default function() {
           </Route>
           <ProtectedRoute path="/home" component={HomeScreen} />
           <ProtectedRoute path="/history" component={HistoryScreen} />
+          <ProtectedRoute path="/new-account" component={NewAccountScreen} />
           <ProtectedRoute path="/new-transaction" component={NewTransactionScreen} />
         </Router>
       </Show>

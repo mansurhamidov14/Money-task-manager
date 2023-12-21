@@ -2,7 +2,11 @@
   "common": {
     "expense": "Expense",
     "income": "Income",
-    "initialAccountName": "Primary account"
+    "initialAccountName": "Primary account",
+    "FormFields": {
+      "required": "This field is required",
+      "tooShort": "Can not be shorter than {{count}} characters"
+    }
   },
   "BottomNavigation": {
     "home": "Home screen",
@@ -10,7 +14,8 @@
     "create": {
       "title": "Create",
       "Items": {
-        "transaction": "Əməliyyat"
+        "account": "Account",
+        "transaction": "Transaction"
       }
     }
   },
@@ -49,10 +54,6 @@
   },
   "AuthScreen": {
     "FormFields": {
-      "common": {
-        "required": "This field is required",
-        "tooShort": "Can not be shorter than {{count}} characters"
-      },
       "Email": {
         "label": "Your Email",
         "invalidFormat": "Invalid email format",
@@ -93,9 +94,6 @@
   "NewTransactionScreen": {
     "title": "New Transaction",
     "FormFields": {
-      "common": {
-        "required": "This field is required"
-      },
       "title": {
         "label": "Title",
         "placeholder": "Short title"
@@ -110,6 +108,23 @@
       "dateTime": "Date and time"
     },
     "success": "Transaction was created successfully",
-    "error": "An error occured while creating transaction: {{error}}"
+    "error": "An error occurred while creating a transaction: {{error}}"
+  },
+  "NewAccountScreen": {
+    "title": "New Account",
+    "FormFields": {
+      "title": {
+        "label": "Title",
+        "placeholder": "Short title"
+      },
+      "currency": "Currency",
+      "balance": {
+        "label": "Balance",
+        "invalidFormat": "Invalid balance format"
+      },
+      "primary": "Set as primary"
+    },
+    "success": "Account was created successfully",
+    "error": "An error occurred while creating an account: {{error}}"
   }
 }

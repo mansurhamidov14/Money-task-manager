@@ -8,7 +8,7 @@ type LoginForm = {
 
 export function getLoginFormSchema(): yup.Schema<LoginForm> {
   return yup.object({
-    email: yup.string().required(t("AuthScreen.FormFields.common.required")),
-    password: yup.string().required(t("AuthScreen.FormFields.common.required"))
+    email: yup.string().required(t("common.FormFields.required")),
+    password: yup.string().required(t("common.FormFields.required"))
   });
 }

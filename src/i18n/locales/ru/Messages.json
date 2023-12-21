@@ -2,7 +2,11 @@
   "common": {
     "expense": "Расходы",
     "income": "Доходы",
-    "initialAccountName": "Основной счет"
+    "initialAccountName": "Основной счет",
+    "FormFields": {
+      "required": "Значение поля не может быть пустым",
+      "tooShort": "Длина должна быть не менее {{count}} символов"
+    }
   },
   "BottomNavigation": {
     "home": "Главный экран",
@@ -10,6 +14,7 @@
     "create": {
       "title": "Создать",
       "Items": {
+        "account": "Счет",
         "transaction": "Транзакция"
       }
     }
@@ -49,10 +54,6 @@
   },
   "AuthScreen": {
     "FormFields": {
-      "common": {
-        "required": "Значение поля не может быть пустым",
-        "tooShort": "Длина должна быть не менее {{count}} символов"
-      },
       "Email": {
         "label": "Электронная почта",
         "invalidFormat": "Неверный формат электронной почты",
@@ -93,9 +94,6 @@
   "NewTransactionScreen": {
     "title": "Новая транзакция",
     "FormFields": {
-      "common": {
-        "required": "Значение поля не может быть пустым"
-      },
       "title": {
         "label": "Наименование",
         "placeholder": "Краткий заголовок"
@@ -111,5 +109,22 @@
     },
     "success": "Транзакция успешно добавлена",
     "error": "Произошла ошибка во время добавления транзакции: {{error}}"
+  },
+  "NewAccountScreen": {
+    "title": "Новый счет",
+    "FormFields": {
+      "title": {
+        "label": "Наименование",
+        "placeholder": "Краткий заголовок"
+      },
+      "currency": "Валюта",
+      "balance": {
+        "label": "Баланс",
+        "invalidFormat": "Баланс указан неверно"
+      },
+      "primary": "Сделать основным счетом"
+    },
+    "success": "Счет успешно добавлен",
+    "error": "Произошла ошибка во время добавления счета: {{error}}"
   }
 }

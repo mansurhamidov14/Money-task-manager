@@ -1,5 +1,5 @@
-import { toastStore } from "@app/stores/toasts";
 import { For } from "solid-js";
+import { toastStore } from "@app/stores";
 import { Toast } from "../Toast";
 
 export function ToastList() {

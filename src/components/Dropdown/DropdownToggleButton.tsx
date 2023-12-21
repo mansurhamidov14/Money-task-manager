@@ -7,7 +7,7 @@ type DropdownToggleButtonProps = Omit<ButtonProps, "id" | "type" | "onClick" | "
   unstyled?: boolean;
 }
 
-function DropdownToggleButton(props: DropdownToggleButtonProps) {
+export function DropdownToggleButton(props: DropdownToggleButtonProps) {
   const [localProps, forwardedProps] = splitProps(props, ["children", "unstyled"]);
   const dropdown = useDropdown()!;
 
@@ -46,5 +46,3 @@ function DropdownToggleButton(props: DropdownToggleButtonProps) {
     
   );
 }
-
-export default DropdownToggleButton;

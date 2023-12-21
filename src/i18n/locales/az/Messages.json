@@ -2,7 +2,11 @@
   "common": {
     "expense": "Xərclər",
     "income": "Gəlir",
-    "initialAccountName": "Əsas hesab"
+    "initialAccountName": "Əsas hesab",
+    "FormFields": {
+      "required": "Xana boş ola bilməz",
+      "tooShort": "Ən az {{count}} simvoldan ibarət olmalıdır"
+    }
   },
   "BottomNavigation": {
     "home": "Əsas ekran",
@@ -10,6 +14,7 @@
     "create": {
       "title": "Əlavə et",
       "Items": {
+        "account": "Hesab",
         "transaction": "Əməliyyat"
       }
     }
@@ -49,10 +54,6 @@
   },
   "AuthScreen": {
     "FormFields": {
-      "common": {
-        "required": "Xana boş ola bilməz",
-        "tooShort": "Ən az {{count}} simvoldan ibarət olmalıdır"
-      },
       "Email": {
         "label": "Email ünvanı",
         "invalidFormat": "Email yanlış formatdadır",
@@ -93,9 +94,6 @@
   "NewTransactionScreen": {
     "title": "Yeni əməliyyat",
     "FormFields": {
-      "common": {
-        "required": "Xana boş ola bilməz"
-      },
       "title": {
         "label": "Başlıq",
         "placeholder": "Qısa başlıq"
@@ -111,5 +109,20 @@
     },
     "success": "Əməliyyat müvəffəqiyyət ilə əlavə olundu",
     "error": "Əməliyyatı əlavə edərkən xəta baş verdi: {{error}}"
+  },
+  "NewAccountScreen": {
+    "title": "Yeni hesab",
+    "FormFields": {
+      "title": {
+        "label": "Başlıq",
+        "placeholder": "Qısa başlıq"
+      },
+      "currency": "Valyuta",
+      "balance": {
+        "label": "Balans",
+        "invalidFormat": "Balans düzgün qeyd olunmayıb"
+      },
+      "primary": "Əsas hesab təyin et"
+    }
   }
 }

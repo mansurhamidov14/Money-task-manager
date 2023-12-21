@@ -18,8 +18,11 @@ function initAccountsStore() {
     }
   }
 
+  const addAccount = (newAccount: Account) => setAccountsData([...accounts().data!, newAccount]);
+
   return {
     accounts,
+    addAccount,
     setAccountsData,
     setAccountsLoading,
     setAccountsError,

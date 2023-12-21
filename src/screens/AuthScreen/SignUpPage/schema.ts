@@ -15,19 +15,19 @@ type SignUpForm = {
 export function getSignUpFormSchema(): yup.Schema<SignUpForm> {
   return yup.object({
     firstName: yup.string()
-      .required(t("AuthScreen.FormFields.common.required"))
+      .required(t("common.FormFields.required"))
       .min(MIN_FIRST_NAME_LENGTH, t("AuthScreen.FormFields.common.tooShort", undefined, { count: MIN_FIRST_NAME_LENGTH })),
     lastName: yup.string()
-      .required(t("AuthScreen.FormFields.common.required"))
+      .required(t("common.FormFields.required"))
       .min(MIN_LAST_NAME_LENGTH, t("AuthScreen.FormFields.common.tooShort", undefined, { count: MIN_LAST_NAME_LENGTH })),
     email: yup.string()
-      .required(t("AuthScreen.FormFields.common.required"))
+      .required(t("common.FormFields.required"))
       .email(t("AuthScreen.FormFields.Email.invalidFormat"))
       .test("unique", t("AuthScreen.FormFields.Email.notUnique"), async (value) => {
         return !(await userService.userExist(value))
       }),
     newPassword: yup.string()
-      .required(t("AuthScreen.FormFields.common.required"))
+      .required(t("common.FormFields.required"))
       .min(MIN_PASSWORD_LENGTH, t("AuthScreen.FormFields.common.tooShort", undefined, { count: MIN_PASSWORD_LENGTH })),
     primaryCurrency: yup.string()
       .oneOf(Object.values(CurrencyCode))

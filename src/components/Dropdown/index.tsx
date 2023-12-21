@@ -1,9 +1,11 @@
 import { ParentProps, Show, createContext, createSignal, mergeProps, useContext } from "solid-js";
 import { Portal } from "solid-js/web";
-import DropdownMenu from "./DropdownMenu";
-import DropdownToggleButton from "./DropdownToggleButton";
 import { DropdownContextType, DropdownProps } from "./types";
 import "./style.css";
+
+export * from "./DropdownMenu";
+export * from "./DropdownItem";
+export * from "./DropdownToggleButton";
 
 const DropdownContext = createContext<DropdownContextType>();
 
@@ -42,5 +44,3 @@ export function Dropdown(props: ParentProps<DropdownProps>) {
   );
 }
 
-Dropdown.Menu = DropdownMenu;
-Dropdown.ToggleButton = DropdownToggleButton;

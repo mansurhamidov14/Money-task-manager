@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { t } from "@app/i18n";
-import { Categories, CategoryId, CurrencyCode } from "@app/constants";
+import { Categories, CategoryId } from "@app/constants";
 import { Account, TransactionType } from "@app/stores";
 
 type NewTransactionForm = {
@@ -20,10 +20,10 @@ export function getNewTransactionSchema(
 
   return yup.object({
     title: yup.string()
-      .required(t("NewTransactionScreen.FormFields.common.required"))
+      .required(t("common.FormFields.required"))
       .default(defaults.title),
     type: yup.string()
-      .required(t("NewTransactionScreen.FormFields.common.required"))
+      .required(t("common.FormFields.required"))
       .oneOf(["income", "expense"] as const)
       .default(defaults.type),
     category: yup.string()
@@ -31,14 +31,14 @@ export function getNewTransactionSchema(
       .oneOf(Object.keys(Categories) as CategoryId[])
       .default(defaults.category),
     amount: yup.number()
-      .required(t("NewTransactionScreen.FormFields.common.required"))
+      .required(t("common.FormFields.required"))
       .typeError(t("NewTransactionScreen.FormFields.amount.invalidFormat")),
     account: yup.number()
       .required()
       .oneOf(userAccountIds)
       .default(defaults.account),
     date: yup.string()
-      .required(t("NewTransactionScreen.FormFields.common.required"))
+      .required(t("common.FormFields.required"))
       .default(defaults.date)
   });
 }
