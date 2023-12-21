@@ -25,7 +25,7 @@ function DropdownToggleButton(props: DropdownToggleButtonProps) {
   }
 
   const handleBlur = () => {
-    setTimeout(() => dropdown.setIsOpen(false), 300);
+    setTimeout(() => dropdown.setIsOpen(false), 250);
   }
 
   return (

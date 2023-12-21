@@ -11,6 +11,7 @@ export type DropdownContextType = {
   setIsOpen: Setter<boolean>;
   onOpen?: () => void;
   onClose?: () => void;
+  overlayZIndex: number;
 }
 
 export type DropdownProps = {

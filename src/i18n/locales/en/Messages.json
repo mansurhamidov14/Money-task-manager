@@ -5,7 +5,13 @@
   },
   "BottomNavigation": {
     "home": "Home screen",
-    "history": "History screen"
+    "history": "History screen",
+    "create": {
+      "title": "Create",
+      "Items": {
+        "transaction": "Əməliyyat"
+      }
+    }
   },
   "Toasts": {
     "warning": "Warning!",
@@ -82,5 +88,27 @@
     "Exceptions": {
       "WrongEmailOrPasswordException": "Invalid email or password!"
     }
+  },
+  "NewTransactionScreen": {
+    "title": "New Transaction",
+    "FormFields": {
+      "common": {
+        "required": "This field is required"
+      },
+      "title": {
+        "label": "Title",
+        "placeholder": "Short title"
+      },
+      "type": "Transaction Type",
+      "category": "Category",
+      "currency": "Currency",
+      "amount": {
+        "label": "Amount",
+        "invalidFormat": "Invalid amount format"
+      },
+      "dateTime": "Date and time"
+    },
+    "success": "Transaction was created successfully",
+    "error": "An error occured while creating transaction: {{error}}"
   }
 }

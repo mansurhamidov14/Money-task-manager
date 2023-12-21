@@ -1,4 +1,4 @@
-import { Message } from "@app/i18n";
+import { Message, t } from "@app/i18n";
 import { Dropdown } from "../Dropdown";
 import { TbReportMoney } from "solid-icons/tb";
 import { CreateMenuItem } from "./CreateMenuItem";
@@ -12,13 +12,15 @@ export function CreateButton() {
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
           </svg>
           <span class="sr-only">
-            <Message>BottomNavigation.newItem</Message>
+            <Message>BottomNavigation.create.title</Message>
           </span>
         </Dropdown.ToggleButton>
         <Dropdown.Menu unstyled>
-          <CreateMenuItem icon={<TbReportMoney />} title="Transaction" href="/new-transaction" />
-          <CreateMenuItem icon={<TbReportMoney />} title="Todo" href="/new-transaction" />
-          <CreateMenuItem icon={<TbReportMoney />} title="Brand" href="/new-transaction" />
+          <CreateMenuItem
+            icon={<TbReportMoney />}
+            title={t("BottomNavigation.create.Items.transaction")}
+            href="/new-transaction"
+          />
         </Dropdown.Menu>
       </Dropdown>
     </div>

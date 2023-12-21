@@ -5,7 +5,13 @@
   },
   "BottomNavigation": {
     "home": "Əsas ekran",
-    "history": "Tarixçə ekranı"
+    "history": "Tarixçə ekranı",
+    "create": {
+      "title": "Əlavə et",
+      "Items": {
+        "transaction": "Əməliyyat"
+      }
+    }
   },
   "Toasts": {
     "warning": "Xəbərdarlıq!",
@@ -82,5 +88,27 @@
     "Exceptions": {
       "WrongEmailOrPasswordException": "Email ünvanı və ya şifrə yanlışdır!"
     }
+  },
+  "NewTransactionScreen": {
+    "title": "Yeni əməliyyat",
+    "FormFields": {
+      "common": {
+        "required": "Xana boş ola bilməz"
+      },
+      "title": {
+        "label": "Başlıq",
+        "placeholder": "Qısa başlıq"
+      },
+      "type": "Əməliyyatın növü",
+      "category": "Kateqoriya",
+      "currency": "Valyuta",
+      "amount": {
+        "label": "Məbləğ",
+        "invalidFormat": "Məbləğ düzgün qeyd olunmayıb"
+      },
+      "dateTime": "Tarix və vaxt"
+    },
+    "success": "Əməliyyat müvəffəqiyyət ilə əlavə olundu",
+    "error": "Əməliyyatı əlavə edərkən xəta baş verdi: {{error}}"
   }
 }

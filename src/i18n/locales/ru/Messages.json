@@ -5,7 +5,13 @@
   },
   "BottomNavigation": {
     "home": "Главный экран",
-    "history": "Экран истории"
+    "history": "Экран истории",
+    "create": {
+      "title": "Создать",
+      "Items": {
+        "transaction": "Транзакция"
+      }
+    }
   },
   "Toasts": {
     "warning": "Предупреждение!",
@@ -82,5 +88,27 @@
     "Exceptions": {
       "WrongEmailOrPasswordException": "Неверный пароль или адрес электронной почты!"
     }
+  },
+  "NewTransactionScreen": {
+    "title": "Новая транзакция",
+    "FormFields": {
+      "common": {
+        "required": "Значение поля не может быть пустым"
+      },
+      "title": {
+        "label": "Наименование",
+        "placeholder": "Краткий заголовок"
+      },
+      "type": "Тип операции",
+      "category": "Категория",
+      "currency": "Валюта",
+      "amount": {
+        "label": "Сумма",
+        "invalidFormat": "Сумма указана неверно"
+      },
+      "dateTime": "Дата и время"
+    },
+    "success": "Транзакция успешно добавлена",
+    "error": "Произошла ошибка во время добавления транзакции: {{error}}"
   }
 }

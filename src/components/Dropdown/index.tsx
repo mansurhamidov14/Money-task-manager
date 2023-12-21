@@ -27,7 +27,8 @@ export function Dropdown(props: ParentProps<DropdownProps>) {
       horizontalPlacement: finalProps.horizontalPlacement,
       verticalPlacement: finalProps.verticalPlacement,
       onOpen: finalProps.onOpen,
-      onClose: finalProps.onClose
+      onClose: finalProps.onClose,
+      overlayZIndex: finalProps.overlayZIndex
     }}>
       <Show when={finalProps.hasOverlay && isOpen()}>
         <Portal>

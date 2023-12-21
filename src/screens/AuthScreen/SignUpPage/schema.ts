@@ -1,8 +1,8 @@
-import * as yup from 'yup';
-import { t } from '@app/i18n';
-import { userService } from '@app/services';
-import { MIN_FIRST_NAME_LENGTH, MIN_LAST_NAME_LENGTH, MIN_PASSWORD_LENGTH } from './constants';
-import { CurrencyCode } from '@app/constants';
+import * as yup from "yup";
+import { CurrencyCode } from "@app/constants";
+import { t } from "@app/i18n";
+import { userService } from "@app/services";
+import { MIN_FIRST_NAME_LENGTH, MIN_LAST_NAME_LENGTH, MIN_PASSWORD_LENGTH } from "./constants";
 
 type SignUpForm = {
   firstName: string;

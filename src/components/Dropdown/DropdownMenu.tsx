@@ -16,6 +16,7 @@ function DropdownMenu(props: ParentProps<{class?: string, unstyled?: boolean }>)
         dropdownContext.verticalPlacement,
         dropdownContext.isOpen() && "open"
       )}
+      style={`z-index: ${dropdownContext.overlayZIndex + 1}`}
       aria-labelledby={dropdownContext.id}
     >
       <div class="py-2 first:pt-0 last:pb-0">

@@ -9,7 +9,7 @@ export type TextInputWithFloatingLabelProps = Omit<
 > & {
   id: string;
   containerClass?: string;
-  type?: "email" | "text" | "number" | "password";
+  type?: "email" | "text" | "number" | "password" | "date" | "time" | "datetime-local";
   label: string;
   addonStart?: JSX.Element;
   assistiveText?: string;
