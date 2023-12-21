@@ -3,7 +3,8 @@ import { CategoryId, CurrencyCode } from "@app/constants";
 import { Transaction, TransactionsStore } from "./types";
 import { DateFilter } from "@app/screens/HistoryScreen/types";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
-import { sumAmountForTheLastMonth } from "..";
+import { sumAmountForTheLastMonth } from "../";
+import { transactionService } from "@app/services";
 
 export const mockTransactions: Omit<Transaction, "id">[] = [
   {
@@ -63,50 +64,37 @@ export const mockTransactions: Omit<Transaction, "id">[] = [
 ];
 
 function initTransactionsStore() {
-  const [transactions, setTransactionsore] = createSignal<TransactionsStore>({
-    isLoading: true,
-    hasError: false,
-  });
+  const [transactions, setTransactions] = createSignal<TransactionsStore>({ status: "loading" });
 
-  const setTransactionsoreError = (error: string) => {
-    setTransactionsore({
-      isLoading: false,
-      hasError: true,
-      error
-    });
-  }
+  const setTransactionsError = (error: string) => setTransactions({ status: "error", error });
+  const setTransactionsLoading = () => setTransactions({ status: "loading" });
+  const setTransactionsData = (data: Transaction[]) => setTransactions({ status: "success", data });
 
-  const setTransactionsoreLoading = () => {
-    setTransactionsore({
-      isLoading: true,
-      hasError: false,
-    });
-  }
-
-  const setTransactions = (data: Transaction[]) => {
-    setTransactionsore({
-      isLoading: false,
-      hasError: false,
-      data
-    });
+  const fetchUserTransactions = async (userId: number) => {
+    try {
+      const userTransactions = await transactionService.getUserTransactions(userId);
+      setTransactionsData(userTransactions);
+    } catch (e: any) {
+      setTransactionsError(e.message);
+    }
   }
 
   const addTransaction = (data: Transaction) => {
     // TODO: add service method adding record to db
     const prevData = transactions().data ?? [];
-    setTransactions([...prevData, data]);
+    setTransactionsData([...prevData, data]);
   }
 
   const removeTransaction = (id: number) => {
     // TODO: add service method deleting record from db
-    setTransactions(
+    setTransactionsData(
       transactions().data!.filter(t => t.id !== id)
     );
   }
 
   const updateTransaction = (id: number, data: Partial<Transaction>) => {
     // TODO: add service method modifying record in db
-    setTransactions(
+    setTransactionsData(
       transactions().data!.map(transaction => {
         if (transaction.id !== id) return transaction;
         return { ...transaction, ...data }
@@ -117,7 +105,7 @@ function initTransactionsStore() {
   const descSorter = (a: Transaction, b: Transaction) => a.createdAt > b.createdAt ? -1 : 1;
 
   const latestTransactions = createMemo(() => {
-    if (transactions().isLoading) {
+    if (transactions().status === "loading") {
       return null;
     }
     const now = Date.now();
@@ -134,14 +122,14 @@ function initTransactionsStore() {
   });
 
   const incomeForTheMonth = createMemo(() => {
-    if (transactions().isLoading) {
+    if (transactions().status === "loading") {
       return null;
     }
     return sumAmountForTheLastMonth(transactions().data!, "income");
   });
 
   const expensesForTheMonth = createMemo(() => {
-    if (transactions().isLoading) {
+    if (transactions().status === "loading") {
       return null;
     }
     return sumAmountForTheLastMonth(transactions().data!, "expense");
@@ -160,13 +148,14 @@ function initTransactionsStore() {
     latestTransactions,
     getFilteredTransactions,
     addTransaction,
+    fetchUserTransactions,
     removeTransaction,
     updateTransaction,
     incomeForTheMonth,
     expensesForTheMonth,
-    setTransactionsoreError,
-    setTransactionsoreLoading,
-    setTransactions,
+    setTransactionsError,
+    setTransactionsLoading,
+    setTransactionsData,
   };
 }
 

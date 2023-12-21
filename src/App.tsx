@@ -3,8 +3,8 @@ import { Show, onMount } from "solid-js";
 import { BottomNavigation, Layout, Loading, ToastList } from "@app/components";
 import { RerenderOnLangChange } from "@app/i18n";
 import { HistoryScreen, HomeScreen, LoginPage, NewTransactionScreen, SignUpPage } from "@app/screens";
-import { userService, transactionService } from "@app/services";
-import { transactionsStore, user, themeStore } from "@app/stores";
+import { userService } from "@app/services";
+import { transactionsStore, user, themeStore, accountsStore } from "@app/stores";
 
 import "./App.css";
 import { ProtectedRoute } from "./stores/navigation/components/ProtectedRoute";
@@ -27,15 +27,13 @@ export default function() {
   onMount(async () => {
     const authorizedUser = await userService.getAuthorizedUser();
     if (authorizedUser) {
-      const userTransactions = await transactionService.getUserTransactions(authorizedUser.id);
-      setTimeout(() => {
-        transactionsStore.setTransactions(userTransactions);
-      }, 500);
       user.setCurrentUser({
         isAuthorized: true,
         isLoading: false,
         data: authorizedUser
       });
+      await transactionsStore.fetchUserTransactions(authorizedUser.id);
+      await accountsStore.fetchUserAccounts(authorizedUser.id);
     } else {
       user.setCurrentUser({
         isAuthorized: false,

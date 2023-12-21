@@ -1,6 +1,7 @@
 export type AsyncStore<T> = {
-  isLoading: boolean;
-  hasError: boolean;
+  status: AsyncStoreStatus;
   error?: string;
   data?: T
 }
+
+export type AsyncStoreStatus = "loading" | "success" | "error";

@@ -3,8 +3,8 @@ import { IoKey } from "solid-icons/io";
 import { FiAtSign } from "solid-icons/fi";
 import { Button, TextInputWithFloatingLabel as TextInput } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
-import { Link, transactionsStore, user } from "@app/stores";
-import { transactionService, userService } from "@app/services";
+import { Link, accountsStore, transactionsStore, user } from "@app/stores";
+import { userService } from "@app/services";
 import { toastStore } from "@app/stores/toasts";
 import { Field, useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
@@ -27,8 +27,8 @@ export function LoginPage() {
         isAuthorized: true,
         data
       });
-      const transactions = await transactionService.getUserTransactions(data.id);
-      setTimeout(() => transactionsStore.setTransactions(transactions), 2000);
+      await transactionsStore.fetchUserTransactions(data.id);
+      await accountsStore.fetchUserAccounts(data.id);
       navigate("/");
     } catch (e: any) {
       toastStore.pushToast("error", t(`AuthScreen.Exceptions.${e.message}`));

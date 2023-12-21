@@ -38,7 +38,7 @@ export function HistoryScreen() {
       </SectionTitle>
       <CategoryFilter filter={categoryFilter} setFilter={setCategoryFilter} />
       <Show
-        when={!transactionsStore.transactions().isLoading}
+        when={transactionsStore.transactions().status === "success"}
         fallback={<TransactionListSkeleton />}
       >
         <FilteredTransactions

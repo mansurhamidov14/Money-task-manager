@@ -14,11 +14,11 @@ class TransactionService {
     return this.collection.queryAll(["user", userId]);
   }
 
-  updateTransaction(id: number, data: Partial<Transaction>) {
+  update(id: number, data: Partial<Transaction>) {
     return this.collection.update(id, data);
   }
 
-  deleteTransaction(id: number) {
+  delete(id: number) {
     return this.collection.delete(id);
   }
 }

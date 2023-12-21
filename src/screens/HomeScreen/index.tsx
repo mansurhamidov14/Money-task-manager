@@ -10,8 +10,8 @@ import { transactionsStore, user } from "@app/stores";
 import { LatestTransactions, TransactionListSkeleton } from "./components";
 
 export function HomeScreen() {
-  const loadingTransactions = createMemo(() => {
-    return transactionsStore.transactions().isLoading;
+  const transactionsLoaded = createMemo(() => {
+    return transactionsStore.transactions().status === "success";
   });
 
   return (
@@ -32,13 +32,13 @@ export function HomeScreen() {
         <AmountCard
           amount={transactionsStore.incomeForTheMonth()}
           currency={user.currentUser().data!.primaryCurrency}
-          loading={loadingTransactions()}
+          loading={!transactionsLoaded()}
           type="income"
         />
         <AmountCard
           amount={transactionsStore.expensesForTheMonth()}
           currency={user.currentUser().data!.primaryCurrency}
-          loading={loadingTransactions()}
+          loading={!transactionsLoaded()}
           type="expense"
         />
       </div>
@@ -46,7 +46,7 @@ export function HomeScreen() {
         <Message>HomeScreen.recentTransactions</Message>  
       </SectionTitle>
       <Show
-        when={!transactionsStore.transactions().isLoading}
+        when={transactionsLoaded()}
         fallback={<TransactionListSkeleton />}
       >
         <LatestTransactions />
