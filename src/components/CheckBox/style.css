@@ -1,0 +1,12 @@
+input[type="checkbox"].checkbox {
+  @apply 
+    w-4
+    h-4
+    text-primary-600
+    accent-primary-500
+    bg-gray-100
+    border-gray-300
+    rounded
+    dark:bg-gray-800
+    dark:border-gray-800;
+}

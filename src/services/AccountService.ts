@@ -1,4 +1,4 @@
-import { IDBCollection } from "@app/adapters/IDB";
+import { IDBCollection, SearchCondition } from "@app/adapters/IDB";
 import { accountCollection } from "@app/db";
 import { Account } from "@app/stores";
 import { NewAccount } from "./types";
@@ -14,7 +14,7 @@ class AccountService {
     return this.collection.queryAll(["user", userId]);
   }
 
-  update(id: number, data: Partial<Account>) {
+  update(id: SearchCondition, data: Partial<Account>) {
     return this.collection.update(id, data);
   }
 

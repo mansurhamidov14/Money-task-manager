@@ -12,7 +12,7 @@ export function LogOutButton() {
     });
     setTimeout(() => {
       user.setCurrentUser({ isLoading: false, isAuthorized: false });
-      transactionsStore.setTransactionsoreLoading();
+      transactionsStore.setTransactionsLoading();
     }, 500);
   }
   return (

@@ -27,7 +27,7 @@ export function AmountInput(props: InputProps) {
           placeholder="0.00"
           inputMode="numeric"
           errorMessage={field.helpers.errorMessage}
-          addonStart={selectedAccountCurrency()}
+          addonStart={<span class="font-bold">{selectedAccountCurrency()}</span>}
           {...field.props}
         />
       )}

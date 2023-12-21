@@ -36,7 +36,7 @@ export const currencies: Record<CurrencyCode, Currency> = {
   USD: generateCurrency(CurrencyCode.USD, "$", 2, usFlag),
   EUR: generateCurrency(CurrencyCode.EUR, "€", 2, euFlag, ),
   GBP: generateCurrency(CurrencyCode.GBP, "£", 2, gbFlag),
-  TRY: generateCurrency(CurrencyCode.TRY, "₺", 2, trFlag),
-  UAH: generateCurrency(CurrencyCode.UAH, "₴", 2, uaFlag),
-  RUB: generateCurrency(CurrencyCode.RUB, "₽", 2, ruFlag, trailingSignFormatter),
+  TRY: generateCurrency(CurrencyCode.TRY, "₺", 0, trFlag),
+  UAH: generateCurrency(CurrencyCode.UAH, "₴", 0, uaFlag),
+  RUB: generateCurrency(CurrencyCode.RUB, "₽", 0, ruFlag, trailingSignFormatter),
 };

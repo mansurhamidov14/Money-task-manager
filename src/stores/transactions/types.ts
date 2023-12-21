@@ -4,6 +4,7 @@ import { AsyncStore } from "../types";
 export type TransactionType = "expense" | "income";
 export type Transaction = {
   id: number;
+  account: number;
   user: number; 
   title: string;
   currency: CurrencyCode;

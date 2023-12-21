@@ -38,6 +38,7 @@ export function NewTransactionScreen() {
       const amount = formHandler.getFieldValue("amount");
       const transactionData = {
         user: user.currentUser().data!.id,
+        account: formHandler.getFieldValue("account"),
         title: formHandler.getFieldValue("title"),
         category: formHandler.getFieldValue("category"),
         type,

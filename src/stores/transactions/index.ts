@@ -1,67 +1,10 @@
 import { createMemo, createRoot, createSignal } from "solid-js";
-import { CategoryId, CurrencyCode } from "@app/constants";
+import { CategoryId } from "@app/constants";
 import { Transaction, TransactionsStore } from "./types";
 import { DateFilter } from "@app/screens/HistoryScreen/types";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
 import { sumAmountForTheLastMonth } from "../";
 import { transactionService } from "@app/services";
-
-export const mockTransactions: Omit<Transaction, "id">[] = [
-  {
-    user: 2,
-    title: "Maaş",
-    createdAt: new Date("2023-11-30T10:37:24.803Z").getTime(),
-    category: "transfer",
-    currency: CurrencyCode.USD,
-    type: "income",
-    amount: 2500
-  },
-  {
-    user: 2,
-    title: "Vergilər",
-    createdAt: new Date("2023-12-02T12:37:24.803Z").getTime(),
-    category: "transfer",
-    currency: CurrencyCode.USD,
-    type: "expense",
-    amount: 120
-  },
-  {
-    user: 2,
-    title: "Evə bazarlıq",
-    createdAt: new Date("2023-12-03T17:42:24.803Z").getTime(),
-    category: "market",
-    currency: CurrencyCode.USD,
-    type: "expense",
-    amount: 70
-  },
-  {
-    user: 2,
-    title: "Qış ayaqqabısı",
-    createdAt: new Date("2023-12-02T17:42:24.803Z").getTime(),
-    category: "clothing",
-    currency: CurrencyCode.USD,
-    type: "expense",
-    amount: 60
-  },
-  {
-    user: 2,
-    title: "PS çırpırıq manslar",
-    createdAt: new Date("2023-11-29T17:42:24.803Z").getTime(),
-    category: "entertainment",
-    currency: CurrencyCode.USD,
-    type: "expense",
-    amount: 60
-  },
-  {
-    user: 2,
-    title: "Üregim tutdu, aptekə qaçdım",
-    createdAt: new Date("2023-12-05T17:42:24.803Z").getTime(),
-    category: "health",
-    currency: CurrencyCode.USD,
-    type: "expense",
-    amount: 3.2
-  },
-];
 
 function initTransactionsStore() {
   const [transactions, setTransactions] = createSignal<TransactionsStore>({ status: "loading" });

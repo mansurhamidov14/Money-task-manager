@@ -1,6 +1,7 @@
 export * from "./AmountCard";
 export * from "./BottomNavigation";
 export * from "./Button";
+export * from "./CheckBox";
 export * from "./EmptyList";
 export * from "./FilterTab";
 export * from "./Layout";

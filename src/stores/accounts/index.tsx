@@ -20,13 +20,21 @@ function initAccountsStore() {
 
   const addAccount = (newAccount: Account) => setAccountsData([...accounts().data!, newAccount]);
 
+  const removePrimaryFlag = () => {
+    setAccountsData(accounts().data!.map(account => account.primary
+      ? { ...account, primary: 0 }
+      : account 
+    ));
+  }
+
   return {
     accounts,
     addAccount,
     setAccountsData,
     setAccountsLoading,
     setAccountsError,
-    fetchUserAccounts
+    fetchUserAccounts,
+    removePrimaryFlag
   }
 }
 

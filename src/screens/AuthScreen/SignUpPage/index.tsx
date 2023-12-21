@@ -38,7 +38,7 @@ export function SignUpPage() {
         currency: formHandler.getFieldValue("primaryCurrency"),
         balance: 0,
         skin: 1,
-        primary: true
+        primary: 1
       });
       user.setCurrentUser({
         isLoading: false,

@@ -5,7 +5,7 @@ import { Button } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
 import { accountService } from "@app/services";
 import { user, toastStore, accountsStore } from "@app/stores";
-import { CurrencySelect, BalanceInput, TitleInput } from "./FormFields";
+import { CurrencySelect, BalanceInput, TitleInput, PrimaryCheckbox } from "./FormFields";
 
 import { getNewAccountSchema } from "./schema";
 
@@ -20,6 +20,12 @@ export function NewAccountScreen() {
     event.preventDefault();
     try {
       await formHandler.validateForm();
+      const isPrimary = Number(formHandler.getFieldValue("primary")) as 1 | 0;
+      const userId = user.currentUser().data!.id;
+      if (isPrimary) {
+        await accountService.update([["primary", "user"], [1, userId]], { primary: 0 });
+        accountsStore.removePrimaryFlag();
+      }
       const accountData = {
         user: user.currentUser().data!.id,
         title: formHandler.getFieldValue("title"),
@@ -27,7 +33,7 @@ export function NewAccountScreen() {
         balance: formHandler.getFieldValue("balance"),
         createdAt: new Date().getTime(),
         skin: 1,
-        primary: false
+        primary: isPrimary
       };
       const newAccount = await accountService.create(accountData);
       accountsStore.addAccount(newAccount);
@@ -58,6 +64,7 @@ export function NewAccountScreen() {
             <CurrencySelect formHandler={formHandler} />
           </div>
         </div>
+        <PrimaryCheckbox formHandler={formHandler} />
         <Button type="submit" variant="primary" size="lg">
           <Action>Add</Action>
         </Button>

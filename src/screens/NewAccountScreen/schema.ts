@@ -6,6 +6,7 @@ type NewAccountForm = {
   title: string;
   balance: number;
   currency: CurrencyCode;
+  primary: "0" | "1";
 }
 
 export function getNewAccountSchema(defaults: Partial<NewAccountForm>): yup.Schema<NewAccountForm> {
@@ -20,5 +21,9 @@ export function getNewAccountSchema(defaults: Partial<NewAccountForm>): yup.Sche
       .required()
       .oneOf(Object.values(CurrencyCode))
       .default(defaults.currency),
+    primary: yup
+      .mixed<"1" | "0">()
+      .oneOf(["1", "0"])
+      .default("0"),
   });
 }

@@ -38,6 +38,7 @@ const structure: Structure = {
         { key: "category", unique: false, version: 1 },
         { key: "amount", unique: false, version: 1 },
         { key: "type", unique: false, version: 1 },
+        { key: "account", unique: false, version: 1 },
         { key: "currency", unique: false, version: 1 },
         { key: "createdAt", unique: false, version: 1 },
       ],
@@ -45,6 +46,9 @@ const structure: Structure = {
         { fields: ["category", "user"], unique: false, version: 1 },
         { fields: ["type", "user"], unique: false, version: 1 },
         { fields: ["category", "type", "user"], unique: false, version: 1 },
+        { fields: ["account", "category", "user"], unique: false, version: 1 },
+        { fields: ["account", "type", "user"], unique: false, version: 1 },
+        { fields: ["account", "category", "type", "user"], unique: false, version: 1 },
       ]
     },
     {
