@@ -7,6 +7,7 @@ import { userService, transactionService } from "@app/services";
 import { transactionsStore, user, themeStore } from "@app/stores";
 
 import "./App.css";
+import { ProtectedRoute } from "./stores/navigation/components/ProtectedRoute";
 
 function App(props: RouteSectionProps) {
   return (
@@ -58,9 +59,9 @@ export default function() {
             <Route path="/" component={LoginPage} />
             <Route path="/signup" component={SignUpPage} />
           </Route>
-          <Route path="/home" component={HomeScreen} />
-          <Route path="/history" component={HistoryScreen} />
-          <Route path="/new-transaction" component={NewTransactionScreen} />
+          <ProtectedRoute path="/home" component={HomeScreen} />
+          <ProtectedRoute path="/history" component={HistoryScreen} />
+          <ProtectedRoute path="/new-transaction" component={NewTransactionScreen} />
         </Router>
       </Show>
       <ToastList />

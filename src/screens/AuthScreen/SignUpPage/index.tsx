@@ -7,7 +7,7 @@ import { Button, Select, TextInputWithFloatingLabel as TextInput } from "@app/co
 import { Action, Message, t } from "@app/i18n";
 import { Link, transactionsStore, user } from "@app/stores";
 import { CurrencyCode, currencies } from "@app/constants";
-import { transactionService, userService } from "@app/services";
+import { accountService, transactionService, userService } from "@app/services";
 import { Field, useFormHandler } from "solid-form-handler";
 import { getSignUpFormSchema } from "./schema";
 import { AuthLayout } from "../AuthLayout";
@@ -32,6 +32,14 @@ export function SignUpPage() {
         updatedAt: createdAt
       };
       const newUser = await userService.signUp(userData);
+      await accountService.create({
+        user: newUser.id,
+        title: t("common.initialAccountName"),
+        currency: formHandler.getFieldValue("primaryCurrency"),
+        balance: 0,
+        skin: 1,
+        primary: true
+      });
       user.setCurrentUser({
         isLoading: false,
         isAuthorized: true,

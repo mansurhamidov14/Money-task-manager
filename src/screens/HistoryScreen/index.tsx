@@ -3,7 +3,7 @@ import { PickerValue } from "@rnwonder/solid-date-picker";
 import { SectionTitle } from "@app/components";
 import { Message } from "@app/i18n";
 import { CategoryId } from "@app/constants";
-import { ProtectedPage, transactionsStore } from "@app/stores";
+import { transactionsStore } from "@app/stores";
 import { initialDateRange } from "./consts";
 import {
   CategoryFilter,
@@ -22,32 +22,30 @@ export function HistoryScreen() {
   const [dateFilter, setDateFilter] = createSignal<TDateFilter>(getDateFilters(dateFilterTab()));
 
   return (
-    <ProtectedPage>
-      <main class="p-3">
-        <h1 class="text-center text-4xl">History Screen</h1>
-        <DateFilter
-          previousTab={prevDateFilterTab}
-          setPreviousTab={setPrevDateFilterTab}
-          activeTab={dateFilterTab}
-          setActiveTab={setDateFilterTab}
-          filterDateRanges={filterDateRanges}
-          setFilterDateRanges={setFilterDateRanges}
-          setDateFilter={setDateFilter}
+    <main class="p-3">
+      <h1 class="text-center text-4xl">History Screen</h1>
+      <DateFilter
+        previousTab={prevDateFilterTab}
+        setPreviousTab={setPrevDateFilterTab}
+        activeTab={dateFilterTab}
+        setActiveTab={setDateFilterTab}
+        filterDateRanges={filterDateRanges}
+        setFilterDateRanges={setFilterDateRanges}
+        setDateFilter={setDateFilter}
+      />
+      <SectionTitle>
+        <Message>HistoryScreen.detailTransactions</Message>
+      </SectionTitle>
+      <CategoryFilter filter={categoryFilter} setFilter={setCategoryFilter} />
+      <Show
+        when={!transactionsStore.transactions().isLoading}
+        fallback={<TransactionListSkeleton />}
+      >
+        <FilteredTransactions
+          dateFilter={dateFilter}
+          categoryFilter={categoryFilter}
         />
-        <SectionTitle>
-          <Message>HistoryScreen.detailTransactions</Message>
-        </SectionTitle>
-        <CategoryFilter filter={categoryFilter} setFilter={setCategoryFilter} />
-        <Show
-          when={!transactionsStore.transactions().isLoading}
-          fallback={<TransactionListSkeleton />}
-        >
-          <FilteredTransactions
-            dateFilter={dateFilter}
-            categoryFilter={categoryFilter}
-          />
-        </Show>
-      </main>
-    </ProtectedPage>
+      </Show>
+    </main>
   );
 }

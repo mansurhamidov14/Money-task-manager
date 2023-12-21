@@ -42,7 +42,7 @@
 }
 
 .flselect:focus ~ .flselect-start-addon:not(.has-error) {
-  @apply text-primary-400 dark:text-primary-600;
+  @apply text-primary-600 dark:text-primary-400;
 }
 
 .flselect-start-addon.has-error {

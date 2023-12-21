@@ -1,7 +1,8 @@
 {
   "common": {
     "expense": "Expense",
-    "income": "Income"
+    "income": "Income",
+    "initialAccountName": "Primary account"
   },
   "BottomNavigation": {
     "home": "Home screen",

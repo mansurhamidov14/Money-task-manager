@@ -48,16 +48,20 @@ const structure: Structure = {
       ]
     },
     {
-      name: "counters",
+      name: "accounts",
       config: defaultTableConfig,
       version: 1,
       fields: [
         { key: "user", unique: false, version: 1 },
-        { key: "field", unique: false, version: 1 },
-        { key: "value", unique: false, version: 1 }
+        { key: "title", unique: false, version: 1 },
+        { key: "currency", unique: false, version: 1 },
+        { key: "balance", unique: false, version: 1 },
+        { key: "primary", unique: false, version: 1},
+        { key: "skin", unique: false, version: 1 },
       ],
       complexIndices: [
-        { fields: ["field", "user"], unique: true, version: 1 }
+        { fields: ["currency", "user"], unique: false, version: 1 },
+        { fields: ["primary", "user"], unique: false, version: 1 },
       ]
     }
   ]

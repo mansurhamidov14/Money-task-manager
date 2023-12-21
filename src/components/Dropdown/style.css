@@ -30,10 +30,6 @@
   @apply opacity-100 m-0 pointer-events-auto;
 }
 
-.dropdown-menu.left {
-  @apply left-0 right-auto;
-}
-
 .dropdown-menu.right {
   @apply left-auto right-0;
 }

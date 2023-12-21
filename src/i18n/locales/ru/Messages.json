@@ -1,7 +1,8 @@
 {
   "common": {
     "expense": "Расходы",
-    "income": "Доходы"
+    "income": "Доходы",
+    "initialAccountName": "Основной счет"
   },
   "BottomNavigation": {
     "home": "Главный экран",

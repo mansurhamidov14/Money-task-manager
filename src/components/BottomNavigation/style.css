@@ -75,7 +75,7 @@
 }
 
 .bottom-nav .dropdown-menu {
-  @apply bottom-[5.5rem] w-[10rem];
+  @apply bottom-[6rem] w-[10rem];
 }
 
 .bottom-nav .dropdown-menu > div {

@@ -35,7 +35,7 @@ export function Dropdown(props: ParentProps<DropdownProps>) {
           <div class="dropdown-overlay" style={`z-index: ${finalProps.overlayZIndex}`}></div>
         </Portal>
       </Show>
-      <div classList={{ "fixed inline-flex": true, open: isOpen() }}>
+      <div classList={{ "inline-flex": true, open: isOpen() }}>
         {props.children}
       </div>
     </DropdownContext.Provider>

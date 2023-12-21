@@ -1,7 +1,8 @@
 {
   "common": {
     "expense": "Xərclər",
-    "income": "Gəlir"
+    "income": "Gəlir",
+    "initialAccountName": "Əsas hesab"
   },
   "BottomNavigation": {
     "home": "Əsas ekran",
