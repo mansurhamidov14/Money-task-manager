@@ -1,14 +1,14 @@
 import { FaSolidChartSimple, FaSolidHouseChimney } from "solid-icons/fa";
 import { NavLink } from "./NavLink";
 import "./style.css";
-import { NewItemButton } from "./NewItemButton";
+import { CreateButton } from "./CreateButton";
 
 export function BottomNavigation() {
   return (
     <nav class="bottom-nav group">
       <div class="grid-cols-3">
         <NavLink screen="home" icon={<FaSolidHouseChimney />} />
-        <NewItemButton />
+        <CreateButton />
         <NavLink screen="history" icon={<FaSolidChartSimple />} />
       </div>
     </nav>

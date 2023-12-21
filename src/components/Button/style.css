@@ -28,6 +28,10 @@
   @apply h-12;
 }
 
+.btn-square {
+  aspect-ratio: 1;
+}
+
 button[type].btn-primary, .btn-primary {
   @apply text-white bg-primary-700 hover:bg-primary-800 dark:bg-primary-600 dark:hover:bg-primary-700;
 }
@@ -47,5 +51,5 @@ button[type].btn-glass, .btn-glass {
     inline-flex
     items-center
     hover:bg-gray-200
-    dark:hover:bg-gray-700;
+    dark:hover:bg-gray-900/30;
 }

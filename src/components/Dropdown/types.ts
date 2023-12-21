@@ -1,15 +1,24 @@
 import { Accessor, Setter } from "solid-js";
 
-export type DropdownHorizontalAlign = "left" | "right";
+export type DropdownHorizontalPlacement = "left" | "right" | "middle";
+export type DropdownVerticalPlacement = "top" | "bottom";
 
 export type DropdownContextType = {
   id: string;
-  horizontalAlign: DropdownHorizontalAlign;
+  horizontalPlacement: DropdownHorizontalPlacement;
+  verticalPlacement: DropdownVerticalPlacement;
   isOpen: Accessor<boolean>;
   setIsOpen: Setter<boolean>;
+  onOpen?: () => void;
+  onClose?: () => void;
 }
 
 export type DropdownProps = {
   id: string;
-  horizontalAlign?: DropdownHorizontalAlign;
+  horizontalPlacement?: DropdownHorizontalPlacement;
+  verticalPlacement?: DropdownVerticalPlacement;
+  onOpen?: () => void;
+  onClose?: () => void;
+  hasOverlay?: boolean;
+  overlayZIndex?: number;
 }

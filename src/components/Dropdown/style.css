@@ -2,49 +2,73 @@
   @apply
     transition-[opacity,margin]
     duration-200
-    min-w-[17ch]
-    bg-white
-    shadow-md
-    rounded-lg
-    p-2
     mt-2
     opacity-0
-    divide-y
-    divide-gray-200
-    dark:bg-gray-800
-    dark:border
-    dark:border-gray-700
-    dark:divide-gray-700
     pointer-events-none
     block
     absolute
     translate-y-12;
 }
 
+.dropdown-menu-default {
+  @apply
+    border
+    rounded-lg
+    min-w-[17ch]
+    bg-white
+    divide-y
+    divide-gray-200
+    dark:bg-gray-800
+    border-secondary-200
+    dark:border-gray-700
+    dark:divide-gray-700
+    shadow-md
+    overflow-hidden;
+}
+
 .dropdown-menu.open {
   @apply opacity-100 m-0 pointer-events-auto;
+}
+
+.dropdown-menu.left {
+  @apply left-0 right-auto;
 }
 
 .dropdown-menu.right {
   @apply left-auto right-0;
 }
 
+.dropdown-menu.middle {
+  @apply left-[50%] translate-x-[-50%];
+}
+
+.dropdown-menu.top {
+  @apply bottom-[6.1rem];
+}
+
 .dropdown-menu .dropdown-item {
+  @apply cursor-pointer;
+    
+}
+
+.dropdown-menu .dropdown-item-default {
   @apply
     flex
     items-center
     gap-x-3.5
     py-2
     px-3
-    rounded-lg
     text-sm
     text-gray-800
     hover:bg-gray-100
     focus:outline-none
     focus:bg-gray-100
     dark:text-gray-400
-    dark:hover:bg-gray-700
+    dark:hover:bg-gray-900/30
     dark:hover:text-gray-300
-    dark:focus:bg-gray-700
-    cursor-pointer
+    p-2
+}
+
+.dropdown-overlay {
+  @apply w-full h-full backdrop-blur fixed top-0 left-0;
 }

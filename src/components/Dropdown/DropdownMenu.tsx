@@ -3,7 +3,7 @@ import { useDropdown } from "./";
 import DropdownItem from "./DropdownItem";
 import classNames from "classnames";
 
-function DropdownMenu(props: ParentProps<{class?: string}>) {
+function DropdownMenu(props: ParentProps<{class?: string, unstyled?: boolean }>) {
   const dropdownContext = useDropdown()!;
 
   return (
@@ -11,7 +11,9 @@ function DropdownMenu(props: ParentProps<{class?: string}>) {
       class={classNames(
         props.class,
         "dropdown-menu",
-        dropdownContext.horizontalAlign,
+        !props.unstyled && "dropdown-menu-default",
+        dropdownContext.horizontalPlacement,
+        dropdownContext.verticalPlacement,
         dropdownContext.isOpen() && "open"
       )}
       aria-labelledby={dropdownContext.id}

@@ -47,13 +47,13 @@
 
 .bottom-nav .nav-link.active {
   @apply text-primary-600 dark:text-primary-500 bg-gray-50 dark:bg-gray-800/50;
-}
+}medium
 
 .bottom-nav .nav-link > svg {
   @apply w-5 h-5;
 }
 
-.bottom-nav .new-item-btn {
+.bottom-nav .create-button {
   @apply
     inline-flex
     items-center
@@ -70,7 +70,47 @@
     text-white;
 }
 
-.bottom-nav .new-item-btn > svg {
+.bottom-nav .create-button > svg {
   @apply w-4 h-4;
 }
 
+.bottom-nav .dropdown-menu {
+  @apply bottom-[5.5rem] w-[10rem];
+}
+
+.bottom-nav .dropdown-menu > div {
+  @apply flex flex-col items-center mb-4 space-y-2;
+}
+
+.bottom-nav .dropdown-menu .create-menu-item {
+  @apply
+    w-[56px]
+    h-[56px]
+    flex
+    flex-col
+    items-center
+    justify-center
+    rounded-full
+    shadow-sm
+    relative;
+}
+
+.bottom-nav .dropdown-menu .create-menu-item,
+.bottom-nav .dropdown-menu .create-menu-item .item-name {
+  @apply
+    border
+    text-gray-500
+    bg-white
+    border-gray-200
+    hover:text-gray-900
+    dark:border-gray-600
+    dark:hover:text-white
+    dark:text-gray-400
+    hover:bg-gray-50
+    dark:bg-gray-700
+    dark:hover:bg-gray-600;
+}
+
+.bottom-nav .dropdown-menu .create-menu-item .item-name {
+  @apply absolute block mb-px text-sm font-medium -translate-y-1/2 end-[68px] top-7 px-2 py-1 rounded-md;
+}
