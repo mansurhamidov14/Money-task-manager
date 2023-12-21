@@ -1,18 +1,23 @@
 import * as yup from "yup";
 import { t } from "@app/i18n";
 import { Categories, CategoryId, CurrencyCode } from "@app/constants";
-import { TransactionType } from "@app/stores";
+import { Account, TransactionType } from "@app/stores";
 
 type NewTransactionForm = {
   title: string;
   type: TransactionType;
   category: CategoryId;
   amount: number;
-  currency: CurrencyCode;
+  account: number;
   date: string;
 }
 
-export function getNewTransactionSchema(defaults: Partial<NewTransactionForm>): yup.Schema<NewTransactionForm> {
+export function getNewTransactionSchema(
+  defaults: Partial<NewTransactionForm>,
+  userAccounts: Account[]
+): yup.Schema<NewTransactionForm> {
+  const userAccountIds = userAccounts.map(account => account.id);
+
   return yup.object({
     title: yup.string()
       .required(t("NewTransactionScreen.FormFields.common.required"))
@@ -28,10 +33,10 @@ export function getNewTransactionSchema(defaults: Partial<NewTransactionForm>): 
     amount: yup.number()
       .required(t("NewTransactionScreen.FormFields.common.required"))
       .typeError(t("NewTransactionScreen.FormFields.amount.invalidFormat")),
-    currency: yup.string()
+    account: yup.number()
       .required()
-      .oneOf(Object.values(CurrencyCode))
-      .default(defaults.currency),
+      .oneOf(userAccountIds)
+      .default(defaults.account),
     date: yup.string()
       .required(t("NewTransactionScreen.FormFields.common.required"))
       .default(defaults.date)

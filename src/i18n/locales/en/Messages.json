@@ -102,7 +102,7 @@
       },
       "type": "Transaction Type",
       "category": "Category",
-      "currency": "Currency",
+      "account": "Transaction Account",
       "amount": {
         "label": "Amount",
         "invalidFormat": "Invalid amount format"

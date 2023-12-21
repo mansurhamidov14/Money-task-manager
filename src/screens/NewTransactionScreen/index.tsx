@@ -3,13 +3,13 @@ import { yupSchema } from "solid-form-handler/yup";
 import { IoCloseOutline } from "solid-icons/io";
 import { Button } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
-import { transactionService } from "@app/services";
-import { transactionsStore, user } from "@app/stores";
+import { accountService, transactionService } from "@app/services";
+import { accountsStore, transactionsStore, user } from "@app/stores";
 import { toastStore } from "@app/stores/toasts";
 import {
   AmountInput,
   CategorySelect,
-  CurrencySelect,
+  AccountSelect,
   DateTimeInput,
   TitleInput,
   TypeSelect
@@ -20,10 +20,10 @@ import { getNewTransactionSchema } from "./schema";
 export function NewTransactionScreen() {
   const formHandler = useFormHandler(yupSchema(getNewTransactionSchema({
     date: new Date().toISOString().slice(0, 16),
-    currency: user.currentUser().data!.primaryCurrency,
+    account: accountsStore.accounts().data!.find(account => account.primary)?.id,
     category: "market",
     type: "expense"
-  })), {
+  }, accountsStore.accounts().data!)), {
     validateOn: ["blur"],
   });
 
@@ -31,16 +31,24 @@ export function NewTransactionScreen() {
     event.preventDefault();
     try {
       await formHandler.validateForm();
+      const affectedAccount = accountsStore.accounts()
+        .data!.find(account => account.id === formHandler.getFieldValue("account"))!;
+      
+      const currency = affectedAccount.currency;
+      const type = formHandler.getFieldValue("type");
+      const amount = formHandler.getFieldValue("amount");
       const transactionData = {
         user: user.currentUser().data!.id,
         title: formHandler.getFieldValue("title"),
         category: formHandler.getFieldValue("category"),
-        type: formHandler.getFieldValue("type"),
-        currency: formHandler.getFieldValue("currency"),
-        amount: Number(formHandler.getFieldValue("amount")),
+        type,
+        currency,
+        amount,
         createdAt: new Date(formHandler.getFieldValue("date")).getTime(),
       };
       const newTransaction = await transactionService.create(transactionData);
+      const balanceChange = type === "income" ? amount : amount * -1;
+      await accountService.update(affectedAccount.id, { balance: affectedAccount.balance + balanceChange });
       transactionsStore.addTransaction(newTransaction);
       toastStore.pushToast("success", t("NewTransactionScreen.success"));
       history.back();
@@ -63,14 +71,8 @@ export function NewTransactionScreen() {
         <TitleInput formHandler={formHandler} />
         <TypeSelect formHandler={formHandler} />
         <CategorySelect formHandler={formHandler} />
-        <div class="flex gap-3">
-          <div class="w-2/3">
-            <AmountInput formHandler={formHandler} />
-          </div>
-          <div class="w-1/3">
-            <CurrencySelect formHandler={formHandler} />
-          </div>
-        </div>
+        <AccountSelect formHandler={formHandler} />
+        <AmountInput formHandler={formHandler} />
         <DateTimeInput formHandler={formHandler} />
         <Button type="submit" variant="primary" size="lg">
           <Action>Add</Action>

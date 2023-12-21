@@ -27,13 +27,13 @@ export default function() {
   onMount(async () => {
     const authorizedUser = await userService.getAuthorizedUser();
     if (authorizedUser) {
+      await transactionsStore.fetchUserTransactions(authorizedUser.id);
+      await accountsStore.fetchUserAccounts(authorizedUser.id);
       user.setCurrentUser({
         isAuthorized: true,
         isLoading: false,
         data: authorizedUser
       });
-      await transactionsStore.fetchUserTransactions(authorizedUser.id);
-      await accountsStore.fetchUserAccounts(authorizedUser.id);
     } else {
       user.setCurrentUser({
         isAuthorized: false,

@@ -102,7 +102,7 @@
       },
       "type": "Əməliyyatın növü",
       "category": "Kateqoriya",
-      "currency": "Valyuta",
+      "account": "Əməliyyat Hesabı",
       "amount": {
         "label": "Məbləğ",
         "invalidFormat": "Məbləğ düzgün qeyd olunmayıb"
