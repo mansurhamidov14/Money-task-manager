@@ -1,13 +1,14 @@
 import { Show, createMemo } from "solid-js";
 import {
-  AmountCard,
+  AccountCard,
   LogOutButton,
   SectionTitle,
   ThemeToggleButton
 } from "@app/components";
 import { Message } from "@app/i18n";
-import { transactionsStore, user } from "@app/stores";
+import { transactionsStore } from "@app/stores";
 import { LatestTransactions, TransactionListSkeleton } from "./components";
+import { skins } from "@app/constants";
 
 export function HomeScreen() {
   const transactionsLoaded = createMemo(() => {
@@ -20,27 +21,8 @@ export function HomeScreen() {
         <ThemeToggleButton />
         <LogOutButton />
       </div>
-      <div class="flex flex-col items-center gap-1 py-5">
-        <div class="font-bold text-3xl">
-          $2,500.50
-        </div>
-        <div class="text-secondary-400 dark:text-secondary-300 font-medium text-sm">
-          <Message>HomeScreen.totalBalance</Message>
-        </div>
-      </div>
-      <div class="flex gap-5 mb-6 mt-4">
-        <AmountCard
-          amount={transactionsStore.incomeForTheMonth()}
-          currency={user.currentUser().data!.primaryCurrency}
-          loading={!transactionsLoaded()}
-          type="income"
-        />
-        <AmountCard
-          amount={transactionsStore.expensesForTheMonth()}
-          currency={user.currentUser().data!.primaryCurrency}
-          loading={!transactionsLoaded()}
-          type="expense"
-        />
+      <div class="px-4">
+        <AccountCard skin={skins[3]} />
       </div>
       <SectionTitle>
         <Message>HomeScreen.recentTransactions</Message>  

@@ -1,3 +1,4 @@
+export * from "./AccountCard";
 export * from "./AmountCard";
 export * from "./BottomNavigation";
 export * from "./Button";

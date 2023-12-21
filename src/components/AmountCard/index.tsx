@@ -6,7 +6,7 @@ import { TransactionType } from "@app/stores";
 import "./style.css";
 
 export type AmountCardContentProps = {
-  loading: boolean;
+  loading?: boolean;
   amount: number | null;
   currency: CurrencyCode;
   type: TransactionType;
@@ -37,19 +37,19 @@ export function AmountCard(props: AmountCardContentProps) {
   return (
     <div class={`amount-card ${props.type}`}>
       <div>
-        <div class="text-sm">
+        <div class="text-xs font-medium">
           <Message>{`common.${props.type}`}</Message>
         </div>
         <Show
           when={!props.loading}
           fallback={<div class="bg-gray-50/25 rounded-md h-5 w-[52px] animate-pulse mt-3" />}
         >
-          <div class="mt-1 text-xl font-semibold">
+          <div class="mt-1 font-bold text-sm">
             {renderParams().amountPrefix}{formattedAmount()}
           </div>
         </Show>
       </div>
-      <div class="mt-1 text-3xl pr-4">{renderParams().icon}</div>
+      <div class="mt-1 text-xl pr-4">{renderParams().icon}</div>
     </div>
   );
 }

@@ -40,7 +40,7 @@ export function NewAccountScreen() {
       toastStore.pushToast("success", t("NewAccountScreen.success"));
       history.back();
     } catch (e: any) {
-      toastStore.pushToast("error", t("NewTransactionScreen.error", undefined, { error: e.message }));
+      toastStore.pushToast("error", t("NewAccountScreen.error", undefined, { error: e.message }));
     }
   }
 
@@ -51,7 +51,7 @@ export function NewAccountScreen() {
           <IoCloseOutline class="text-2xl" />
         </Button>
         <div class="text-xl font-bold flex-1 text-center pe-10">
-          <Message>NewTransactionScreen.title</Message>
+          <Message>NewAccountScreen.title</Message>
         </div>
       </div>
       <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
