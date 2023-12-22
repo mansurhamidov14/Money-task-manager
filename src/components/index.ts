@@ -20,3 +20,4 @@ export * from "./TransactionGroup/Skeleton";
 export * from "./TransactionList";
 export * from "./TransactionListItem";
 export * from "./TransactionListItem/Skeleton";
+export * from "./VerticalScroll";

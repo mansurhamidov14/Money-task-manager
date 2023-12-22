@@ -41,7 +41,7 @@ export function AccountCard(props: AccountCardProps) {
   });
 
   return (
-    <AccountCardDumb {...props}>
+    <AccountCardDumb account={props.account}>
       <AmountCard
         amount={transactionsStore.incomeForTheMonth()}
         currency={user.currentUser().data!.primaryCurrency}

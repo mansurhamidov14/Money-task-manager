@@ -1,7 +1,7 @@
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 import { IoCloseOutline } from "solid-icons/io";
-import { Button } from "@app/components";
+import { Button, VerticalScroll } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
 import { accountService, transactionService } from "@app/services";
 import { accountsStore, transactionsStore, toastStore, user } from "@app/stores";
@@ -32,12 +32,12 @@ export function NewTransactionScreen() {
       await formHandler.validateForm();
       const affectedAccount = accountsStore.accounts()
         .data!.find(account => account.id === formHandler.getFieldValue("account"))!;
-      
+      const userId = user.currentUser().data!.id;
       const currency = affectedAccount.currency;
       const type = formHandler.getFieldValue("type");
       const amount = formHandler.getFieldValue("amount");
       const transactionData = {
-        user: user.currentUser().data!.id,
+        user: userId,
         account: formHandler.getFieldValue("account"),
         title: formHandler.getFieldValue("title"),
         category: formHandler.getFieldValue("category"),
@@ -50,6 +50,7 @@ export function NewTransactionScreen() {
       const balanceChange = type === "income" ? amount : amount * -1;
       await accountService.update(affectedAccount.id, { balance: affectedAccount.balance + balanceChange });
       transactionsStore.addTransaction(newTransaction);
+      accountsStore.fetchUserAccounts(userId);
       toastStore.pushToast("success", t("NewTransactionScreen.success"));
       history.back();
     } catch (e: any) {
@@ -67,17 +68,19 @@ export function NewTransactionScreen() {
           <Message>NewTransactionScreen.title</Message>
         </div>
       </div>
-      <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
-        <TitleInput formHandler={formHandler} />
-        <TypeSelect formHandler={formHandler} />
-        <CategorySelect formHandler={formHandler} />
-        <AccountSelect formHandler={formHandler} />
-        <AmountInput formHandler={formHandler} />
-        <DateTimeInput formHandler={formHandler} />
-        <Button type="submit" variant="primary" size="lg">
-          <Action>Add</Action>
-        </Button>
-      </form>
+      <VerticalScroll hasHeader hasBottomNavigation>
+        <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
+          <TitleInput formHandler={formHandler} />
+          <TypeSelect formHandler={formHandler} />
+          <CategorySelect formHandler={formHandler} />
+          <AccountSelect formHandler={formHandler} />
+          <AmountInput formHandler={formHandler} />
+          <DateTimeInput formHandler={formHandler} />
+          <Button type="submit" variant="primary" size="lg">
+            <Action>Add</Action>
+          </Button>
+        </form>
+      </VerticalScroll>
     </main>
   );
 }

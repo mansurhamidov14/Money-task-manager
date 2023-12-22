@@ -1,5 +1,5 @@
 import { logoDark, logoLight } from "@app/assets";
-import { ThemeToggleButton } from "@app/components";
+import { ThemeToggleButton, VerticalScroll } from "@app/components";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggleButton } from "@app/components/Dropdown";
 import { getLocale, langData, setLocale } from "@app/i18n";
 import { availableLangs } from "@app/i18n/init";
@@ -21,34 +21,36 @@ export function AuthLayout(props: ParentProps) {
   });
 
   return (
-    <div class="pb-3">
-      <div class="flex justify-between px-6 pt-2">
-        <Dropdown id="langDropdown" horizontalPlacement="left">
-          <DropdownToggleButton variant="glass" size="md">
-            <div class="flex items-center gap-2">
-              <img class="w-5 h-5" src={langData[getLocale()].flag} />
-              <span>{langData[getLocale()].code}</span>
-            </div>
-          </DropdownToggleButton>
-          <DropdownMenu class="font-medium w-[11em]">
-            <For each={availableLangs}>
-              {lang => (
-                <DropdownItem onClick={() => setLocale(lang)}>
-                  <div class="flex gap-2">
-                    <img class="w-5 h-5" src={langData[lang].flag} />
-                    <span>{langData[lang].name}</span>
-                  </div>
-                </DropdownItem>
-              )}
-            </For>
-          </DropdownMenu>
-        </Dropdown>
-        <ThemeToggleButton />
+    <VerticalScroll>
+      <div class="pb-3">
+        <div class="flex justify-between px-6 pt-2">
+          <Dropdown id="langDropdown" horizontalPlacement="left">
+            <DropdownToggleButton variant="glass" size="md">
+              <div class="flex items-center gap-2">
+                <img class="w-5 h-5" src={langData[getLocale()].flag} />
+                <span>{langData[getLocale()].code}</span>
+              </div>
+            </DropdownToggleButton>
+            <DropdownMenu class="font-medium w-[11em]">
+              <For each={availableLangs}>
+                {lang => (
+                  <DropdownItem onClick={() => setLocale(lang)}>
+                    <div class="flex gap-2">
+                      <img class="w-5 h-5" src={langData[lang].flag} />
+                      <span>{langData[lang].name}</span>
+                    </div>
+                  </DropdownItem>
+                )}
+              </For>
+            </DropdownMenu>
+          </Dropdown>
+          <ThemeToggleButton />
+        </div>
+        <div class="flex justify-center py-5">
+          <img src={logos[themeStore.theme()]} class="w-[230px] h-auto" />
+        </div>
+        {props.children}
       </div>
-      <div class="flex justify-center py-5">
-        <img src={logos[themeStore.theme()]} class="w-[230px] h-auto" />
-      </div>
-      {props.children}
-    </div>
+    </VerticalScroll>
   );
 }

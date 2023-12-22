@@ -1,6 +1,6 @@
 import { Show, createSignal } from "solid-js";
 import { PickerValue } from "@rnwonder/solid-date-picker";
-import { SectionTitle } from "@app/components";
+import { SectionTitle, VerticalScroll } from "@app/components";
 import { Message } from "@app/i18n";
 import { CategoryId } from "@app/constants";
 import { transactionsStore } from "@app/stores";
@@ -22,30 +22,32 @@ export function HistoryScreen() {
   const [dateFilter, setDateFilter] = createSignal<TDateFilter>(getDateFilters(dateFilterTab()));
 
   return (
-    <main class="p-3">
-      <h1 class="text-center text-4xl">History Screen</h1>
-      <DateFilter
-        previousTab={prevDateFilterTab}
-        setPreviousTab={setPrevDateFilterTab}
-        activeTab={dateFilterTab}
-        setActiveTab={setDateFilterTab}
-        filterDateRanges={filterDateRanges}
-        setFilterDateRanges={setFilterDateRanges}
-        setDateFilter={setDateFilter}
-      />
-      <SectionTitle>
-        <Message>HistoryScreen.detailTransactions</Message>
-      </SectionTitle>
-      <CategoryFilter filter={categoryFilter} setFilter={setCategoryFilter} />
-      <Show
-        when={transactionsStore.transactions().status === "success"}
-        fallback={<TransactionListSkeleton />}
-      >
-        <FilteredTransactions
-          dateFilter={dateFilter}
-          categoryFilter={categoryFilter}
+    <VerticalScroll hasBottomNavigation>
+      <main class="p-3">
+        <h1 class="text-center text-4xl">History Screen</h1>
+        <DateFilter
+          previousTab={prevDateFilterTab}
+          setPreviousTab={setPrevDateFilterTab}
+          activeTab={dateFilterTab}
+          setActiveTab={setDateFilterTab}
+          filterDateRanges={filterDateRanges}
+          setFilterDateRanges={setFilterDateRanges}
+          setDateFilter={setDateFilter}
         />
-      </Show>
-    </main>
+        <SectionTitle>
+          <Message>HistoryScreen.detailTransactions</Message>
+        </SectionTitle>
+        <CategoryFilter filter={categoryFilter} setFilter={setCategoryFilter} />
+        <Show
+          when={transactionsStore.transactions().status === "success"}
+          fallback={<TransactionListSkeleton />}
+        >
+          <FilteredTransactions
+            dateFilter={dateFilter}
+            categoryFilter={categoryFilter}
+          />
+        </Show>
+      </main>
+    </VerticalScroll>
   );
 }
