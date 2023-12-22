@@ -8,6 +8,7 @@ import travelCard from "./travel_card.png";
 import giftCard from "./gift_card.png";
 import piggyBankCard from "./piggy_bank_card.png";
 import spaceCard from "./space_card.png";
+import redPlanetCard from "./red_planet_card.png";
 
 export {
   blackCard,
@@ -19,5 +20,6 @@ export {
   travelCard,
   giftCard,
   piggyBankCard,
-  spaceCard
+  spaceCard,
+  redPlanetCard
 };
