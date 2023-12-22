@@ -1,11 +1,11 @@
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 import { IoCloseOutline } from "solid-icons/io";
-import { Button } from "@app/components";
+import { AccountCardDumb, Button } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
 import { accountService } from "@app/services";
 import { user, toastStore, accountsStore } from "@app/stores";
-import { CurrencySelect, BalanceInput, TitleInput, PrimaryCheckbox } from "./FormFields";
+import { CurrencySelect, BalanceInput, TitleInput, PrimaryCheckbox, SkinSelect } from "./FormFields";
 
 import { getNewAccountSchema } from "./schema";
 
@@ -32,7 +32,7 @@ export function NewAccountScreen() {
         currency: formHandler.getFieldValue("currency"),
         balance: formHandler.getFieldValue("balance"),
         createdAt: new Date().getTime(),
-        skin: 1,
+        skin: formHandler.getFieldValue("skin"),
         primary: isPrimary
       };
       const newAccount = await accountService.create(accountData);
@@ -54,6 +54,17 @@ export function NewAccountScreen() {
           <Message>NewAccountScreen.title</Message>
         </div>
       </div>
+      <AccountCardDumb
+        account={{
+          id: 0,
+          title: formHandler.getFieldValue("title"),
+          primary: formHandler.getFieldValue("primary"),
+          skin: formHandler.getFieldValue("skin"),
+          balance: formHandler.getFieldValue("balance"),
+          currency: formHandler.getFieldValue("currency"),
+          user: 0,
+        }}
+      />
       <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
         <TitleInput formHandler={formHandler} />
         <div class="flex gap-3">
@@ -64,6 +75,7 @@ export function NewAccountScreen() {
             <CurrencySelect formHandler={formHandler} />
           </div>
         </div>
+        <SkinSelect formHandler={formHandler} />
         <PrimaryCheckbox formHandler={formHandler} />
         <Button type="submit" variant="primary" size="lg">
           <Action>Add</Action>

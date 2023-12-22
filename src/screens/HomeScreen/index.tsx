@@ -6,7 +6,7 @@ import {
   ThemeToggleButton
 } from "@app/components";
 import { Message } from "@app/i18n";
-import { transactionsStore } from "@app/stores";
+import { accountsStore, transactionsStore } from "@app/stores";
 import { LatestTransactions, TransactionListSkeleton } from "./components";
 import { skins } from "@app/constants";
 import { createSlider } from "solid-slider";
@@ -33,16 +33,12 @@ export function HomeScreen() {
       </div>
       <div class="-mx-3">
         <div ref={sliderRef}>
-          <For each={Object.values(skins)}>
-            {skin => (
-              <div class="px-5">
-                <AccountCard skin={skin} />
-              </div>
-            )}
+          <For each={accountsStore.accounts().data!}>
+            {account => <AccountCard account={account} />}
           </For>
         </div>
         <div class="flex justify-center gap-2">
-          <For each={Object.keys(skins)}>
+          <For each={accountsStore.accounts().data!}>
             {(_, index) => (
               <button
                 type="button"

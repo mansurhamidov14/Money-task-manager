@@ -25,5 +25,8 @@ export function getNewAccountSchema(defaults: Partial<NewAccountForm>): yup.Sche
       .mixed<"1" | "0">()
       .oneOf(["1", "0"])
       .default("0"),
+    skin: yup
+      .number()
+      .default(0)
   });
 }
