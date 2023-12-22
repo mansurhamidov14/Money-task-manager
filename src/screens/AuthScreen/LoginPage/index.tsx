@@ -36,7 +36,7 @@ export function LoginPage() {
 
   return (
     <AuthLayout>
-      <form onSubmit={handleSubmit} class="flex flex-col gap-5 justify-around max-w-sm mx-auto px-5">
+      <form onSubmit={handleSubmit} class="flex flex-col gap-5 justify-around px-5">
         <Field
           mode="input"
           name="email"

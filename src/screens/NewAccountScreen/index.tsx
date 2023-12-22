@@ -45,7 +45,7 @@ export function NewAccountScreen() {
   }
 
   return (
-    <main class="max-w-md mx-auto">
+    <main>
       <div class="flex gap-3 h-16 items-center border-b bg-white border-secondary-200/30 dark:bg-gray-900/40 px-2 shadow dark:border-gray-700">
         <Button class="rounded-full" variant="glass" size="md" square onClick={() => history.back()}>
           <IoCloseOutline class="text-2xl" />

@@ -9,7 +9,7 @@ export function AccountCard(props: { skin: Skin }) {
   });
 
   return (
-    <div class="w-full px-10 py-5 relative max-w-sm my-6 mx-auto" style={`background-image: url('${props.skin.image}'); color: ${props.skin.primaryTextColor}; aspect-ratio: 100/67; background-size: contain; background-position: center; background-repeat: no-repeat`}>
+    <div class="px-10 py-5 relative max-w-sm my-6 mx-auto rounded-[30px]" style={`background-image: url('${props.skin.image}'); color: ${props.skin.primaryTextColor}; aspect-ratio: 100/67; background-size: contain; background-position: center; background-repeat: no-repeat`}>
       <div class="font-semibold text-xl">Primary Account</div>
       <div class={`absolute ${props.skin.balancePlacement}`}>
         <div class="flex flex-col">

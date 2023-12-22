@@ -3,9 +3,9 @@
 }
 
 .amount-card.expense {
-  @apply bg-red-200/60 text-red-700/90 shadow-red-400;
+  @apply bg-red-200/70 text-red-700/90 shadow-red-400;
 }
 
 .amount-card.income {
-  @apply bg-teal-200/60 text-teal-700/90 shadow-teal-300;
+  @apply bg-teal-200/70 text-teal-700/90 shadow-teal-300;
 }

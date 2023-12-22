@@ -5,7 +5,6 @@
     w-[270px]
     mx-auto
     h-14
-    max-w-lg
     -translate-x-1/2
     bg-white
     border
@@ -18,7 +17,7 @@
 }
 
 .bottom-nav > div {
-  @apply grid h-full max-w-lg mx-auto;
+  @apply grid h-full;
 }
 
 .bottom-nav .nav-link {

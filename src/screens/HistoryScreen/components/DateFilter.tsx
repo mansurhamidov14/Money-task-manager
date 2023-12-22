@@ -38,7 +38,7 @@ export function DateFilter({
     closeDatePickerRef.click();
   }
   return (
-    <div class="overflow-x-auto mx-[-0.5em] px-2">
+    <div class="overflow-x-auto -mx-3 px-2">
       <div class="flex gap-2 py-5 w-fit">
         {(["day", "week", "month"] as DateFilterTab[]).map((filterType) => (
           <FilterTab

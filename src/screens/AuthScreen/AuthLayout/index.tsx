@@ -22,7 +22,7 @@ export function AuthLayout(props: ParentProps) {
 
   return (
     <div class="pb-3">
-      <div class="flex justify-between max-w-sm mx-auto px-6 pt-2">
+      <div class="flex justify-between px-6 pt-2">
         <Dropdown id="langDropdown" horizontalPlacement="left">
           <DropdownToggleButton variant="glass" size="md">
             <div class="flex items-center gap-2">
