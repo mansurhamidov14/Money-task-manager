@@ -1,4 +1,4 @@
-import { blackCard, blueCard, greenCard, lightPinkCard, pinkCard, yellowCard } from "@app/assets";
+import { blackCard, blueCard, giftCard, greenCard, lightPinkCard, piggyBankCard, pinkCard, spaceCard, travelCard, yellowCard } from "@app/assets";
 import { Skin } from "./types";
 
 export const skins: Record<number, Skin> = {
@@ -44,4 +44,32 @@ export const skins: Record<number, Skin> = {
     secondaryTextColor: "rgba(255, 255, 255, .6)",
     balancePlacement: "right-10 top-[30%]"
   },
+  7: {
+    id: 7,
+    image: travelCard,
+    primaryTextColor: "#FFFFFF",
+    secondaryTextColor: "rgba(255, 255, 255, .6)",
+    balancePlacement: "right-10 top-[32%]"
+  },
+  8: {
+    id: 8,
+    image: giftCard,
+    primaryTextColor: "#FFFFFF",
+    secondaryTextColor: "rgba(255, 255, 255, .6)",
+    balancePlacement: "right-10 top-[32%]"
+  },
+  9: {
+    id: 9,
+    image: piggyBankCard,
+    primaryTextColor: "#FFFFFF",
+    secondaryTextColor: "rgba(255, 255, 255, .6)",
+    balancePlacement: "right-10 top-[32%]"
+  },
+  10: {
+    id: 10,
+    image: spaceCard,
+    primaryTextColor: "#FFFFFF",
+    secondaryTextColor: "rgba(255, 255, 255, .8)",
+    balancePlacement: "right-10 top-[32%]"
+  }
 };
