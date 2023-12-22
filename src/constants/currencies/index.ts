@@ -8,7 +8,10 @@ const leadingSignFormatter = function(sign: string, precision: number) {
       minimumFractionDigits: isWhole ? 0 : precision,
       maximumFractionDigits: precision
     }).format(Math.abs(value));
-    return `${sign}${amount}`;
+    
+    let result = `${sign}${amount}`;
+    if (value < 0) result = "-" + result;
+    return result;
   }
 }
 
@@ -18,7 +21,7 @@ const trailingSignFormatter = function(sign: string, precision: number) {
     const amount = new Intl.NumberFormat("en-US", {
       minimumFractionDigits: isWhole ? 0 : precision,
       maximumFractionDigits: precision
-    }).format(Math.abs(value));
+    }).format(value);
     return `${amount}${sign}`;
   }
 }

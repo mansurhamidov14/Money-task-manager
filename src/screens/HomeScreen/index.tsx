@@ -1,4 +1,4 @@
-import { For, Show, createMemo, onMount } from "solid-js";
+import { For, Show, createMemo, onCleanup, onMount } from "solid-js";
 import {
   AccountCard,
   LogOutButton,
@@ -20,7 +20,7 @@ export function HomeScreen() {
   const options = { duration: 1000 };
   const [slider, { current, moveTo }] = createSlider(options);
   onMount(() => {
-    slider(sliderRef);
+    setTimeout(() => slider(sliderRef), 10);
   });
 
   return (

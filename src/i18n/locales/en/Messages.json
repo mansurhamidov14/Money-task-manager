@@ -35,6 +35,10 @@
     "clothing": "Clothing",
     "education": "Education",
     "entertainment": "Entertainment",
+    "travel": "Travel & Tourism",
+    "utility": "Utility",
+    "beauty": "Beauty & Self-care",
+    "electronics": "Elektronika",
     "other": "Other"
   },
   "HomeScreen": {

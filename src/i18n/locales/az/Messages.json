@@ -35,6 +35,10 @@
     "clothing": "Geyim",
     "education": "Təhsil",
     "entertainment": "Əyləncə",
+    "travel": "Səyahət və turizm",
+    "utility": "Kommunal",
+    "beauty": "Gözəllik və özünə baxım",
+    "electronics": "Elektronika",
     "other": "Digər"
   },
   "HomeScreen": {

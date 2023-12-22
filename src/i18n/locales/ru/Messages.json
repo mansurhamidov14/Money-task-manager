@@ -35,6 +35,10 @@
     "clothing": "Одежда",
     "education": "Образование",
     "entertainment": "Развлечения",
+    "travel": "Путешествия и туризм",
+    "utility": "Коммунальные",
+    "beauty": "Красота и уход",
+    "electronics": "Электроника",
     "other": "Другое"
   },
   "HomeScreen": {
