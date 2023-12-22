@@ -3,7 +3,7 @@ import { yupSchema } from "solid-form-handler/yup";
 import { IoCloseOutline } from "solid-icons/io";
 import { Button, VerticalScroll } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
-import { accountService, transactionService } from "@app/services";
+import { transactionService } from "@app/services";
 import { accountsStore, transactionsStore, toastStore, user } from "@app/stores";
 import {
   AmountInput,
@@ -47,10 +47,8 @@ export function NewTransactionScreen() {
         createdAt: new Date(formHandler.getFieldValue("date")).getTime(),
       };
       const newTransaction = await transactionService.create(transactionData);
-      const balanceChange = type === "income" ? amount : amount * -1;
-      await accountService.update(affectedAccount.id, { balance: affectedAccount.balance + balanceChange });
       transactionsStore.addTransaction(newTransaction);
-      accountsStore.fetchUserAccounts(userId);
+      accountsStore.changeBalance(affectedAccount, amount, type);
       toastStore.pushToast("success", t("NewTransactionScreen.success"));
       history.back();
     } catch (e: any) {

@@ -13,17 +13,11 @@ export type AmountCardContentProps = {
 }
 
 export function AmountCard(props: AmountCardContentProps) {
-  const renderParams = createMemo(() => {
-    const params = {
-      amountPrefix: "-",
-      icon: <FaSolidArrowTrendDown />
-    };
-
-    if (props.type === "income") {
-      params.amountPrefix = "";
-      params.icon = <FaSolidArrowTrendUp />
-    }
-    return params;
+  const renderIcon = createMemo(() => {
+    return {
+      income: <FaSolidArrowTrendUp />,
+      expense: <FaSolidArrowTrendDown />
+    }[props.type];
   });
 
   const formattedAmount = createMemo(() => {
@@ -45,11 +39,11 @@ export function AmountCard(props: AmountCardContentProps) {
           fallback={<div class="bg-gray-50/25 rounded-md h-5 w-[52px] animate-pulse mt-3" />}
         >
           <div class="mt-1 font-bold text-sm">
-            {renderParams().amountPrefix}{formattedAmount()}
+            {formattedAmount()}
           </div>
         </Show>
       </div>
-      <div class="mt-1 text-xl pr-4">{renderParams().icon}</div>
+      <div class="mt-1 text-xl pr-4">{renderIcon()}</div>
     </div>
   );
 }

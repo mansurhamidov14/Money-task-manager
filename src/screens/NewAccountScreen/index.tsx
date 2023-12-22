@@ -4,7 +4,7 @@ import { IoCloseOutline } from "solid-icons/io";
 import { AccountCardDumb, Button, VerticalScroll } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
 import { accountService } from "@app/services";
-import { user, toastStore, accountsStore } from "@app/stores";
+import { user, toastStore, accountsStore, counters, initCountersStore } from "@app/stores";
 import { CurrencySelect, BalanceInput, TitleInput, PrimaryCheckbox, SkinSelect } from "./FormFields";
 
 import { getNewAccountSchema } from "./schema";
@@ -36,6 +36,7 @@ export function NewAccountScreen() {
         primary: isPrimary
       };
       const newAccount = await accountService.create(accountData);
+      counters[newAccount.id] = initCountersStore([]);
       accountsStore.addAccount(newAccount);
       toastStore.pushToast("success", t("NewAccountScreen.success"));
       history.back();

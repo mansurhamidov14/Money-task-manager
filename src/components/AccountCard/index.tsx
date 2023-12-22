@@ -1,6 +1,6 @@
 import { ParentProps, createMemo } from "solid-js";
 import { currencies, skins } from "@app/constants";
-import { Account, transactionsStore, user } from "@app/stores";
+import { Account, accountsStore, counters, user } from "@app/stores";
 import { AmountCard } from "../index";
 
 export type AccountCardProps = {
@@ -36,22 +36,22 @@ export function AccountCardDumb(props: ParentProps<AccountCardProps>) {
 }
 
 export function AccountCard(props: AccountCardProps) {
-  const transactionsLoaded = createMemo(() => {
-    return transactionsStore.transactions().status === "success";
+  const accountsLoaded = createMemo(() => {
+    return accountsStore.accounts().status === "success";
   });
 
   return (
     <AccountCardDumb account={props.account}>
       <AmountCard
-        amount={transactionsStore.incomeForTheMonth()}
-        currency={user.currentUser().data!.primaryCurrency}
-        loading={!transactionsLoaded()}
+        amount={counters[props.account.id].totalIncome()}
+        currency={props.account.currency}
+        loading={!accountsLoaded()}
         type="income"
       />
       <AmountCard
-        amount={transactionsStore.expensesForTheMonth()}
-        currency={user.currentUser().data!.primaryCurrency}
-        loading={!transactionsLoaded()}
+        amount={-counters[props.account.id].totalExpense()}
+        currency={props.account.currency}
+        loading={!accountsLoaded()}
         type="expense"
       />
     </AccountCardDumb>

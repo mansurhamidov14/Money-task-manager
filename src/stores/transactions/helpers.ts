@@ -35,20 +35,3 @@ export const groupTransactionsByDate = (
 
   return Object.values(tempObj);
 }
-
-export const sumAmountForTheLastMonth = (
-  transactions: Transaction[],
-  transactionType: Transaction['type']
-) => {
-  const endTimestamp = Date.now();
-  const startDate = new Date(endTimestamp - 30 * MS_IN_DAY);
-  startDate.setHours(0, 0, 0, 0);
-  const startTimestamp = startDate.getTime();
-  return transactions
-    .filter(
-      t => t.createdAt >= startTimestamp &&
-        t.createdAt <= endTimestamp &&
-        t.type === transactionType
-    )
-    .reduce((acc, val) => acc + val.amount, 0);
-}
