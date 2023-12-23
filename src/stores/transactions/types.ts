@@ -1,4 +1,4 @@
-import { CategoryId, CurrencyCode } from "@app/constants";
+import { CategoryId, Currency, CurrencyCode } from "@app/constants";
 import { AsyncStore } from "../types";
 
 export type TransactionType = "expense" | "income";
@@ -11,13 +11,15 @@ export type Transaction = {
   category: CategoryId;
   type: TransactionType;
   amount: number;
+  transactionDate: string;
+  transactionDateTime: string;
   createdAt: number;
+  updatedAt: number;
 }
 
-export type TransactionsGroup = {
-  date: Date;
-  amount: number | null;
-  transactions: Transaction[];
+export type TransactionGroupSum = {
+  formatter: Currency["formatter"];
+  amount: number;
 }
 
 export type TransactionsStore = AsyncStore<Transaction[]>;

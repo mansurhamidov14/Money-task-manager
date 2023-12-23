@@ -1,7 +1,7 @@
 import { Accessor, For, Show, createMemo } from "solid-js";
 import { EmptyList, TransactionGroup, TransactionList, TransactionListItem } from "@app/components";
-import { CategoryId, CurrencyCode } from "@app/constants";
-import { groupTransactionsByDate, transactionsStore, user } from "@app/stores";
+import { CategoryId } from "@app/constants";
+import { groupTransactionsByDate, sumAmountByCurrency, transactionsStore } from "@app/stores";
 import { DateFilter } from "../types";
 import { FaSolidFilterCircleXmark } from "solid-icons/fa";
 import { Message, t } from "@app/i18n";
@@ -13,14 +13,12 @@ type FilteredTransactionsProps = {
 }
 
 export function FilteredTransactions({ categoryFilter, dateFilter }: FilteredTransactionsProps) {
-  const filteredTransactions = createMemo(() => {
-    return groupTransactionsByDate(
-      transactionsStore.getFilteredTransactions(categoryFilter(), dateFilter()),
-      true
-    );
-  });
-
   const dateFormatter = new DateFormatter(t);
+  const filteredTransactions = createMemo(() => (
+    Object.entries(groupTransactionsByDate(
+      transactionsStore.getFilteredTransactions(categoryFilter(), dateFilter())
+    ))
+  ));
 
   return (
     <Show
@@ -33,17 +31,19 @@ export function FilteredTransactions({ categoryFilter, dateFilter }: FilteredTra
     >
       <TransactionList>
         <For each={filteredTransactions()}>
-          {group => (
-            <TransactionGroup
-              date={dateFormatter.humanize(group.date)}
-              amount={group.amount}
-              currency={user.currentUser().data!.primaryCurrency || CurrencyCode.USD}
-            >
-              <For each={group.transactions}>
-                {transaction => <TransactionListItem {...transaction} />}
-              </For>
-            </TransactionGroup>
-          )}
+          {([date, transactions]) => {
+            const amountsByCurrencies = sumAmountByCurrency(transactions);
+            return (
+              <TransactionGroup
+                date={dateFormatter.humanize(new Date(date))}
+                amounts={amountsByCurrencies}
+              >
+                <For each={transactions}>
+                  {transaction => <TransactionListItem {...transaction} />}
+                </For>
+              </TransactionGroup>
+            );
+          }}
         </For>
       </TransactionList>
     </Show>

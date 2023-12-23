@@ -4,7 +4,7 @@ import { BottomNavigation, Layout, Loading, ToastList } from "@app/components";
 import { RerenderOnLangChange } from "@app/i18n";
 import { HistoryScreen, HomeScreen, LoginPage, NewAccountScreen, NewTransactionScreen, SignUpPage } from "@app/screens";
 import { userService } from "@app/services";
-import { transactionsStore, user, themeStore, accountsStore } from "@app/stores";
+import { transactionsStore, user, accountsStore } from "@app/stores";
 
 import "./App.css";
 import { ProtectedRoute } from "./stores/navigation/components/ProtectedRoute";
@@ -23,7 +23,6 @@ function App(props: RouteSectionProps) {
 }
 
 export default function() {
-  const { theme } = themeStore;
   onMount(async () => {
     const authorizedUser = await userService.getAuthorizedUser();
     if (authorizedUser) {
@@ -43,7 +42,7 @@ export default function() {
   });
 
   return (
-    <div class={`${theme()} app-container`}>
+    <div class="app-container">
       <Show
         when={!user.currentUser().isLoading} fallback={(
           <div class="h-[100svh] flex items-center bg-secondary-100 dark:bg-gray-800">

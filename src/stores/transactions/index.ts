@@ -4,6 +4,8 @@ import { Transaction, TransactionsStore } from "./types";
 import { DateFilter } from "@app/screens/HistoryScreen/types";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
 import { transactionService } from "@app/services";
+import { getYYYYMMDD } from "@app/helpers";
+import { descSorter } from "..";
 
 function initTransactionsStore() {
   const [transactions, setTransactions] = createSignal<TransactionsStore>({ status: "loading" });
@@ -44,31 +46,28 @@ function initTransactionsStore() {
     );
   }
 
-  const descSorter = (a: Transaction, b: Transaction) => a.createdAt > b.createdAt ? -1 : 1;
-
   const latestTransactions = createMemo(() => {
     if (transactions().status === "loading") {
       return null;
     }
     const now = Date.now();
     const min = now - RECENT_TRANSACTIONS_MAX_DAYS * 86400000;
-    const nowDate = new Date(now).toISOString().split('T')[0];
-    const minDate = new Date(min).toISOString().split('T')[0];
+    const nowDate = getYYYYMMDD(new Date(now));
+    const minDate = getYYYYMMDD(new Date(min));
 
-    const last10daysTransactions = transactions().data!.filter(transaction => {
-      const transactionDate = new Date(transaction.createdAt).toISOString().split('T')[0];
+    const last10daysTransactions = transactions().data!.filter(({ transactionDate }) => {
       return transactionDate <= nowDate && transactionDate >= minDate;
     });
 
-    return [...last10daysTransactions].sort(descSorter).slice(0, 3);
+    return last10daysTransactions.sort(descSorter).slice(0, 3);
   });
 
   const getFilteredTransactions = (category: CategoryId | null, dateFilter: DateFilter) => {
     const filteredData = transactions().data!.filter(t => {
-      const dateMatches = t.createdAt >= dateFilter.startTimestamp && t.createdAt <= dateFilter.endTimestamp;
+      const dateMatches = t.transactionDate >= dateFilter.startDate && t.transactionDate <= dateFilter.endDate;
       return dateMatches && (category ? t.category === category : true)
     });
-    return filteredData.sort(descSorter);
+    return filteredData.toSorted(descSorter);
   }
 
   return {

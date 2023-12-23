@@ -96,3 +96,6 @@ export class DateFormatter {
   }
 }
 
+export function getYYYYMMDD(date: Date) {
+  return date.toISOString().split("T")[0];
+}

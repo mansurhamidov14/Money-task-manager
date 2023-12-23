@@ -29,8 +29,9 @@ export type Structure = Upgradable<{
   collections: Collection[];
 }>;
 
+
 export type SearchCondition = [accessor: string | string[], value: any] | number | string;
 
 export type UpdateData<T> = ((prevValue: T) => T) | Partial<T>;
 
-export type CreatedRecord<T> = Promise<{ id: number } & T>;
+export type CreatedRecord<T> = Promise<{ id: number; createdAt: number; updatedAt: number } & T>;

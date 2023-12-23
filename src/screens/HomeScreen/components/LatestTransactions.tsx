@@ -1,4 +1,4 @@
-import { Show } from "solid-js";
+import { Show, createMemo } from "solid-js";
 import { ImFilesEmpty } from "solid-icons/im";
 import {
   EmptyList,
@@ -6,13 +6,17 @@ import {
   TransactionList,
   TransactionListItem
 } from "@app/components";
-import { groupTransactionsByDate, transactionsStore, user } from "@app/stores";
+import { groupTransactionsByDate, transactionsStore } from "@app/stores";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "@app/stores/transactions/constants";
 import { Message, t } from "@app/i18n";
 import { DateFormatter } from "@app/helpers";
 
 export function LatestTransactions() {
   const dateFormatter = new DateFormatter(t);
+  const latestTransactions = createMemo(() => (
+    Object.entries(groupTransactionsByDate(transactionsStore.latestTransactions()!))
+  ));
+
   return (
     <Show
       when={transactionsStore.latestTransactions()?.[0]}
@@ -25,19 +29,14 @@ export function LatestTransactions() {
       )}
     >
       <TransactionList>
-        {groupTransactionsByDate(transactionsStore.latestTransactions()!).map(group => (
-          <TransactionGroup
-            date={dateFormatter.humanize(group.date)}
-            amount={group.amount}
-            currency={user.currentUser().data!.primaryCurrency}
-          >
-            {group.transactions.map(transaction => (
+        {latestTransactions().map(([date, transactions]) => (
+          <TransactionGroup date={dateFormatter.humanize(new Date(date))}>
+            {transactions.map(transaction => (
               <TransactionListItem {...transaction} />
             ))}
           </TransactionGroup>
         ))}
       </TransactionList>
     </Show>
-    
   );
 }

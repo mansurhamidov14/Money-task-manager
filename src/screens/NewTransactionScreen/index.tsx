@@ -36,6 +36,8 @@ export function NewTransactionScreen() {
       const currency = affectedAccount.currency;
       const type = formHandler.getFieldValue("type");
       const amount = formHandler.getFieldValue("amount");
+      const transactionDateTime = new Date(formHandler.getFieldValue("date")).toISOString();
+      const transactionDate = transactionDateTime.split("T")[0];
       const transactionData = {
         user: userId,
         account: formHandler.getFieldValue("account"),
@@ -44,7 +46,8 @@ export function NewTransactionScreen() {
         type,
         currency,
         amount,
-        createdAt: new Date(formHandler.getFieldValue("date")).getTime(),
+        transactionDate,
+        transactionDateTime
       };
       const newTransaction = await transactionService.create(transactionData);
       transactionsStore.addTransaction(newTransaction);

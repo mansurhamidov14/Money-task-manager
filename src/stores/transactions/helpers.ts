@@ -1,36 +1,25 @@
-import { Transaction, TransactionsGroup } from "./types"
+import { groupBy } from "@app/helpers";
+import { Transaction, TransactionGroupSum } from "./types"
+import { CurrencyCode, currencies } from "@app/constants";
 
-export const groupTransactionsByDate = (
-  transactions: Transaction[],
-  calculateAmountPerDate = false
-): TransactionsGroup[] => {
-  const tempObj: Record<string, TransactionsGroup> = {};
+export const groupTransactionsByDate = (transactions: Transaction[]) => {
+  return groupBy(transactions, ({ transactionDate  }) => transactionDate);
+}
 
-  transactions.forEach(transaction => {
-    const transactionDate = new Date(transaction.createdAt);
-    transactionDate.setHours(0, 0, 0, 0);
-    const transactionDateString = transactionDate.toISOString().split('T')[0]
-    if (tempObj[transactionDateString]) {
-      tempObj[transactionDateString].transactions.push(transaction);
-      if (calculateAmountPerDate) {
-        tempObj[transactionDateString].amount! += (
-          transaction.type === "income"
-            ? transaction.amount
-            : transaction.amount * -1
-        );
-      }
-    } else {
-      tempObj[transactionDateString] = {
-        date: transactionDate,
-        amount: !calculateAmountPerDate
-          ? null
-          : transaction.type === "income"
-            ? transaction.amount
-            : transaction.amount * -1,
-        transactions: [transaction]
-      }
-    }
+export const sumAmountByCurrency = (transactions: Transaction[]): TransactionGroupSum[] => {
+  const groups = groupBy(transactions, ({ currency }) => currency);
+
+  return Object.entries(groups).map(([currency, _transactions]) => {
+    const formatter = currencies[currency as CurrencyCode].formatter;
+    const summ = _transactions.reduce((acc, transaction) => {
+      const amount = transaction.type === "expense" ? transaction.amount * -1 : transaction.amount; 
+      return acc + amount;
+    }, 0);
+
+    return { formatter, amount: summ };
   });
+}
 
-  return Object.values(tempObj);
+export const descSorter = (a: Transaction, b: Transaction) => {
+  return a.transactionDateTime > b.transactionDateTime ? -1 : 1;
 }

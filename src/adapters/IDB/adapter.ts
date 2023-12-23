@@ -82,18 +82,20 @@ export class IDBAdapter {
     });
   }
 
-  async create<T>(collection: string, data: T): CreatedRecord<T> {
+  async create<T>(collection: string, data: T): Promise<CreatedRecord<T>> {
     const db = await this.openDbConnection();
     const transaction = db.transaction(collection, "readwrite");
     const objectStore = transaction.objectStore(collection);
+    const createdAt = new Date().getTime();
+    const updatedAt = createdAt;
 
     return new Promise((resolve, reject) => {
-      const request = objectStore.add(data);
+      const request = objectStore.add({ ...data, createdAt, updatedAt });
 
       request.addEventListener("success", () => {
         const id = request.result as number;
         db.close();
-        resolve({ id, ...data });
+        resolve({ id, createdAt, updatedAt, ...data }) as T;
       });
 
       request.addEventListener("error", () => {

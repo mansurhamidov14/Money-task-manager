@@ -1,5 +1,5 @@
 import type { IDBAdapter } from "./adapter";
-import { UpdateData, SearchCondition } from "./types";
+import { UpdateData, SearchCondition, CreatedRecord } from "./types";
 
 /** Wrapper for IDBAdapter which manages certain collection */
 export class IDBCollection<T> {
@@ -13,8 +13,8 @@ export class IDBCollection<T> {
     return this.db.queryOne<T>(this.collection, condition);
   }
 
-  create(data: Omit<T, "id">): Promise<T> {
-    return this.db.create<Omit<T, "id">>(this.collection, data) as Promise<T>;
+  create<T>(data: T): Promise<CreatedRecord<T>> {
+    return this.db.create<T>(this.collection, data);
   }
 
   update(condition: SearchCondition, updateData: UpdateData<T>) {

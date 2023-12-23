@@ -1,6 +1,6 @@
 import { Account, Transaction, User } from "@app/stores";
 
-type CreationRequestData<T> = Omit<T, "id">
+export type CreationRequestData<T> = Omit<T, "id" | "createdAt" | "updatedAt">
 
 export type RegisterUser = {
   password: string;

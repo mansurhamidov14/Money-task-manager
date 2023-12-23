@@ -57,7 +57,7 @@ export function TransactionListItem(props: Transaction) {
               {getTransactionValue(props.amount, props.currency, props.type)}
             </div>
             <div class="text-secondary-400 dark:text-secondary-300 text-xs mt-1.5">
-              {new Date(props.createdAt).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}
+              {new Date(props.transactionDateTime).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}
             </div>
           </div>
         </div>
