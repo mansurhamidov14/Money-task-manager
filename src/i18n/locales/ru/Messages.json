@@ -2,6 +2,7 @@
   "common": {
     "expense": "Расходы",
     "income": "Доходы",
+    "balance": "Баланс",
     "initialAccountName": "Основной счет",
     "FormFields": {
       "required": "Значение поля не может быть пустым",

@@ -127,6 +127,8 @@
         "invalidFormat": "Balans düzgün qeyd olunmayıb"
       },
       "primary": "Əsas hesab təyin et"
-    }
+    },
+    "success": "Hesab müvəffəqiyyət ilə əlavə olundu",
+    "error": "Hesabı əlavə edərkən xəta baş verdi: {{error}}"
   }
 }

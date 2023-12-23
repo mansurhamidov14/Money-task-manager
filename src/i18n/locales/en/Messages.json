@@ -2,6 +2,7 @@
   "common": {
     "expense": "Expense",
     "income": "Income",
+    "balance": "Balance",
     "initialAccountName": "Primary account",
     "FormFields": {
       "required": "This field is required",

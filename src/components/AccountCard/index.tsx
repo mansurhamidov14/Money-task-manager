@@ -1,7 +1,8 @@
 import { ParentProps, createMemo } from "solid-js";
 import { currencies, skins } from "@app/constants";
-import { Account, accountsStore, counters, user } from "@app/stores";
+import { Account, accountsStore, counters } from "@app/stores";
 import { AmountCard } from "../index";
+import { Message } from "@app/i18n";
 
 export type AccountCardProps = {
   account: Account;
@@ -21,7 +22,9 @@ export function AccountCardDumb(props: ParentProps<AccountCardProps>) {
         <div class="font-semibold text-xl">{props.account.title}</div>
         <div class={`absolute ${skin().balancePlacement}`}>
           <div class="flex flex-col">
-            <div class="text-xs font-normal" style={`color: ${skin().secondaryTextColor}`}>Balance</div>
+            <div class="text-xs font-normal" style={`color: ${skin().secondaryTextColor}`}>
+              <Message>common.balance</Message>
+            </div>
             <div class="text-2xl font-bold">
               {currencies[props.account.currency].formatter(props.account.balance)}
             </div>
