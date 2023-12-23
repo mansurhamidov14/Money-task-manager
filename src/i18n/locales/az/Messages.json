@@ -2,6 +2,7 @@
   "common": {
     "expense": "Xərclər",
     "income": "Gəlir",
+    "balance": "Balans",
     "initialAccountName": "Əsas hesab",
     "FormFields": {
       "required": "Xana boş ola bilməz",
@@ -39,6 +40,7 @@
     "utility": "Kommunal",
     "beauty": "Gözəllik və özünə baxım",
     "electronics": "Elektronika",
+    "gift": "Hədiyyələr",
     "other": "Digər"
   },
   "HomeScreen": {

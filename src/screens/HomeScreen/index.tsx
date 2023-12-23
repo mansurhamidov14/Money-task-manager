@@ -1,4 +1,4 @@
-import { For, Show, createMemo, onCleanup, onMount } from "solid-js";
+import { For, Show, createMemo, onMount } from "solid-js";
 import {
   AccountCard,
   LogOutButton,

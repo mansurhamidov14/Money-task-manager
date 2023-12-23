@@ -1,4 +1,3 @@
-import { MS_IN_DAY } from "@app/constants";
 import { Transaction, TransactionsGroup } from "./types"
 
 export const groupTransactionsByDate = (

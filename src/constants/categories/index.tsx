@@ -6,7 +6,8 @@ import {
   IoRestaurantOutline,
   IoShirtOutline,
   IoCarSportOutline,
-  IoSchoolOutline
+  IoSchoolOutline,
+  IoGift
 } from "solid-icons/io";
 import { RiHealthMedicalHeartPulseLine } from "solid-icons/ri";
 import { Category, CategoryId } from "./types";
@@ -27,14 +28,15 @@ const generateCategory = (
 });
 
 export const Categories: Record<CategoryId, Category> = {
-  transfer: generateCategory("transfer", FaRegularMoneyBill1, ["#ccfbf1", "#2dd4bf"]),
   market: generateCategory("market", AiOutlineShoppingCart, ["#fef3c7", "#f59e0b"]),
+  transfer: generateCategory("transfer", FaRegularMoneyBill1, ["#ccfbf1", "#2dd4bf"]),
   utility: generateCategory("utility", BsLightbulb, ["#fffbeb", "#f59e0b"]),
   restaurant: generateCategory("restaurant", IoRestaurantOutline, ["#f1f5f9", "#94a3b8"]),
   transport: generateCategory("transport", IoCarSportOutline, ["#cffafe", "#0e7490"]),
   clothing: generateCategory("clothing", IoShirtOutline, ["#fef9c3", "#facc15"]),
   beauty: generateCategory("beauty", BsScissors, ["#fdf4ff", "#c026d3"]),
   health: generateCategory("health", RiHealthMedicalHeartPulseLine, ["#dcfce7", "#4ade80"]),
+  gift: generateCategory("gift", IoGift, ["#fef3c7", "#dc2626"]),
   education: generateCategory("education", IoSchoolOutline, ["#dbeafe", "#1d4ed8"]),
   electronics: generateCategory("electronics", FaSolidComputer, ["#ecfeff", "#0e7490"]),
   entertainment: generateCategory("entertainment", IoGameControllerOutline, ["#ede9fe", "#312e81"]),
