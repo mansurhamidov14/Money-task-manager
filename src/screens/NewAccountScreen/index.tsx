@@ -1,8 +1,7 @@
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
-import { IoCloseOutline } from "solid-icons/io";
-import { AccountCardDumb, Button, VerticalScroll } from "@app/components";
-import { Action, Message, t } from "@app/i18n";
+import { AccountCardDumb, Button, ScreenHeader, VerticalScroll } from "@app/components";
+import { Action, t } from "@app/i18n";
 import { accountService } from "@app/services";
 import { user, toastStore, accountsStore, counters, initCountersStore } from "@app/stores";
 import { CurrencySelect, BalanceInput, TitleInput, PrimaryCheckbox, SkinSelect } from "./FormFields";
@@ -47,14 +46,7 @@ export function NewAccountScreen() {
 
   return (
     <main>
-      <div class="flex gap-3 h-16 items-center border-b bg-white border-secondary-200/30 dark:bg-gray-900/40 px-2 shadow dark:border-gray-700">
-        <Button class="rounded-full" variant="glass" size="md" square onClick={() => history.back()}>
-          <IoCloseOutline class="text-2xl" />
-        </Button>
-        <div class="text-xl font-bold flex-1 text-center pe-10">
-          <Message>NewAccountScreen.title</Message>
-        </div>
-      </div>
+      <ScreenHeader withGoBackButton title={t("NewAccountScreen.title")} />
       <VerticalScroll hasHeader hasBottomNavigation>
         <AccountCardDumb
           account={{

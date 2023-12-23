@@ -12,6 +12,8 @@
   "BottomNavigation": {
     "home": "Əsas ekran",
     "history": "Tarixçə ekranı",
+    "tasks": "Tapşırıqlar ekranı",
+    "settings": "Tənzimləmələr ekranı",
     "create": {
       "title": "Əlavə et",
       "Items": {
@@ -49,6 +51,7 @@
     "noRecentTransactions": "Son {{count}} gündə heç bir əməliyyat olmayıb"
   },
   "HistoryScreen": {
+    "title": "Əməliyyat tarixçəsi",
     "detailTransactions": "Əməliyyat Təfərrüatları",
     "noTransactionForTheFilter": "Filtr üzrə heç bir əməliyyat tapılmadı",
     "DateFilters": {
@@ -133,5 +136,11 @@
     },
     "success": "Hesab müvəffəqiyyət ilə əlavə olundu",
     "error": "Hesabı əlavə edərkən xəta baş verdi: {{error}}"
+  },
+  "TasksScreen": {
+    "title": "Tapşırıqlar"
+  },
+  "SettingsScreen": {
+    "title": "Tənzimləmələr"
   }
 }

@@ -12,7 +12,7 @@ export function NavLink(props: NavLinkProps) {
     <Link
       href={navigation.getNavLinkPath(props.screen)}
       screen="home"
-      classList={{ "nav-link ": true, asctive: navigation.isScreenActive(props.screen) }}
+      class="nav-link"
     >
       {props.icon}
       <span class="sr-only">

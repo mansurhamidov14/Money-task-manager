@@ -10,6 +10,7 @@ export * from "./Loading";
 export * from "./LogOutButton";
 export * from "./SectionTitle";
 export * from "./Select";
+export * from "./ScreenHeader";
 export * from "./TextInput";
 export * from "./TextInputWithFloatingLabel";
 export * from "./ThemeToggleButton";

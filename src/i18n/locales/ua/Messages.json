@@ -12,6 +12,8 @@
   "BottomNavigation": {
     "home": "Головний екран",
     "history": "Екран історії",
+    "tasks": "Екран задач",
+    "settings": "Екран налаштувань",
     "create": {
       "title": "Створити",
       "Items": {
@@ -49,6 +51,7 @@
     "noRecentTransactions": "Немає транзакцій за останні {{count}} днів"
   },
   "HistoryScreen": {
+    "title": "Історія транзакцій",
     "detailTransactions": "Деталізація транзакцій",
     "noTransactionForTheFilter": "Не знайдено транзакцій по заданому фільтру",
     "DateFilters": {
@@ -133,5 +136,11 @@
     },
     "success": "Рахунок успішно доданий",
     "error": "Помилка під час додавання рахунку: {{error}}"
+  },
+  "TasksScreen": {
+    "title": "Задачі"
+  },
+  "SettingsScreen": {
+    "title": "Налаштування"
   }
 }

@@ -12,6 +12,8 @@
   "BottomNavigation": {
     "home": "Home screen",
     "history": "History screen",
+    "tasks": "Tasks screen",
+    "settings": "Settings screen",
     "create": {
       "title": "Create",
       "Items": {
@@ -49,6 +51,7 @@
     "noRecentTransactions": "No transactions in the last {{count}} days"
   },
   "HistoryScreen": {
+    "title": "Transactions History",
     "detailTransactions": "Detail Transactions",
     "noTransactionForTheFilter": "No transactions were found for the filter",
     "DateFilters": {
@@ -133,5 +136,11 @@
     },
     "success": "Account was created successfully",
     "error": "An error occurred while creating an account: {{error}}"
+  },
+  "TasksScreen": {
+    "title": "Tasks"
+  },
+  "SettingsScreen": {
+    "title": "Settings"
   }
 }

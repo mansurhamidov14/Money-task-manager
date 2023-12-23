@@ -12,6 +12,8 @@
   "BottomNavigation": {
     "home": "Главный экран",
     "history": "Экран истории",
+    "tasks": "Экран задач",
+    "settings": "Экран настроек",
     "create": {
       "title": "Создать",
       "Items": {
@@ -49,6 +51,7 @@
     "noRecentTransactions": "Нет транзакций за последние {{count}} дней"
   },
   "HistoryScreen": {
+    "title": "История транзакций",
     "detailTransactions": "Детализация транзакций",
     "noTransactionForTheFilter": "Не найдено транзакций по заданному фильтру",
     "DateFilters": {
@@ -133,5 +136,11 @@
     },
     "success": "Счет успешно добавлен",
     "error": "Произошла ошибка во время добавления счета: {{error}}"
+  },
+  "TasksScreen": {
+    "title": "Задачи"
+  },
+  "SettingsScreen": {
+    "title": "Настройки"
   }
 }

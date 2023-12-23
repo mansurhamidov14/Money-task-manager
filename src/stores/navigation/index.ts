@@ -3,7 +3,9 @@ import { Screen, ScreenDefaultRoutes, ScreenRecentRoutes } from "./types";
 
 export const defaultRoutes: ScreenDefaultRoutes = {
   home: "/home",
-  history: "/history"
+  history: "/history",
+  tasks: "/tasks",
+  settings: "/settings"
 };
 
 function initNavigation() {

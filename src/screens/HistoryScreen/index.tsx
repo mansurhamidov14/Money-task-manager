@@ -1,7 +1,7 @@
 import { Show, createSignal } from "solid-js";
 import { PickerValue } from "@rnwonder/solid-date-picker";
-import { SectionTitle, VerticalScroll } from "@app/components";
-import { Message } from "@app/i18n";
+import { ScreenHeader, SectionTitle, VerticalScroll } from "@app/components";
+import { Message, t } from "@app/i18n";
 import { CategoryId } from "@app/constants";
 import { transactionsStore } from "@app/stores";
 import { initialDateRange } from "./consts";
@@ -22,9 +22,10 @@ export function HistoryScreen() {
   const [dateFilter, setDateFilter] = createSignal<TDateFilter>(getDateFilters(dateFilterTab()));
 
   return (
-    <VerticalScroll hasBottomNavigation>
-      <main class="p-3">
-        <h1 class="text-center text-4xl">History Screen</h1>
+    <>
+      <ScreenHeader title={t("HistoryScreen.title")} />
+      <VerticalScroll hasHeader hasBottomNavigation>
+        <main class="px-3">
         <DateFilter
           previousTab={prevDateFilterTab}
           setPreviousTab={setPrevDateFilterTab}
@@ -47,7 +48,8 @@ export function HistoryScreen() {
             categoryFilter={categoryFilter}
           />
         </Show>
-      </main>
-    </VerticalScroll>
+        </main>
+      </VerticalScroll>
+    </>
   );
 }
