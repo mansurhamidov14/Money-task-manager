@@ -1,4 +1,4 @@
-export type Lang = "az" | "en" | "ru";
+export type Lang = "az" | "en" | "ru" | "ua";
 export type I18nOptions = {
   defaultLang?: Lang;
   resources: Record<Lang, {[key: string]: any}>;

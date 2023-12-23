@@ -1,0 +1,136 @@
+{
+  "common": {
+    "expense": "Витрати",
+    "income": "Доходи",
+    "balance": "Баланс",
+    "initialAccountName": "Основний рахунок",
+    "FormFields": {
+      "required": "Значення поля не може бути порожнім",
+      "tooShort": "Довжина має бути не менше {{count}} символів"
+    }
+  },
+  "BottomNavigation": {
+    "home": "Головний екран",
+    "history": "Екран історії",
+    "create": {
+      "title": "Створити",
+      "Items": {
+        "account": "Рахунок",
+        "transaction": "Транзакція"
+      }
+    }
+  },
+  "Toasts": {
+    "warning": "Попередження!",
+    "error": "Помилка!",
+    "success": "Успішно!",
+    "info": "Інформація!"
+  },
+  "Category": {
+    "all": "Всі",
+    "health": "Здоров'я",
+    "market": "Маркет",
+    "Restaurant": "Кафе/Ресторан",
+    "Трансфер": "Трансфер",
+    "transport": "Транспорт",
+    "clothing": "Одяг",
+    "education": "Освіта",
+    "entertainment": "Розваги",
+    "travel": "Подорожі та туризм",
+    "utility": "Комунальні",
+    "beauty": "Краса та догляд",
+    "electronics": "Електроніка",
+    "gift": "Подарунки",
+    "other": "Інше"
+  },
+  "HomeScreen": {
+    "totalBalance": "Загальний баланс",
+    "recentTransactions": "Нещодавні транзакції",
+    "noRecentTransactions": "Немає транзакцій за останні {{count}} днів"
+  },
+  "HistoryScreen": {
+    "detailTransactions": "Деталізація транзакцій",
+    "noTransactionForTheFilter": "Не знайдено транзакцій по заданому фільтру",
+    "DateFilters": {
+      "day": "День",
+      "week": "Тиждень",
+      "month": "Місяць",
+      "custom": "Дати"
+    }
+  },
+  "AuthScreen": {
+    "FormFields": {
+      "Email": {
+        "label": "Електронна пошта",
+        "invalidFormat": "Неправильний формат електронної пошти",
+        "notUnique": "Адреса електронної пошти вже використовується"
+      },
+      "Password": {
+        "label": "Пароль"
+      },
+      "FirstName": {
+        "label": "Ваше ім'я",
+        "placeholder": "Іван"
+      },
+      "LastName": {
+        "label": "Ваше прізвище",
+        "placeholder": "Мельник"
+      },
+      "Currency": {
+        "label": "Основна валюта",
+        "Options": {
+          "AZN": "Азербайджанський манат (₼)",
+          "GBP": "Фунт стерлінг (£)",
+          "USD": "Долар США ($)",
+          "EUR": "Євро (€)",
+          "TRY": "Турецька ліра (₺)",
+          "UAH": "Українська гривня (₴)",
+          "RUB": "Російський рубль (₽)"
+        }
+      }
+    },
+    "alreadyHaveAnAccount": "У вас вже є обліковий запис?",
+    "signIn": "Увійти",
+    "dontHaveAnAccount": "Не зареєстровано?",
+    "signUp": "Створити обліковий запис",
+    "Exceptions": {
+      "WrongEmailOrPasswordException": "Неправильний пароль або адреса електронної пошти!"
+    }
+  },
+  "NewTransactionScreen": {
+    "title": "Нова транзакція",
+    "FormFields": {
+      "title": {
+        "label": "Найменування",
+        "placeholder": "Короткий заголовок"
+      },
+      "type": "Тип операції",
+      "category": "Категорія",
+      "account": "Рахунок операції",
+      "amount": {
+        "label": "Сума",
+        "invalidFormat": "Сума вказана неправильно"
+      },
+      "dateTime": "Дата та час"
+    },
+    "success": "Транзакція успішно додана",
+    "error": "Відбулася помилка під час додавання транзакції: {{error}}"
+  },
+  "NewAccountScreen": {
+    "title": "Новий рахунок",
+    "FormFields": {
+      "title": {
+        "label": "Найменування",
+        "placeholder": "Короткий заголовок"
+      },
+      "currency": "Валюта",
+      "balance": {
+        "label": "Баланс",
+        "invalidFormat": "Баланс не вказано"
+      },
+      "primary": "Зробити основним"
+    },
+    "success": "Рахунок успішно доданий",
+    "error": "Помилка під час додавання рахунку: {{error}}"
+  }
+}

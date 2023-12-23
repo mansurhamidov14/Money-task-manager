@@ -1,7 +1,7 @@
 import { flattenObject } from "@app/helpers";
 import { I18nOptions, Lang } from "./types";
 
-export const availableLangs: Lang[] = ["az", "en", "ru"];
+export const availableLangs: Lang[] = ["az", "en", "ru", "ua"];
 
 const getAppropriateLanguageFromUserAgent = (defaultValue: Lang) => {
   const userAgentLanguage = navigator.language.slice(0, 2) as any;
@@ -19,7 +19,8 @@ const getAppropriateLanguageFromUserAgent = (defaultValue: Lang) => {
 export const translations: Record<Lang, { [key: string ]: any }> = {
   az: {},
   en: {},
-  ru: {}
+  ru: {},
+  ua: {}
 };
 
 const defaulti18nConfig: Required<Omit<I18nOptions, "resources">> = {

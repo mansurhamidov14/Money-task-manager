@@ -1,17 +1,20 @@
 import { createSignal } from "solid-js";
-import { azFlag, ruFlag, usFlag } from "@app/assets";
+import { azFlag, ruFlag, uaFlag, usFlag } from "@app/assets";
 
 import actionsAz from "./locales/az/Actions.json";
 import actionsEn from "./locales/en/Actions.json";
 import actionsRu from "./locales/ru/Actions.json";
+import actionsUa from "./locales/ua/Actions.json";
 
 import dateAz from "./locales/az/Date.json";
 import dateEn from "./locales/en/Date.json";
 import dateRu from "./locales/ru/Date.json";
+import dateUa from "./locales/ua/Date.json";
 
 import messagesAz from "./locales/az/Messages.json";
 import messagesEn from "./locales/en/Messages.json";
 import messagesRu from "./locales/ru/Messages.json";
+import messagesUa from "./locales/ua/Messages.json";
 
 import { i18nConfig, initI18n, translations } from "./init";
 import { Lang, LangData } from "./types";
@@ -32,8 +35,13 @@ export const langData: LangData = {
   },
   ru: {
     code: "RU",
-    name: "Русский язык",
+    name: "Русский",
     flag: ruFlag
+  },
+  ua: {
+    code: "UA",
+    name: "Українська",
+    flag: uaFlag
   }
 };
 
@@ -52,6 +60,11 @@ const resources: Record<Lang, any> = {
     Actions: actionsRu,
     Date: dateRu,
     Messages: messagesRu,
+  },
+  ua: {
+    Actions: actionsUa,
+    Date: dateUa,
+    Messages: messagesUa
   }
 };
 
