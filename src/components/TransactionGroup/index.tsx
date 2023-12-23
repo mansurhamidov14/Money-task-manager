@@ -20,7 +20,7 @@ export function TransactionGroup(props: TransactionGroupProps) {
             "bg-teal-500/10 text-teal-500/70": props.amount! > 0,
             "bg-amber-500/10 text-amber-500/70": props.amount === 0
             }}>
-              {`${props.amount! < 0 ? "-" : ""}${currencies[props.currency].formatter(props.amount!)}`}
+              {`${currencies[props.currency].formatter(props.amount!)}`}
           </div>
         </Show>
       </div>
