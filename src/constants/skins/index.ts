@@ -1,4 +1,18 @@
-import { blackCard, blueCard, giftCard, greenCard, lightPinkCard, piggyBankCard, pinkCard, redPlanetCard, spaceCard, travelCard, yellowCard } from "@app/assets";
+import {
+  arsenalCard,
+  blackCard,
+  blueCard,
+  giftCard,
+  greenCard,
+  juventusCard,
+  lightPinkCard,
+  piggyBankCard,
+  pinkCard,
+  redPlanetCard,
+  spaceCard,
+  travelCard,
+  yellowCard
+} from "@app/assets";
 import { Skin } from "./types";
 
 export const skins: Skin[] = [
@@ -65,6 +79,18 @@ export const skins: Skin[] = [
   {
     image: redPlanetCard,
     primaryTextColor: "rgba(255, 255, 255, .8)",
+    secondaryTextColor: "rgba(255, 255, 255, .8)",
+    balancePlacement: "right-10 top-[30%]"
+  },
+  {
+    image: juventusCard,
+    primaryTextColor: "#FFFFFF",
+    secondaryTextColor: "rgba(255, 255, 255, .9)",
+    balancePlacement: "right-10 top-[30%]"
+  },
+  {
+    image: arsenalCard,
+    primaryTextColor: "#FFFFFF",
     secondaryTextColor: "rgba(255, 255, 255, .8)",
     balancePlacement: "right-10 top-[30%]"
   }

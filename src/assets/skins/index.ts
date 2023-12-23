@@ -1,3 +1,4 @@
+import arsenalCard from "./arsenal_card.png";
 import blackCard from "./black_card.png";
 import blueCard from "./blue_card.png";
 import greenCard from "./green_card.png";
@@ -9,8 +10,10 @@ import giftCard from "./gift_card.png";
 import piggyBankCard from "./piggy_bank_card.png";
 import spaceCard from "./space_card.png";
 import redPlanetCard from "./red_planet_card.png";
+import juventusCard from "./juventus_card.png";
 
 export {
+  arsenalCard,
   blackCard,
   blueCard,
   greenCard,
@@ -21,5 +24,6 @@ export {
   giftCard,
   piggyBankCard,
   spaceCard,
-  redPlanetCard
+  redPlanetCard,
+  juventusCard
 };
