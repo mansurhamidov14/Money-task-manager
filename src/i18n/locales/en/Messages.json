@@ -128,7 +128,8 @@
         "label": "Balance",
         "invalidFormat": "Invalid balance format"
       },
-      "primary": "Set as primary"
+      "primary": "Set as primary",
+      "skins": ["Yellow", "Green", "Blue", "Pink", "Light Pink", "Black", "Tourism", "Gifts", "Piggy Bank", "Universe", "Red Planet", "Juventus", "Arsenal"]
     },
     "success": "Account was created successfully",
     "error": "An error occurred while creating an account: {{error}}"
