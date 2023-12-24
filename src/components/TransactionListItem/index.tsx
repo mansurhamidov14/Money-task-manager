@@ -7,6 +7,7 @@ import {
 } from "@app/constants";
 import { Message } from "@app/i18n";
 import { Transaction } from "@app/stores";
+import { ListItem } from "../ListItem";
 
 export type TransactionListItemProps = {
   category: CategoryId;
@@ -32,36 +33,31 @@ export function TransactionListItem(props: Transaction) {
   });
   
   return (
-    <a href="#">
-      <div class="bg-white dark:bg-gray-700 shadow rounded-lg pl-3 pr-6 py-4">
-        <div class="flex font-medium justify-between gap-3">
-          <div
-            style={{
-              "background-color": Categories[props.category].colors.accent,
-              "color": Categories[props.category].colors.icon
-            }}
-            class="rounded-lg flex justify-center items-center aspect-square h-12 text-3xl"
-          >
-            {categoryIcon()}
-          </div>
-          <div class="flex-1 min-w-0">
-            <div class="font-medium text-ellipsis overflow-hidden whitespace-nowrap">
-              {props.title}
-            </div>
-            <div class="text-secondary-400 dark:text-secondary-300 font-normal text-sm mt-1">
-              <Message>{`Category.${props.category}`}</Message>
-            </div>
-          </div>
-          <div class="text-right">
-            <div class={`text font-bold text-${props.type}`}>
-              {getTransactionValue(props.amount, props.currency, props.type)}
-            </div>
-            <div class="text-secondary-400 dark:text-secondary-300 text-xs mt-1.5">
-              {new Date(props.transactionDateTime).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}
-            </div>
-          </div>
+    <ListItem
+      size="lg"
+      icon={(
+        <div
+          class="h-full flex justify-center items-center text-3xl"
+          style={{
+            "background-color": Categories[props.category].colors.accent,
+            "color": Categories[props.category].colors.icon
+          }}
+        >
+          {categoryIcon()}
         </div>
-      </div>
-    </a>
+      )}
+      title={props.title}
+      description={<Message>{`Category.${props.category}`}</Message>}
+      rightElement={(
+        <>
+          <div class={`text font-bold text-${props.type}`}>
+            {getTransactionValue(props.amount, props.currency, props.type)}
+          </div>
+          <div class="text-secondary-400 dark:text-secondary-300 text-xs mt-1.5">
+            {new Date(props.transactionDateTime).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}
+          </div>
+        </>
+      )}
+    />
   );
 }

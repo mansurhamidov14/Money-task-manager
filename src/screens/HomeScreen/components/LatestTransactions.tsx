@@ -2,8 +2,8 @@ import { Show, createMemo } from "solid-js";
 import { ImFilesEmpty } from "solid-icons/im";
 import {
   EmptyList,
+  List,
   TransactionGroup,
-  TransactionList,
   TransactionListItem
 } from "@app/components";
 import { groupTransactionsByDate, transactionsStore } from "@app/stores";
@@ -28,7 +28,7 @@ export function LatestTransactions() {
         </EmptyList>
       )}
     >
-      <TransactionList>
+      <List>
         {latestTransactions().map(([date, transactions]) => (
           <TransactionGroup date={dateFormatter.humanize(new Date(date))}>
             {transactions.map(transaction => (
@@ -36,7 +36,7 @@ export function LatestTransactions() {
             ))}
           </TransactionGroup>
         ))}
-      </TransactionList>
+      </List>
     </Show>
   );
 }

@@ -1,12 +1,12 @@
 import {
+  List,
   TransactionGroupSkeleton,
-  TransactionList,
   TransactionListItemSkeleton
 } from "@app/components";
 
 export function TransactionListSkeleton() {
   return (
-    <TransactionList>
+    <List>
       <TransactionGroupSkeleton>
         <TransactionListItemSkeleton />
       </TransactionGroupSkeleton>
@@ -16,6 +16,6 @@ export function TransactionListSkeleton() {
       <TransactionGroupSkeleton>
         <TransactionListItemSkeleton amountColor="bg-teal-200 dark:bg-teal-400/30" />
       </TransactionGroupSkeleton>
-    </TransactionList>
+    </List>
   );
 }

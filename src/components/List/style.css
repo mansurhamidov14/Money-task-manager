@@ -1,0 +1,15 @@
+.wfo-list {
+  @apply flex flex-col;
+}
+
+.wfo-list.gap-sm {
+  @apply gap-1;
+}
+
+.wfo-list.gap-md {
+  @apply gap-2;
+}
+
+.wfo-list.gap-lg {
+  @apply gap-4;
+}

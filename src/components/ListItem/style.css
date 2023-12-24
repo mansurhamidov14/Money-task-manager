@@ -1,0 +1,15 @@
+.wfo-list-item {
+  @apply block bg-white dark:bg-gray-700 shadow rounded-lg pl-3 pr-6;
+}
+
+.wfo-list-item.sm {
+  @apply py-1;
+}
+
+.wfo-list-item.md {
+  @apply py-2;
+}
+
+.wfo-list-item.lg {
+  @apply py-4;
+}

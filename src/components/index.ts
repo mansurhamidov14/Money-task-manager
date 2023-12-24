@@ -7,6 +7,7 @@ export * from "./ConfirmationModal";
 export * from "./EmptyList";
 export * from "./FilterTab";
 export * from "./Layout";
+export * from "./ListItem";
 export * from "./Loading";
 export * from "./LogOutButton";
 export * from "./Modal";
@@ -20,7 +21,7 @@ export * from "./Toast";
 export * from "./ToastList"
 export * from "./TransactionGroup";
 export * from "./TransactionGroup/Skeleton";
-export * from "./TransactionList";
+export * from "./List";
 export * from "./TransactionListItem";
 export * from "./TransactionListItem/Skeleton";
 export * from "./VerticalScroll";

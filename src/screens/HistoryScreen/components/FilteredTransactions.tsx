@@ -1,5 +1,5 @@
 import { Accessor, For, Show, createMemo } from "solid-js";
-import { EmptyList, TransactionGroup, TransactionList, TransactionListItem } from "@app/components";
+import { EmptyList, List, TransactionGroup, TransactionListItem } from "@app/components";
 import { CategoryId } from "@app/constants";
 import { groupTransactionsByDate, sumAmountByCurrency, transactionsStore } from "@app/stores";
 import { DateFilter } from "../types";
@@ -29,7 +29,7 @@ export function FilteredTransactions({ categoryFilter, dateFilter }: FilteredTra
         </EmptyList>
       )}
     >
-      <TransactionList>
+      <List>
         <For each={filteredTransactions()}>
           {([date, transactions]) => {
             const amountsByCurrencies = sumAmountByCurrency(transactions);
@@ -45,7 +45,7 @@ export function FilteredTransactions({ categoryFilter, dateFilter }: FilteredTra
             );
           }}
         </For>
-      </TransactionList>
+      </List>
     </Show>
   );
 }
