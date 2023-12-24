@@ -9,6 +9,10 @@
       "tooShort": "Can not be shorter than {{count}} characters"
     }
   },
+  "ConfirmationRequestDefaults": {
+    "confirm": "Yes, I am",
+    "cancel": "Cancel"
+  },
   "BottomNavigation": {
     "home": "Home screen",
     "history": "History screen",

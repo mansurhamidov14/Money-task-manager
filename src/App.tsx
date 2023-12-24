@@ -1,6 +1,12 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
 import { Show, onMount } from "solid-js";
-import { BottomNavigation, Layout, Loading, ToastList } from "@app/components";
+import {
+  BottomNavigation,
+  ConfirmationModal,
+  Layout,
+  Loading,
+  ToastList
+} from "@app/components";
 import { RerenderOnLangChange } from "@app/i18n";
 import {
   HistoryScreen,
@@ -74,6 +80,7 @@ export default function() {
         </Router>
       </Show>
       <ToastList />
+      <ConfirmationModal />
     </div>
   );
 }

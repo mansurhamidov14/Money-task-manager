@@ -80,5 +80,3 @@ function initAccountsStore() {
 }
 
 export const accountsStore = createRoot(initAccountsStore);
-// @ts-ignore
-window.accounts = accountsStore.accounts;

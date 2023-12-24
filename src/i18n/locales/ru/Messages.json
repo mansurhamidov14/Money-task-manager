@@ -9,6 +9,10 @@
       "tooShort": "Длина должна быть не менее {{count}} символов"
     }
   },
+  "ConfirmationRequestDefaults": {
+    "confirm": "Да, уверен",
+    "cancel": "Отменить"
+  },
   "BottomNavigation": {
     "home": "Главный экран",
     "history": "Экран истории",

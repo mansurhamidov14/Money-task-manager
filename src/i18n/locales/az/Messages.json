@@ -9,6 +9,10 @@
       "tooShort": "Ən az {{count}} simvoldan ibarət olmalıdır"
     }
   },
+  "ConfirmationRequestDefaults": {
+    "confirm": "Bəli, əminəm",
+    "cancel": "İmtina edirəm"
+  },
   "BottomNavigation": {
     "home": "Əsas ekran",
     "history": "Tarixçə ekranı",

@@ -26,6 +26,3 @@ export function initCountersStore(transactions: Transaction[]) {
 
 /** We will fill this object later with counters for each account */
 export const counters: Record<number, ReturnType<typeof initCountersStore>> = {};
-
-// @ts-ignore
-window.counters = counters;
