@@ -36,6 +36,13 @@ function initTransactionsStore() {
     );
   }
 
+  const deleteByAccountId = async (account: number) => {
+    await transactionService.deleteByAccountId(account);
+    setTransactionsData(
+      transactions().data!.filter(t => t.account !== account)
+    );
+  }
+
   const updateTransaction = (id: number, data: Partial<Transaction>) => {
     // TODO: add service method modifying record in db
     setTransactionsData(
@@ -85,6 +92,7 @@ function initTransactionsStore() {
     addTransaction,
     fetchUserTransactions,
     removeTransaction,
+    deleteByAccountId,
     updateTransaction,
     setTransactionsError,
     setTransactionsLoading,

@@ -4,7 +4,7 @@ import { JSX, mergeProps, splitProps } from "solid-js";
 import"./style.css";
 
 export type ButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary" | "glass" | "danger",
+  variant?: "primary" | "secondary" | "transparent" | "danger",
   size?: "sm" | "md" | "lg",
   full?: boolean;
   square?: boolean;

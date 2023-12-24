@@ -1,4 +1,4 @@
-import { For, Show, createMemo, onMount } from "solid-js";
+import { For, Show, createMemo, onCleanup, onMount } from "solid-js";
 import {
   AccountCard,
   LogOutButton,
@@ -18,9 +18,26 @@ export function HomeScreen() {
   });
   
   const options = { duration: 1000 };
-  const [slider, { current, moveTo }] = createSlider(options);
+  const [slider, { current, moveTo, destroy }] = createSlider(options);
+
+  const moveToPrimaryAccountSlide = () => {
+    setTimeout(() => moveTo(accountsStore.accounts().data!.findIndex(a => a.primary)), 20);
+  }
+
+  const reBuildSlider = () => {
+    destroy();
+    setTimeout(() => slider(sliderRef), 10);
+    moveToPrimaryAccountSlide();
+  }
+
   onMount(() => {
     setTimeout(() => slider(sliderRef), 10);
+    moveToPrimaryAccountSlide();
+    window.addEventListener("accountdeleted", reBuildSlider);
+  });
+
+  onCleanup(() => {
+    window.removeEventListener("accountdeleted", reBuildSlider);
   });
 
   return (
@@ -30,28 +47,29 @@ export function HomeScreen() {
           <ThemeToggleButton />
           <LogOutButton />
         </div>
-        <div class="-mx-3">
+        <div class="-mx-3 relative">
           <div ref={sliderRef}>
             <For each={accountsStore.accounts().data!}>
               {account => <AccountCard hasBackSide account={account} />}
             </For>
           </div>
-          <div class="flex justify-center gap-2">
-            <For each={accountsStore.accounts().data!}>
-              {(_, index) => (
-                <button
-                  type="button"
-                  classList={{
-                    "rounded-full w-3 h-3 cursor-pointer": true,
-                    "bg-secondary-300": current() === index(),
-                    "bg-secondary-300/40": current() !== index()
-                  }}
-                  onClick={() => moveTo(index())}
-                />
-              )}
-            </For>
-            
-          </div>
+          <Show when={accountsStore.accounts().data!.length > 1}>
+            <div class="absolute w-full bottom-1 flex justify-center gap-2">
+              <For each={accountsStore.accounts().data!}>
+                {(_, index) => (
+                  <button
+                    type="button"
+                    classList={{
+                      "rounded-full w-3 h-3 cursor-pointer": true,
+                      "bg-secondary-400 dark:bg-secondary-300": current() === index(),
+                      "bg-secondary-400/40 dark:bg-secondary-300/40": current() !== index()
+                    }}
+                    onClick={() => moveTo(index())}
+                  />
+                )}
+              </For>
+            </div>
+          </Show>
         </div>
         <SectionTitle>
           <Message>HomeScreen.recentTransactions</Message>  

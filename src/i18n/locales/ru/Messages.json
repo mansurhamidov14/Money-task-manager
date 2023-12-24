@@ -9,9 +9,16 @@
       "tooShort": "Длина должна быть не менее {{count}} символов"
     }
   },
-  "ConfirmationRequestDefaults": {
-    "confirm": "Да, уверен",
-    "cancel": "Отменить"
+  "ConfirmationRequest": {
+    "defaults": {
+      "title": "Подтвердите действие",
+      "confirm": "Подтвердить",
+      "cancel": "Отменить"
+    },
+    "accountDeletion": {
+      "text": "Счет будет удален вместе со связанными с ним транзакциями. Вы уверены?",
+      "confirm": "Да, уверен"
+    }
   },
   "BottomNavigation": {
     "home": "Главный экран",

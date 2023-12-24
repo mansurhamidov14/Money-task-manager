@@ -16,7 +16,7 @@ export function LogOutButton() {
     }, 500);
   }
   return (
-    <Button class="w-10 h-10 text-xl" size="md" variant="glass" type="button" onClick={handleClick}>
+    <Button class="w-10 h-10 text-xl" size="md" variant="transparent" type="button" onClick={handleClick}>
       <IoLogOutOutline />
     </Button>
   );

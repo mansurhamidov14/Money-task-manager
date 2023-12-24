@@ -102,7 +102,9 @@ export function EditAccountScreen() {
               </div>
             </div>
             <SkinSelect formHandler={formHandler} />
-            <PrimaryCheckbox formHandler={formHandler} />
+            <Show when={!prevValues()?.primary}>
+              <PrimaryCheckbox formHandler={formHandler} />
+            </Show>
             <Button type="submit" variant="primary" size="lg">
               <Action>Edit</Action>
             </Button>

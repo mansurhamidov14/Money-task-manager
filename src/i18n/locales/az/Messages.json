@@ -9,9 +9,16 @@
       "tooShort": "Ən az {{count}} simvoldan ibarət olmalıdır"
     }
   },
-  "ConfirmationRequestDefaults": {
-    "confirm": "Bəli, əminəm",
-    "cancel": "İmtina edirəm"
+  "ConfirmationRequest": {
+    "defaults": {
+      "title": "Əməliyyatı təsdiq edin",
+      "confirm": "Təsdiq edirəm",
+      "cancel": "İmtina edirəm"
+    },
+    "accountDeletion": {
+      "text": "Hesab ona bağlı olan əməliyyatlarla birlikdə silinəcək. Hesabı silmək istədiyinizə əminsiniz?",
+      "confirm": "Bəli, əminəm"
+    }
   },
   "BottomNavigation": {
     "home": "Əsas ekran",

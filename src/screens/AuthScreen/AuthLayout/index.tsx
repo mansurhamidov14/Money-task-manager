@@ -25,7 +25,7 @@ export function AuthLayout(props: ParentProps) {
       <div class="pb-3">
         <div class="flex justify-between px-6 pt-2">
           <Dropdown id="langDropdown" horizontalPlacement="left">
-            <DropdownToggleButton variant="glass" size="md">
+            <DropdownToggleButton variant="transparent" size="md">
               <div class="flex items-center gap-2">
                 <img class="w-5 h-5" src={langData[getLocale()].flag} />
                 <span>{langData[getLocale()].code}</span>

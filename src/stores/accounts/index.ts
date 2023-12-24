@@ -79,9 +79,15 @@ function initAccountsStore() {
     accountService.update(affectedAccount.id, { balance: currentBalance + difference });
   }
 
+  const deleteAccount = async (id: number) => {
+    await accountService.delete(id);
+    setAccountsData(accounts().data!.filter(a => a.id !== id));
+  }
+
   return {
     accounts,
     addAccount,
+    deleteAccount,
     setAccountsData,
     setAccountsLoading,
     setAccountsError,

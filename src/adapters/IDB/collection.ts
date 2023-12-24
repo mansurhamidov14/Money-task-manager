@@ -21,7 +21,7 @@ export class IDBCollection<T> {
     return this.db.update(this.collection, condition, updateData);
   }
 
-  delete(id: string | number) {
-    return this.db.delete(this.collection, id);
+  delete(condition: SearchCondition) {
+    return this.db.delete(this.collection, condition);
   }
 }

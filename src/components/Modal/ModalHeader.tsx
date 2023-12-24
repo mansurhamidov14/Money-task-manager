@@ -5,7 +5,7 @@ import { ModalContext } from ".";
 export function ModalHeader(props: ParentProps) {
   const modal = useContext(ModalContext);
   return (
-    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+    <div class="flex items-center justify-between px-4 py-3 border-b rounded-t dark:border-gray-600">
       {props.children}
       <button onClick={modal?.onClose} type="button" class="text-secondary-400 bg-transparent hover:bg-secondary-200 hover:text-secondary-700 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">

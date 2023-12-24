@@ -1,11 +1,11 @@
 import { ParentProps, Show, createMemo, createSignal } from "solid-js";
-import { currencies, skins } from "@app/constants";
-import { Account, Link, accountsStore, counters } from "@app/stores";
-import { AmountCard, Button } from "../index";
-import { Action, Message } from "@app/i18n";
-
-import "./style.css";
 import { IoPencil, IoTrash } from "solid-icons/io";
+import { currencies, skins } from "@app/constants";
+import { Account, Link, accountsStore, confirmationStore, counters, transactionsStore } from "@app/stores";
+import { Action, Message, t } from "@app/i18n";
+
+import { AmountCard, Button } from "../index";
+import "./style.css";
 
 export type AccountCardProps = {
   account: Account;
@@ -23,12 +23,26 @@ export function AccountCardDumb(props: ParentProps<AccountCardProps>) {
     if (!event.target.closest(".btn")) {
       setFlipped(v => !v);
     }
-  }
+  };
 
   const handleMouseLeave = () => {
     if (flipped()) {
       setFlipped(false);
     }
+  };
+
+  const deleteAccount = async (id: number) => {
+    await accountsStore.deleteAccount(id);
+    window.dispatchEvent(new CustomEvent("accountdeleted"));
+    await transactionsStore.deleteByAccountId(id);
+  }
+
+  const requestDeletion = (id: number) => {
+    confirmationStore.requestConfirmation({
+      text: t("ConfirmationRequest.accountDeletion.text"),
+      onConfirm: () => deleteAccount(id),
+      confirmButton: { label: t("ConfirmationRequest.accountDeletion.confirm") }
+    });
   }
 
   return (
@@ -77,12 +91,14 @@ export function AccountCardDumb(props: ParentProps<AccountCardProps>) {
                     <Action>Edit</Action>
                   </span>
                 </Link>
-                <Button variant="danger" size="lg" class="px-5">
-                  <IoTrash class="text-xl" />
-                  <span class="sr-only">
-                    <Action>Delete</Action>
-                  </span>
-                </Button>
+                <Show when={!props.account.primary}>
+                  <Button variant="danger" size="lg" class="px-5" onClick={() => requestDeletion(props.account.id)}>
+                    <IoTrash class="text-xl" />
+                    <span class="sr-only">
+                      <Action>Delete</Action>
+                    </span>
+                  </Button>
+                </Show>
               </div>
             </div>
           </Show>

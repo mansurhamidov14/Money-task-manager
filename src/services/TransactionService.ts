@@ -21,6 +21,10 @@ class TransactionService {
   delete(id: number) {
     return this.collection.delete(id);
   }
+
+  deleteByAccountId(accountId: number) {
+    return this.collection.delete(["account", accountId]);
+  }
 }
 
 export const transactionService = new TransactionService(transactionCollection);

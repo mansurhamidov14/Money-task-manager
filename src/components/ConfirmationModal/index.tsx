@@ -14,15 +14,17 @@ export function ConfirmationModal() {
   return (
     <Modal isOpen={confirmationRequested()} onClose={cancel}>
       <ModalHeader>
-        <h3 class="text-xl font-bold">
+        <h3 class="text-xl font-bold dark:text-white">
           {confirmationRequest()?.title}
         </h3>
       </ModalHeader>
-      <ModalBody>
-        <p class="text-secondary-600">
-          {confirmationRequest()?.description}
-        </p>
-      </ModalBody>
+      <Show when={confirmationRequest()?.text}>
+        <ModalBody>
+          <p class="text-secondary-700 dark:text-secondary-400">
+            {confirmationRequest()!.text}
+          </p>
+        </ModalBody>
+      </Show>
       <Show when={confirmationRequested()}>
         <ModalFooter>
           <Button onClick={confirm} variant={confirmationRequest()?.confirmButton.variant as any}>

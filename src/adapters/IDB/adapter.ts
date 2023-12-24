@@ -8,8 +8,14 @@ export class IDBAdapter {
     collection: string,
     condition?: SearchCondition
   ): Promise<T[]> {
+    const { db, data } = await this.makeQuery<T>(collection, condition);
+    db.close();
+    return data;
+  }
+
+  private async makeQuery<T>(collection: string, condition?: SearchCondition, transactionMode?: IDBTransactionMode): Promise<{db: IDBDatabase,objectStore: IDBObjectStore,data: T[]}> {
     const db = await this.openDbConnection();
-    const transaction = db.transaction(collection, "readonly");
+    const transaction = db.transaction(collection, transactionMode ?? "readonly");
     const objectStore = transaction.objectStore(collection);
 
     return new Promise((resolve, reject) => {
@@ -22,9 +28,12 @@ export class IDBAdapter {
       }
 
       getRequest.onsuccess = () => {
-        const result = getRequest.result as T[];
-        db.close();
-        resolve(result);
+        const data = getRequest.result as T[];
+        resolve({
+          data,
+          db,
+          objectStore
+        });
       }
 
       getRequest.onerror = () => {
@@ -45,40 +54,17 @@ export class IDBAdapter {
     condition: SearchCondition,
     updateData: UpdateData<T>
   ) {
-    const db = await this.openDbConnection();
-    const transaction = db.transaction(collection, "readwrite");
-    const objectStore = transaction.objectStore(collection);
+    const { db, objectStore, data } = await this.makeQuery<T>(collection, condition, "readwrite");
 
-    return new Promise((resolve, reject) => {
-      let getRequest: IDBRequest<T[]>;
-      if (Array.isArray(condition)) {
-        const accessor = Array.isArray(condition[0]) ? condition[0].join(', ') : condition[0];
-        getRequest = objectStore.index(accessor).getAll(condition[1]);
-      } else {
-        getRequest = objectStore.getAll(condition ? IDBKeyRange.only(condition) : undefined);
-      }
-
-      getRequest.onsuccess = () => {
-        const result = getRequest.result as T[];
-
-        const promises = result.reduce((acc, val) => {
-          const updatedData = typeof updateData === "function"
-            ? updateData(val)
-            : { ...val, ...updateData };
-          return acc.then(() => this.updateRecord(objectStore, updatedData))
-        }, Promise.resolve() as Promise<any>);
-        
-        promises.then(() => {
-          db.close();
-          resolve("Affected rows: " + result.length);
-        });
-      }
-
-      getRequest.onerror = () => {
-        const error = getRequest.error;
-        db.close();
-        reject(error);
-      }
+    const promises = data.reduce((acc, val) => {
+      const updatedData = typeof updateData === "function"
+        ? updateData(val)
+        : { ...val, ...updateData };
+      return acc.then(() => this.updateRecord(objectStore, updatedData))
+    }, Promise.resolve() as Promise<any>);
+    return promises.then(() => {
+      db.close();
+      return true;
     });
   }
 
@@ -145,22 +131,19 @@ export class IDBAdapter {
     })
   }
 
-  public async delete(collection: string, id: number | string) {
-    const db = await this.openDbConnection();
-    const transaction = db.transaction(collection, "readwrite");
+  public async delete(collection: string, condition: SearchCondition) {
+    // const db = await this.openDbConnection();
+    // const transaction = db.transaction(collection, "readonly");
+    // const objectStore = transaction.objectStore(collection);
+    const { db, objectStore, data } = await this.makeQuery<{ id: number }>(collection, condition, "readwrite");
+    
+    const promises = data.reduce((acc, val) => {
+      return acc.then(() => objectStore.delete(val.id));
+    }, Promise.resolve() as Promise<any>);
 
-    return new Promise((resolve) => {
-      transaction.objectStore(collection).delete(id);
-  
-      transaction.addEventListener("complete", () => {
-        db.close();
-        resolve("Deleted successfully")
-      });
-
-      transaction.addEventListener("error", () => {
-        db.close();
-        console.error("Can not delete record #", id);
-      });
+    return promises.then(() => {
+      db.close();
+      return true;
     });
   }
 

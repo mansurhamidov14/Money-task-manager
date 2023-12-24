@@ -9,16 +9,16 @@ function initConfirmationStore() {
 
   const requestConfirmation = (data: ConfirmationRequest) => {
     setConfirmationRequest({
-      title: data.title,
-      description: data.description,
+      title: data.title ?? t("ConfirmationRequest.defaults.title"),
+      text: data.text ?? "",
       onConfirm: data.onConfirm,
       onCancel: data.onCancel ?? (() => undefined),
       confirmButton: {
-        label: data.confirmButton?.label ?? t("ConfirmationRequestDefaults.confirm"),
+        label: data.confirmButton?.label ?? t("ConfirmationRequest.defaults.confirm"),
         variant: data.confirmButton?.variant ?? "danger"
       },
       cancelButton: {
-        label: data.cancelButton?.label ?? t("ConfirmationRequestDefaults.cancel"),
+        label: data.cancelButton?.label ?? t("ConfirmationRequest.defaults.cancel"),
         variant: data.cancelButton?.variant ?? "secondary"
       }
     });
@@ -44,3 +44,6 @@ function initConfirmationStore() {
 }
 
 export const confirmationStore = createRoot(initConfirmationStore);
+
+// @ts-ignore
+window.confirmationStore = confirmationStore;

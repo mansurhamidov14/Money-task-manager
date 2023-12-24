@@ -30,10 +30,8 @@ export function Modal(props: ParentProps<ModalProps>) {
         onClick={handleOutsideClick}
       >
         <div class="modal-window relative p-4 w-full max-w-md max-h-full mx-auto" classList={{ "animate-slide-down-in": props.isOpen }}>
-          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-              {props.children}
-            </div>
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+            {props.children}
           </div>
         </div>
       </div>

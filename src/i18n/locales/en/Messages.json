@@ -10,7 +10,8 @@
     }
   },
   "ConfirmationRequestDefaults": {
-    "confirm": "Yes, I am",
+    "title": "Confirm action",
+    "confirm": "Confirm",
     "cancel": "Cancel"
   },
   "BottomNavigation": {

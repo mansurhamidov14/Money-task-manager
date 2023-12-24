@@ -1,8 +1,8 @@
 import { ButtonProps } from "@app/components";
 
 export type ConfirmationRequest = {
-  title: string;
-  description: string;
+  title?: string;
+  text?: string;
   onConfirm: () => void;
   onCancel?: () => void;
   confirmButton?: ConfirmationAction;

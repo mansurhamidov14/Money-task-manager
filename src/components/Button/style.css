@@ -39,13 +39,14 @@ button[type].btn-primary, .btn-primary {
 button[type].btn-secondary, .btn-secondary {
   @apply
     text-sky-950
-    bg-secondary-200
-    hover:bg-secondary-300
-    dark:bg-secondary-200
-    dark:hover:bg-secondary-300
+    dark:text-secondary-50
+    bg-secondary-200/70
+    hover:bg-secondary-200
+    dark:bg-secondary-700/60
+    dark:hover:bg-secondary-700
 }
 
-button[type].btn-glass, .btn-glass {
+button[type].btn-transparent, .btn-transparent {
   @apply
     dark:text-secondary-200
     hover:bg-gray-200
