@@ -16,7 +16,7 @@
 }
 
 .account-card-face {
-  @apply px-8 py-5 absolute rounded-[20px] shadow-md shadow-gray-700 dark:shadow-gray-200/20 w-full h-full;
+  @apply absolute rounded-[20px] shadow-md shadow-gray-700 dark:shadow-gray-200/20 w-full h-full;
   position: absolute;
   height: 100%;
   width: 100%;
@@ -24,6 +24,7 @@
 }
 
 .account-card-face--front {
+  @apply px-8 py-5;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

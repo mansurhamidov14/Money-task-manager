@@ -146,5 +146,10 @@
   },
   "SettingsScreen": {
     "title": "Settings"
+  },
+  "EditAccountScreen": {
+    "title": "Account Editor",
+    "success": "Account was edited successfully",
+    "error": "An error occurred while editing the account: {{error}}"
   }
 }

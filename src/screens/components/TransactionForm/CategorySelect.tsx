@@ -1,9 +1,9 @@
+import { For, createMemo } from "solid-js";
+import { Field } from "solid-form-handler";
 import { Select } from "@app/components";
 import { Categories } from "@app/constants";
 import { Message, t } from "@app/i18n";
-import { For, createMemo } from "solid-js";
 import { InputProps } from "./types";
-import { Field } from "solid-form-handler";
 
 export function CategorySelect(props: InputProps) {
   const getIcon = createMemo(() => {

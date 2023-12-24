@@ -37,9 +37,21 @@ function initAccountsStore() {
     }
   }
 
+  const updateAccount = async (id: number, data: Partial<Account>) => {
+    await accountService.update(id, data);
+    setAccountsData(accounts().data!.map(account => {
+      if (account.id !== id) return account;
+      return {
+        ...account,
+        ...data
+      }
+    }));
+  }
+
   const addAccount = (newAccount: Account) => setAccountsData([...accounts().data!, newAccount]);
 
-  const removePrimaryFlag = () => {
+  const removePrimaryFlag = async (userId: number) => {
+    await accountService.update([["primary", "user"], [1, userId]], { primary: 0 });
     setAccountsData(accounts().data!.map(account => account.primary
       ? { ...account, primary: 0 }
       : account 
@@ -73,6 +85,7 @@ function initAccountsStore() {
     setAccountsData,
     setAccountsLoading,
     setAccountsError,
+    updateAccount,
     changeBalance,
     fetchUserAccounts,
     removePrimaryFlag

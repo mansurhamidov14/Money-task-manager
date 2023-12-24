@@ -1,9 +1,12 @@
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
+
 import { Button, ScreenHeader, VerticalScroll } from "@app/components";
 import { Action, t } from "@app/i18n";
+import { getNewTransactionSchema } from "@app/schemas";
 import { transactionService } from "@app/services";
 import { accountsStore, transactionsStore, toastStore, user } from "@app/stores";
+
 import {
   AmountInput,
   CategorySelect,
@@ -11,9 +14,7 @@ import {
   DateTimeInput,
   TitleInput,
   TypeSelect
-} from "./FormFields";
-
-import { getNewTransactionSchema } from "./schema";
+} from "../components/TransactionForm";
 
 export function NewTransactionScreen() {
   const formHandler = useFormHandler(yupSchema(getNewTransactionSchema({

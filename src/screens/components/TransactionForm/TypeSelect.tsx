@@ -1,9 +1,9 @@
-import { Select } from "@app/components";
-import { t } from "@app/i18n";
 import { createMemo } from "solid-js";
-import { InputProps } from "./types";
 import { Field } from "solid-form-handler";
 import { FaSolidArrowTrendDown, FaSolidArrowTrendUp } from "solid-icons/fa";
+import { Select } from "@app/components";
+import { t } from "@app/i18n";
+import { InputProps } from "./types";
 
 export function TypeSelect(props: InputProps) {
   const getIcon = createMemo(() => {

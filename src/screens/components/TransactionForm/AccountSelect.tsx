@@ -1,10 +1,10 @@
+import { For, createMemo } from "solid-js";
+import { Field } from "solid-form-handler";
 import { Select } from "@app/components";
 import { currencies } from "@app/constants";
 import { t } from "@app/i18n";
-import { Field } from "solid-form-handler";
-import { For, createMemo } from "solid-js";
-import { InputProps } from "./types";
 import { accountsStore } from "@app/stores";
+import { InputProps } from "./types";
 
 export function AccountSelect(props: InputProps) {
   const selectedAccountFlag = createMemo(() => {

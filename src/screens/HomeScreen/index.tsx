@@ -30,7 +30,7 @@ export function HomeScreen() {
           <ThemeToggleButton />
           <LogOutButton />
         </div>
-        <div class="-mx-3 my-3">
+        <div class="-mx-3">
           <div ref={sliderRef}>
             <For each={accountsStore.accounts().data!}>
               {account => <AccountCard hasBackSide account={account} />}

@@ -21,6 +21,10 @@ class AccountService {
   delete(id: number) {
     return this.collection.delete(id);
   }
+
+  getById(accountId: number, userId: number) {
+    return this.collection.queryOne([["id", "user"], [accountId, userId]]);
+  }
 }
 
 export const accountService = new AccountService(accountCollection);

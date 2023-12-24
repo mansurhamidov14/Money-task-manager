@@ -54,6 +54,7 @@ const structure: Structure = {
         { fields: ["type", "user"], unique: false, version: 1 },
         { fields: ["category", "type", "user"], unique: false, version: 1 },
         { fields: ["account", "category", "user"], unique: false, version: 1 },
+        { fields: ["account", "user"], unique: false, version: 2 },
         { fields: ["account", "type", "user"], unique: false, version: 1 },
         { fields: ["account", "category", "type", "user"], unique: false, version: 1 },
       ]
@@ -73,6 +74,7 @@ const structure: Structure = {
         createColumn("updatedAt"),
       ],
       complexIndices: [
+        { fields: ["id", "user"], unique: true, version: 3 },
         { fields: ["currency", "user"], unique: false, version: 1 },
         { fields: ["primary", "user"], unique: false, version: 1 },
       ]

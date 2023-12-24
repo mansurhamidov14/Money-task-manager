@@ -146,5 +146,10 @@
   },
   "SettingsScreen": {
     "title": "Tənzimləmələr"
+  },
+  "EditAccountScreen": {
+    "title": "Hesab redaktor",
+    "success": "Hesab müvəffəqiyyət ilə redaktə olundu",
+    "error": "Hesabı redaktə edərkən xəta baş verdi: {{error}}"
   }
 }

@@ -1,5 +1,5 @@
 import { createMemo, createRoot, createSignal } from "solid-js";
-import { CategoryId } from "@app/constants";
+import { CategoryId, CurrencyCode } from "@app/constants";
 import { Transaction, TransactionsStore } from "./types";
 import { DateFilter } from "@app/screens/HistoryScreen/types";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
@@ -70,6 +70,14 @@ function initTransactionsStore() {
     return filteredData.toSorted(descSorter);
   }
 
+  const updateCurrencyByAccount = async (user: number, account: number, currency: CurrencyCode) => {
+    await transactionService.update([["account", "user"], [account, user]], { currency });
+    setTransactionsData(transactions().data!.map(transaction => {
+      if (transaction.account !== account) return transaction;
+      return { ...transaction, currency };
+    }));
+  }
+
   return {
     transactions,
     latestTransactions,
@@ -81,6 +89,7 @@ function initTransactionsStore() {
     setTransactionsError,
     setTransactionsLoading,
     setTransactionsData,
+    updateCurrencyByAccount
   };
 }
 

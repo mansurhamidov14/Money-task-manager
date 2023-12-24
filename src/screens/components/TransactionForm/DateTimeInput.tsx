@@ -1,7 +1,7 @@
+import { Field } from "solid-form-handler";
 import { TextInputWithFloatingLabel } from "@app/components";
 import { t } from "@app/i18n";
 import { InputProps } from "./types";
-import { Field } from "solid-form-handler";
 
 export function DateTimeInput(props: InputProps) {
   return (

@@ -3,8 +3,8 @@ import { Field } from "solid-form-handler";
 import { TextInputWithFloatingLabel } from "@app/components";
 import { t } from "@app/i18n";
 import { accountsStore } from "@app/stores";
-import { InputProps } from "./types";
 import { currencies } from "@app/constants";
+import { InputProps } from "./types";
 
 export function AmountInput(props: InputProps) {
   const selectedAccountCurrency = createMemo(() => {

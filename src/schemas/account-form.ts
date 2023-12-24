@@ -7,16 +7,18 @@ type NewAccountForm = {
   balance: number;
   currency: CurrencyCode;
   primary: "0" | "1";
+  skin: number;
 }
 
-export function getNewAccountSchema(defaults: Partial<NewAccountForm>): yup.Schema<NewAccountForm> {
+export function getAccountFormSchema(defaults: Partial<NewAccountForm>): yup.Schema<NewAccountForm> {
   return yup.object({
     title: yup.string()
       .required(t("common.FormFields.required"))
       .default(defaults.title),
     balance: yup.number()
       .required(t("common.FormFields.required"))
-      .typeError(t("NewAccountScreen.FormFields.balance.invalidFormat")),
+      .typeError(t("NewAccountScreen.FormFields.balance.invalidFormat"))
+      .default(defaults.balance),
     currency: yup.string()
       .required()
       .oneOf(Object.values(CurrencyCode))
@@ -24,9 +26,9 @@ export function getNewAccountSchema(defaults: Partial<NewAccountForm>): yup.Sche
     primary: yup
       .mixed<"1" | "0">()
       .oneOf(["1", "0"])
-      .default("0"),
+      .default(defaults.primary ?? "0"),
     skin: yup
       .number()
-      .default(0)
+      .default(defaults.skin ?? 0)
   });
 }

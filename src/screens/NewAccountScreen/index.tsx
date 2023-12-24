@@ -1,15 +1,22 @@
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
+
 import { AccountCardDumb, Button, ScreenHeader, VerticalScroll } from "@app/components";
 import { Action, t } from "@app/i18n";
+import { getAccountFormSchema } from "@app/schemas";
 import { accountService } from "@app/services";
 import { user, toastStore, accountsStore, counters, initCountersStore } from "@app/stores";
-import { CurrencySelect, BalanceInput, TitleInput, PrimaryCheckbox, SkinSelect } from "./FormFields";
 
-import { getNewAccountSchema } from "./schema";
+import {
+  CurrencySelect,
+  BalanceInput,
+  TitleInput,
+  PrimaryCheckbox,
+  SkinSelect
+} from "../components/AccountForm";
 
 export function NewAccountScreen() {
-  const formHandler = useFormHandler(yupSchema(getNewAccountSchema({
+  const formHandler = useFormHandler(yupSchema(getAccountFormSchema({
     currency: user.currentUser().data?.primaryCurrency,
   })), {
     validateOn: ["blur"],
@@ -19,11 +26,12 @@ export function NewAccountScreen() {
     event.preventDefault();
     try {
       await formHandler.validateForm();
-      const isPrimary = Number(formHandler.getFieldValue("primary")) as 1 | 0;
+
+      /** Type conversion due to validation bug with 0 number */
+      const isPrimary = Number(formHandler.getFieldValue("primary")) as any;
       const userId = user.currentUser().data!.id;
       if (isPrimary) {
-        await accountService.update([["primary", "user"], [1, userId]], { primary: 0 });
-        accountsStore.removePrimaryFlag();
+        await accountsStore.removePrimaryFlag(userId);
       }
       const accountData = {
         user: user.currentUser().data!.id,

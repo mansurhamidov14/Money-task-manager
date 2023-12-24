@@ -1,15 +1,17 @@
 import { useNavigate } from "@solidjs/router";
 import { For } from "solid-js";
 import { yupSchema } from "solid-form-handler/yup";
+import { Field, useFormHandler } from "solid-form-handler";
 import { IoKey } from "solid-icons/io";
 import { FiAtSign } from "solid-icons/fi";
+
 import { Button, Select, TextInputWithFloatingLabel as TextInput } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
-import { Link, accountsStore, transactionsStore, user } from "@app/stores";
 import { CurrencyCode, currencies } from "@app/constants";
+import { getSignUpFormSchema } from "@app/schemas";
 import { accountService, userService } from "@app/services";
-import { Field, useFormHandler } from "solid-form-handler";
-import { getSignUpFormSchema } from "./schema";
+import { Link, accountsStore, transactionsStore, user } from "@app/stores";
+
 import { AuthLayout } from "../AuthLayout";
 
 export function SignUpPage() {

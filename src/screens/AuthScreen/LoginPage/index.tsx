@@ -1,13 +1,15 @@
 import { useNavigate } from "@solidjs/router";
-import { IoKey } from "solid-icons/io";
-import { FiAtSign } from "solid-icons/fi";
-import { Button, TextInputWithFloatingLabel as TextInput } from "@app/components";
-import { Action, Message, t } from "@app/i18n";
-import { Link, accountsStore, transactionsStore, toastStore, user } from "@app/stores";
-import { userService } from "@app/services";
 import { Field, useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
-import { getLoginFormSchema } from "./schema";
+import { IoKey } from "solid-icons/io";
+import { FiAtSign } from "solid-icons/fi";
+
+import { Button, TextInputWithFloatingLabel as TextInput } from "@app/components";
+import { Action, Message, t } from "@app/i18n";
+import { getLoginFormSchema } from "@app/schemas";
+import { userService } from "@app/services";
+import { Link, accountsStore, transactionsStore, toastStore, user } from "@app/stores";
+
 import { AuthLayout } from "../AuthLayout";
 
 export function LoginPage() {
