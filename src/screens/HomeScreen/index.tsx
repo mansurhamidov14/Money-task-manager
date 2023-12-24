@@ -33,7 +33,7 @@ export function HomeScreen() {
         <div class="-mx-3 my-3">
           <div ref={sliderRef}>
             <For each={accountsStore.accounts().data!}>
-              {account => <AccountCard account={account} />}
+              {account => <AccountCard hasBackSide account={account} />}
             </For>
           </div>
           <div class="flex justify-center gap-2">

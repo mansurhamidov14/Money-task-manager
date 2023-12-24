@@ -1,0 +1,35 @@
+.account-card-scene {
+  @apply max-w-sm my-3 mx-auto;
+  aspect-ratio: 100/67;
+  perspective: 1000px;
+}
+
+.account-card {
+  position: relative;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.account-card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.account-card-face {
+  @apply px-8 py-5 absolute rounded-[20px] shadow-md shadow-gray-700 dark:shadow-gray-200/20 w-full h-full;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+
+.account-card-face--front {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.account-card-face--back {
+  background: blue;
+  transform: rotateY( 180deg );
+}
