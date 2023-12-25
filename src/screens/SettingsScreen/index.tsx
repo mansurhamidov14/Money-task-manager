@@ -20,7 +20,7 @@ export function SettingsScreen() {
       <VerticalScroll hasHeader hasBottomNavigation>
         <div class="flex py-3 flex-col items-center gap-2">
           <img src={currentUser.avatar} class="max-w-full rounded-full" />
-          <Link href="/settings/change-avatar" class="btn btn-transparent btn-sm flex gap-1">
+          <Link href="/settings/change-avatar" class="btn btn-transparent btn-sm flex gap-1 text-green-600 dark:text-green-300">
             <IoPencil />
             <span>{t("SettingsScreen.changeAvatar")}</span>
           </Link>

@@ -11,7 +11,7 @@ export function VerticalScroll(props: ParentProps<VerticalScrollProps>) {
       classList={{
         "overflow-y-auto": true,
         "pb-16": props.hasBottomNavigation,
-        "h-[calc(100svh-4.5rem)]": props.hasHeader,
+        "h-[calc(100svh-4rem)]": props.hasHeader,
         "h-full": !props.hasHeader
       }}
     >
