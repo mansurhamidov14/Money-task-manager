@@ -28,8 +28,8 @@
   @apply h-12;
 }
 
-.btn-square {
-  aspect-ratio: 1;
+.btn.btn-square {
+  @apply px-1.5 aspect-square;
 }
 
 button[type].btn-primary, .btn-primary {
