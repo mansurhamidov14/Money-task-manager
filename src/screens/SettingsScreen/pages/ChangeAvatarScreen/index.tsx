@@ -47,7 +47,7 @@ export function ChangeAvatarScreen() {
             </div>
           </div>
         </div>
-        <div class="px-5">
+        <div class="px-5 pt-3">
           <Button type="button" full onClick={saveAvatar}>
             <Action>Save</Action>
           </Button>
