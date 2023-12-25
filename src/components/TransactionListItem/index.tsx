@@ -29,7 +29,7 @@ function getTransactionValue(
 export function TransactionListItem(props: Transaction) {
   const categoryIcon = createMemo(() => {
     const Icon = Categories[props.category].icon;
-    return <Icon />;
+    return <Icon size={28} />;
   });
   
   return (
@@ -37,7 +37,7 @@ export function TransactionListItem(props: Transaction) {
       size="lg"
       icon={(
         <div
-          class="h-full flex justify-center items-center text-3xl"
+          class="h-full flex justify-center items-center"
           style={{
             "background-color": Categories[props.category].colors.accent,
             "color": Categories[props.category].colors.icon

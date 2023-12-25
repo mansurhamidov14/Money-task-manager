@@ -1,4 +1,3 @@
-import { Message } from "@app/i18n";
 import { Link, Screen, navigation } from "@app/stores";
 import { JSX } from "solid-js";
 
@@ -15,9 +14,6 @@ export function NavLink(props: NavLinkProps) {
       class="nav-link"
     >
       {props.icon}
-      <span class="sr-only">
-        <Message>{`BottomNavigation.${props.screen}`}</Message>
-      </span>
     </Link>
-  )
+  );
 }

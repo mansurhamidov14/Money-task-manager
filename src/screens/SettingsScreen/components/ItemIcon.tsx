@@ -6,8 +6,8 @@ export type ItemIconProps = {
 
 export function ItemIcon(Props: ItemIconProps) {
   return (
-    <div class="flex h-full justify-center items-center text-2xl text-gray-500 dark:text-secondary-100">
-      <Props.icon />
+    <div class="flex h-full justify-center items-center text-gray-500 dark:text-secondary-100">
+      <Props.icon size={24} />
     </div>
   );
 }

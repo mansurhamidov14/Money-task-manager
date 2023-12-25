@@ -86,14 +86,14 @@ export function AccountCardDumb(props: ParentProps<AccountCardProps>) {
               </div>
               <div class="mt-5 flex justify-around px-14 opacity-80">
                 <Link href={`/edit-account/${props.account.id}`} class="btn btn-lg btn-primary px-5">
-                  <IoPencil class="text-xl" />
+                  <IoPencil size={24} />
                   <span class="sr-only">
                     <Action>Edit</Action>
                   </span>
                 </Link>
                 <Show when={!props.account.primary}>
                   <Button variant="danger" size="lg" class="px-5" onClick={() => requestDeletion(props.account.id)}>
-                    <IoTrash class="text-xl" />
+                    <IoTrash size={24} />
                     <span class="sr-only">
                       <Action>Delete</Action>
                     </span>

@@ -15,8 +15,8 @@ export type AmountCardContentProps = {
 export function AmountCard(props: AmountCardContentProps) {
   const renderIcon = createMemo(() => {
     return {
-      income: <FaSolidArrowTrendUp />,
-      expense: <FaSolidArrowTrendDown />
+      income: <FaSolidArrowTrendUp size={20} />,
+      expense: <FaSolidArrowTrendDown size={20} />
     }[props.type];
   });
 
@@ -43,7 +43,7 @@ export function AmountCard(props: AmountCardContentProps) {
           </div>
         </Show>
       </div>
-      <div class="mt-1 text-xl pr-4">{renderIcon()}</div>
+      <div class="mt-1 pr-4">{renderIcon()}</div>
     </div>
   );
 }
