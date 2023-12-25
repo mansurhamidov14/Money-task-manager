@@ -10,17 +10,17 @@ export type ScreenHeaderProps = {
 
 export function ScreenHeader(props: ScreenHeaderProps) {
   return (
-    <div class="flex gap-3 h-14 content-center relative items-center border-b bg-white border-secondary-200/30 dark:bg-gray-900/40 px-2 shadow dark:border-gray-700">
+    <div class="flex gap-3 h-14 content-center relative items-center border-b bg-white border-secondary-200/30 dark:bg-gray-900/40 px-3 shadow dark:border-gray-700">
       <Show when={props.withGoBackButton}>
-        <Button class="absolute" variant="transparent" size="md" square onClick={() => history.back()}>
-          <FaSolidChevronLeft size={24} />
+        <Button class="absolute" variant="transparent" size="sm" square onClick={() => history.back()}>
+          <FaSolidChevronLeft size={20} />
         </Button>
       </Show>
       <div class="text-xl font-bold flex-1 flex justify-center items-center">
         {props.title}
       </div>
       <Show when={props.rightElement}>
-        <div class="absolute right-2">
+        <div class="absolute right-3">
           {props.rightElement}
         </div>
       </Show>
