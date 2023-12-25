@@ -62,6 +62,10 @@ class UserService {
     return Boolean(user);
   }
 
+  update(id: number, data: Partial<User>) {
+    return this.collection.update(id, data);
+  }
+
   async logOut() {
     localStorage.removeItem(UserService.BrowserStorageItemKey);
     return true;

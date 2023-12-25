@@ -24,6 +24,7 @@ import { transactionsStore, user, accountsStore } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
 import "./App.css";
+import { ChangeAvatarScreen } from "./screens/SettingsScreen/pages";
 
 function App(props: RouteSectionProps) {
   return (
@@ -78,7 +79,10 @@ export default function() {
           <ProtectedRoute path="/edit-account/:id" component={EditAccountScreen} />
           <ProtectedRoute path="/new-transaction" component={NewTransactionScreen} />
           <ProtectedRoute path="/tasks" component={TasksScreen} />
-          <ProtectedRoute path="/settings" component={SettingsScreen} />
+          <Route path="/settings">
+            <ProtectedRoute path="/" component={SettingsScreen} />
+            <ProtectedRoute path="/change-avatar" component={ChangeAvatarScreen} />
+          </Route>
         </Router>
       </Show>
       <ToastList />

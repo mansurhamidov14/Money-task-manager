@@ -13,6 +13,8 @@ import { accountService, userService } from "@app/services";
 import { Link, accountsStore, transactionsStore, user } from "@app/stores";
 
 import { AuthLayout } from "../AuthLayout";
+import { getRandomElement } from "@app/helpers";
+import { avatars } from "@app/screens/SettingsScreen/constants";
 
 export function SignUpPage() {
   const formHandler = useFormHandler(yupSchema(getSignUpFormSchema()), {
@@ -31,6 +33,7 @@ export function SignUpPage() {
         password: formHandler.getFieldValue("newPassword"),
         primaryCurrency: formHandler.getFieldValue("primaryCurrency"),
         createdAt,
+        avatar: getRandomElement(avatars),
         updatedAt: createdAt
       };
       const newUser = await userService.signUp(userData);

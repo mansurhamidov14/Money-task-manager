@@ -57,7 +57,7 @@
     "other": "Digər"
   },
   "HomeScreen": {
-    "totalBalance": "Ümumi balans",
+    "greeting": "Salam, {{name}}!",
     "recentTransactions": "Son əməliyyatlar",
     "noRecentTransactions": "Son {{count}} gündə heç bir əməliyyat olmayıb"
   },
@@ -152,7 +152,14 @@
     "title": "Tapşırıqlar"
   },
   "SettingsScreen": {
-    "title": "Tənzimləmələr"
+    "title": "Tənzimləmələr",
+    "changeAvatar": "Avatarı dəyişdir",
+    "personalInfo": "Şəxsi məlumatlar",
+    "language": "Dil",
+    "colorScheme": "Rəngli sxema",
+    "password": "Şifrə",
+    "pinCode": "PIN kod",
+    "wipeData": "Məlumatların silinməsi"
   },
   "EditAccountScreen": {
     "title": "Hesab redaktor",

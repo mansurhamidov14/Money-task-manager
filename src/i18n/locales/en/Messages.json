@@ -9,10 +9,16 @@
       "tooShort": "Can not be shorter than {{count}} characters"
     }
   },
-  "ConfirmationRequestDefaults": {
-    "title": "Confirm action",
-    "confirm": "Confirm",
-    "cancel": "Cancel"
+  "ConfirmationRequest": {
+    "defaults": {
+      "title": "Confirm action",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
+    "accountDeletion": {
+      "text": "Account will be deleted with the transactions linked to it. Are you sure?",
+      "confirm": "Yes, I am"
+    }
   },
   "BottomNavigation": {
     "home": "Home screen",
@@ -51,7 +57,7 @@
     "other": "Other"
   },
   "HomeScreen": {
-    "totalBalance": "Total Balance",
+    "greeting": "Hey, {{name}}!",
     "recentTransactions": "Recent transactions",
     "noRecentTransactions": "No transactions in the last {{count}} days"
   },
@@ -146,7 +152,14 @@
     "title": "Tasks"
   },
   "SettingsScreen": {
-    "title": "Settings"
+    "title": "Settings",
+    "changeAvatar": "Change avatar",
+    "personalInfo": "Personal Info",
+    "language": "Language",
+    "colorScheme": "Color scheme",
+    "password": "Password",
+    "pinCode": "PIN code",
+    "wipeData": "Wipe data"
   },
   "EditAccountScreen": {
     "title": "Account Editor",

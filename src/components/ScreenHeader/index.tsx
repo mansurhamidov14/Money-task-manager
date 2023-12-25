@@ -1,10 +1,11 @@
-import { Show } from "solid-js";
+import { JSX, Show } from "solid-js";
 import { Button } from "../Button";
 import { IoCloseOutline } from "solid-icons/io";
 
 export type ScreenHeaderProps = {
   withGoBackButton?: boolean;
   title: string;
+  rightElement?: JSX.Element;
 }
 
 export function ScreenHeader(props: ScreenHeaderProps) {
@@ -18,6 +19,11 @@ export function ScreenHeader(props: ScreenHeaderProps) {
       <div class="text-xl font-bold flex-1 text-center">
         {props.title}
       </div>
+      <Show when={props.rightElement}>
+        <div class="absolute right-2">
+          {props.rightElement}
+        </div>
+      </Show>
     </div>
   )
 }

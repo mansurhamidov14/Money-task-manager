@@ -6,4 +6,14 @@ const [currentUser, setCurrentUser] = createSignal<UserStore>({
   isLoading: true
 });
 
-export const user = { currentUser, setCurrentUser };
+const updateUserData = (data: Partial<UserStore["data"]>) => {
+  setCurrentUser(value => ({
+    ...value,
+    data: {
+      ...value.data!,
+      ...data
+    }
+  }));
+}
+
+export const user = { currentUser, setCurrentUser, updateUserData };

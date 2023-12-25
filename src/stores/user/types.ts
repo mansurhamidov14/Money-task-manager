@@ -2,7 +2,7 @@ import type { CurrencyCode } from "@app/constants";
 
 export type User = {
   id: number;
-  avatar?: string;
+  avatar: string;
   firstName: string;
   lastName: string;
   email: string;

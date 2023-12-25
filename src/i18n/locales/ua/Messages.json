@@ -57,7 +57,7 @@
     "other": "Інше"
   },
   "HomeScreen": {
-    "totalBalance": "Загальний баланс",
+    "greeting": "Привіт, {{name}}!",
     "recentTransactions": "Нещодавні транзакції",
     "noRecentTransactions": "Немає транзакцій за останні {{count}} днів"
   },
@@ -152,7 +152,14 @@
     "title": "Задачі"
   },
   "SettingsScreen": {
-    "title": "Налаштування"
+    "title": "Налаштування",
+    "changeAvatar": "Змінити аватар",
+    "personalInfo": "Особиста Інформація",
+    "language": "Мова",
+    "colorScheme": "Схема кольорів",
+    "password": "Пароль",
+    "pinCode": "PIN-код",
+    "wipeData": "Видалення даних"
   },
   "EditAccountScreen": {
     "title": "Редактор рахунку",

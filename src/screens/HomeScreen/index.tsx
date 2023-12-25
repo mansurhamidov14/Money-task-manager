@@ -7,12 +7,13 @@ import {
   VerticalScroll
 } from "@app/components";
 import { Message } from "@app/i18n";
-import { accountsStore, transactionsStore } from "@app/stores";
+import { accountsStore, transactionsStore, user } from "@app/stores";
 import { LatestTransactions, TransactionListSkeleton } from "./components";
 import { createSlider } from "solid-slider";
 
 let sliderRef: HTMLDivElement;
 export function HomeScreen() {
+  const currentUser = user.currentUser().data!;
   const transactionsLoaded = createMemo(() => {
     return transactionsStore.transactions().status === "success";
   });
@@ -43,7 +44,11 @@ export function HomeScreen() {
   return (
     <VerticalScroll hasBottomNavigation>
       <main class="p-3">
-        <div class="flex justify-end gap-2">
+        <div class="flex justify-end items-start gap-2">
+          <div class="flex-1 pl-2 text-lg font-semibold flex gap-3 pt-2 items-center">
+            <img class="w-10 h-10 rounded-full" src={currentUser.avatar} />
+            <Message name={currentUser.firstName}>HomeScreen.greeting</Message>
+          </div>
           <ThemeToggleButton />
           <LogOutButton />
         </div>

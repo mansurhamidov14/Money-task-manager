@@ -57,7 +57,7 @@
     "other": "Другое"
   },
   "HomeScreen": {
-    "totalBalance": "Общий баланс",
+    "greeting": "Привет, {{name}}!",
     "recentTransactions": "Недавние транзакции",
     "noRecentTransactions": "Нет транзакций за последние {{count}} дней"
   },
@@ -152,7 +152,14 @@
     "title": "Задачи"
   },
   "SettingsScreen": {
-    "title": "Настройки"
+    "title": "Настройки",
+    "changeAvatar": "Сменить аватар",
+    "personalInfo": "Личная информация",
+    "language": "Язык",
+    "colorScheme": "Цветовая схема",
+    "password": "Пароль",
+    "pinCode": "PIN код",
+    "wipeData": "Удаление данных"
   },
   "EditAccountScreen": {
     "title": "Редактор счета",
