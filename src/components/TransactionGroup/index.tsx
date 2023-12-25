@@ -11,7 +11,7 @@ export function TransactionGroup(props: TransactionGroupProps) {
   return (
     <div class="flex flex-col gap-3">
       <div class="flex justify-between items-end">
-        <div class="text-secondary-500 dark:text-secondary-300 font-medium mt-1">{props.date}</div>
+        <div class="text-muted font-medium mt-1">{props.date}</div>
         <Show when={props.amounts}>
           <div class="flex gap-1">
             <For each={props.amounts}>

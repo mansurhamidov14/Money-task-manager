@@ -7,10 +7,14 @@ main {
 }
 
 .text-expense {
-  color: theme('colors.rose.500')
+  @apply text-rose-500;
 }
 
 .text-income {
-  color: theme('colors.teal.500');
+  @apply text-teal-500;
+}
+
+.text-muted {
+  @apply text-secondary-400;
 }
 

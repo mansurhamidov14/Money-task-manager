@@ -9,6 +9,7 @@ import { Link, user } from "@app/stores";
 
 import { ItemIcon } from "./components";
 import { useNavigate } from "@solidjs/router";
+import { FiChevronRight } from "solid-icons/fi";
 
 export function SettingsScreen() {
   const currentUser = user.currentUser().data!;
@@ -28,7 +29,7 @@ export function SettingsScreen() {
             <h3 class="text-lg font-bold">
               {currentUser.firstName} {currentUser.lastName}
             </h3>
-            <div class="text-secondary-500 dark:text-secondary-400 text-sm">
+            <div class="text-muted text-sm">
               {currentUser.email}
             </div>
           </div>
@@ -39,6 +40,7 @@ export function SettingsScreen() {
               size="sm"
               icon={<ItemIcon icon={FaSolidCircleUser} />}
               title={t("SettingsScreen.personalInfo")}
+              rightElement={<FiChevronRight class="text-muted" />}
             />
             <ListItem
               size="sm"
@@ -46,9 +48,10 @@ export function SettingsScreen() {
               icon={<ItemIcon icon={IoLanguage} />}
               title={t("SettingsScreen.language")}
               rightElement={(
-                <span class="inline-flex text-sm gap-2 items-center text-secondary-400 dark:text-secondary-300 font-normal">
-                  <span>{langData[getLocale()].name}</span>
+                <span class="inline-flex text-sm gap-2 items-center">
+                  <span class="text-muted font-normal">{langData[getLocale()].name}</span>
                   <img class="w-4 h-4" src={langData[getLocale()].flag} />
+                  <FiChevronRight class="ml-1 text-muted" />
                 </span>
               )}
             />
@@ -62,16 +65,19 @@ export function SettingsScreen() {
               size="sm"
               icon={<ItemIcon icon={IoKey} />}
               title={t("SettingsScreen.password")}
+              rightElement={<FiChevronRight class="text-muted" />}
             />
             <ListItem
               size="sm"
               icon={<ItemIcon icon={BsShieldLockFill} />}
               title={t("SettingsScreen.pinCode")}
+              rightElement={<FiChevronRight class="text-muted" />}
             />
             <ListItem
               size="sm"
-              icon={<ItemIcon icon={IoTrash} />}
-              title={t("SettingsScreen.wipeData")}
+              icon={<ItemIcon colorClass="text-red-600 dark:text-red-400" icon={IoTrash} />}
+              title={<span class="text-red-600 dark:text-red-400">{t("SettingsScreen.wipeData")}</span>}
+              rightElement={<FiChevronRight />}
             />
           </List>
         </div>

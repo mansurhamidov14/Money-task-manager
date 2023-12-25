@@ -1,5 +1,5 @@
 .wfo-list-item {
-  @apply block bg-white dark:bg-gray-700 shadow rounded-lg pl-3 pr-6;
+  @apply block bg-white dark:bg-gray-700 active:bg-white/70 active:dark:bg-gray-700/70 shadow rounded-lg pl-3 pr-6;
 }
 
 .wfo-list-item.sm {

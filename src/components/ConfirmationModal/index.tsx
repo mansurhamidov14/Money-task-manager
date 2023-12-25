@@ -20,7 +20,7 @@ export function ConfirmationModal() {
       </ModalHeader>
       <Show when={confirmationRequest()?.text}>
         <ModalBody>
-          <p class="text-secondary-700 dark:text-secondary-400">
+          <p class="text-secondary-700 dark:text-secondary-300">
             {confirmationRequest()!.text}
           </p>
         </ModalBody>

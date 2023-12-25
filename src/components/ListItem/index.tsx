@@ -30,7 +30,7 @@ export function ListItem(_props: ListItemProps) {
               {props.title}
             </div>
             <Show when={props.description}>
-              <div class="text-secondary-400 dark:text-secondary-300 font-normal text-sm mt-1">
+              <div class="text-muted font-normal text-sm mt-1">
                 {props.description}
               </div>
             </Show>
