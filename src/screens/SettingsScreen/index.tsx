@@ -8,33 +8,41 @@ import { getLocale, langData, t } from "@app/i18n";
 import { Link, user } from "@app/stores";
 
 import { ItemIcon } from "./components";
+import { useNavigate } from "@solidjs/router";
 
 export function SettingsScreen() {
+  const currentUser = user.currentUser().data!;
+  const navigate = useNavigate();
+
   return (
     <main>
       <ScreenHeader title={t("SettingsScreen.title")} />
       <VerticalScroll hasHeader hasBottomNavigation>
-        <div class="flex py-3 flex-col items-center gap-3">
-          <img src={user.currentUser().data!.avatar} class="max-w-full rounded-full" />
+        <div class="flex py-3 flex-col items-center gap-2">
+          <img src={currentUser.avatar} class="max-w-full rounded-full" />
           <Link href="/settings/change-avatar" class="btn btn-transparent btn-sm flex gap-1">
             <IoPencil />
             <span>{t("SettingsScreen.changeAvatar")}</span>
           </Link>
+          <div class="text-center">
+            <h3 class="text-lg font-bold">
+              {currentUser.firstName} {currentUser.lastName}
+            </h3>
+            <div class="text-secondary-500 dark:text-secondary-400 text-sm">
+              {currentUser.email}
+            </div>
+          </div>
         </div>
-        <div class="px-3">
+        <div class="px-3 pt-2">
           <List itemsGap="sm">
             <ListItem
               size="sm"
               icon={<ItemIcon icon={FaSolidCircleUser} />}
               title={t("SettingsScreen.personalInfo")}
-              description={(
-                <>
-                  {user.currentUser().data!.firstName} {user.currentUser().data!.lastName}
-                </>
-              )}
             />
             <ListItem
               size="sm"
+              onClick={() => navigate("/settings/change-language")}
               icon={<ItemIcon icon={IoLanguage} />}
               title={t("SettingsScreen.language")}
               rightElement={(
