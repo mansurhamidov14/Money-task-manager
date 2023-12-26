@@ -2,6 +2,7 @@ import type { IDBCollection } from "@app/adapters/IDB";
 import { userCollection } from "@app/db";
 import { User } from "@app/stores";
 import { RegisterUser } from "./types";
+import { t } from "@app/i18n";
 
 class UserService {
   private static EmailAlreadyRegisteredException = "EmailAlreadyRegisteredException";
@@ -40,10 +41,7 @@ class UserService {
   }
 
   async auth(email: string, password: string): Promise<User> {
-    const [user] = await this.collection.queryAll([
-      ["email", "password"],
-      [email, password]
-    ]);
+    const user = await this.getByEmailAndPassword(email, password);
 
     if (!user) {
       localStorage.removeItem(UserService.BrowserStorageItemKey);
@@ -66,9 +64,28 @@ class UserService {
     return this.collection.update(id, data);
   }
 
+  async resetPassword(currentUser: User, oldPassword: string, newPassword: string) {
+    const user = await this.getByEmailAndPassword(currentUser.email, oldPassword);
+
+    if (user) {
+      return this.collection.update(currentUser.id, { password: newPassword } as any);
+    } else {
+      throw new Error(t("SettingsScreen.changePassword.invalidPassword"));
+    }
+  }
+
   async logOut() {
     localStorage.removeItem(UserService.BrowserStorageItemKey);
     return true;
+  }
+
+  async getByEmailAndPassword(email: string, password: string) {
+    const [user] = await this.collection.queryAll([
+      ["email", "password"],
+      [email, password]
+    ]);
+
+    return user;
   }
 }
 

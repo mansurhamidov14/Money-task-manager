@@ -157,7 +157,16 @@
     "personalInfo": "Особиста Інформація",
     "language": "Мова",
     "colorScheme": "Схема кольорів",
-    "password": "Пароль",
+    "changePassword": {
+      "title": "Змінити пароль",
+      "success": "Новий пароль успішно встановлено",
+      "error": "Помилка під час встановлення нового пароля: {{error}}",
+      "oldPassword": "Поточний пароль",
+      "newPassword": "Новий пароль",
+      "repeatPassword": "Підтвердіть пароль",
+      "invalidPassword": "Поточний пароль введено неправильно",
+      "passwordsDoNotMatch": "Паролі не збігаються"
+    },
     "pinCode": "PIN-код",
     "wipeData": "Видалення даних"
   },

@@ -63,8 +63,9 @@ export function SettingsScreen() {
             />
             <ListItem
               size="sm"
+              onClick={() => navigate("/settings/change-password")}
               icon={<ItemIcon icon={IoKey} />}
-              title={t("SettingsScreen.password")}
+              title={t("SettingsScreen.changePassword.title")}
               rightElement={<ChevronRight />}
             />
             <ListItem

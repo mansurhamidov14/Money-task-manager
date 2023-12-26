@@ -157,7 +157,16 @@
     "personalInfo": "Личная информация",
     "language": "Язык",
     "colorScheme": "Цветовая схема",
-    "password": "Пароль",
+    "changePassword": {
+      "title": "Сменить пароль",
+      "success": "Новый пароль успешно установлен",
+      "error": "Произошла ошибка во время установки нового пароля: {{error}}",
+      "oldPassword": "Текущий пароль",
+      "newPassword": "Новый пароль",
+      "repeatPassword": "Подтвердите пароль",
+      "invalidPassword": "Текущий пароль введен неверно",
+      "passwordsDoNotMatch": "Пароли не совпадают"
+    },
     "pinCode": "PIN код",
     "wipeData": "Удаление данных"
   },

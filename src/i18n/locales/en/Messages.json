@@ -157,7 +157,16 @@
     "personalInfo": "Personal Info",
     "language": "Language",
     "colorScheme": "Color scheme",
-    "password": "Password",
+    "changePassword": {
+      "title": "Change password",
+      "success": "New password was successfully set",
+      "error": "An error occurred while setting a new password: {{error}}",
+      "oldPassword": "Current password",
+      "newPassword": "New password",
+      "repeatPassword": "Confirm the password",
+      "invalidPassword": "Current password was entered incorrectly",
+      "passwordsDoNotMatch": "Passwords do not match"
+    },
     "pinCode": "PIN code",
     "wipeData": "Wipe data"
   },

@@ -157,7 +157,16 @@
     "personalInfo": "Şəxsi məlumatlar",
     "language": "Dil",
     "colorScheme": "Rəngli sxema",
-    "password": "Şifrə",
+    "changePassword": {
+      "title": "Şifrəni dəyiş",
+      "success": "Yeni şifrə müvəffəqiyyətlə təyin edildi",
+      "error": "Yeni şifrə təyin edərkən xəta baş verdi: {{error}}",
+      "oldPassword": "Cari şifrə",
+      "newPassword": "Yeni şifrə",
+      "repeatPassword": "Şifrəni təsdiq edin",
+      "invalidPassword": "Cari şifrə yanlış daxil edilib",
+      "passwordsDoNotMatch": "Şifrələr eyni deyil"
+    },
     "pinCode": "PIN kod",
     "wipeData": "Məlumatların silinməsi"
   },
