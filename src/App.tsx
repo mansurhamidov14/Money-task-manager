@@ -19,7 +19,7 @@ import {
   SignUpPage,
   TasksScreen
 } from "@app/screens";
-import { ChangeAvatarScreen, ChangeLanguageScreen } from "@app/screens/SettingsScreen/pages";
+import { ChangeAvatarScreen, ChangeLanguageScreen, PersonalInfoScreen } from "@app/screens/SettingsScreen/pages";
 import { userService } from "@app/services";
 import { transactionsStore, user, accountsStore } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
@@ -83,6 +83,7 @@ export default function() {
             <ProtectedRoute path="/" component={SettingsScreen} />
             <ProtectedRoute path="/change-avatar" component={ChangeAvatarScreen} />
             <ProtectedRoute path="/change-language" component={ChangeLanguageScreen} />
+            <ProtectedRoute path="/personal-info" component={PersonalInfoScreen} />
           </Route>
         </Router>
       </Show>
