@@ -156,7 +156,8 @@
     "changeAvatar": "Avatarı dəyişdir",
     "personalInfo": "Şəxsi məlumatlar",
     "language": "Dil",
-    "colorScheme": "Rəngli sxema",
+    "colorScheme": "Rəngli sxem",
+    "logOut": "Çıxış et",
     "changePassword": {
       "title": "Şifrəni dəyiş",
       "success": "Yeni şifrə müvəffəqiyyətlə təyin edildi",

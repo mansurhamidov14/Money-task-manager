@@ -9,7 +9,6 @@ export * from "./FilterTab";
 export * from "./Layout";
 export * from "./ListItem";
 export * from "./Loading";
-export * from "./LogOutButton";
 export * from "./Modal";
 export * from "./SectionTitle";
 export * from "./Select";

@@ -1,7 +1,6 @@
 import { For, Show, createMemo, onCleanup, onMount } from "solid-js";
 import {
   AccountCard,
-  LogOutButton,
   SectionTitle,
   ThemeToggleButton,
   VerticalScroll
@@ -50,7 +49,6 @@ export function HomeScreen() {
             <Message name={currentUser.firstName}>HomeScreen.greeting</Message>
           </div>
           <ThemeToggleButton />
-          <LogOutButton />
         </div>
         <div class="-mx-3 relative">
           <div ref={sliderRef}>

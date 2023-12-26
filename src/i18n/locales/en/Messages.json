@@ -157,6 +157,7 @@
     "personalInfo": "Personal Info",
     "language": "Language",
     "colorScheme": "Color scheme",
+    "logOut": "Sign out",
     "changePassword": {
       "title": "Change password",
       "success": "New password was successfully set",

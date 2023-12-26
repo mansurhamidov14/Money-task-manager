@@ -1,7 +1,7 @@
 import { useNavigate } from "@solidjs/router";
 import { BsShieldLockFill } from "solid-icons/bs";
 import { FaSolidCircleUser } from "solid-icons/fa";
-import { IoKey, IoLanguage, IoPencil, IoTrash } from "solid-icons/io";
+import { IoKey, IoLanguage, IoPencil } from "solid-icons/io";
 import { VsColorMode } from "solid-icons/vs";
 
 import { List, ListItem, ScreenHeader, ThemeToggleButton, VerticalScroll } from "@app/components";
@@ -9,6 +9,7 @@ import { getLocale, langData, t } from "@app/i18n";
 import { Link, user } from "@app/stores";
 
 import { ChevronRight, ItemIcon } from "./components";
+import { FiLogOut } from "solid-icons/fi";
 
 export function SettingsScreen() {
   const currentUser = user.currentUser().data!;
@@ -74,11 +75,17 @@ export function SettingsScreen() {
               title={t("SettingsScreen.pinCode")}
               rightElement={<ChevronRight />}
             />
-            <ListItem
+            {/* <ListItem
               size="sm"
               icon={<ItemIcon colorClass="text-red-600 dark:text-red-400" icon={IoTrash} />}
               title={<span class="text-red-600 dark:text-red-400">{t("SettingsScreen.wipeData")}</span>}
               rightElement={<ChevronRight />}
+            /> */}
+            <ListItem
+              size="sm"
+              onClick={user.logOut}
+              icon={<ItemIcon colorClass="text-red-600 dark:text-red-400" icon={FiLogOut} />}
+              title={<span class="text-red-600 dark:text-red-400">{t("SettingsScreen.logOut")}</span>}
             />
           </List>
         </div>
