@@ -115,7 +115,10 @@
       "enterNewPIN": "Введіть новий PIN",
       "confirmPIN": "Підтвердіть Ваш PIN",
       "confirmationError": "PIN-коди не збігаються",
-      "invalidPIN": "Ви ввели неправильний PIN-код"
+      "invalidPIN": "Ви ввели неправильний PIN-код",
+      "forgotPIN": "Я забув свій PIN-код",
+      "rememberPIN": "Я пам'ятаю свій PIN-код",
+      "invalidPassword": "Неправильно введено пароль"
     }
   },
   "NewTransactionScreen": {

@@ -89,7 +89,7 @@ class UserService {
     return true;
   }
 
-  async getByEmailAndPassword(email: string, password: string) {
+  async getByEmailAndPassword(email: string, password: string): Promise<User> {
     const [user] = await this.collection.queryAll([
       ["email", "password"],
       [email, password]
@@ -113,6 +113,16 @@ class UserService {
     }
 
     return false;
+  }
+
+  async removePinProtectionByPassword(email: string, password: string) {
+    const user = await this.getByEmailAndPassword(email, password);
+
+    if (user) {
+      await this.update(user.id, { hasPinProtection: 0, pinCode: undefined });
+    } else {
+      throw new Error(t("AuthScreen.PINInput.invalidPassword"));
+    }
   }
 }
 

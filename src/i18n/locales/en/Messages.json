@@ -115,7 +115,10 @@
       "enterNewPIN": "Enter a new PIN",
       "confirmPIN": "Confirm your PIN",
       "confirmationError": "PIN codes do not match",
-      "invalidPIN": "You entered an incorrect PIN code"
+      "invalidPIN": "You entered an incorrect PIN code",
+      "forgotPIN": "I forgot my PIN",
+      "rememberPIN": "I remember my PIN",
+      "invalidPassword": "Password was entered incorrectly"
     }
   },
   "NewTransactionScreen": {

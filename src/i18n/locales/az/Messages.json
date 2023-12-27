@@ -115,7 +115,10 @@
       "enterNewPIN": "Yeni PİN-kod daxil edin",
       "confirmPIN": "PİN-kodunuzu təsdiq edin",
       "confirmationError": "PİN-kodlar eyni deyil",
-      "invalidPIN": "PİN-kod yanlış daxil edilib"
+      "invalidPIN": "PİN-kod yanlış daxil edilib",
+      "forgotPIN": "PİN-kodumu unutmuşam",
+      "rememberPIN": "PİN-kodumu biliriəm",
+      "invalidPassword": "Şifrə yanlış daxil edilib"
     }
   },
   "NewTransactionScreen": {

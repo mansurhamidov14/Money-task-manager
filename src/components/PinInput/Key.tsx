@@ -8,7 +8,7 @@ export type KeyProps<T> = {
 export function Key<T extends string | JSX.Element>(props: KeyProps<T>) {
   return (
     <button
-      class="inline-flex h-[8vh] min-h-[3rem] aspect-square text-2xl justify-center items-center rounded-full bg-secondary-200 active:bg-secondary-300/60 dark:bg-gray-700 dark:active:bg-gray-700/70 font-medium"
+      class="inline-flex h-[8vh] min-h-[3rem] aspect-square text-2xl justify-center items-center rounded-full bg-secondary-200 active:bg-secondary-300/80 dark:bg-gray-700 dark:active:bg-gray-700/50 font-medium"
       type="button"
       onClick={() => props.onClick?.(props.key)}
     >

@@ -6,7 +6,11 @@ import { AuthLayout } from "../AuthLayout";
 import { userService } from "@app/services";
 import { vibrate } from "@app/helpers";
 
-export function PinAuth() {
+export type PinAuthProps = {
+  onForgotPin: () => void;
+}
+
+export function PinAuth(props: PinAuthProps) {
   const [pin, setPin] = createSignal("");
   const [pinError, setPinError] = createSignal<string | null>(null);
 
@@ -26,6 +30,11 @@ export function PinAuth() {
     }
   }
 
+  const handleForgotClick = (e: MouseEvent) => {
+    e.preventDefault();
+    props.onForgotPin();
+  }
+
   return (
     <AuthLayout>
       <div class="flex flex-col">
@@ -43,6 +52,11 @@ export function PinAuth() {
           error={pinError()}
           onClearError={() => setPinError(null)}
         />
+        <div class="text-sm pt-10 font-semibold text-center">
+          <a href="#" onClick={handleForgotClick} class="text-primary-500 dark:text-primary-400">
+            <Message>AuthScreen.PINInput.forgotPIN</Message>
+          </a>
+        </div>
       </div>
     </AuthLayout>
   );
