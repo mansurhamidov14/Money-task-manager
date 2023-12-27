@@ -18,6 +18,10 @@
     "accountDeletion": {
       "text": "Account will be deleted with the transactions linked to it. Are you sure?",
       "confirm": "Yes, I am"
+    },
+    "transactionDeletion": {
+      "text": "The transaction will be deleted and this will be reflected in the account balance that was associated with this transaction. Are you sure?",
+      "confirm": "Yes, I am"
     }
   },
   "BottomNavigation": {

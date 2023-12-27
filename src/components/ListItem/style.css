@@ -2,7 +2,7 @@
   @apply overflow-hidden flex bg-white dark:bg-gray-700 active:bg-white/70 active:dark:bg-gray-700/70 shadow rounded-lg;
 }
 
-.wfo-list-item > div:not(:last-child) {
+.wfo-list-item > div:not(.wfo-list-item-controls) {
   @apply pl-3 pr-6;
 }
 

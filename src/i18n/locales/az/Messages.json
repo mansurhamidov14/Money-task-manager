@@ -18,6 +18,10 @@
     "accountDeletion": {
       "text": "Hesab ona bağlı olan əməliyyatlarla birlikdə silinəcək. Hesabı silmək istədiyinizə əminsiniz?",
       "confirm": "Bəli, əminəm"
+    },
+    "transactionDeletion": {
+      "text": "Əməliyyat silinəcək və bu, əməliyyatın icra olunduğu hesabın balansında əks olunacaq. Əminsiniz?",
+      "confirm": "Bəli, əminəm"
     }
   },
   "BottomNavigation": {
