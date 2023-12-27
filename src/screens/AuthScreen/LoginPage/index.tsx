@@ -36,7 +36,7 @@ export function LoginPage() {
   return (
     <Show when={user.currentUser().status === "unauthorized"} fallback={<Navigate href="/auth/pin" />}>
       <AuthLayout>
-        <form onSubmit={handleSubmit} class="flex flex-col gap-5 justify-around px-5">
+        <form onSubmit={handleSubmit} class="flex flex-col gap-5 justify-around px-5 max-w-md mx-auto">
           <Field
             mode="input"
             name="email"
