@@ -50,8 +50,8 @@ function initAccountsStore() {
 
   const addAccount = (newAccount: Account) => setAccountsData([...accounts().data!, newAccount]);
 
-  const removePrimaryFlag = async (userId: number) => {
-    await accountService.update([["primary", "user"], [1, userId]], { primary: 0 });
+  const removePrimaryFlag = async (user: number) => {
+    await accountService.update({ primary: 1, user }, { primary: 0 });
     setAccountsData(accounts().data!.map(account => account.primary
       ? { ...account, primary: 0 }
       : account 

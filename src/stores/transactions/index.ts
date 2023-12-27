@@ -78,7 +78,7 @@ function initTransactionsStore() {
   }
 
   const updateCurrencyByAccount = async (user: number, account: number, currency: CurrencyCode) => {
-    await transactionService.update([["account", "user"], [account, user]], { currency });
+    await transactionService.update({ account, user }, { currency });
     setTransactionsData(transactions().data!.map(transaction => {
       if (transaction.account !== account) return transaction;
       return { ...transaction, currency };

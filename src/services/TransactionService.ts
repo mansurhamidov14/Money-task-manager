@@ -10,11 +10,11 @@ class TransactionService {
     return this.collection.create(transaction);
   }
 
-  getUserTransactions(userId: number) {
-    return this.collection.queryAll(["user", userId]);
+  getUserTransactions(user: number) {
+    return this.collection.queryAll({ user });
   }
 
-  update(id: SearchCondition, data: Partial<Transaction>) {
+  update(id: SearchCondition<Transaction>, data: Partial<Transaction>) {
     return this.collection.update(id, data);
   }
 
@@ -22,8 +22,8 @@ class TransactionService {
     return this.collection.delete(id);
   }
 
-  deleteByAccountId(accountId: number) {
-    return this.collection.delete(["account", accountId]);
+  deleteByAccountId(account: number) {
+    return this.collection.delete({ account });
   }
 }
 

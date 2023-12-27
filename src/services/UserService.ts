@@ -1,16 +1,16 @@
-import type { IDBCollection } from "@app/adapters/IDB";
+import type { IDBCollection, UserDbData } from "@app/adapters/IDB";
 import { userCollection } from "@app/db";
 import { User } from "@app/stores";
-import { UserDbData } from "./types";
 import { t } from "@app/i18n";
+import { NewUser } from ".";
 
 class UserService {
   private static EmailAlreadyRegisteredException = "EmailAlreadyRegisteredException";
   private static WrongEmailOrPasswordException = "WrongEmailOrPasswordException";
   private static BrowserStorageItemKey = "WFOAppAuthorizedUser";
 
-  constructor (private collection: IDBCollection<User>) {}
-  async signUp(user: UserDbData): Promise<User> {
+  constructor (private collection: IDBCollection<UserDbData>) {}
+  async signUp(user: NewUser): Promise<User> {
     try {
       const newUser = await this.collection.create(user);
       localStorage.setItem(UserService.BrowserStorageItemKey, JSON.stringify({
@@ -34,7 +34,10 @@ class UserService {
         localStorage.removeItem(UserService.BrowserStorageItemKey);
       }
 
-      return user;
+      if (user) {
+        const { password, pinCode, ...rest } = user;
+        return rest;
+      }
     }
     
     return null;
@@ -56,7 +59,7 @@ class UserService {
   }
 
   async userExist(email: string): Promise<boolean> {
-    const user = await this.collection.queryOne(["email", email.toLowerCase()]);
+    const user = await this.collection.queryOne({ email: email.toLowerCase() });
     return Boolean(user);
   }
 
@@ -89,11 +92,8 @@ class UserService {
     return true;
   }
 
-  async getByEmailAndPassword(email: string, password: string): Promise<User> {
-    const [user] = await this.collection.queryAll([
-      ["email", "password"],
-      [email, password]
-    ]);
+  async getByEmailAndPassword(email: string, password: string): Promise<User | null> {
+    const user = await this.collection.queryOne({ email: email.toLowerCase(), password });
 
     return user;
   }
@@ -106,7 +106,7 @@ class UserService {
     }
 
     if (pinCode) {
-      const validUser = await this.collection.queryOne([["id", "pinCode"], [id, pinCode]]);
+      const validUser = await this.collection.queryOne({ id, pinCode });
       if (validUser) {
         return true;
       }

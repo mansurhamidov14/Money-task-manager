@@ -26,7 +26,6 @@ export function SignUpPage() {
     try {
       await formHandler.validateForm();
       const formData = formHandler.formData();
-      const createdAt = Date.now();
       const userData = {
         firstName: formData.firstName,
         lastName: formData.lastName,
@@ -34,9 +33,7 @@ export function SignUpPage() {
         password: formData.newPassword,
         primaryCurrency: formData.primaryCurrency,
         hasPinProtection: 0 as 0 | 1,
-        createdAt,
         avatar: getRandomElement(avatars),
-        updatedAt: createdAt
       };
       const newUser = await userService.signUp(userData);
       await accountService.create({
@@ -45,7 +42,7 @@ export function SignUpPage() {
         currency: formHandler.getFieldValue("primaryCurrency"),
         balance: 0,
         skin: 1,
-        primary: 1
+        primary: 1,
       });
       user.setCurrentUser({
         status: "locked",

@@ -33,6 +33,7 @@ export function NewAccountScreen() {
       if (isPrimary) {
         await accountsStore.removePrimaryFlag(userId);
       }
+
       const accountData = {
         user: user.currentUser().data!.id,
         title: formHandler.getFieldValue("title"),
@@ -65,6 +66,8 @@ export function NewAccountScreen() {
             balance: formHandler.getFieldValue("balance"),
             currency: formHandler.getFieldValue("currency"),
             user: 0,
+            createdAt: 0,
+            updatedAt: 0
           }}
         />
         <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>

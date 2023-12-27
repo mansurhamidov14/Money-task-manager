@@ -10,11 +10,11 @@ class AccountService {
     return this.collection.create(account);
   }
 
-  getUserAccounts(userId: number) {
-    return this.collection.queryAll(["user", userId]);
+  getUserAccounts(user: number) {
+    return this.collection.queryAll({ user });
   }
 
-  update(id: SearchCondition, data: Partial<Account>) {
+  update(id: SearchCondition<Account>, data: Partial<Account>) {
     return this.collection.update(id, data);
   }
 
@@ -22,8 +22,8 @@ class AccountService {
     return this.collection.delete(id);
   }
 
-  getById(accountId: number, userId: number) {
-    return this.collection.queryOne([["id", "user"], [accountId, userId]]);
+  getById(id: number, user: number) {
+    return this.collection.queryOne({ id, user });
   }
 }
 

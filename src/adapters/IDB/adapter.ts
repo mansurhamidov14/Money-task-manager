@@ -6,23 +6,23 @@ export class IDBAdapter {
 
   async queryAll<T>(
     collection: string,
-    condition?: SearchCondition
+    condition?: SearchCondition<T>
   ): Promise<T[]> {
     const { db, data } = await this.makeQuery<T>(collection, condition);
     db.close();
     return data;
   }
 
-  private async makeQuery<T>(collection: string, condition?: SearchCondition, transactionMode?: IDBTransactionMode): Promise<{db: IDBDatabase,objectStore: IDBObjectStore,data: T[]}> {
+  private async makeQuery<T>(collection: string, condition?: SearchCondition<T>, transactionMode?: IDBTransactionMode): Promise<{db: IDBDatabase,objectStore: IDBObjectStore,data: T[]}> {
     const db = await this.openDbConnection();
     const transaction = db.transaction(collection, transactionMode ?? "readonly");
     const objectStore = transaction.objectStore(collection);
 
     return new Promise((resolve, reject) => {
       let getRequest: IDBRequest<T[]>;
-      if (Array.isArray(condition)) {
-        const accessor = Array.isArray(condition[0]) ? condition[0].join(', ') : condition[0];
-        getRequest = objectStore.index(accessor).getAll(condition[1]);
+      if (typeof condition === "object") {
+        const { accessor, searchValues } = this.getQueryFilters(condition);
+        getRequest = objectStore.index(accessor).getAll(searchValues);
       } else {
         getRequest = objectStore.getAll(condition ? IDBKeyRange.only(condition) : undefined);
       }
@@ -44,23 +44,23 @@ export class IDBAdapter {
     });
   }
 
-  async queryOne<T>(collection: string, condition: SearchCondition): Promise<T | null> {
+  async queryOne<T>(collection: string, condition: SearchCondition<T>): Promise<T | null> {
     const result = await this.queryAll<T>(collection, condition);
     return result[0] ?? null;
   }
   
   async update<T>(
     collection: string,
-    condition: SearchCondition,
+    condition: SearchCondition<T>,
     updateData: UpdateData<T>
   ) {
     const { db, objectStore, data } = await this.makeQuery<T>(collection, condition, "readwrite");
-
+    const updatedAt = Date.now();
     const promises = data.reduce((acc, val) => {
       const updatedData = typeof updateData === "function"
         ? updateData(val)
         : { ...val, ...updateData };
-      return acc.then(() => this.updateRecord(objectStore, updatedData))
+      return acc.then(() => this.updateRecord(objectStore, { ...updatedData, updatedAt }))
     }, Promise.resolve() as Promise<any>);
     return promises.then(() => {
       db.close();
@@ -86,6 +86,7 @@ export class IDBAdapter {
 
       request.addEventListener("error", () => {
         const error = request.error;
+        console.log("err", error);
         db.close();
         reject(error);
       });
@@ -131,7 +132,7 @@ export class IDBAdapter {
     })
   }
 
-  public async delete(collection: string, condition: SearchCondition) {
+  public async delete<T>(collection: string, condition: SearchCondition<T>) {
     const { db, objectStore, data } = await this.makeQuery<{ id: number }>(collection, condition, "readwrite");
     
     const promises = data.reduce((acc, val) => {
@@ -157,5 +158,15 @@ export class IDBAdapter {
         console.error("Can not update record");
       });
     });
+  }
+
+  private getQueryFilters<T>(condition: Partial<T>): { accessor: string, searchValues: any | any[] } {
+    const keys = Object.keys(condition).toSorted() as (keyof Partial<T>)[];
+    const searchValues = keys.map(key => condition[key]);
+
+    return {
+      accessor: keys.join(", "),
+      searchValues: searchValues.length === 1 ? searchValues[0] : searchValues 
+    };
   }
 }

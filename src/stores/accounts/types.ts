@@ -9,6 +9,8 @@ export type Account = {
   currency: CurrencyCode;
   skin: number;
   primary: 1 | 0;
+  createdAt: number;
+  updatedAt: number;
 }
 
 export type AccountsStore = AsyncStore<Account[]>;

@@ -1,6 +1,6 @@
 import { DB_NAME, DB_VERSION } from "./consts";
 import { Structure } from "@app/adapters/IDB";
-import { createColumn } from "./helpers";
+import { createColumn, createMultiColumnIndex } from "./helpers";
 
 const defaultTableConfig = {
   keyPath: "id",
@@ -28,10 +28,10 @@ const structure: Structure = {
         createColumn("updatedAt"),
       ],
       complexIndices: [
-        { fields: ["email", "password"], unique: false, version: 1 },
-        { fields: ["email", "id" ], unique: false, version: 1 },
-        { fields: ["email", "pinCode"], unique: false, version: 1},
-        { fields: ["id", "pinCode"], unique: false, version: 1 }
+        createMultiColumnIndex(["email", "password"]),
+        createMultiColumnIndex(["email", "id" ]),
+        createMultiColumnIndex(["email", "pinCode"]),
+        createMultiColumnIndex(["id", "pinCode"]),
       ]
     },
     {
@@ -52,15 +52,15 @@ const structure: Structure = {
         createColumn("updatedAt"),
       ],
       complexIndices: [
-        { fields: ["category", "user"], unique: false, version: 1 },
-        { fields: ["tranactionDate", "user"], unique: false, version: 1 },
-        { fields: ["account", "tranactionDate"], unique: false, version: 1 },
-        { fields: ["type", "user"], unique: false, version: 1 },
-        { fields: ["category", "type", "user"], unique: false, version: 1 },
-        { fields: ["account", "category", "user"], unique: false, version: 1 },
-        { fields: ["account", "user"], unique: false, version: 1 },
-        { fields: ["account", "type", "user"], unique: false, version: 1 },
-        { fields: ["account", "category", "type", "user"], unique: false, version: 1 },
+        createMultiColumnIndex(["category", "user"]),
+        createMultiColumnIndex(["tranactionDate", "user"]),
+        createMultiColumnIndex(["account", "tranactionDate"]),
+        createMultiColumnIndex(["type", "user"]),
+        createMultiColumnIndex(["category", "type", "user"]),
+        createMultiColumnIndex(["account", "category", "user"]),
+        createMultiColumnIndex(["account", "user"]),
+        createMultiColumnIndex(["account", "type", "user"]),
+        createMultiColumnIndex(["account", "category", "type", "user"]),
       ]
     },
     {
@@ -78,9 +78,9 @@ const structure: Structure = {
         createColumn("updatedAt"),
       ],
       complexIndices: [
-        { fields: ["id", "user"], unique: true, version: 1 },
-        { fields: ["currency", "user"], unique: false, version: 1 },
-        { fields: ["primary", "user"], unique: false, version: 1 },
+        createMultiColumnIndex(["id", "user"]),
+        createMultiColumnIndex(["currency", "user"]),
+        createMultiColumnIndex(["primary", "user"]),
       ]
     }
   ]
