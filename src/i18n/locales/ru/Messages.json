@@ -109,6 +109,13 @@
     "signUp": "Создать аккаунт",
     "Exceptions": {
       "WrongEmailOrPasswordException": "Неверный пароль или адрес электронной почты!"
+    },
+    "PINInput": {
+      "greeting": "Привет, ",
+      "enterNewPIN": "Введите новый PIN",
+      "confirmPIN": "Подтвердите Ваш PIN",
+      "confirmationError": "PIN коды не совпадают",
+      "invalidPIN": "Вы ввели неверный PIN код"
     }
   },
   "NewTransactionScreen": {

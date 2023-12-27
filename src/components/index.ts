@@ -10,6 +10,7 @@ export * from "./Layout";
 export * from "./ListItem";
 export * from "./Loading";
 export * from "./Modal";
+export * from "./PinInput";
 export * from "./SectionTitle";
 export * from "./Select";
 export * from "./ScreenHeader";

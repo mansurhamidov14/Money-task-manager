@@ -23,11 +23,7 @@ export function LoginPage() {
       const email = formHandler.getFieldValue("email");
       const password = formHandler.getFieldValue("password");
       const data = await userService.auth(email.toLowerCase(), password);
-      user.setCurrentUser({
-        isLoading: false,
-        isAuthorized: true,
-        data
-      });
+      user.setCurrentUser({ status: "authorized", data });
       await transactionsStore.fetchUserTransactions(data.id);
       await accountsStore.fetchUserAccounts(data.id);
       navigate("/");

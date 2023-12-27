@@ -109,6 +109,13 @@
     "signUp": "Створити обліковий запис",
     "Exceptions": {
       "WrongEmailOrPasswordException": "Неправильний пароль або адреса електронної пошти!"
+    },
+    "PINInput": {
+      "greeting": "Привіт, ",
+      "enterNewPIN": "Введіть новий PIN",
+      "confirmPIN": "Підтвердіть Ваш PIN",
+      "confirmationError": "PIN-коди не збігаються",
+      "invalidPIN": "Ви ввели неправильний PIN-код"
     }
   },
   "NewTransactionScreen": {

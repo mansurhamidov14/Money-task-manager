@@ -26,11 +26,22 @@ export default {
             transform: 'translateY(-200%)',
             opacity: 0
           }
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(240px)' },
+          '100%': { transform: 'translateY(0)' }
+        },
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '50%': { opacity: 0 },
+          '100%': { opacity: 1 }
         }
       },
       animation: {
         'slide-down-in': 'slideDownIn 500ms',
-        'slide-up-out': 'slideUpOut 500ms'
+        'slide-up-out': 'slideUpOut 500ms',
+        'slide-up': 'slideUp 500ms',
+        'fade-in': 'fadeIn 1000ms'
       }
     }
   },

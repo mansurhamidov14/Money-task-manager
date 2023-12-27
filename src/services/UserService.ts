@@ -1,7 +1,7 @@
 import type { IDBCollection } from "@app/adapters/IDB";
 import { userCollection } from "@app/db";
 import { User } from "@app/stores";
-import { RegisterUser } from "./types";
+import { UserDbData } from "./types";
 import { t } from "@app/i18n";
 
 class UserService {
@@ -10,7 +10,7 @@ class UserService {
   private static BrowserStorageItemKey = "WFOAppAuthorizedUser";
 
   constructor (private collection: IDBCollection<User>) {}
-  async signUp(user: RegisterUser): Promise<User> {
+  async signUp(user: UserDbData): Promise<User> {
     try {
       const newUser = await this.collection.create(user);
       localStorage.setItem(UserService.BrowserStorageItemKey, JSON.stringify({
@@ -60,7 +60,7 @@ class UserService {
     return Boolean(user);
   }
 
-  update(id: number, data: Partial<User>) {
+  update(id: number, data: Partial<UserDbData>) {
     return this.collection.update(id, data);
   }
 
@@ -72,6 +72,16 @@ class UserService {
     } else {
       throw new Error(t("SettingsScreen.changePassword.invalidPassword"));
     }
+  }
+
+  async setUpPinProtection(user: User, newPin: string, prevPin?: string) {
+    const isValid = this.validatePin(user.id, prevPin);
+
+    if (!isValid) {
+      throw new Error("PIN is incorrect");
+    }
+
+    await this.update(user.id, { pinCode: newPin, hasPinProtection: 1 });
   }
 
   async logOut() {
@@ -86,6 +96,23 @@ class UserService {
     ]);
 
     return user;
+  }
+
+  async validatePin(id: number, pinCode?: string) {
+    const user = await this.collection.queryOne(id);
+
+    if (user && !user.hasPinProtection) {
+      return true;
+    }
+
+    if (pinCode) {
+      const validUser = await this.collection.queryOne([["id", "pinCode"], [id, pinCode]]);
+      if (validUser) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
 

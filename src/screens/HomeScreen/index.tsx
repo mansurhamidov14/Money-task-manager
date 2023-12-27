@@ -1,6 +1,7 @@
 import { For, Show, createMemo, onCleanup, onMount } from "solid-js";
 import {
   AccountCard,
+  Loading,
   SectionTitle,
   ThemeToggleButton,
   VerticalScroll
@@ -26,14 +27,25 @@ export function HomeScreen() {
 
   const reBuildSlider = () => {
     destroy();
-    setTimeout(() => slider(sliderRef), 10);
+    slider(sliderRef);
     moveToPrimaryAccountSlide();
   }
 
-  onMount(() => {
-    setTimeout(() => slider(sliderRef), 10);
+  onMount(async () => {
+    if (accountsStore.accounts().status === "success") {
+      slider(sliderRef);
+    }
     moveToPrimaryAccountSlide();
     window.addEventListener("accountdeleted", reBuildSlider);
+
+    if (transactionsStore.transactions().status === "loading") {
+      await transactionsStore.fetchUserTransactions(user.currentUser().data!.id);
+    }
+
+    if (accountsStore.accounts().status === "loading") {
+      await accountsStore.fetchUserAccounts(user.currentUser().data!.id);
+      reBuildSlider();
+    }
   });
 
   onCleanup(() => {
@@ -52,11 +64,13 @@ export function HomeScreen() {
         </div>
         <div class="-mx-3 relative">
           <div ref={sliderRef}>
-            <For each={accountsStore.accounts().data!}>
-              {account => <AccountCard hasBackSide account={account} />}
-            </For>
+            <Show when={accountsStore.accounts().status === "success"} fallback={<Loading />}>
+              <For each={accountsStore.accounts().data!}>
+                {account => <AccountCard hasBackSide account={account} />}
+              </For>
+            </Show>
           </div>
-          <Show when={accountsStore.accounts().data!.length > 1}>
+          <Show when={accountsStore.accounts().status === "success" && accountsStore.accounts().data!.length > 1}>
             <div class="absolute w-full bottom-1 flex justify-center gap-2">
               <For each={accountsStore.accounts().data!}>
                 {(_, index) => (

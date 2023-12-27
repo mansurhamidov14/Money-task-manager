@@ -6,13 +6,13 @@ export type User = {
   firstName: string;
   lastName: string;
   email: string;
+  hasPinProtection: 0 | 1;
   createdAt: number;
   updatedAt: number;
   primaryCurrency: CurrencyCode;
 }
 
 export type UserStore = {
-  isAuthorized: boolean;
-  isLoading: boolean;
+  status: "loading" | "unauthorized" | "locked" | "authorized";
   data?: User;
 };

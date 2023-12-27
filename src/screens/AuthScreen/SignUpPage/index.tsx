@@ -25,13 +25,15 @@ export function SignUpPage() {
     event.preventDefault();
     try {
       await formHandler.validateForm();
+      const formData = formHandler.formData();
       const createdAt = Date.now();
       const userData = {
-        firstName: formHandler.getFieldValue("firstName"),
-        lastName: formHandler.getFieldValue("lastName"),
-        email: formHandler.getFieldValue("email").toLowerCase(),
-        password: formHandler.getFieldValue("newPassword"),
-        primaryCurrency: formHandler.getFieldValue("primaryCurrency"),
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email.toLowerCase(),
+        password: formData.newPassword,
+        primaryCurrency: formData.primaryCurrency,
+        hasPinProtection: 0 as 0 | 1,
         createdAt,
         avatar: getRandomElement(avatars),
         updatedAt: createdAt
@@ -46,13 +48,12 @@ export function SignUpPage() {
         primary: 1
       });
       user.setCurrentUser({
-        isLoading: false,
-        isAuthorized: true,
+        status: "locked",
         data: newUser
       });
       await transactionsStore.fetchUserTransactions(newUser.id);
       await accountsStore.fetchUserAccounts(newUser.id);
-      navigate("/");
+      navigate("/auth/pin");
     } catch (e) { }
   }
 

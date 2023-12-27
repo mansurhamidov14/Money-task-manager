@@ -1,33 +1,40 @@
-import { createSignal } from "solid-js";
+import { createRoot, createSignal } from "solid-js";
 import { UserStore } from "./types";
 import { userService } from "@app/services";
 import { transactionsStore } from "..";
 
-const [currentUser, setCurrentUser] = createSignal<UserStore>({
-  isAuthorized: false,
-  isLoading: true
-});
 
-const updateUserData = (data: Partial<UserStore["data"]>) => {
-  setCurrentUser(value => ({
-    ...value,
-    data: {
-      ...value.data!,
-      ...data
-    }
-  }));
+
+function initUserStore() {
+  const [currentUser, setCurrentUser] = createSignal<UserStore>({
+    status: "loading"
+  });
+  
+  const updateUserData = (data: Partial<UserStore["data"]>) => {
+    setCurrentUser(value => ({
+      ...value,
+      data: {
+        ...value.data!,
+        ...data
+      }
+    }));
+  }
+  
+  const logOut = () => {
+    userService.logOut();
+      setCurrentUser({ status: "loading" });
+      setTimeout(() => {
+        setCurrentUser({ status: "unauthorized" });
+        transactionsStore.setTransactionsLoading();
+      }, 500);
+  }
+
+  return {
+    currentUser,
+    setCurrentUser,
+    logOut,
+    updateUserData
+  }
 }
 
-const logOut = () => {
-  userService.logOut();
-    setCurrentUser({
-      isLoading: true,
-      isAuthorized: false
-    });
-    setTimeout(() => {
-      setCurrentUser({ isLoading: false, isAuthorized: false });
-      transactionsStore.setTransactionsLoading();
-    }, 500);
-}
-
-export const user = { currentUser, setCurrentUser, updateUserData, logOut };
+export const user = createRoot(initUserStore);

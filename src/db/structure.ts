@@ -20,6 +20,8 @@ const structure: Structure = {
         createColumn("firstName"),
         createColumn("lastName"),
         createColumn("password"),
+        createColumn("hasPinProtection"),
+        createColumn("pinCode"),
         createColumn("avatar"),
         createColumn("primaryCurrency"),
         createColumn("createdAt"),
@@ -27,7 +29,9 @@ const structure: Structure = {
       ],
       complexIndices: [
         { fields: ["email", "password"], unique: false, version: 1 },
-        { fields: ["email", "id" ], unique: false, version: 1 }
+        { fields: ["email", "id" ], unique: false, version: 1 },
+        { fields: ["email", "pinCode"], unique: false, version: 1},
+        { fields: ["id", "pinCode"], unique: false, version: 1 }
       ]
     },
     {
@@ -54,7 +58,7 @@ const structure: Structure = {
         { fields: ["type", "user"], unique: false, version: 1 },
         { fields: ["category", "type", "user"], unique: false, version: 1 },
         { fields: ["account", "category", "user"], unique: false, version: 1 },
-        { fields: ["account", "user"], unique: false, version: 2 },
+        { fields: ["account", "user"], unique: false, version: 1 },
         { fields: ["account", "type", "user"], unique: false, version: 1 },
         { fields: ["account", "category", "type", "user"], unique: false, version: 1 },
       ]
@@ -74,7 +78,7 @@ const structure: Structure = {
         createColumn("updatedAt"),
       ],
       complexIndices: [
-        { fields: ["id", "user"], unique: true, version: 3 },
+        { fields: ["id", "user"], unique: true, version: 1 },
         { fields: ["currency", "user"], unique: false, version: 1 },
         { fields: ["primary", "user"], unique: false, version: 1 },
       ]

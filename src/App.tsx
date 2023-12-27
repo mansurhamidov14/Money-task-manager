@@ -15,13 +15,14 @@ import {
   LoginPage,
   NewAccountScreen,
   NewTransactionScreen,
+  PinInputPage,
   SettingsScreen,
   SignUpPage,
   TasksScreen
 } from "@app/screens";
 import { ChangeAvatarScreen, ChangeLanguageScreen, ChangePasswordScreen, PersonalInfoScreen } from "@app/screens/SettingsScreen/pages";
 import { userService } from "@app/services";
-import { transactionsStore, user, accountsStore } from "@app/stores";
+import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
 import "./App.css";
@@ -32,7 +33,7 @@ function App(props: RouteSectionProps) {
       <RerenderOnLangChange>
         {props.children}
       </RerenderOnLangChange>
-      <Show when={user.currentUser().isAuthorized}>
+      <Show when={user.currentUser().status === "authorized"}>
         <BottomNavigation />
       </Show>
     </Layout>
@@ -43,25 +44,16 @@ export default function() {
   onMount(async () => {
     const authorizedUser = await userService.getAuthorizedUser();
     if (authorizedUser) {
-      await transactionsStore.fetchUserTransactions(authorizedUser.id);
-      await accountsStore.fetchUserAccounts(authorizedUser.id);
-      user.setCurrentUser({
-        isAuthorized: true,
-        isLoading: false,
-        data: authorizedUser
-      });
+      user.setCurrentUser({ status: "locked", data: authorizedUser });
     } else {
-      user.setCurrentUser({
-        isAuthorized: false,
-        isLoading: false
-      });
+      user.setCurrentUser({ status: "unauthorized" });
     }
   });
 
   return (
     <div class="app-container">
       <Show
-        when={!user.currentUser().isLoading} fallback={(
+        when={user.currentUser().status !== "loading"} fallback={(
           <div class="h-[100svh] flex items-center bg-secondary-100 dark:bg-gray-800">
             <Loading />
           </div>
@@ -72,6 +64,7 @@ export default function() {
           <Route path="/auth">
             <Route path="/" component={LoginPage} />
             <Route path="/signup" component={SignUpPage} />
+            <Route path="/pin" component={PinInputPage} />
           </Route>
           <ProtectedRoute path="/home" component={HomeScreen} />
           <ProtectedRoute path="/history" component={HistoryScreen} />

@@ -132,9 +132,6 @@ export class IDBAdapter {
   }
 
   public async delete(collection: string, condition: SearchCondition) {
-    // const db = await this.openDbConnection();
-    // const transaction = db.transaction(collection, "readonly");
-    // const objectStore = transaction.objectStore(collection);
     const { db, objectStore, data } = await this.makeQuery<{ id: number }>(collection, condition, "readwrite");
     
     const promises = data.reduce((acc, val) => {

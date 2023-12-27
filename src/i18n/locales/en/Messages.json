@@ -109,6 +109,13 @@
     "signUp": "Sign Up",
     "Exceptions": {
       "WrongEmailOrPasswordException": "Invalid email or password!"
+    },
+    "PINInput": {
+      "greeting": "Hello, ",
+      "enterNewPIN": "Enter a new PIN",
+      "confirmPIN": "Confirm your PIN",
+      "confirmationError": "PIN codes do not match",
+      "invalidPIN": "Invalid PIN"
     }
   },
   "NewTransactionScreen": {
