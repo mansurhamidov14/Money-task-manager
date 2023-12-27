@@ -71,8 +71,9 @@ export function SettingsScreen() {
             />
             <ListItem
               size="sm"
+              onClick={() => navigate("/settings/change-pin")}
               icon={<ItemIcon icon={BsShieldLockFill} />}
-              title={t("SettingsScreen.pinCode")}
+              title={t("SettingsScreen.pinCode.title")}
               rightElement={<ChevronRight />}
             />
             {/* <ListItem

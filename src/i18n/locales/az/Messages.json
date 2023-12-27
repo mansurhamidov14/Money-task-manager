@@ -170,15 +170,28 @@
     "logOut": "Çıxış et",
     "changePassword": {
       "title": "Şifrəni dəyiş",
-      "success": "Yeni şifrə müvəffəqiyyətlə təyin edildi",
-      "error": "Yeni şifrə təyin edərkən xəta baş verdi: {{error}}",
+      "success": "Şifrə müvəffəqiyyətlə yeniləndi",
+      "error": "Şifrəni yeniləyərkən xəta baş verdi: {{error}}",
       "oldPassword": "Cari şifrə",
       "newPassword": "Yeni şifrə",
       "repeatPassword": "Şifrəni təsdiq edin",
       "invalidPassword": "Cari şifrə yanlış daxil edilib",
       "passwordsDoNotMatch": "Şifrələr eyni deyil"
     },
-    "pinCode": "PIN kod",
+    "pinCode": {
+      "title": "PİN kod",
+      "steps": {
+        "1": "Cari PİN-kodunuzu daxil edin",
+        "2": "Yeni PİN-kod daxil edin",
+        "3": "Yeni PİN-kodu təsdiq edin"
+      },
+      "invalidPIN": "PİN-kod yanlış daxil edilib",
+      "confirmationError": "PİN-kodlar eyni deyil",
+      "removeProtection": "PİN qoruması silinsin",
+      "success": "PİN-kod müvəffəqiyyətlə yeniləndi",
+      "error": "PİN-kodu yeniləyərkən xəta baş verdi: {{error}}",
+      "protectionRemoveSuccess": "PİN qoruması müvəffəqiyyətlə silindi"
+    },
     "wipeData": "Məlumatların silinməsi"
   },
   "EditAccountScreen": {

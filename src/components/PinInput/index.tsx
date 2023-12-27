@@ -10,6 +10,7 @@ export type PinInputProps = {
   onSubmit: (value: string) => void;
   error?: string | null;
   onClearError?: () => void;
+  loading?: boolean;
 }
 
 export function PinInput(props: PinInputProps) {
@@ -18,7 +19,7 @@ export function PinInput(props: PinInputProps) {
       props.onClearError();
     }
 
-    if (valueLength()  < validPinLength) {
+    if (!props.loading && valueLength()  < validPinLength) {
       props.onChange(value => value + key);
     }
   }
@@ -55,7 +56,7 @@ export function PinInput(props: PinInputProps) {
           </For>
         </div>
       </div>
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-4" classList={{ "opacity-50": props.loading }}>
         <Row>
           <Key key="1" onClick={handleNumberPress} />
           <Key key="2" onClick={handleNumberPress} />

@@ -170,15 +170,28 @@
     "logOut": "Выйти из аккаунта",
     "changePassword": {
       "title": "Сменить пароль",
-      "success": "Новый пароль успешно установлен",
-      "error": "Произошла ошибка во время установки нового пароля: {{error}}",
+      "success": "Пароль успешно обновлен",
+      "error": "Произошла ошибка во время обновления пароля: {{error}}",
       "oldPassword": "Текущий пароль",
       "newPassword": "Новый пароль",
       "repeatPassword": "Подтвердите пароль",
       "invalidPassword": "Текущий пароль введен неверно",
       "passwordsDoNotMatch": "Пароли не совпадают"
     },
-    "pinCode": "PIN код",
+    "pinCode": {
+      "title": "PIN-код",
+      "steps": {
+        "1": "Введите ваш текущий PIN",
+        "2": "Введите новый PIN",
+        "3": "Подтвердите новый PIN"
+      },
+      "invalidPIN": "Вы ввели неверный PIN-код",
+      "confirmationError": "PIN-коды не совпадают",
+      "removeProtection": "Убрать защиту PIN-кодом",
+      "success": "PIN-код успешно обновлен",
+      "error": "Произошла ошибка во время обновления PIN-кода: {{error}}",
+      "protectionRemoveSuccess": "Защита PIN-кодом успешно удалена"
+    },
     "wipeData": "Удаление данных"
   },
   "EditAccountScreen": {

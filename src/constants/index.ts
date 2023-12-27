@@ -6,3 +6,4 @@ export * from "./skins";
 export * from "./skins/types";
 
 export const MS_IN_DAY = 24 * 3600000;
+export const REDIRECT_URL_STORE_KEY = "WFOAppRedirectUrl";

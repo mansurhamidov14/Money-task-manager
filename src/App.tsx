@@ -20,12 +20,13 @@ import {
   SignUpPage,
   TasksScreen
 } from "@app/screens";
-import { ChangeAvatarScreen, ChangeLanguageScreen, ChangePasswordScreen, PersonalInfoScreen } from "@app/screens/SettingsScreen/pages";
+import { ChangeAvatarScreen, ChangeLanguageScreen, ChangePasswordScreen, ChangePinScreen, PersonalInfoScreen } from "@app/screens/SettingsScreen/pages";
 import { userService } from "@app/services";
 import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
 import "./App.css";
+import { REDIRECT_URL_STORE_KEY } from "./constants";
 
 function App(props: RouteSectionProps) {
   return (
@@ -44,6 +45,10 @@ export default function() {
   onMount(async () => {
     const authorizedUser = await userService.getAuthorizedUser();
     if (authorizedUser) {
+      if (authorizedUser.hasPinProtection) {
+        const currentUrl = window.location.hash.slice(1);
+        localStorage.setItem(REDIRECT_URL_STORE_KEY, currentUrl ?? "/home");
+      }
       user.setCurrentUser({
         status: authorizedUser.hasPinProtection ? "locked" : "authorized",
         data: authorizedUser
@@ -80,6 +85,7 @@ export default function() {
             <ProtectedRoute path="/change-avatar" component={ChangeAvatarScreen} />
             <ProtectedRoute path="/change-language" component={ChangeLanguageScreen} />
             <ProtectedRoute path="/change-password" component={ChangePasswordScreen} />
+            <ProtectedRoute path="/change-pin" component={ChangePinScreen} />
             <ProtectedRoute path="/personal-info" component={PersonalInfoScreen} />
           </Route>
         </Router>

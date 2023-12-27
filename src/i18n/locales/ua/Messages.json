@@ -178,7 +178,20 @@
       "invalidPassword": "Поточний пароль введено неправильно",
       "passwordsDoNotMatch": "Паролі не збігаються"
     },
-    "pinCode": "PIN-код",
+    "pinCode": {
+      "title": "PIN-код",
+      "steps": {
+        "1": "Введіть поточний PIN",
+        "2": "Введіть новий PIN",
+        "3": "Підтвердіть новий PIN"
+      },
+      "invalidPIN": "Ви ввели неправильний PIN-код",
+      "confirmationError": "PIN-коди не збігаються",
+      "removeProtection": "Зняти захист PIN-кодом",
+      "success": "PIN-код успішно оновлено",
+      "error": "Помилка під час оновлення PIN-коду: {{error}}",
+      "protectionRemoveSuccess": "Захист PIN-кодом успішно знято"
+    },
     "wipeData": "Видалення даних"
   },
   "EditAccountScreen": {

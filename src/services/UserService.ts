@@ -124,6 +124,17 @@ class UserService {
       throw new Error(t("AuthScreen.PINInput.invalidPassword"));
     }
   }
+
+  async removePinProtectionByPin(id: number, pin: string) {
+    const isValid = await this.validatePin(id, pin);
+
+    if (isValid) {
+      await this.update(id, { hasPinProtection: 0, pinCode: undefined });
+      return true;
+    } else {
+      throw Error("Invalid PIN");
+    }
+  }
 }
 
 export const userService = new UserService(userCollection);

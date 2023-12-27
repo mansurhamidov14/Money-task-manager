@@ -170,15 +170,28 @@
     "logOut": "Sign out",
     "changePassword": {
       "title": "Change password",
-      "success": "New password was successfully set",
-      "error": "An error occurred while setting a new password: {{error}}",
+      "success": "The password was successfully updated",
+      "error": "An error occurred while updating the password: {{error}}",
       "oldPassword": "Current password",
       "newPassword": "New password",
       "repeatPassword": "Confirm the password",
       "invalidPassword": "Current password was entered incorrectly",
       "passwordsDoNotMatch": "Passwords do not match"
     },
-    "pinCode": "PIN code",
+    "pinCode": {
+      "title": "PIN code",
+      "steps": {
+        "1": "Enter your current PIN",
+        "2": "Enter a new PIN",
+        "3": "Confirm the PIN"
+      },
+      "invalidPIN": "You entered an incorrect PIN code",
+      "confirmationError": "PIN codes do not match",
+      "removeProtection": "Remove PIN protection",
+      "success": "PIN was successfully updated",
+      "error": "An error occurred while updating PIN: {{error}}",
+      "protectionRemoveSuccess": "PIN protection was successfully removed"
+    },
     "wipeData": "Wipe data"
   },
   "EditAccountScreen": {

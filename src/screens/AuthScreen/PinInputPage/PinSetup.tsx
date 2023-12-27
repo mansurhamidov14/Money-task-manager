@@ -1,11 +1,12 @@
-import { Button, PinInput } from "@app/components";
-import { Action, Message, t } from "@app/i18n";
-import { user } from "@app/stores";
 import { Show, createSignal } from "solid-js";
-import { AuthLayout } from "../AuthLayout";
-import { userService } from "@app/services";
 import { FaSolidChevronLeft, FaSolidChevronRight } from "solid-icons/fa";
+import { Button, PinInput } from "@app/components";
 import { vibrate } from "@app/helpers";
+import { Action, Message, t } from "@app/i18n";
+import { userService } from "@app/services";
+import { user } from "@app/stores";
+
+import { AuthLayout } from "../AuthLayout";
 
 export function PinSetup() {
   const [currentStep, setCurrentStep] = createSignal<1 | 2>(1);
@@ -26,7 +27,7 @@ export function PinSetup() {
       setCurrentStep(2);
     } else {
       if (value !== prevValue()) {
-        vibrate([200]);
+        vibrate();
         setPinError(t("AuthScreen.PINInput.confirmationError"));
         setCurrentValue("");
       } else {

@@ -5,12 +5,15 @@ import { createSignal } from "solid-js";
 import { AuthLayout } from "../AuthLayout";
 import { userService } from "@app/services";
 import { vibrate } from "@app/helpers";
+import { REDIRECT_URL_STORE_KEY } from "@app/constants";
+import { useNavigate } from "@solidjs/router";
 
 export type PinAuthProps = {
   onForgotPin: () => void;
 }
 
 export function PinAuth(props: PinAuthProps) {
+  const navigate = useNavigate();
   const [pin, setPin] = createSignal("");
   const [pinError, setPinError] = createSignal<string | null>(null);
 
@@ -18,11 +21,16 @@ export function PinAuth(props: PinAuthProps) {
     try {
       const isValid = await userService.validatePin(user.currentUser().data!.id, value);
       if (!isValid) {
-        vibrate([200]);
+        vibrate();
         setPinError(t("AuthScreen.PINInput.invalidPIN"));
         setPin("");
       } else {
         user.setCurrentUser({ status: "authorized", data: user.currentUser().data });
+        const nextUrl = localStorage.getItem(REDIRECT_URL_STORE_KEY);
+        localStorage.removeItem(REDIRECT_URL_STORE_KEY);
+        if (nextUrl) {
+          navigate(nextUrl);
+        }
       }
     } catch (e: any) {
       setPin("");
