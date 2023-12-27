@@ -16,3 +16,7 @@ body {
   overflow: hidden;
   @apply text-sky-900 dark:text-gray-50 bg-secondary-100 dark:bg-gray-800;
 }
+
+button {
+  touch-action: manipulation;
+}

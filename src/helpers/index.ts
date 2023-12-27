@@ -1,3 +1,4 @@
 export * from "./array";
-export * from "./object";
 export * from "./date";
+export * from "./navigator";
+export * from "./object";

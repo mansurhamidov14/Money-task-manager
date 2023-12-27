@@ -4,6 +4,7 @@ import { toastStore, user } from "@app/stores";
 import { createSignal } from "solid-js";
 import { AuthLayout } from "../AuthLayout";
 import { userService } from "@app/services";
+import { vibrate } from "@app/helpers";
 
 export function PinAuth() {
   const [pin, setPin] = createSignal("");
@@ -13,7 +14,7 @@ export function PinAuth() {
     try {
       const isValid = await userService.validatePin(user.currentUser().data!.id, value);
       if (!isValid) {
-        window.navigator.vibrate(200);
+        vibrate([200]);
         setPinError(t("AuthScreen.PINInput.invalidPIN"));
         setPin("");
       } else {

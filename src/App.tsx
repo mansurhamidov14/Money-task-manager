@@ -57,7 +57,7 @@ export default function() {
     <div class="app-container">
       <Show
         when={user.currentUser().status !== "loading"} fallback={(
-          <div class="h-[100svh] flex items-center bg-secondary-100 dark:bg-gray-800">
+          <div class="h-[100vh] flex items-center bg-secondary-100 dark:bg-gray-800">
             <Loading />
           </div>
         )}
