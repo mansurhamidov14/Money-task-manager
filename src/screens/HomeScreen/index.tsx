@@ -40,7 +40,7 @@ export function HomeScreen() {
       slider(sliderRef);
     }
     moveToPrimaryAccountSlide();
-    window.addEventListener("accountdeleted", reBuildSlider);
+    window.addEventListener("accountsstoreupdated", reBuildSlider);
 
     if (transactionsStore.transactions().status === "loading") {
       await transactionsStore.fetchUserTransactions(user.currentUser().data!.id);
@@ -48,12 +48,11 @@ export function HomeScreen() {
 
     if (accountsStore.accounts().status === "loading") {
       await accountsStore.fetchUserAccounts(user.currentUser().data!.id);
-      reBuildSlider();
     }
   });
 
   onCleanup(() => {
-    window.removeEventListener("accountdeleted", reBuildSlider);
+    window.removeEventListener("accountsstoreupdated", reBuildSlider);
     destroy();
   });
 

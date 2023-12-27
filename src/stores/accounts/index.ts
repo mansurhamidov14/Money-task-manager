@@ -7,7 +7,10 @@ import { MS_IN_DAY } from "@app/constants";
 function initAccountsStore() {
   const [accounts, setAccounts] = createSignal<AccountsStore>({ status: "loading" });
 
-  const setAccountsData = (accounts: Account[]) => setAccounts({ status: "success", data: accounts });
+  const setAccountsData = (accounts: Account[]) => {
+    setAccounts({ status: "success", data: accounts });
+    window.dispatchEvent(new CustomEvent("accountsstoreupdated"));
+  }
   const setAccountsLoading = () => setAccounts({ status: "loading" });
   const setAccountsError = (error: string) => setAccounts({ status: "error", error });
 
@@ -58,11 +61,10 @@ function initAccountsStore() {
     ));
   }
 
-  const changeBalance = (affectedAccount: Account, amount: number, type: TransactionType) => {
-    const currentBalance = affectedAccount.balance;
+  const changeBalance = (id: number, amount: number, type: TransactionType) => {
     const difference = type === "expense" ? amount * -1 : amount;
     setAccountsData(accounts().data!.map(account => {
-      if (account.id !== affectedAccount.id) return account;
+      if (account.id !== id) return account;
 
       return {
         ...account,
@@ -71,12 +73,15 @@ function initAccountsStore() {
     }));
 
     if (type === "income") {
-      counters[affectedAccount.id].setTotalIncome(prev => prev += amount);
+      counters[id].setTotalIncome(prev => prev += amount);
     } else {
-      counters[affectedAccount.id].setTotalExpense(prev => prev += amount);
+      counters[id].setTotalExpense(prev => prev += amount);
     }
 
-    accountService.update(affectedAccount.id, { balance: currentBalance + difference });
+    return accountService.update(id, oldData => ({
+      ...oldData,
+      balance: oldData.balance + difference
+    }));
   }
 
   const deleteAccount = async (id: number) => {

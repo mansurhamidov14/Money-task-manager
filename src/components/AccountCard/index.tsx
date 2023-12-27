@@ -33,7 +33,6 @@ export function AccountCardDumb(props: ParentProps<AccountCardProps>) {
 
   const deleteAccount = async (id: number) => {
     await accountsStore.deleteAccount(id);
-    window.dispatchEvent(new CustomEvent("accountdeleted"));
     await transactionsStore.deleteByAccountId(id);
   }
 

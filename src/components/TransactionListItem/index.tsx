@@ -5,9 +5,11 @@ import {
   CurrencyCode,
   currencies
 } from "@app/constants";
-import { Message } from "@app/i18n";
-import { Transaction } from "@app/stores";
+import { Message, t } from "@app/i18n";
+import { Transaction, accountsStore, confirmationStore, toastStore, transactionsStore } from "@app/stores";
 import { ListItem } from "../ListItem";
+// import { HiOutlinePencilSquare } from "solid-icons/hi";
+import { IoTrash } from "solid-icons/io";
 
 export type TransactionListItemProps = {
   category: CategoryId;
@@ -31,6 +33,19 @@ export function TransactionListItem(props: Transaction) {
     const Icon = Categories[props.category].icon;
     return <Icon size={28} />;
   });
+
+  const handleTransactionDelete = async (transaction: Transaction) => {
+    const { id, account, amount, type } = transaction;
+    await transactionsStore.deleteTransaction(id);
+    await accountsStore.changeBalance(account, amount * -1, type);
+    toastStore.pushToast("success", "Transaction deleted successfully");
+  }
+
+  const requestTransactionDelete = (transaction: Transaction) => {
+    confirmationStore.requestConfirmation({
+      onConfirm: () => handleTransactionDelete(transaction)
+    });
+  }
   
   return (
     <ListItem
@@ -58,6 +73,20 @@ export function TransactionListItem(props: Transaction) {
           </div>
         </>
       )}
+      controls={[
+        // {
+        //   label: t("Edit", "Actions"),
+        //   icon: HiOutlinePencilSquare,
+        //   variant: "primary",
+        //   onClick: () => alert("Edit")
+        // },
+        {
+          label: t("Delete", "Actions"),
+          icon: IoTrash,
+          variant: "danger",
+          onClick: () => requestTransactionDelete(props)
+        },
+      ]}
     />
   );
 }

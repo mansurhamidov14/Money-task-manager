@@ -54,7 +54,7 @@ export function NewTransactionScreen() {
       };
       const newTransaction = await transactionService.create(transactionData);
       transactionsStore.addTransaction(newTransaction);
-      accountsStore.changeBalance(affectedAccount, amount, type);
+      accountsStore.changeBalance(affectedAccount.id, amount, type);
       toastStore.pushToast("success", t("NewTransactionScreen.success"));
       history.back();
     } catch (e: any) {

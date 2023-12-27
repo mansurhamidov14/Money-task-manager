@@ -29,8 +29,8 @@ function initTransactionsStore() {
     setTransactionsData([...prevData, data]);
   }
 
-  const removeTransaction = (id: number) => {
-    // TODO: add service method deleting record from db
+  const deleteTransaction = async (id: number) => {
+    await transactionService.delete(id);
     setTransactionsData(
       transactions().data!.filter(t => t.id !== id)
     );
@@ -91,7 +91,7 @@ function initTransactionsStore() {
     getFilteredTransactions,
     addTransaction,
     fetchUserTransactions,
-    removeTransaction,
+    deleteTransaction,
     deleteByAccountId,
     updateTransaction,
     setTransactionsError,
