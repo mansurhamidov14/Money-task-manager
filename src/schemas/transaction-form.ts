@@ -12,7 +12,7 @@ type NewTransactionForm = {
   date: string;
 }
 
-export function getNewTransactionSchema(
+export function getTransactionFormSchema(
   defaults: Partial<NewTransactionForm>,
   userAccounts: Account[]
 ): yup.Schema<NewTransactionForm> {
@@ -32,7 +32,8 @@ export function getNewTransactionSchema(
       .default(defaults.category),
     amount: yup.number()
       .required(t("common.FormFields.required"))
-      .typeError(t("NewTransactionScreen.FormFields.amount.invalidFormat")),
+      .typeError(t("NewTransactionScreen.FormFields.amount.invalidFormat"))
+      .default(defaults.amount),
     account: yup.number()
       .required()
       .oneOf(userAccountIds)

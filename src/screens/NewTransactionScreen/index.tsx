@@ -2,8 +2,9 @@ import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 
 import { Button, ScreenHeader, VerticalScroll } from "@app/components";
+import { dateTimePickerFormat } from "@app/helpers";
 import { Action, t } from "@app/i18n";
-import { getNewTransactionSchema } from "@app/schemas";
+import { getTransactionFormSchema } from "@app/schemas";
 import { transactionService } from "@app/services";
 import { accountsStore, transactionsStore, toastStore, user } from "@app/stores";
 
@@ -17,8 +18,8 @@ import {
 } from "../components/TransactionForm";
 
 export function NewTransactionScreen() {
-  const formHandler = useFormHandler(yupSchema(getNewTransactionSchema({
-    date: new Date().toISOString().slice(0, 16),
+  const formHandler = useFormHandler(yupSchema(getTransactionFormSchema({
+    date: dateTimePickerFormat(new Date()),
     account: accountsStore.accounts().data!.find(account => account.primary)?.id,
     category: "market",
     type: "expense"
@@ -38,7 +39,6 @@ export function NewTransactionScreen() {
       const amount = formHandler.getFieldValue("amount");
       const transactionDateTime = new Date(formHandler.getFieldValue("date")).toISOString();
       const transactionDate = transactionDateTime.split("T")[0];
-      const createdAt = Date.now();
       const transactionData = {
         user: userId,
         account: formHandler.getFieldValue("account"),
@@ -49,8 +49,6 @@ export function NewTransactionScreen() {
         amount,
         transactionDate,
         transactionDateTime,
-        createdAt,
-        updatedAt: createdAt
       };
       const newTransaction = await transactionService.create(transactionData);
       transactionsStore.addTransaction(newTransaction);

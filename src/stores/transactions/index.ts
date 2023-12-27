@@ -4,7 +4,7 @@ import { Transaction, TransactionsStore } from "./types";
 import { DateFilter } from "@app/screens/HistoryScreen/types";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
 import { transactionService } from "@app/services";
-import { getYYYYMMDD } from "@app/helpers";
+import { formatYYYYMMDD } from "@app/helpers";
 import { descSorter } from "..";
 
 function initTransactionsStore() {
@@ -43,8 +43,8 @@ function initTransactionsStore() {
     );
   }
 
-  const updateTransaction = (id: number, data: Partial<Transaction>) => {
-    // TODO: add service method modifying record in db
+  const updateTransaction = async (id: number, data: Partial<Transaction>) => {
+    await transactionService.update(id, data);
     setTransactionsData(
       transactions().data!.map(transaction => {
         if (transaction.id !== id) return transaction;
@@ -59,8 +59,8 @@ function initTransactionsStore() {
     }
     const now = Date.now();
     const min = now - RECENT_TRANSACTIONS_MAX_DAYS * 86400000;
-    const nowDate = getYYYYMMDD(new Date(now));
-    const minDate = getYYYYMMDD(new Date(min));
+    const nowDate = formatYYYYMMDD(new Date(now));
+    const minDate = formatYYYYMMDD(new Date(min));
 
     const last10daysTransactions = transactions().data!.filter(({ transactionDate }) => {
       return transactionDate <= nowDate && transactionDate >= minDate;

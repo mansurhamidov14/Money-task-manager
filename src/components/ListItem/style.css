@@ -1,15 +1,27 @@
 .wfo-list-item {
-  @apply block bg-white dark:bg-gray-700 active:bg-white/70 active:dark:bg-gray-700/70 shadow rounded-lg pl-3 pr-6;
+  @apply overflow-hidden flex bg-white dark:bg-gray-700 active:bg-white/70 active:dark:bg-gray-700/70 shadow rounded-lg;
 }
 
-.wfo-list-item.sm {
+.wfo-list-item > div:not(:last-child) {
+  @apply pl-3 pr-6;
+}
+
+.wfo-list-item.sm > div:first-child {
   @apply py-1;
 }
 
-.wfo-list-item.md {
+.wfo-list-item.md > div:first-child {
   @apply py-2;
 }
 
-.wfo-list-item.lg {
+.wfo-list-item.lg > div:first-child {
   @apply py-4;
+}
+
+.wfo-list-item-controls {
+  @apply overflow-hidden w-0 transition-all duration-300 flex;
+}
+
+.wfo-list-item-container:hover .wfo-list-item-controls {
+  width: var(--hover-width);
 }

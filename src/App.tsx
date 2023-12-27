@@ -10,6 +10,7 @@ import {
 import { RerenderOnLangChange } from "@app/i18n";
 import {
   EditAccountScreen,
+  EditTransactionScreen,
   HistoryScreen,
   HomeScreen,
   LoginPage,
@@ -79,6 +80,7 @@ export default function() {
           <ProtectedRoute path="/new-account" component={NewAccountScreen} />
           <ProtectedRoute path="/edit-account/:id" component={EditAccountScreen} />
           <ProtectedRoute path="/new-transaction" component={NewTransactionScreen} />
+          <ProtectedRoute path="/edit-transaction/:id" component={EditTransactionScreen} />
           <ProtectedRoute path="/tasks" component={TasksScreen} />
           <Route path="/settings">
             <ProtectedRoute path="/" component={SettingsScreen} />

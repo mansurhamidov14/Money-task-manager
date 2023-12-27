@@ -31,14 +31,6 @@ export default {
           '0%': { transform: 'translateY(180px)' },
           '100%': { transform: 'translateY(0)' }
         },
-        slideLeftIn: {
-          '0%': { transform: 'translateX(100%)' },
-          '100%': { transform: 'translateX(0)' },
-        },
-        slideRightOut: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(100%)' },
-        },
         fadeIn: {
           '0%': { opacity: 0 },
           '50%': { opacity: 0 },
@@ -54,8 +46,6 @@ export default {
       animation: {
         'slide-down-in': 'slideDownIn 500ms',
         'slide-up-out': 'slideUpOut 500ms',
-        'slide-left-in': 'slideLeftIn 500ms',
-        'slide-right-out': 'slideRightOut 500ms',
         'slide-up': 'slideUp 500ms',
         'fade-in': 'fadeIn 1000ms',
         'bounce-x': 'bounceX 500ms'

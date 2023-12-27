@@ -10,6 +10,10 @@ class TransactionService {
     return this.collection.create(transaction);
   }
 
+  getById(id: number) {
+    return this.collection.queryOne(id);
+  }
+
   getUserTransactions(user: number) {
     return this.collection.queryAll({ user });
   }

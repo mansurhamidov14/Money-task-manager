@@ -8,8 +8,9 @@ import {
 import { Message, t } from "@app/i18n";
 import { Transaction, accountsStore, confirmationStore, toastStore, transactionsStore } from "@app/stores";
 import { ListItem } from "../ListItem";
-// import { HiOutlinePencilSquare } from "solid-icons/hi";
+import { HiOutlinePencilSquare } from "solid-icons/hi";
 import { IoTrash } from "solid-icons/io";
+import { useNavigate } from "@solidjs/router";
 
 export type TransactionListItemProps = {
   category: CategoryId;
@@ -29,6 +30,7 @@ function getTransactionValue(
 }
 
 export function TransactionListItem(props: Transaction) {
+  const navigate = useNavigate();
   const categoryIcon = createMemo(() => {
     const Icon = Categories[props.category].icon;
     return <Icon size={28} />;
@@ -69,17 +71,17 @@ export function TransactionListItem(props: Transaction) {
             {getTransactionValue(props.amount, props.currency, props.type)}
           </div>
           <div class="text-muted text-xs mt-1.5">
-            {new Date(props.transactionDateTime).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}
+            {new Date(props.transactionDateTime).toLocaleTimeString("en-GB", { hour: '2-digit', minute:'2-digit' })}
           </div>
         </>
       )}
       controls={[
-        // {
-        //   label: t("Edit", "Actions"),
-        //   icon: HiOutlinePencilSquare,
-        //   variant: "primary",
-        //   onClick: () => alert("Edit")
-        // },
+        {
+          label: t("Edit", "Actions"),
+          icon: HiOutlinePencilSquare,
+          variant: "success",
+          onClick: () => navigate(`/edit-transaction/${props.id}`)
+        },
         {
           label: t("Delete", "Actions"),
           icon: IoTrash,

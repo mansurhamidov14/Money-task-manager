@@ -38,9 +38,9 @@ export function ListItem(_props: ListItemProps) {
   }
 
   return (
-    <a href="#" class="relative overflow-hidden" onClick={handleClick}>
+    <a href="#" class="relative overflow-hidden wfo-list-item-container" onClick={handleClick}>
       <div class={`wfo-list-item ${props.size}`}>
-        <div class="flex font-medium justify-between gap-3">
+        <div class="flex flex-1 font-medium gap-3">
           <div class="rounded-lg aspect-square h-12 overflow-hidden">
             {props.icon}
           </div>
@@ -60,25 +60,18 @@ export function ListItem(_props: ListItemProps) {
             </div>
           </Show>
         </div>
+        <Show when={props.controls}>
+          <div class="wfo-list-item-controls" style={{ "--hover-width": `${3.5 * props.controls!.length}rem` }}>
+            <For each={props.controls}>
+              {Control => (
+                <Button variant={Control.variant} square class="rounded-none h-full w-[3.5rem]" onClick={Control.onClick}>
+                  <Control.icon size={24} title={Control.label} />
+                </Button>
+              )}
+            </For>
+          </div>
+        </Show>
       </div>
-      <Show when={props.controls}>
-        <div
-          class="absolute right-0 top-0 h-full rounded-lg overflow-hidden flex"
-          classList={{
-            "animate-slide-left-in": controlsVisibility() === "visible",
-            "animate-slide-right-out": controlsVisibility() === "hiding",
-            "hidden": controlsVisibility() === "hidden"
-          }}
-        >
-          <For each={props.controls}>
-            {Control => (
-              <Button variant={Control.variant} square class="h-full rounded-none w-14" onClick={Control.onClick}>
-                <Control.icon size={24} title={Control.label} />
-              </Button>
-            )}
-          </For>
-        </div>
-      </Show>
     </a>
   );
 }

@@ -195,8 +195,13 @@
     "wipeData": "Wipe data"
   },
   "EditAccountScreen": {
-    "title": "Account Editor",
+    "title": "Edit Account",
     "success": "Account was edited successfully",
     "error": "An error occurred while editing the account: {{error}}"
+  },
+  "EditTransactionScreen": {
+    "title": "Edit Transaction",
+    "success": "Transaction was edited successfully",
+    "error": "An error occurred while editing the transaction: {{error}}"
   }
 }

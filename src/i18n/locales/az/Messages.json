@@ -195,8 +195,13 @@
     "wipeData": "Məlumatların silinməsi"
   },
   "EditAccountScreen": {
-    "title": "Hesab redaktor",
+    "title": "Hesab redaktoru",
     "success": "Hesab müvəffəqiyyət ilə redaktə olundu",
     "error": "Hesabı redaktə edərkən xəta baş verdi: {{error}}"
+  },
+  "EditTransactionScreen": {
+    "title": "Əməliyyat redaktoru",
+    "success": "Əməliyyat ilə redaktə olundu",
+    "error": "Əməliyyatı redaktə edərkən xəta baş verdi: {{error}}"
   }
 }
