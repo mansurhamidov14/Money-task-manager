@@ -115,7 +115,7 @@
       "enterNewPIN": "Enter a new PIN",
       "confirmPIN": "Confirm your PIN",
       "confirmationError": "PIN codes do not match",
-      "invalidPIN": "Invalid PIN"
+      "invalidPIN": "You entered an incorrect PIN code"
     }
   },
   "NewTransactionScreen": {

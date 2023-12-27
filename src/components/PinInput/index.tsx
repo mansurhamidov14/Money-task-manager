@@ -4,14 +4,20 @@ import { Key } from "./Key";
 import { IoBackspaceOutline } from "solid-icons/io";
 
 const validPinLength = 6;
-export type PinKeyProps = {
+export type PinInputProps = {
   value: Accessor<string>;
   onChange: Setter<string>;
   onSubmit: (value: string) => void;
+  error?: string | null;
+  onClearError?: () => void;
 }
 
-export function PinInput(props: PinKeyProps) {
+export function PinInput(props: PinInputProps) {
   const handleNumberPress = (key: string) => {
+    if (props.error && props.onClearError) {
+      props.onClearError();
+    }
+
     if (valueLength()  < validPinLength) {
       props.onChange(value => value + key);
     }
@@ -34,16 +40,20 @@ export function PinInput(props: PinKeyProps) {
   })
 
   return (
-    <div class="flex flex-col gap-8">
-      <div class="flex justify-center gap-3">
-        <For each={Array(validPinLength)}>
-          {(_, index) => (
-            <div classList={{
-              "w-4 h-4 rounded-full border border-gray-400/50 dark:border-gray-600 transition-[background] duration-500": true,
-              "bg-gray-400/50 dark:bg-gray-600": index() < valueLength()
-            }} />
-          )}
-        </For>
+    <div class="flex flex-col gap-6">
+      <div>
+        <div class="text-center text-sm text-red-600 dark:text-red-400 h-9 py-2">{props.error}</div>
+        <div class="flex justify-center gap-3 relative" classList={{ "animate-bounce-x": Boolean(props.error) }}>
+          <For each={Array(validPinLength)}>
+            {(_, index) => (
+              <div classList={{
+                "w-4 h-4 rounded-full border border-gray-400/50 dark:border-gray-600 transition-[background] duration-500": true,
+                "bg-gray-400/50 dark:bg-gray-600": index() < valueLength(),
+                "border-red-400 dark:border-red-300": Boolean(props.error)
+              }} />
+            )}
+          </For>
+        </div>
       </div>
       <div class="flex flex-col gap-4">
         <Row>

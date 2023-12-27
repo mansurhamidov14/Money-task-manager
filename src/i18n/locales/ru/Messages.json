@@ -114,8 +114,8 @@
       "greeting": "Привет, ",
       "enterNewPIN": "Введите новый PIN",
       "confirmPIN": "Подтвердите Ваш PIN",
-      "confirmationError": "PIN коды не совпадают",
-      "invalidPIN": "Вы ввели неверный PIN код"
+      "confirmationError": "PIN-коды не совпадают",
+      "invalidPIN": "Вы ввели неверный PIN-код"
     }
   },
   "NewTransactionScreen": {

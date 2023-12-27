@@ -28,20 +28,27 @@ export default {
           }
         },
         slideUp: {
-          '0%': { transform: 'translateY(240px)' },
+          '0%': { transform: 'translateY(180px)' },
           '100%': { transform: 'translateY(0)' }
         },
         fadeIn: {
           '0%': { opacity: 0 },
           '50%': { opacity: 0 },
           '100%': { opacity: 1 }
+        },
+        bounceX: {
+          '0%': { transform: 'translateX(5px)' },
+          '33%': { transform: 'translateX(-5px)' },
+          '67%': { transform: 'translateX(5px)' },
+          '100%': { transform: 'translateX(0)' },
         }
       },
       animation: {
         'slide-down-in': 'slideDownIn 500ms',
         'slide-up-out': 'slideUpOut 500ms',
         'slide-up': 'slideUp 500ms',
-        'fade-in': 'fadeIn 1000ms'
+        'fade-in': 'fadeIn 1000ms',
+        'bounce-x': 'bounceX 500ms'
       }
     }
   },

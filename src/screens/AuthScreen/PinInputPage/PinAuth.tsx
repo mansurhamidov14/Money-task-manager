@@ -7,12 +7,14 @@ import { userService } from "@app/services";
 
 export function PinAuth() {
   const [pin, setPin] = createSignal("");
+  const [pinError, setPinError] = createSignal<string | null>(null);
 
   const handleSubmit = async (value: string) => {
     try {
       const isValid = await userService.validatePin(user.currentUser().data!.id, value);
       if (!isValid) {
-        toastStore.pushToast("error", t("AuthScreen.PINInput.invalidPIN"));
+        window.navigator.vibrate(200);
+        setPinError(t("AuthScreen.PINInput.invalidPIN"));
         setPin("");
       } else {
         user.setCurrentUser({ status: "authorized", data: user.currentUser().data });
@@ -25,7 +27,7 @@ export function PinAuth() {
 
   return (
     <AuthLayout>
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col">
         <div class="text-center font-bold text-xl">
           <Message>
             AuthScreen.PINInput.greeting
@@ -37,6 +39,8 @@ export function PinAuth() {
           value={pin}
           onChange={setPin}
           onSubmit={handleSubmit}
+          error={pinError()}
+          onClearError={() => setPinError(null)}
         />
       </div>
     </AuthLayout>

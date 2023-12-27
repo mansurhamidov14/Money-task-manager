@@ -44,7 +44,10 @@ export default function() {
   onMount(async () => {
     const authorizedUser = await userService.getAuthorizedUser();
     if (authorizedUser) {
-      user.setCurrentUser({ status: "locked", data: authorizedUser });
+      user.setCurrentUser({
+        status: authorizedUser.hasPinProtection ? "locked" : "authorized",
+        data: authorizedUser
+      });
     } else {
       user.setCurrentUser({ status: "unauthorized" });
     }

@@ -22,14 +22,18 @@ export function HomeScreen() {
   const [slider, { current, moveTo, destroy }] = createSlider(options);
 
   const moveToPrimaryAccountSlide = () => {
-    setTimeout(() => moveTo(accountsStore.accounts().data!.findIndex(a => a.primary)), 20);
-  }
+    if (accountsStore.accounts().status === "success") {
+      setTimeout(() => moveTo(
+        accountsStore.accounts().data!.findIndex(a => a.primary)
+      ), 20);
+    }
+  };
 
   const reBuildSlider = () => {
     destroy();
     slider(sliderRef);
     moveToPrimaryAccountSlide();
-  }
+  };
 
   onMount(async () => {
     if (accountsStore.accounts().status === "success") {
@@ -50,6 +54,7 @@ export function HomeScreen() {
 
   onCleanup(() => {
     window.removeEventListener("accountdeleted", reBuildSlider);
+    destroy();
   });
 
   return (

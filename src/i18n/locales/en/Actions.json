@@ -1,10 +1,12 @@
 {
   "Add": "Add",
   "Apply": "Apply",
+  "Back": "Back",
   "Close": "Close",
   "Delete": "Delete",
   "Edit": "Edit",
+  "Save": "Save",
   "SignIn": "Sign in",
   "SignUp": "Sign up",
-  "Save": "Save"
+  "Skip": "Skip"
 }
