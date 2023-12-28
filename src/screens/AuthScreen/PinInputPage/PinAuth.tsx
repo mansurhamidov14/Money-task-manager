@@ -1,6 +1,6 @@
 import { PinInput } from "@app/components";
 import { Message, t } from "@app/i18n";
-import { toastStore, user } from "@app/stores";
+import { accountsStore, toastStore, transactionsStore, user } from "@app/stores";
 import { createSignal } from "solid-js";
 import { AuthLayout } from "../AuthLayout";
 import { userService } from "@app/services";
@@ -25,6 +25,8 @@ export function PinAuth(props: PinAuthProps) {
         setPinError(t("AuthScreen.PINInput.invalidPIN"));
         setPin("");
       } else {
+        await transactionsStore.fetchUserTransactions(user.currentUser().data!.id);
+        await accountsStore.fetchUserAccounts(user.currentUser().data!.id);
         user.setCurrentUser({ status: "authorized", data: user.currentUser().data });
         const nextUrl = localStorage.getItem(REDIRECT_URL_STORE_KEY);
         localStorage.removeItem(REDIRECT_URL_STORE_KEY);

@@ -4,7 +4,7 @@ import { Button, PinInput } from "@app/components";
 import { vibrate } from "@app/helpers";
 import { Action, Message, t } from "@app/i18n";
 import { userService } from "@app/services";
-import { user } from "@app/stores";
+import { accountsStore, transactionsStore, user } from "@app/stores";
 
 import { AuthLayout } from "../AuthLayout";
 
@@ -34,6 +34,8 @@ export function PinSetup() {
         const currentUser = user.currentUser().data!;
         user.setCurrentUser({ status: "loading" });
         await userService.setUpPinProtection(currentUser, currentValue());
+        await transactionsStore.fetchUserTransactions(user.currentUser().data!.id);
+        await accountsStore.fetchUserAccounts(user.currentUser().data!.id);
         user.setCurrentUser({
           status: "authorized",
           data: { ...currentUser, hasPinProtection: 1 }
