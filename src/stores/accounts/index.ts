@@ -78,10 +78,7 @@ function initAccountsStore() {
       counters[id].setTotalExpense(prev => prev += amount);
     }
 
-    return accountService.update(id, oldData => ({
-      ...oldData,
-      balance: oldData.balance + difference
-    }));
+    return accountService.changeBalance(id, difference);
   }
 
   const deleteAccount = async (id: number) => {

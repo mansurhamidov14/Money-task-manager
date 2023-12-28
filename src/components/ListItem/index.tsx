@@ -40,7 +40,7 @@ export function ListItem(_props: ListItemProps) {
   return (
     <a href="#" class="relative overflow-hidden wfo-list-item-container" onClick={handleClick}>
       <div class={`wfo-list-item ${props.size}`}>
-        <div class="flex flex-1 font-medium gap-3">
+        <div class="flex flex-1 font-medium gap-3 min-w-0">
           <div class="rounded-lg aspect-square h-12 overflow-hidden">
             {props.icon}
           </div>
@@ -49,7 +49,7 @@ export function ListItem(_props: ListItemProps) {
               {props.title}
             </div>
             <Show when={props.description}>
-              <div class="text-muted font-normal text-sm mt-1">
+              <div class="text-muted font-normal text-sm mt-1 text-ellipsis overflow-hidden whitespace-nowrap">
                 {props.description}
               </div>
             </Show>

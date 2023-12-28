@@ -52,7 +52,7 @@ export function HomeScreen() {
     <VerticalScroll hasBottomNavigation>
       <main class="p-3">
         <div class="flex justify-end items-start gap-2">
-          <div class="flex-1 pl-2 text-lg font-semibold flex gap-3 pt-2 items-center">
+          <div class="flex-1 text-lg font-semibold flex gap-3 pt-2 items-center">
             <img class="w-12 h-12 rounded-full border-secondary-200 dark:border-gray-600 border-4" src={currentUser.avatar} />
             <Message name={currentUser.firstName}>HomeScreen.greeting</Message>
           </div>
