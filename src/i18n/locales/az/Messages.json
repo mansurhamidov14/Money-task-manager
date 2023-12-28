@@ -35,7 +35,8 @@
       "title": "Əlavə et",
       "Items": {
         "account": "Hesab",
-        "transaction": "Əməliyyat"
+        "transaction": "Əməliyyat",
+        "task": "Tapşırıq"
       }
     }
   },
@@ -163,6 +164,22 @@
     },
     "success": "Hesab müvəffəqiyyət ilə əlavə olundu",
     "error": "Hesabı əlavə edərkən xəta baş verdi: {{error}}"
+  },
+  "NewTaskScreen": {
+    "title": "Yeni tapşırıq",
+    "FormFields": {
+      "title": {
+        "label": "Başlıq",
+        "placeholder": "Qısa başlıq"
+      },
+      "recurring": "Təkrarlanan",
+      "date": "Tarix",
+      "time": "Vaxt",
+      "startDate": "Başlama tarixi",
+      "endDate": "Bitmə tarixi",
+      "addWeekday": "Gün əlavə et",
+      "weekday": "Gün"
+    }
   },
   "TasksScreen": {
     "title": "Tapşırıqlar"

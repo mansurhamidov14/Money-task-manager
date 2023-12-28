@@ -3,6 +3,7 @@ import { TbReportMoney } from "solid-icons/tb";
 import { Message, t } from "@app/i18n";
 import { CreateMenuItem } from "./CreateMenuItem";
 import { Dropdown, DropdownMenu, DropdownToggleButton } from "../Dropdown";
+import { BiRegularTask } from "solid-icons/bi";
 
 export function CreateButton() {
   return (
@@ -27,8 +28,13 @@ export function CreateButton() {
             title={t("BottomNavigation.create.Items.transaction")}
             href="/new-transaction"
           />
+          <CreateMenuItem
+            icon={<BiRegularTask />}
+            title={t("BottomNavigation.create.Items.task")}
+            href="/new-task"
+          />
         </DropdownMenu>
       </Dropdown>
     </div>
-  )
+  );
 }

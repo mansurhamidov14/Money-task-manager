@@ -35,7 +35,8 @@
       "title": "Створити",
       "Items": {
         "account": "Рахунок",
-        "transaction": "Транзакція"
+        "transaction": "Транзакція",
+        "task": "Задача"
       }
     }
   },
@@ -163,6 +164,22 @@
     },
     "success": "Рахунок успішно доданий",
     "error": "Помилка під час додавання рахунку: {{error}}"
+  },
+  "NewTaskScreen": {
+    "title": "Нове завдання",
+    "FormFields": {
+      "title": {
+        "label": "Найменування",
+        "placeholder": "Короткий заголовок"
+      },
+      "recurring": "Повторюваний",
+      "date": "Дата",
+      "time": "Час",
+      "startDate": "Дата початку",
+      "endDate": "Дата закінчення",
+      "addWeekday": "Додати день",
+      "weekday": "День"
+    }
   },
   "TasksScreen": {
     "title": "Задачі"

@@ -35,7 +35,8 @@
       "title": "Create",
       "Items": {
         "account": "Account",
-        "transaction": "Transaction"
+        "transaction": "Transaction",
+        "task": "Task"
       }
     }
   },
@@ -163,6 +164,22 @@
     },
     "success": "Account was created successfully",
     "error": "An error occurred while creating an account: {{error}}"
+  },
+  "NewTaskScreen": {
+    "title": "New Task",
+    "FormFields": {
+      "title": {
+        "label": "Title",
+        "placeholder": "Short title"
+      },
+      "recurring": "Recurring",
+      "date": "Date",
+      "time": "Time",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "addWeekday": "Add day",
+      "weekday": "Day"
+    }
   },
   "TasksScreen": {
     "title": "Tasks"

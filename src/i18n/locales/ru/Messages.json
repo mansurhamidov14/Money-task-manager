@@ -35,7 +35,8 @@
       "title": "Создать",
       "Items": {
         "account": "Счет",
-        "transaction": "Транзакция"
+        "transaction": "Транзакция",
+        "task": "Задача"
       }
     }
   },
@@ -163,6 +164,22 @@
     },
     "success": "Счет успешно добавлен",
     "error": "Произошла ошибка во время добавления счета: {{error}}"
+  },
+  "NewTaskScreen": {
+    "title": "Новая задача",
+    "FormFields": {
+      "title": {
+        "label": "Наименование",
+        "placeholder": "Краткий заголовок"
+      },
+      "recurring": "Повторяющийся",
+      "date": "Дата",
+      "time": "Время",
+      "startDate": "Дата начала",
+      "endDate": "Дата окончания",
+      "addWeekday": "Добавить день",
+      "weekday": "День"
+    }
   },
   "TasksScreen": {
     "title": "Задачи"
