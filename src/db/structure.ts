@@ -82,8 +82,33 @@ const structure: Structure = {
         createMultiColumnIndex(["currency", "user"]),
         createMultiColumnIndex(["primary", "user"]),
       ]
+    },
+    {
+      name: "tasks",
+      config: defaultTableConfig,
+      version: 1,
+      fields: [
+        createColumn("originalId"),
+        createColumn("user"),
+        createColumn("title"),
+        createColumn("isRecurring"),
+        createColumn("startDate"),
+        createColumn("endDate"),
+        createColumn("weekday"),
+        createColumn("time"),
+        createColumn("doneAt"),
+        createColumn("createdAt"),
+        createColumn("updatedAt"),
+      ],
+      complexIndices: [
+        createMultiColumnIndex(["id", "user"]),
+        createMultiColumnIndex(["user", "weekday"]),
+        createMultiColumnIndex(["user", "startDate"]),
+        createMultiColumnIndex(["user", "endDate"]),
+        createMultiColumnIndex(["user", "startDate", "endDate"]),
+      ]
     }
   ]
-}
+};
 
 export default structure;
