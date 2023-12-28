@@ -15,3 +15,4 @@ export * from "./toasts/types";
 export * from "./theme";
 export * from "./user";
 export * from "./user/types";
+export * from "./DataProvider";

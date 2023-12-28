@@ -10,7 +10,7 @@ import { Action, Message, t } from "@app/i18n";
 import { CurrencyCode, currencies } from "@app/constants";
 import { getSignUpFormSchema } from "@app/schemas";
 import { accountService, userService } from "@app/services";
-import { Link, accountsStore, transactionsStore, user } from "@app/stores";
+import { Link, user } from "@app/stores";
 
 import { AuthLayout } from "../AuthLayout";
 import { getRandomElement } from "@app/helpers";
@@ -48,8 +48,6 @@ export function SignUpPage() {
         status: "locked",
         data: newUser
       });
-      await transactionsStore.fetchUserTransactions(newUser.id);
-      await accountsStore.fetchUserAccounts(newUser.id);
       navigate("/auth/pin");
     } catch (e) { }
   }

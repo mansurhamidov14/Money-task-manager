@@ -41,14 +41,6 @@ export function HomeScreen() {
     }
     moveToPrimaryAccountSlide();
     window.addEventListener("accountsstoreupdated", reBuildSlider);
-
-    if (transactionsStore.transactions().status === "loading") {
-      await transactionsStore.fetchUserTransactions(user.currentUser().data!.id);
-    }
-
-    if (accountsStore.accounts().status === "loading") {
-      await accountsStore.fetchUserAccounts(user.currentUser().data!.id);
-    }
   });
 
   onCleanup(() => {

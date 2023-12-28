@@ -8,7 +8,7 @@ import { Button, TextInputWithFloatingLabel as TextInput } from "@app/components
 import { Action, Message, t } from "@app/i18n";
 import { getLoginFormSchema } from "@app/schemas";
 import { userService } from "@app/services";
-import { Link, accountsStore, transactionsStore, toastStore, user } from "@app/stores";
+import { Link, toastStore, user } from "@app/stores";
 
 import { AuthLayout } from "../AuthLayout";
 import { Show } from "solid-js";
@@ -25,8 +25,6 @@ export function LoginPage() {
       const password = formHandler.getFieldValue("password");
       const data = await userService.auth(email.toLowerCase(), password);
       user.setCurrentUser({ status: "authorized", data });
-      await transactionsStore.fetchUserTransactions(data.id);
-      await accountsStore.fetchUserAccounts(data.id);
       navigate("/");
     } catch (e: any) {
       toastStore.pushToast("error", t(`AuthScreen.Exceptions.${e.message}`));

@@ -23,7 +23,7 @@ import {
 } from "@app/screens";
 import { ChangeAvatarScreen, ChangeLanguageScreen, ChangePasswordScreen, ChangePinScreen, PersonalInfoScreen } from "@app/screens/SettingsScreen/pages";
 import { userService } from "@app/services";
-import { accountsStore, transactionsStore, user } from "@app/stores";
+import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
 import "./App.css";
@@ -49,9 +49,6 @@ export default function() {
       if (authorizedUser.hasPinProtection) {
         const currentUrl = window.location.hash.slice(1);
         localStorage.setItem(REDIRECT_URL_STORE_KEY, currentUrl ?? "/home");
-      } else {
-        await transactionsStore.fetchUserTransactions(authorizedUser.id);
-        await accountsStore.fetchUserAccounts(authorizedUser.id);
       }
       user.setCurrentUser({
         status: authorizedUser.hasPinProtection ? "locked" : "authorized",
