@@ -1,7 +1,7 @@
 import { ParentProps, Show, createMemo, createSignal } from "solid-js";
 import { IoPencil, IoTrash } from "solid-icons/io";
 import { currencies, skins } from "@app/constants";
-import { Account, Link, accountsStore, confirmationStore, counters, transactionsStore } from "@app/stores";
+import { Account, Link, accountsStore, confirmationStore, counters, toastStore, transactionsStore } from "@app/stores";
 import { Action, Message, t } from "@app/i18n";
 
 import { AmountCard, Button } from "../index";
@@ -34,6 +34,7 @@ export function AccountCardDumb(props: ParentProps<AccountCardProps>) {
   const deleteAccount = async (id: number) => {
     await accountsStore.deleteAccount(id);
     await transactionsStore.deleteByAccountId(id);
+    toastStore.pushToast("success", t("ConfirmationRequest.accountDeletion.success"));
   }
 
   const requestDeletion = (id: number) => {

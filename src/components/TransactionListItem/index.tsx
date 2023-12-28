@@ -40,7 +40,7 @@ export function TransactionListItem(props: Transaction) {
     const { id, account, amount, type } = transaction;
     await transactionsStore.deleteTransaction(id);
     await accountsStore.changeBalance(account, amount * -1, type);
-    toastStore.pushToast("success", "Transaction deleted successfully");
+    toastStore.pushToast("success", t("ConfirmationRequest.transactionDeletion.success"));
   };
 
   const requestTransactionDelete = (transaction: Transaction) => {
