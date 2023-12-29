@@ -4,8 +4,8 @@ import { CategoryId } from "@app/constants";
 import { groupTransactionsByDate, sumAmountByCurrency, transactionsStore } from "@app/stores";
 import { DateFilter } from "../types";
 import { FaSolidFilterCircleXmark } from "solid-icons/fa";
-import { Message, t } from "@app/i18n";
-import { DateFormatter } from "@app/helpers";
+import { Message } from "@app/i18n";
+import { useDateFormatter } from "@app/providers";
 
 type FilteredTransactionsProps = {
   categoryFilter: Accessor<CategoryId | null>;
@@ -13,7 +13,7 @@ type FilteredTransactionsProps = {
 }
 
 export function FilteredTransactions({ categoryFilter, dateFilter }: FilteredTransactionsProps) {
-  const dateFormatter = new DateFormatter(t);
+  const dateFormatter = useDateFormatter();
   const filteredTransactions = createMemo(() => (
     Object.entries(groupTransactionsByDate(
       transactionsStore.getFilteredTransactions(categoryFilter(), dateFilter())

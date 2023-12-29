@@ -66,7 +66,8 @@
   "HomeScreen": {
     "greeting": "Привет, {{name}}!",
     "recentTransactions": "Недавние транзакции",
-    "noRecentTransactions": "Нет транзакций за последние {{count}} дней"
+    "noRecentTransactions": "Нет транзакций за последние {{count}} дней",
+    "tasksOfTheDay": "Дела на сегодня"
   },
   "HistoryScreen": {
     "title": "История транзакций",

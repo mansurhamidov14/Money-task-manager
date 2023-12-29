@@ -6,8 +6,7 @@ import { FaRegularCalendarMinus, FaRegularCalendarPlus } from "solid-icons/fa";
 import { Button } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
 import { getTaskFormSchema } from "@app/schemas";
-import { taskService } from "@app/services";
-import { toastStore, user } from "@app/stores";
+import { tasksStore, toastStore, user } from "@app/stores";
 
 import {
   DateInput,
@@ -25,7 +24,7 @@ export function Form() {
   const handleSubmit = async (event: Event) => {
     event.preventDefault();
     try {
-      await taskService.create(user.currentUser().data!.id, formHandler.formData());
+      await tasksStore.addTask(user.currentUser().data!.id, formHandler.formData());
       toastStore.pushToast("success", t("NewTaskScreen.success"));
     } catch (e: any) {
       toastStore.pushToast("success", t("NewTaskScreen.success", undefined, { error: e.message }));

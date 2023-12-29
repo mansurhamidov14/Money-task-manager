@@ -8,11 +8,11 @@ import {
 } from "@app/components";
 import { groupTransactionsByDate, transactionsStore } from "@app/stores";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "@app/stores/transactions/constants";
-import { Message, t } from "@app/i18n";
-import { DateFormatter } from "@app/helpers";
+import { Message } from "@app/i18n";
+import { useDateFormatter } from "@app/providers";
 
 export function LatestTransactions() {
-  const dateFormatter = new DateFormatter(t);
+  const dateFormatter = useDateFormatter();
   const latestTransactions = createMemo(() => (
     Object.entries(groupTransactionsByDate(transactionsStore.latestTransactions()!))
   ));

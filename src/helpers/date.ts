@@ -5,6 +5,7 @@ type DateFormatterDay = {
   timestamp: number;
   date: Date;
   dateString: string;
+  weekday: number;
 }
 
 export class DateFormatter {
@@ -24,32 +25,32 @@ export class DateFormatter {
     const todayDate = new Date();
     todayDate.setHours(0, 0, 0, 0);
     const todayTimestamp = todayDate.getTime();
-    const todayDateString = todayDate.toLocaleDateString(locale);
     
     const yesterdayTimestamp = todayTimestamp - MS_IN_DAY;
     const yesterdayDate = new Date(yesterdayTimestamp);
-    const yesterdayDateString = yesterdayDate.toLocaleDateString(locale);
     
     const tomorrowTimestamp = todayTimestamp + MS_IN_DAY;
     const tomorrowDate = new Date(tomorrowTimestamp);
-    const tomorrowDateString = tomorrowDate.toLocaleDateString(locale);
 
     this.today = {
       date: todayDate,
       timestamp: todayTimestamp,
-      dateString: todayDateString
+      dateString: todayDate.toLocaleDateString(locale),
+      weekday: todayDate.getWeekDay(),
     };
 
     this.yesterday = {
       date: yesterdayDate,
       timestamp: yesterdayTimestamp,
-      dateString: yesterdayDateString
+      dateString: yesterdayDate.toLocaleDateString(locale),
+      weekday: yesterdayDate.getWeekDay()
     };
 
     this.tomorrow = {
       date: tomorrowDate,
       timestamp: tomorrowTimestamp,
-      dateString: tomorrowDateString
+      dateString: tomorrowDate.toLocaleDateString(locale),
+      weekday: tomorrowDate.getWeekDay()
     };
   }
 
@@ -81,6 +82,14 @@ export class DateFormatter {
 
   isTomorrow(date: Date) {
     return date.toLocaleDateString(this.locale) === this.yesterday.dateString;
+  }
+
+  isWeekAgoOrMore(date: Date) {
+    return this.getDayDifference(date) <= -7
+  }
+
+  public getDayDifference(date: Date) {
+    return (date.getTime() - this.today.timestamp) / MS_IN_DAY;
   }
 
   private dateStringIsToday(dateString: string) {

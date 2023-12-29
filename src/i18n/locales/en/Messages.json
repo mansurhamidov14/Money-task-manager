@@ -66,7 +66,8 @@
   "HomeScreen": {
     "greeting": "Hey, {{name}}!",
     "recentTransactions": "Recent transactions",
-    "noRecentTransactions": "No transactions in the last {{count}} days"
+    "noRecentTransactions": "No transactions in the last {{count}} days",
+    "tasksOfTheDay": "Tasks of the Day"
   },
   "HistoryScreen": {
     "title": "Transactions History",

@@ -35,12 +35,15 @@ import { ProtectedRoute } from "@app/stores/navigation/components";
 
 import "./App.css";
 import { REDIRECT_URL_STORE_KEY } from "./constants";
+import { DateFormatterProvider } from "./providers/DateFormatterProvider";
 
 function App(props: RouteSectionProps) {
   return (
     <Layout>
       <RerenderOnLangChange>
-        {props.children}
+        <DateFormatterProvider>
+          {props.children}
+        </DateFormatterProvider>
       </RerenderOnLangChange>
       <Show when={user.currentUser().status === "authorized"}>
         <BottomNavigation />
