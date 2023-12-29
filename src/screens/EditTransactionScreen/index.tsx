@@ -1,9 +1,9 @@
-import { Show, createSignal, onMount } from "solid-js";
+import { createSignal, onMount } from "solid-js";
 import { useNavigate, useParams } from "@solidjs/router";
 
-import { Loading, ScreenHeader, VerticalScroll } from "@app/components";
+import { ScreenHeader, VerticalScroll } from "@app/components";
 import { t } from "@app/i18n";
-import { Transaction, accountsStore, transactionsStore } from "@app/stores";
+import { Await, Transaction, accountsStore, transactionsStore } from "@app/stores";
 import { transactionService } from "@app/services";
 import { Form } from "./Form";
 
@@ -26,16 +26,9 @@ export function EditTransactionScreen() {
     <main>
       <ScreenHeader withGoBackButton title={t("EditTransactionScreen.title")} />
       <VerticalScroll hasHeader hasBottomNavigation>
-        <Show
-          when={
-            transactionsStore.transactions().status === "success" &&
-            accountsStore.accounts().status === "success" &&
-            editedTransaction()
-          }
-          fallback={<Loading />}
-        >
+        <Await for={[transactionsStore.transactions(), accountsStore.accounts(), editedTransaction()]}>
           <Form {...editedTransaction()!} />
-        </Show>
+        </Await>
       </VerticalScroll>
     </main>
   );

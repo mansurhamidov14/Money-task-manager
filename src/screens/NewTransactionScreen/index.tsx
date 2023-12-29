@@ -1,6 +1,5 @@
-import { Show } from "solid-js";
-import { Loading, ScreenHeader, VerticalScroll } from "@app/components";
-import { accountsStore, transactionsStore } from "@app/stores";
+import { ScreenHeader, VerticalScroll } from "@app/components";
+import { Await, accountsStore, transactionsStore } from "@app/stores";
 import { Form } from "./Form";
 import { t } from "@app/i18n";
 
@@ -9,12 +8,9 @@ export function NewTransactionScreen() {
     <main>
       <ScreenHeader withGoBackButton title={t("NewTransactionScreen.title")} />
       <VerticalScroll hasHeader hasBottomNavigation>
-        <Show
-          when={transactionsStore.transactions().status === "success" && accountsStore.accounts().status === "success"}
-          fallback={<Loading />}
-        >
+        <Await for={[transactionsStore.transactions(), accountsStore.accounts()]}>
           <Form />
-        </Show>
+        </Await>
       </VerticalScroll>
     </main>
   );
