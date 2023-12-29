@@ -15,13 +15,20 @@ import {
   HomeScreen,
   LoginPage,
   NewAccountScreen,
+  NewTaskScreen,
   NewTransactionScreen,
   PinInputPage,
   SettingsScreen,
   SignUpPage,
   TasksScreen
 } from "@app/screens";
-import { ChangeAvatarScreen, ChangeLanguageScreen, ChangePasswordScreen, ChangePinScreen, PersonalInfoScreen } from "@app/screens/SettingsScreen/pages";
+import {
+  ChangeAvatarScreen,
+  ChangeLanguageScreen,
+  ChangePasswordScreen,
+  ChangePinScreen,
+  PersonalInfoScreen
+} from "@app/screens/SettingsScreen/pages";
 import { userService } from "@app/services";
 import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
@@ -81,6 +88,7 @@ export default function() {
           <ProtectedRoute path="/edit-account/:id" component={EditAccountScreen} />
           <ProtectedRoute path="/new-transaction" component={NewTransactionScreen} />
           <ProtectedRoute path="/edit-transaction/:id" component={EditTransactionScreen} />
+          <ProtectedRoute path="/new-task" component={NewTaskScreen} />
           <ProtectedRoute path="/tasks" component={TasksScreen} />
           <Route path="/settings">
             <ProtectedRoute path="/" component={SettingsScreen} />

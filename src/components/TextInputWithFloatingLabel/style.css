@@ -19,7 +19,8 @@
     focus:placeholder-secondary-400
     border-secondary-200
     dark:border-secondary-600
-    focus:outline-none
+    focus:outline-none;
+  min-height: 56px;
 }
 
 .inputfl.has-start-addon {

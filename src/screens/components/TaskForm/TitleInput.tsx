@@ -3,17 +3,18 @@ import { TextInputWithFloatingLabel } from "@app/components";
 import { t } from "@app/i18n";
 import { InputProps } from "./types";
 
-export function DateTimeInput(props: InputProps) {
+export function TitleInput(props: InputProps) {
   return (
     <Field
       mode="input"
-      name="date"
+      name="title"
       formHandler={props.formHandler}
       render={(field) => (
         <TextInputWithFloatingLabel
-          id="date"
-          type="datetime-local"
-          label={t("NewTransactionScreen.FormFields.dateTime")}
+          autocomplete="off"
+          id="title"
+          label={t("NewTaskScreen.FormFields.title.label")}
+          placeholder={t("NewTaskScreen.FormFields.title.placeholder")}
           errorMessage={field.helpers.errorMessage}
           {...field.props}
         />

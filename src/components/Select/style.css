@@ -19,8 +19,8 @@
     placeholder-transparent
     focus:placeholder-secondary-400
     border-secondary-200
-    dark:border-secondary-600 
-
+    dark:border-secondary-600;
+  min-height: 56px;
 }
 
 .flselect:not(.has-error):focus {

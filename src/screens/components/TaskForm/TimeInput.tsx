@@ -1,19 +1,23 @@
 import { Field } from "solid-form-handler";
 import { TextInputWithFloatingLabel } from "@app/components";
-import { t } from "@app/i18n";
 import { InputProps } from "./types";
+import { t } from "@app/i18n";
 
-export function DateTimeInput(props: InputProps) {
+type TimeInputProps = InputProps & {
+  name: string;
+}
+
+export function TimeInput(props: TimeInputProps) {
   return (
     <Field
       mode="input"
-      name="date"
+      name={props.name}
       formHandler={props.formHandler}
       render={(field) => (
         <TextInputWithFloatingLabel
           id="date"
-          type="datetime-local"
-          label={t("NewTransactionScreen.FormFields.dateTime")}
+          type="time"
+          label={t("NewTaskScreen.FormFields.time")}
           errorMessage={field.helpers.errorMessage}
           {...field.props}
         />

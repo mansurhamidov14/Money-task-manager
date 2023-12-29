@@ -15,7 +15,7 @@ type TaskFormSchema = {
   days: RecurringTaskDays[];
 }
 
-export function getTaskFormSchema(defaults: Partial<TaskFormSchema>) {
+export function getTaskFormSchema(defaults: Partial<TaskFormSchema> = {}) {
   return object({
     title: string()
       .required(t("common.FormFields.required"))
@@ -37,7 +37,8 @@ export function getTaskFormSchema(defaults: Partial<TaskFormSchema>) {
           day: number()
             .min(1, t("common.FormFields.required"))
             .max(7, t("common.FormFields.required"))
-            .required(t("common.FormFields.required")),
+            .required(t("common.FormFields.required"))
+            .default(1),
           time: string()
             .required(t("common.FormFields.required"))
         })

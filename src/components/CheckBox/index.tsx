@@ -9,7 +9,7 @@ export type CheckBoxProps = Omit<JSX.InputHTMLAttributes<HTMLInputElement>, "typ
 export function CheckBox(props: CheckBoxProps) {
   const [localProps, nativeProps] = splitProps(props, ["class", "label"]);
   return (
-    <div class="flex items-center mb-4">
+    <div class="flex items-center">
       <input {...nativeProps} type="checkbox" class={classNames("checkbox", localProps.class)} />
       <label for={nativeProps.id} class="ms-2 text-sm font-medium">
         {localProps.label}

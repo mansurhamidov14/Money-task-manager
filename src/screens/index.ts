@@ -3,6 +3,7 @@ export * from "./EditAccountScreen";
 export * from "./EditTransactionScreen";
 export * from "./HistoryScreen"
 export * from "./HomeScreen";
+export * from "./NewTaskScreen";
 export * from "./NewTransactionScreen";
 export * from "./NewAccountScreen";
 export * from "./SettingsScreen";
