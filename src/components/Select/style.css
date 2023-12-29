@@ -20,7 +20,7 @@
     focus:placeholder-secondary-400
     border-secondary-200
     dark:border-secondary-600;
-  min-height: 56px;
+  height: 54px;
 }
 
 .flselect:not(.has-error):focus {

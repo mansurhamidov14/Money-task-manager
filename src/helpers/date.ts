@@ -99,9 +99,3 @@ export class DateFormatter {
 export function formatYYYYMMDD(date: Date) {
   return date.toISOString().split("T")[0];
 }
-
-export function dateTimePickerFormat(date: Date) {
-  const dateStr = date.toISOString().split("T")[0];
-  const timeStr = date.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
-  return `${dateStr}T${timeStr}`;
-}

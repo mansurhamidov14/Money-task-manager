@@ -177,9 +177,12 @@
       "time": "Time",
       "startDate": "Start date",
       "endDate": "End date",
+      "selectDays": "Select day/days",
       "addWeekday": "Add day",
       "weekday": "Day"
-    }
+    },
+    "success": "Task was created successfully",
+    "error": "An error occurred while creating a task: {{error}}"
   },
   "TasksScreen": {
     "title": "Tasks"

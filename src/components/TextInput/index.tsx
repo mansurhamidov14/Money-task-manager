@@ -1,50 +1,70 @@
-import { JSX, Show, mergeProps, splitProps } from "solid-js";
+import { JSX, Show, createMemo, mergeProps, splitProps } from "solid-js";
 import "./style.css";
 
 export type TextInputProps = Omit<
   JSX.InputHTMLAttributes<HTMLInputElement>,
   | "type"
   | "class"
+  | "id"
 > & {
+  id: string;
   containerClass?: string;
-  size?: "sm" | "md" | "lg" | "xl";
-  type?: "email" | "text" | "number" | "password";
+  type?: "email" | "text" | "number" | "password" | "date" | "time" | "datetime-local";
   label: string;
-  addonStart?: JSX.Element
+  addonStart?: JSX.Element;
+  assistiveText?: string;
+  errorMessage?: string | null;
 }
 
 export function TextInput(props: TextInputProps) {
-  const [localProps, nativeProps] = splitProps(props, [
+  const mergedProps = mergeProps({
+    placeholder: " ",
+    size: "md",
+    type: "text"
+  }, props);
+
+  const [localProps, nativeProps] = splitProps(mergedProps, [
     "addonStart",
-    "type",
-    "size",
+    "assistiveText",
     "containerClass",
-    "label"
+    "label",
+    "errorMessage"
   ]);
-  const mergedProps = mergeProps({ containerClass: "mb-6", size: "md", type: "text" }, localProps);
+
+  const hasError = createMemo(() => Boolean(localProps.errorMessage));
   
   return (
-    <div class={mergedProps.containerClass}>
-      <label
-        for={nativeProps.id}
-        class="block mb-2 text-sm font-medium"
-      >
-        {props.label}
-      </label>
+    <div class={localProps.containerClass}>
       <div class="relative">
-        <Show when={mergedProps.addonStart}>
-          <div class="input-start-addon">
-            <div>
-              {mergedProps.addonStart}
+        <input
+          aria-describedby={localProps.assistiveText && `assistiveText-${props.id}`}
+          classList={{
+            inputfl: true,
+            "has-start-addon": Boolean(localProps.addonStart),
+            "has-error": hasError(),
+            "filled": !nativeProps.value
+          }}
+          {...nativeProps}
+        />
+        <Show when={localProps.addonStart}>
+          <div classList={{ "inputfl-start-addon": true, "has-error": hasError() }}>
+            <div class="w-4 h-4">
+              {localProps.addonStart}
             </div>
           </div>
         </Show>
-        <input
-          type={mergedProps.type}
-          classList={{ input: true, "has-start-addon": Boolean(mergedProps.addonStart) }}
-          {...nativeProps}
-        />
+        <label for={nativeProps.id}>
+          {props.label}
+        </label>
       </div>
+      <Show when={localProps.errorMessage}>
+        <p class="inputfl-error">{localProps.errorMessage}</p>
+      </Show>
+      <Show when={localProps.assistiveText}>
+        <p id={`assistiveText-${props.id}`} class="inputfl-help">
+          {localProps.assistiveText}
+        </p>
+      </Show>
     </div>
   );
 }

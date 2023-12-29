@@ -5,7 +5,7 @@ import { Field, useFormHandler } from "solid-form-handler";
 import { IoKey } from "solid-icons/io";
 import { FiAtSign } from "solid-icons/fi";
 
-import { Button, Select, TextInputWithFloatingLabel as TextInput } from "@app/components";
+import { Button, Select, TextInput } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
 import { CurrencyCode, currencies } from "@app/constants";
 import { getSignUpFormSchema } from "@app/schemas";

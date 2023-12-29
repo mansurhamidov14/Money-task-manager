@@ -4,7 +4,7 @@ import { yupSchema } from "solid-form-handler/yup";
 import { IoKey } from "solid-icons/io";
 import { FiAtSign } from "solid-icons/fi";
 
-import { Button, TextInputWithFloatingLabel as TextInput } from "@app/components";
+import { Button, TextInput } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
 import { getLoginFormSchema } from "@app/schemas";
 import { userService } from "@app/services";

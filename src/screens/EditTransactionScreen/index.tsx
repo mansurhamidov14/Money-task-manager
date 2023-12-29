@@ -31,7 +31,7 @@ export function EditTransactionScreen() {
             transactionsStore.transactions().status === "success" &&
             accountsStore.accounts().status === "success" &&
             editedTransaction()
-        }
+          }
           fallback={<Loading />}
         >
           <Form {...editedTransaction()!} />

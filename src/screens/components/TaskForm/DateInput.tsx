@@ -1,5 +1,5 @@
 import { Field } from "solid-form-handler";
-import { TextInputWithFloatingLabel } from "@app/components";
+import { TextInput } from "@app/components";
 import { InputProps } from "./types";
 
 type DateInputProps = InputProps & {
@@ -14,7 +14,7 @@ export function DateInput(props: DateInputProps) {
       name={props.name}
       formHandler={props.formHandler}
       render={(field) => (
-        <TextInputWithFloatingLabel
+        <TextInput
           id="date"
           type="date"
           label={props.label}

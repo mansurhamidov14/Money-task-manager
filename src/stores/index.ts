@@ -7,6 +7,7 @@ export * from "./navigation";
 export * from "./navigation/components";
 export * from "./navigation/types";
 export * from "./navigation/hocs";
+export * from "./tasks/types";
 export * from "./transactions";
 export * from "./transactions/helpers";
 export * from "./transactions/types";

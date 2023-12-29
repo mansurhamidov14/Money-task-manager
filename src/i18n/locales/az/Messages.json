@@ -177,9 +177,12 @@
       "time": "Vaxt",
       "startDate": "Başlama tarixi",
       "endDate": "Bitmə tarixi",
+      "selectDays": "Gün/günlər seçin",
       "addWeekday": "Gün əlavə et",
       "weekday": "Gün"
-    }
+    },
+    "success": "Tapşırıq müvəffəqiyyətlə əlavə olundu",
+    "error": "Tapşırığı əlavə edərkən xəta baş verdi: {{error}}"
   },
   "TasksScreen": {
     "title": "Tapşırıqlar"

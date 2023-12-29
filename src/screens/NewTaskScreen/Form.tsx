@@ -1,9 +1,13 @@
+import { For, Show } from "solid-js";
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
+import { FaRegularCalendarMinus, FaRegularCalendarPlus } from "solid-icons/fa";
 
 import { Button } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
 import { getTaskFormSchema } from "@app/schemas";
+import { taskService } from "@app/services";
+import { toastStore, user } from "@app/stores";
 
 import {
   DateInput,
@@ -12,8 +16,6 @@ import {
   TimeInput,
   DaySelect,
 } from "../components/TaskForm";
-import { For, Show } from "solid-js";
-import { FaRegularCalendarMinus, FaRegularCalendarPlus } from "solid-icons/fa";
 
 export function Form() {
   const formHandler = useFormHandler(yupSchema(getTaskFormSchema()), {
@@ -22,18 +24,24 @@ export function Form() {
 
   const handleSubmit = async (event: Event) => {
     event.preventDefault();
-    try {} catch (e: any) {}
+    try {
+      await taskService.create(user.currentUser().data!.id, formHandler.formData());
+      toastStore.pushToast("success", t("NewTaskScreen.success"));
+    } catch (e: any) {
+      toastStore.pushToast("success", t("NewTaskScreen.success", undefined, { error: e.message }));
+    } finally {
+      history.back();
+    }
   }
 
   return (
     <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
-      <div>
-        <TitleInput formHandler={formHandler} />
-        <div class="py-2" />
-        <RecurringCheckbox formHandler={formHandler} />
-      </div>
-      <div class="flex gap-3">
-        <div class="w-1/2">
+      <TitleInput formHandler={formHandler} />
+      <div class="flex flex-wrap">
+        <div class="w-full mb-3">
+          <RecurringCheckbox formHandler={formHandler} />
+        </div>
+        <div class="w-1/2 pr-2">
           <DateInput
             name="startDate"
             label={t(`NewTaskScreen.FormFields.${
@@ -44,7 +52,7 @@ export function Form() {
             formHandler={formHandler}
           />
         </div>
-        <div class="w-1/2">
+        <div class="w-1/2 pl-2">
           <Show
             when={formHandler.getFieldValue("isRecurring") === "1"}
             fallback={<TimeInput formHandler={formHandler} name="time" />}
@@ -59,7 +67,9 @@ export function Form() {
       </div>
       <Show when={formHandler.formData().isRecurring === "1"}>
         <div class="flex flex-col gap-3">
-          <h3 class="font-medium text-lg">Select days</h3>
+          <h3 class="font-semibold text-lg">
+            <Message>NewTaskScreen.FormFields.selectDays</Message>
+          </h3>
           <For each={formHandler.formData().days}>
             {(_, i) => (
               <div class="flex gap-3">

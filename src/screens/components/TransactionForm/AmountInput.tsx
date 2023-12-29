@@ -1,6 +1,6 @@
 import { createMemo } from "solid-js";
 import { Field } from "solid-form-handler";
-import { TextInputWithFloatingLabel } from "@app/components";
+import { TextInput } from "@app/components";
 import { t } from "@app/i18n";
 import { accountsStore } from "@app/stores";
 import { currencies } from "@app/constants";
@@ -21,7 +21,7 @@ export function AmountInput(props: InputProps) {
       name="amount"
       formHandler={props.formHandler}
       render={(field) => (
-        <TextInputWithFloatingLabel
+        <TextInput
           id="amount"
           label={t("NewTransactionScreen.FormFields.amount.label")}
           placeholder="0.00"

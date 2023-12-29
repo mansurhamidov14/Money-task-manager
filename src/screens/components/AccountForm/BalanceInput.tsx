@@ -1,5 +1,5 @@
 import { Field } from "solid-form-handler";
-import { TextInputWithFloatingLabel } from "@app/components";
+import { TextInput } from "@app/components";
 import { t } from "@app/i18n";
 import { InputProps } from "./types";
 
@@ -10,7 +10,7 @@ export function BalanceInput(props: InputProps) {
       name="balance"
       formHandler={props.formHandler}
       render={(field) => (
-        <TextInputWithFloatingLabel
+        <TextInput
           id="balance"
           label={t("NewAccountScreen.FormFields.balance.label")}
           placeholder="0.00"

@@ -15,8 +15,6 @@ function generateWeekdayOptions() {
   return weekdays;
 }
 
-const weekdays = generateWeekdayOptions();
-
 type DaySelectProps = InputProps & {
   name: string;
 }
@@ -34,7 +32,7 @@ export function DaySelect(props: DaySelectProps) {
           errorMessage={field.helpers.errorMessage}
           {...field.props}
         >
-          <For each={weekdays}>
+          <For each={generateWeekdayOptions()}>
             {weekday => <option {...weekday} />}
           </For>
         </Select>

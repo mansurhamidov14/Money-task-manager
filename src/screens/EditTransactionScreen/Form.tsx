@@ -3,7 +3,6 @@ import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 
 import { Button, Loading } from "@app/components";
-import { dateTimePickerFormat } from "@app/helpers";
 import { Action, t } from "@app/i18n";
 import { getTransactionFormSchema } from "@app/schemas";
 import { accountsStore, transactionsStore, toastStore, Transaction } from "@app/stores";
@@ -26,7 +25,7 @@ export function Form(props: Transaction) {
       amount: props.amount,
       account: props.account,
       category: props.category,
-      date: dateTimePickerFormat(new Date(props.transactionDateTime))
+      date: new Date(props.transactionDateTime).toLocaleDateTimePickerString()
     }, accountsStore.accounts().data!)),
     { validateOn: ["blur"]}
   );

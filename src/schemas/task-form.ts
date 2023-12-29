@@ -1,18 +1,14 @@
 import { t } from "@app/i18n";
+import { RecurringTaskDay } from "@app/stores";
 import { array, mixed, number, object, string } from "yup";
 
-type RecurringTaskDays = {
-  day: number;
-  time: string;
-}
-
-type TaskFormSchema = {
+export type TaskFormSchema = {
   title: string;
   startDate: string;
-  endDate: string;
-  time: string;
+  endDate?: string;
+  time?: string;
   isRecurring: "1" | "0";
-  days: RecurringTaskDays[];
+  days?: RecurringTaskDay[];
 }
 
 export function getTaskFormSchema(defaults: Partial<TaskFormSchema> = {}) {

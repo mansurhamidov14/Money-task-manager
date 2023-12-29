@@ -1,5 +1,5 @@
 import { Field } from "solid-form-handler";
-import { TextInputWithFloatingLabel } from "@app/components";
+import { TextInput } from "@app/components";
 import { InputProps } from "./types";
 import { t } from "@app/i18n";
 
@@ -14,7 +14,7 @@ export function TimeInput(props: TimeInputProps) {
       name={props.name}
       formHandler={props.formHandler}
       render={(field) => (
-        <TextInputWithFloatingLabel
+        <TextInput
           id="date"
           type="time"
           label={t("NewTaskScreen.FormFields.time")}

@@ -1,7 +1,7 @@
 import { Field, useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 
-import { Button, ScreenHeader, VerticalScroll, TextInputWithFloatingLabel as TextInput } from "@app/components";
+import { Button, ScreenHeader, VerticalScroll, TextInput } from "@app/components";
 import { Action, t } from "@app/i18n";
 import { getPersonalInfoSchema } from "@app/schemas";
 import { user } from "@app/stores";

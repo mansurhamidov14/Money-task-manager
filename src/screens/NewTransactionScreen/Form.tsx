@@ -2,7 +2,6 @@ import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 
 import { Button } from "@app/components";
-import { dateTimePickerFormat } from "@app/helpers";
 import { Action, t } from "@app/i18n";
 import { getTransactionFormSchema } from "@app/schemas";
 import { transactionService } from "@app/services";
@@ -19,7 +18,7 @@ import {
 
 export function Form() {
   const formHandler = useFormHandler(yupSchema(getTransactionFormSchema({
-    date: dateTimePickerFormat(new Date()),
+    date: new Date().toLocaleDateTimePickerString(),
     account: accountsStore.accounts().data!.find(account => account.primary)?.id,
     category: "market",
     type: "expense"
