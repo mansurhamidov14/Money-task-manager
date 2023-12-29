@@ -1,9 +1,9 @@
-import { Show, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
 import { PickerValue } from "@rnwonder/solid-date-picker";
 import { ScreenHeader, SectionTitle, VerticalScroll } from "@app/components";
 import { Message, t } from "@app/i18n";
 import { CategoryId } from "@app/constants";
-import { transactionsStore } from "@app/stores";
+import { Await, transactionsStore } from "@app/stores";
 import { initialDateRange } from "./consts";
 import {
   CategoryFilter,
@@ -39,15 +39,12 @@ export function HistoryScreen() {
           <Message>HistoryScreen.detailTransactions</Message>
         </SectionTitle>
         <CategoryFilter filter={categoryFilter} setFilter={setCategoryFilter} />
-        <Show
-          when={transactionsStore.transactions().status === "success"}
-          fallback={<TransactionListSkeleton />}
-        >
+        <Await for={[transactionsStore.transactions()]} fallback={<TransactionListSkeleton />}>
           <FilteredTransactions
             dateFilter={dateFilter}
             categoryFilter={categoryFilter}
           />
-        </Show>
+        </Await>
         </main>
       </VerticalScroll>
     </>

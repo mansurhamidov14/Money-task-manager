@@ -1,7 +1,6 @@
 import { PickerValue } from "@rnwonder/solid-date-picker";
 import { DateFilter, DateFilterTab } from "./types";
 import { MS_IN_DAY } from "@app/constants";
-import { formatYYYYMMDD } from "@app/helpers";
 
 export function getDateFilters(filterType: DateFilterTab, ranges?: PickerValue): DateFilter {
   if (filterType === "custom" && !ranges) {
@@ -16,8 +15,8 @@ export function getDateFilters(filterType: DateFilterTab, ranges?: PickerValue):
     endDate.setHours(23, 59, 59, 999);
 
     return {
-      startDate: formatYYYYMMDD(startDate),
-      endDate: formatYYYYMMDD(endDate)
+      startDate: startDate.toDatePickerString(),
+      endDate: endDate.toDatePickerString()
     }
   };
 
@@ -38,7 +37,7 @@ export function getDateFilters(filterType: DateFilterTab, ranges?: PickerValue):
 
   startDate.setHours(0, 0, 0, 0);
   return {
-    startDate: formatYYYYMMDD(startDate),
-    endDate: formatYYYYMMDD(new Date(currentTimestamp))
+    startDate: startDate.toDatePickerString(),
+    endDate: new Date(currentTimestamp).toDatePickerString()
   };
 }

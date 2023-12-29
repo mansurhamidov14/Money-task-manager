@@ -1,5 +1,5 @@
 import { onMount, ParentProps } from "solid-js";
-import { accountsStore, transactionsStore, user } from ".";
+import { accountsStore, tasksStore, transactionsStore, user } from ".";
 
 export function DataProvider(props: ParentProps) {
   onMount(async () => {
@@ -10,6 +10,10 @@ export function DataProvider(props: ParentProps) {
 
     if (accountsStore.accounts().status !== "success") {
       await accountsStore.fetchUserAccounts(userId);
+    }
+
+    if (tasksStore.tasks().status === "loading") {
+      await tasksStore.fetchUserTasks(userId);
     }
   });
 

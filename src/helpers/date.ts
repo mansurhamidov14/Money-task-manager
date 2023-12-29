@@ -95,7 +95,3 @@ export class DateFormatter {
     return dateString === this.tomorrow.dateString;
   }
 }
-
-export function formatYYYYMMDD(date: Date) {
-  return date.toISOString().split("T")[0];
-}

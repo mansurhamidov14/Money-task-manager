@@ -1,6 +1,7 @@
 interface Date {
   getWeekDay: () => number;
-  toLocaleDateTimePickerString: () => string 
+  toLocaleDateTimePickerString: () => string;
+  toDatePickerString: () => string;
 }
 
 Date.prototype.toLocaleDateTimePickerString = function() {
@@ -11,4 +12,8 @@ Date.prototype.toLocaleDateTimePickerString = function() {
 
 Date.prototype.getWeekDay = function() {
   return this.getDay() || 7;
+}
+
+Date.prototype.toDatePickerString = function() {
+  return this.toISOString().split("T")[0];
 }

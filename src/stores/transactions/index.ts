@@ -4,7 +4,6 @@ import { Transaction, TransactionsStore } from "./types";
 import { DateFilter } from "@app/screens/HistoryScreen/types";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
 import { transactionService } from "@app/services";
-import { formatYYYYMMDD } from "@app/helpers";
 import { descSorter } from "..";
 
 function initTransactionsStore() {
@@ -59,8 +58,8 @@ function initTransactionsStore() {
     }
     const now = Date.now();
     const min = now - RECENT_TRANSACTIONS_MAX_DAYS * 86400000;
-    const nowDate = formatYYYYMMDD(new Date(now));
-    const minDate = formatYYYYMMDD(new Date(min));
+    const nowDate = new Date(now).toDatePickerString();
+    const minDate = new Date(min).toDatePickerString();
 
     const last10daysTransactions = transactions().data!.filter(({ transactionDate }) => {
       return transactionDate <= nowDate && transactionDate >= minDate;
