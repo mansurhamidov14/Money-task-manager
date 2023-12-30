@@ -24,12 +24,12 @@ export function Form() {
   const handleSubmit = async (event: Event) => {
     event.preventDefault();
     try {
+      await formHandler.validateForm();
       await tasksStore.addTask(user.currentUser().data!.id, formHandler.formData());
       toastStore.pushToast("success", t("NewTaskScreen.success"));
+      history.back();
     } catch (e: any) {
       toastStore.pushToast("success", t("NewTaskScreen.success", undefined, { error: e.message }));
-    } finally {
-      history.back();
     }
   }
 
