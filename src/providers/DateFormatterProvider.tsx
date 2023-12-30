@@ -13,7 +13,7 @@ export function DateFormatterProvider(props: ParentProps) {
 
   return (
     <DateFormatterContext.Provider value={dateFormatter}>
-      {props.children};
+      {props.children}
     </DateFormatterContext.Provider>
   );
 }

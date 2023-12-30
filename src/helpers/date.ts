@@ -12,6 +12,8 @@ export class DateFormatter {
   yesterday: DateFormatterDay;
   today: DateFormatterDay;
   tomorrow: DateFormatterDay;
+  mondayStartTimestamp: number;
+  sundayEndTimestamp: number;
 
   constructor(
     private translateFn: (
@@ -25,6 +27,7 @@ export class DateFormatter {
     const todayDate = new Date();
     todayDate.setHours(0, 0, 0, 0);
     const todayTimestamp = todayDate.getTime();
+    const todayWeekDay = todayDate.getWeekDay();
     
     const yesterdayTimestamp = todayTimestamp - MS_IN_DAY;
     const yesterdayDate = new Date(yesterdayTimestamp);
@@ -32,11 +35,14 @@ export class DateFormatter {
     const tomorrowTimestamp = todayTimestamp + MS_IN_DAY;
     const tomorrowDate = new Date(tomorrowTimestamp);
 
+    this.mondayStartTimestamp = todayTimestamp - (todayWeekDay - 1) * MS_IN_DAY;
+    this.sundayEndTimestamp = todayTimestamp + (7 - todayWeekDay + 1) * MS_IN_DAY - 1;
+
     this.today = {
       date: todayDate,
       timestamp: todayTimestamp,
       dateString: todayDate.toLocaleDateString(locale),
-      weekday: todayDate.getWeekDay(),
+      weekday: todayWeekDay,
     };
 
     this.yesterday = {
@@ -86,6 +92,15 @@ export class DateFormatter {
 
   isWeekAgoOrMore(date: Date) {
     return this.getDayDifference(date) <= -7
+  }
+
+  withinThisWeek(date: Date) {
+    const timestamp = date.getTime();
+    return timestamp >= this.mondayStartTimestamp && timestamp <= this.sundayEndTimestamp;
+  }
+
+  isTodayOrAfter(date: Date) {
+    return date.getTime() >= this.today.timestamp;
   }
 
   public getDayDifference(date: Date) {

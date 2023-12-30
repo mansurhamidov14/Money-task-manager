@@ -25,5 +25,5 @@ export function ScreenHeader(props: ScreenHeaderProps) {
         </div>
       </Show>
     </div>
-  )
+  );
 }

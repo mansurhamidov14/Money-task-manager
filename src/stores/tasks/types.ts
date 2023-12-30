@@ -36,3 +36,5 @@ export type RecurringTaskDay = {
   day: number;
   time: string;
 }
+
+export type TaskStatus = "completed" | "todo" | "missed";
