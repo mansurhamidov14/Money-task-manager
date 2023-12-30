@@ -1,17 +1,16 @@
 import { Task, TaskStatus } from "@app/stores";
 import { ListItem } from "../ListItem";
 import { TaskIcon } from "./TaskIcon";
-import { useDateFormatter } from "@app/providers";
+import { useDateProcessor } from "@app/providers";
 import { createMemo } from "solid-js";
 
 export function TaskListItem(props: Task) {
-  const dateFormatter = useDateFormatter();
+  const dateProcessor = useDateProcessor();
   const taskStatus = createMemo((): TaskStatus => {
-    const doneDate = new Date(props.doneAt);
-    const doneWithThisWeek = dateFormatter.withinThisWeek(doneDate);
-    if (doneWithThisWeek && dateFormatter.isTodayOrAfter(doneDate)) {
+    const doneWithThisWeek = dateProcessor.withinThisWeek(props.doneAt);
+    if (doneWithThisWeek && dateProcessor.isTodayOrAfter(props.doneAt)) {
       return "completed";
-    } else if (!doneWithThisWeek && props.weekday >= dateFormatter.today.weekday) {
+    } else if (!doneWithThisWeek && props.weekday >= dateProcessor.today.weekday) {
       return "todo";
     }
 

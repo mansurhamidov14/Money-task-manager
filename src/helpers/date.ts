@@ -1,17 +1,17 @@
 import { MS_IN_DAY } from "@app/constants";
 import { Lang } from "@app/i18n/types";
 
-type DateFormatterDay = {
+type DateProcessorDay = {
   timestamp: number;
   date: Date;
   dateString: string;
   weekday: number;
 }
 
-export class DateFormatter {
-  yesterday: DateFormatterDay;
-  today: DateFormatterDay;
-  tomorrow: DateFormatterDay;
+export class DateProcessor {
+  yesterday: DateProcessorDay;
+  today: DateProcessorDay;
+  tomorrow: DateProcessorDay;
   mondayStartTimestamp: number;
   sundayEndTimestamp: number;
 
@@ -78,33 +78,38 @@ export class DateFormatter {
     return this.translateFn(`${type}.date.${date.getMonth()}`, "Date", { date: date.getDate() });
   }
 
-  isToday(date: Date) {
-    return date.toLocaleDateString(this.locale) === this.today.dateString;
+  isToday(date: Date | number) {
+    const dateObj = typeof date === "number" ? new Date(date) : date;
+    return dateObj.toLocaleDateString(this.locale) === this.today.dateString;
   }
 
-  isYesterday(date: Date) {
-    return date.toLocaleDateString(this.locale) === this.yesterday.dateString;
+  isYesterday(date: Date | number) {
+    const dateObj = typeof date === "number" ? new Date(date) : date;
+    return dateObj.toLocaleDateString(this.locale) === this.yesterday.dateString;
   }
 
-  isTomorrow(date: Date) {
-    return date.toLocaleDateString(this.locale) === this.yesterday.dateString;
+  isTomorrow(date: Date | number) {
+    const dateObj = typeof date === "number" ? new Date(date) : date;
+    return dateObj.toLocaleDateString(this.locale) === this.yesterday.dateString;
   }
 
-  isWeekAgoOrMore(date: Date) {
+  isWeekAgoOrMore(date: Date | number) {
     return this.getDayDifference(date) <= -7
   }
 
-  withinThisWeek(date: Date) {
-    const timestamp = date.getTime();
+  withinThisWeek(date: Date | number) {
+    const timestamp = typeof date === "number" ? date : date.getTime();
     return timestamp >= this.mondayStartTimestamp && timestamp <= this.sundayEndTimestamp;
   }
 
-  isTodayOrAfter(date: Date) {
-    return date.getTime() >= this.today.timestamp;
+  isTodayOrAfter(date: Date | number) {
+    const timestamp = typeof date === "number" ? date : date.getTime();
+    return timestamp >= this.today.timestamp;
   }
 
-  public getDayDifference(date: Date) {
-    return (date.getTime() - this.today.timestamp) / MS_IN_DAY;
+  public getDayDifference(date: Date | number) {
+    const timestamp = typeof date === "number" ? date : date.getTime();
+    return (timestamp - this.today.timestamp) / MS_IN_DAY;
   }
 
   private dateStringIsToday(dateString: string) {

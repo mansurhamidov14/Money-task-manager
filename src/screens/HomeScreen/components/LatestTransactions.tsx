@@ -9,10 +9,10 @@ import {
 import { groupTransactionsByDate, transactionsStore } from "@app/stores";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "@app/stores/transactions/constants";
 import { Message } from "@app/i18n";
-import { useDateFormatter } from "@app/providers";
+import { useDateProcessor } from "@app/providers";
 
 export function LatestTransactions() {
-  const dateFormatter = useDateFormatter();
+  const dateProcessor = useDateProcessor();
   const latestTransactions = createMemo(() => (
     Object.entries(groupTransactionsByDate(transactionsStore.latestTransactions()!))
   ));
@@ -30,7 +30,7 @@ export function LatestTransactions() {
     >
       <List>
         {latestTransactions().map(([date, transactions]) => (
-          <TransactionGroup date={dateFormatter.humanize(new Date(date))}>
+          <TransactionGroup date={dateProcessor.humanize(new Date(date))}>
             {transactions.map(transaction => (
               <TransactionListItem {...transaction} />
             ))}
