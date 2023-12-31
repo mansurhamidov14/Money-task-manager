@@ -161,7 +161,31 @@
         "invalidFormat": "Баланс не вказано"
       },
       "primary": "Зробити основним",
-      "skins": ["Жовтий", "Зелений", "Блакитний", "Рожевий", "Світло-рожевий", "Чорний", "Туризм", "Подарунки", "Скарбничка", "Всесвіт", "Червона планета", "Ювентус" , "Арсенал"]
+      "skins": {
+        "yellow": "Жовтий",
+        "green": "Зелений",
+        "blue": "Блакитний",
+        "pink": "Рожевий",
+        "lightPink": "Світло-рожевий",
+        "black": "Чорний",
+        "travel": "Туризм",
+        "gift": "Подарунки",
+        "piggy": "Скарбничка",
+        "space": "Всесвіт",
+        "redPlanet": "Червона планета",
+        "juventus": "Ювентус",
+        "arsenal": "Арсенал",
+        "albali": "Unibank Albali",
+        "albaliPlus": "Unibank Albali Plus",
+        "red": "Червоний",
+        "abbTam": "ABB Tam Card",
+        "birbank": "Kapital Bank Bir Card",
+        "rabitaKartmane": "Rabitabank Kartmane",
+        "ucard": "Unibank Ucard",
+        "monobank": "Монобанк",
+        "oschadbank": "Ощадбанк",
+        "privatUniversal": "Privat \"Універсальна\""
+      }
     },
     "success": "Рахунок успішно доданий",
     "error": "Помилка під час додавання рахунку: {{error}}"

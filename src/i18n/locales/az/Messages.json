@@ -161,7 +161,31 @@
         "invalidFormat": "Balans düzgün qeyd olunmayıb"
       },
       "primary": "Əsas hesab təyin et",
-      "skins": ["Sarı", "Yaşıl", "Mavi", "Çəhrayı", "Açıq çəhrayı", "Qara", "Turizm", "Hədiyyələr", "Pul qutusu", "Kainat", "Qırmızı planet", "Yuventus" , "Arsenal"]
+      "skins": {
+        "yellow": "Sarı",
+        "green": "Yaşıl",
+        "blue": "Mavi",
+        "pink": "Çəhrayı",
+        "lightPink": "Açıq çəhrayı",
+        "black": "Qara",
+        "travel": "Turizm",
+        "gift": "Hədiyyələr",
+        "piggy": "Pul qutusu",
+        "space": "Kainat",
+        "redPlanet": "Qırmızı planet",
+        "juventus": "Yuventus",
+        "arsenal": "Arsenal",
+        "albali": "Unibank Albalı",
+        "albaliPlus": "Unibank Albalı Plus",
+        "red": "Qırmızı",
+        "abbTam": "ABB Tam Kart",
+        "birbank": "Kapital Bank Bir Kart",
+        "rabitaKartmane": "Rabitəbank Kartmane",
+        "ucard": "Unibank Ucard",
+        "monobank": "Monobank",
+        "oschadbank": "Oschadbank",
+        "privatUniversal": "Privat \"Universal\""
+      }
     },
     "success": "Hesab müvəffəqiyyət ilə əlavə olundu",
     "error": "Hesabı əlavə edərkən xəta baş verdi: {{error}}"

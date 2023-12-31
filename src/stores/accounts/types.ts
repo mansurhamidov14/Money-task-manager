@@ -7,7 +7,7 @@ export type Account = {
   title: string;
   balance: number;
   currency: CurrencyCode;
-  skin: number;
+  skin: string;
   primary: 1 | 0;
   createdAt: number;
   updatedAt: number;

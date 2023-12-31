@@ -41,7 +41,7 @@ export function SignUpPage() {
         title: t("common.initialAccountName"),
         currency: formHandler.getFieldValue("primaryCurrency"),
         balance: 0,
-        skin: 1,
+        skin: "green",
         primary: 1,
       });
       user.setCurrentUser({

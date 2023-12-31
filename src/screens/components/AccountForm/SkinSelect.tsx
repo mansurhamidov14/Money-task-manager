@@ -15,17 +15,17 @@ export function SkinSelect(props: InputProps) {
         <div class="-mx-5">
           <div class="overflow-x-auto w-full pb-4 px-5">
             <div class="grid grid-rows-3 grid-flow-col w-fit gap-3" style="grid-template-rows: auto auto;">
-              <For each={skins}>
-                {(skin, index) => (
+              <For each={Object.entries(skins)}>
+                {([value, skin], index) => (
                   <div class="w-[8rem] relative">
                     <ImageRadioButton
                       {...field.props}
                       id={`${field.props.id}-${index()}`}
                       img={skin.image}
                       imgClass="w-full rounded-md"
-                      checked={field.helpers.isChecked(index())}
-                      textLabel={<Message>{`NewAccountScreen.FormFields.skins.${index()}`}</Message>}
-                      value={index()}
+                      checked={field.helpers.isChecked(value)}
+                      textLabel={<Message>{`NewAccountScreen.FormFields.skins.${value}`}</Message>}
+                      value={value}
                     />
                   </div>
                 )}

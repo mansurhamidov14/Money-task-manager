@@ -25,7 +25,7 @@ export function ImageRadioButton(props: ImageRadioButtonProps) {
       >
         <img class={localProps.imgClass} src={localProps.img} />
         <Show when={localProps.textLabel}>
-          <div class="text-xs">{localProps.textLabel}</div>
+          <div class="text-xs mt-0.5">{localProps.textLabel}</div>
         </Show>
       </label>
       <Show when={nativeProps.checked}>

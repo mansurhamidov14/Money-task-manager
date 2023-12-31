@@ -7,7 +7,7 @@ type NewAccountForm = {
   balance: number;
   currency: CurrencyCode;
   primary: "0" | "1";
-  skin: number;
+  skin: string;
 }
 
 export function getAccountFormSchema(defaults: Partial<NewAccountForm>): yup.Schema<NewAccountForm> {
@@ -28,7 +28,7 @@ export function getAccountFormSchema(defaults: Partial<NewAccountForm>): yup.Sch
       .oneOf(["1", "0"])
       .default(defaults.primary ?? "0"),
     skin: yup
-      .number()
-      .default(defaults.skin ?? 0)
+      .string()
+      .default(defaults.skin ?? "green")
   });
 }

@@ -161,7 +161,31 @@
         "invalidFormat": "Баланс указан неверно"
       },
       "primary": "Сделать основным",
-      "skins": ["Желтый", "Зеленый", "Синий", "Розовый", "Нежно-розовый", "Черный", "Туризм", "Подарки", "Копилка", "Вселенная", "Красная планета", "Ювентус" , "Арсенал"]
+      "skins": {
+        "yellow": "Желтый",
+        "green": "Зеленый",
+        "blue": "Синий",
+        "pink": "Розовый",
+        "lightPink": "Нежно-розовый",
+        "black": "Черный",
+        "travel": "Туризм",
+        "gift": "Подарки",
+        "piggy": "Копилка",
+        "space": "Вселенная",
+        "redPlanet": "Красная планета",
+        "juventus": "Ювентус",
+        "arsenal": "Арсенал",
+        "albali": "Unibank Albali",
+        "albaliPlus": "Unibank Albali Plus",
+        "red": "Красный",
+        "abbTam": "ABB Tam Card",
+        "birbank": "Kapital Bank Bir Card",
+        "rabitaKartmane": "Rabitabank Kartmane",
+        "ucard": "Unibank Ucard",
+        "monobank": "Монобанк",
+        "oschadbank": "Ощадбанк",
+        "privatUniversal": "Privat \"Универсальная\""
+      }
     },
     "success": "Счет успешно добавлен",
     "error": "Произошла ошибка во время добавления счета: {{error}}"

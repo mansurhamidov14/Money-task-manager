@@ -161,7 +161,31 @@
         "invalidFormat": "Invalid balance format"
       },
       "primary": "Set as primary",
-      "skins": ["Yellow", "Green", "Blue", "Pink", "Light Pink", "Black", "Tourism", "Gifts", "Piggy Bank", "Universe", "Red Planet", "Juventus", "Arsenal"]
+      "skins": {
+        "yellow": "Yellow",
+        "green": "Green",
+        "blue": "Blue",
+        "pink": "Pink",
+        "lightPink": "Light Pink",
+        "black": "Black",
+        "travel": "Tourism",
+        "gift": "Gifts",
+        "piggy": "Piggy Bank",
+        "space": "Universe",
+        "redPlanet": "Red Planet",
+        "juventus": "Juventus",
+        "arsenal": "Arsenal",
+        "albali": "Unibank Albali",
+        "albaliPlus": "Unibank Albali Plus",
+        "red": "Red",
+        "abbTam": "ABB Tam Card",
+        "birbank": "Kapital Bank Bir Card",
+        "rabitaKartmane": "Rabitabank Kartmane",
+        "ucard": "Unibank Ucard",
+        "monobank": "Monobank",
+        "oschadbank": "Oschadbank",
+        "privatUniversal": "Privat \"Universal\""
+      }
     },
     "success": "Account was created successfully",
     "error": "An error occurred while creating an account: {{error}}"

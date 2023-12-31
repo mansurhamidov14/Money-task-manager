@@ -4,4 +4,5 @@ export type Skin = {
   primaryTextColor: string;
   secondaryTextColor: string;
   balancePlacement: string;
+  hideAccountTitle?: boolean;
 }
