@@ -18,7 +18,6 @@ export class DateProcessor {
   constructor(
     private translateFn: (
       key: string,
-      ns?: string,
       params?: Record<string, number | string>,
       lang?: Lang
     ) => string,
@@ -64,18 +63,27 @@ export class DateProcessor {
     const dateString = date.toLocaleDateString(this.locale);
 
     if (this.dateStringIsToday(dateString)) {
-      return this.translateFn("today", "Date");
+      return this.translateFn("today");
     }
 
     if (this.dateStringIsYesterday(dateString)) {
-      return this.translateFn("yesterday", "Date");
+      return this.translateFn("yesterday");
     }
 
     if (this.dateStringIsTomorrow(dateString)) {
-      return this.translateFn("tomorrow", "Date");
+      return this.translateFn("tomorrow");
     }
 
-    return this.translateFn(`${type}.date.${date.getMonth()}`, "Date", { date: date.getDate() });
+    return this.translateFn(`${type}.date.${date.getMonth()}`, { date: date.getDate() });
+  }
+
+  getDate(date: Date, withoutLeadingZero = false) {
+    const dayOfMonth = date.getDate();
+    return !withoutLeadingZero ? `0${dayOfMonth}`.slice(-2) : dayOfMonth;
+  }
+
+  humanizeWeekDay(date: Date, type: "short" | "long" = "long") {
+    return this.translateFn(`${type}.weekdays.${date.getDay()}`);
   }
 
   isToday(date: Date | number) {

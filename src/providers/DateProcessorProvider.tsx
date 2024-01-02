@@ -1,5 +1,5 @@
 import { DateProcessor } from "@app/helpers";
-import { t } from "@app/i18n";
+import { tDate } from "@app/i18n";
 import { ParentProps, createContext, useContext } from "solid-js";
 
 const DateProcessorContext = createContext<DateProcessor>();
@@ -9,7 +9,7 @@ export function useDateProcessor() {
 }
 
 export function DateProcessorProvider(props: ParentProps) {
-  const dateProcessor = new DateProcessor(t);
+  const dateProcessor = new DateProcessor(tDate);
 
   return (
     <DateProcessorContext.Provider value={dateProcessor}>

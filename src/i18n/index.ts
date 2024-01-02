@@ -83,6 +83,10 @@ function t(
   return bindParams(message, params);
 }
 
+export function tDate(key: string, params?: Record<string, number | string>, lang?: Lang) {
+  return t(key, "Date", params, lang);
+}
+
 function bindParams(text: string, params: Record<string, number | string>) {
   return Object.entries(params).reduce((acc, [key, val]) => {
     return acc.replace(`{{${key}}}`, String(val));

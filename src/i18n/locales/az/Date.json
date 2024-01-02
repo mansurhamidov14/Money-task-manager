@@ -18,7 +18,7 @@
       "{{date}} noy",
       "{{date}} dek"
     ],
-    "weekdays": ["Baz.", "B.e.", "Ç.a.", "Çərş.", "C.a.", "Cümə", "Şən."]
+    "weekdays": ["Baz", "B.e", "Ç.a", "Çərş", "C.a", "Cümə", "Şən"]
   },
   "long": {
     "months": ["Yanvar", "Fevral", "Mart", "Aprel", "May", "İyun", "İyul", "Avqust", "Sentyabr", "Oktabr", "Noyabr", "Dekabr"],
