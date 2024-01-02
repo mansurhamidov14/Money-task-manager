@@ -23,12 +23,23 @@ export function Form() {
 
   const handleSubmit = async (event: Event) => {
     event.preventDefault();
+    const filledDays = formHandler.formData().days;
+    if (formHandler.formData().isRecurring === "0") {
+      formHandler.formData().days?.forEach(() => {
+        formHandler.removeFieldset(0, "days");
+      });
+    }
     try {
       await formHandler.validateForm();
       await tasksStore.addTask(user.currentUser().data!.id, formHandler.formData());
       toastStore.pushToast("success", t("NewTaskScreen.success"));
       history.back();
     } catch (e: any) {
+      console.log(e);
+      formHandler.fillForm({
+        ...formHandler.formData(),
+        days: filledDays
+      });
       if (e.message) {
         toastStore.pushToast("error", t("NewTaskScreen.error", undefined, { error: e.message }));
       }

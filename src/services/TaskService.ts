@@ -15,10 +15,10 @@ class TaskService {
         user,
         title: task.title,
         startDate: task.startDate,
-        endDate: task.endDate!,
-        weekday: day.day,
-        startTime: day.startTime,
-        endTime: day.endTime,
+        endDate: task.endDate,
+        weekday: day.day!,
+        startTime: day.startTime!,
+        endTime: day.endTime!,
         isRecurring: 1,
         doneAt: 0
       }));
@@ -44,7 +44,7 @@ class TaskService {
       endDate: task.startDate,
       weekday: new Date(task.startDate).getWeekDay(),
       startTime: task.startTime!,
-      endTime: task.endDate!,
+      endTime: task.endTime!,
       doneAt: 0
     });
     return;
@@ -101,8 +101,19 @@ class TaskService {
     return this.collection.update(id, data);
   }
 
-  delete(id: number) {
-    return this.collection.delete(id);
+  async delete(id: number) {
+    /** Deleting particular task by given id */
+    await this.collection.delete(id);
+    /** Looking for task linked to deleted task with originalId field */
+    const linkedTasks = await this.collection.queryAll({ originalId: id });
+    const tasksCount = linkedTasks.length;
+    if (tasksCount) {
+      const firstTaskId = linkedTasks[0].id;
+      await this.collection.update(firstTaskId, { originalId: undefined });
+      if (tasksCount > 1) {
+        await this.collection.update({ originalId: id }, { originalId: firstTaskId });
+      }
+    }
   }
 
   deleteByOriginaId(originalId: number) {

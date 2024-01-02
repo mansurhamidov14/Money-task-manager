@@ -1,12 +1,12 @@
-import { IoCheckmark, IoClose } from "solid-icons/io";
+import { IoCheckmark, IoClose, IoTrash } from "solid-icons/io";
+import { FaRegularCircleDot, FaSolidCalendarCheck, FaSolidCalendarXmark } from "solid-icons/fa";
 import { JSX, Match, Show, Switch, createMemo } from "solid-js";
-import { Message } from "@app/i18n";
-import { Task, TaskStatus, tasksStore } from "@app/stores";
+import { Message, t } from "@app/i18n";
+import { Task, TaskStatus, confirmationStore, tasksStore, toastStore } from "@app/stores";
 import { useDateProcessor } from "@app/providers";
 
+import { Button, ButtonProps } from "../Button";
 import "./style.css";
-import { Button, ButtonProps } from "..";
-import { FaSolidCalendarCheck, FaSolidCalendarXmark } from "solid-icons/fa";
 
 export function TaskListItem(props: Task) {
   const dateProcessor = useDateProcessor();
@@ -41,10 +41,21 @@ export function TaskListItem(props: Task) {
     };
   });
 
+  const deleteTask = async (id: number) => {
+    await tasksStore.deleteTask(id);
+    toastStore.pushToast("success", t("ConfirmationRequest.taskDeletion.success"));
+  }
+
+  const requestDeletion = (id: number) => {
+    confirmationStore.requestConfirmation({
+      onConfirm: () => deleteTask(id)
+    });
+  }
+
   return (
     <div class={`task-item ${taskStatus()}`}>
       <div class="task-item-status">
-        <Switch>
+        <Switch fallback={<FaRegularCircleDot size={24} />}>
           <Match when={taskStatus() === "completed"}>
             <IoCheckmark />
           </Match>
@@ -54,8 +65,12 @@ export function TaskListItem(props: Task) {
         </Switch>
       </div>
       <div class="task-item-main">
-        <div class="font-md">{props.title}</div>
-        <div class="text-sm text-muted">{props.startTime} - {props.endTime}</div>
+        <div class="font-md" classList={{ "line-through text-muted": taskStatus() === "completed" }}>
+          {props.title}
+        </div>
+        <div class="text-sm text-muted" classList={{ "line-through": taskStatus() === "completed" }}>
+          {props.startTime} - {props.endTime}
+        </div>
       </div>
       <div class="text-right pr-2">
         <div class="text-lg font-semibold">
@@ -69,12 +84,18 @@ export function TaskListItem(props: Task) {
       </div>
       <div class="task-item-controls">
         <Button
-          square
           variant={getToggleButtonProps().variant}
           class="rounded-none h-12 w-12"
           onClick={() => tasksStore.toggleDone(props, getToggleButtonProps().nextValue)}
         >
           {getToggleButtonProps().icon}
+        </Button>
+        <Button
+          variant="danger"
+          class="rounded-none w-12 h-12"
+          onClick={() => requestDeletion(props.id)}
+        >
+          <IoTrash size={20} />
         </Button>
       </div>
     </div>

@@ -3,7 +3,7 @@
 }
 
 .task-item-status {
-  @apply w-6 h-6 rounded-full bg-green-500/20 dark:bg-green-200/30 text-white grid place-items-center;
+  @apply w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 grid place-items-center;
 }
 
 .task-item-status-text {
@@ -20,11 +20,11 @@
 
 .task-item:not(:last-child) .task-item-status::after {
   content: " ";
-  @apply absolute top-10 left-3 w-1 h-3/5 border-l-2 border-dashed border-green-500/20 dark:border-green-200/30;
+  @apply absolute top-10 left-3 w-1 h-3/5 border-l-2 border-dashed border-gray-400 dark:border-gray-500;
 }
 
 .task-item.completed .task-item-status {
-  @apply bg-green-500;
+  @apply bg-green-500 text-white;
 }
 
 .task-item.completed .task-item-status::after {
@@ -36,7 +36,7 @@
 }
 
 .task-item.missed .task-item-status {
-  @apply bg-red-500;
+  @apply bg-red-500 text-white;
 }
 
 .task-item.missed .task-item-status::after {
@@ -44,9 +44,9 @@
 }
 
 .task-item-controls {
-  @apply overflow-hidden w-0 transition-all duration-300 flex flex-wrap;
+  @apply overflow-hidden w-0 transition-all duration-300 flex;
 }
 
 .task-item:hover .task-item-controls {
-  @apply w-[3rem];
+  @apply w-[6rem];
 }

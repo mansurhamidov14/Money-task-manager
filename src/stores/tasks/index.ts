@@ -34,6 +34,14 @@ export function initTasksStore() {
     }));
   }
 
+  const deleteTask = async (id: number) => {
+    await taskService.delete(id);
+    setTasks(prevValue => ({
+      ...prevValue,
+      data: prevValue.data?.filter(task => task.id !== id)
+    }));
+  }
+
   const toggleDone = async (task: Task, done: boolean) => {
     const doneAt = done ? Date.now() : 0;
     let prevDoneAt = task.doneAt;
@@ -70,7 +78,7 @@ export function initTasksStore() {
     });
   });
 
-  return { tasks, addTask, todayTasks, fetchUserTasks, toggleDone, putIntoLoadingState };
+  return { tasks, addTask, deleteTask, todayTasks, fetchUserTasks, toggleDone, putIntoLoadingState };
 }
 
 export const tasksStore = createRoot(initTasksStore);

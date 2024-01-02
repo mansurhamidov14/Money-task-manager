@@ -24,6 +24,9 @@
       "confirm": "Bəli, əminəm",
       "success": "Hesab müvəffəqiyyət ilə silindi"
     },
+    "taskDeletion": {
+      "success": "Tapşırıq müvəffəqiyyətlə silindi"
+    },
     "transactionDeletion": {
       "text": "Əməliyyat silinəcək və bu, əməliyyatın icra olunduğu hesabın balansında əks olunacaq. Əminsiniz?",
       "confirm": "Bəli, əminəm",

@@ -35,19 +35,18 @@ export function getTaskFormSchema(defaults: Partial<TaskFormSchema> = {}) {
         otherwise: schema => schema.optional()
       }),
     days: array(
-        object({
-          day: number()
-            .min(1, t("common.FormFields.required"))
-            .max(7, t("common.FormFields.required"))
-            .required(t("common.FormFields.required"))
-            .default(1),
-          startTime: string().required(t("common.FormFields.required")),
-          endTime: string().required(t("common.FormFields.required"))
-        })
-      ).when("isRecurring", {
-        is: "1",
-        then: schema => schema.required(),
-        otherwise: schema => schema.optional()
+      object({
+        day: number()
+          .min(1, t("common.FormFields.required"))
+          .max(7, t("common.FormFields.required"))
+          .required(t("common.FormFields.required"))
+          .default(1),
+        startTime: string().required(t("common.FormFields.required")),
+        endTime: string().required(t("common.FormFields.required")),
       })
+    ).when("isRecurring", {
+      is: "1",
+      then: schema => schema.optional()
+    })
   });
 }
