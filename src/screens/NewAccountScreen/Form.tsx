@@ -49,7 +49,9 @@ export function Form() {
       toastStore.pushToast("success", t("NewAccountScreen.success"));
       history.back();
     } catch (e: any) {
-      toastStore.pushToast("error", t("NewAccountScreen.error", undefined, { error: e.message }));
+      if (e.message) {
+        toastStore.pushToast("error", t("NewAccountScreen.error", undefined, { error: e.message }));
+      }
     }
   }
 

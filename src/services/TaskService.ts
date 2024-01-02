@@ -17,7 +17,8 @@ class TaskService {
         startDate: task.startDate,
         endDate: task.endDate!,
         weekday: day.day,
-        time: day.time,
+        startTime: day.startTime,
+        endTime: day.endTime,
         isRecurring: 1,
         doneAt: 0
       }));
@@ -42,7 +43,8 @@ class TaskService {
       startDate: task.startDate,
       endDate: task.startDate,
       weekday: new Date(task.startDate).getWeekDay(),
-      time: task.time!,
+      startTime: task.startTime!,
+      endTime: task.endDate!,
       doneAt: 0
     });
     return;
@@ -54,8 +56,16 @@ class TaskService {
       const relatedTasks = await this.collection.queryAll({ originalId: id });
       const taskDays: RecurringTaskDay[] = relatedTasks
         .reduce((acc, value) => {
-          return [...acc, { day: value.weekday, time: value.time }]
-        }, [{ day: originalTask.weekday, time: originalTask.time }])
+          return [...acc, {
+            day: value.weekday,
+            startTime: value.startTime,
+            endTime: value.endTime
+          }]
+        }, [{
+          day: originalTask.weekday,
+          startTime: originalTask.startTime,
+          endTime: originalTask.endTime
+        }])
         .toSorted((a, b) => a.day < b.day ? -1 : 1);
 
 
@@ -75,7 +85,8 @@ class TaskService {
         user: originalTask.user,
         isRecurring: 0,
         date: originalTask.startDate,
-        time: originalTask.time
+        startTime: originalTask.startTime,
+        endTime: originalTask.endTime
       };
     }
 

@@ -7,6 +7,10 @@
     "FormFields": {
       "required": "Xana boş ola bilməz",
       "tooShort": "Ən az {{count}} simvoldan ibarət olmalıdır"
+    },
+    "task": {
+      "missed": "Qaçırılıb",
+      "completed": "Tamamlanıb"
     }
   },
   "ConfirmationRequest": {
@@ -199,7 +203,8 @@
       },
       "recurring": "Təkrarlanan",
       "date": "Tarix",
-      "time": "Vaxt",
+      "startTime": "Başlama vaxtı",
+      "endTime": "Bitmə vaxtı",
       "startDate": "Başlama tarixi",
       "endDate": "Bitmə tarixi",
       "selectDays": "Gün/günlər seçin",

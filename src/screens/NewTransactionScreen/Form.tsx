@@ -55,7 +55,9 @@ export function Form() {
       toastStore.pushToast("success", t("NewTransactionScreen.success"));
       history.back();
     } catch (e: any) {
-      toastStore.pushToast("error", t("NewTransactionScreen.error", undefined, { error: e.message }));
+      if (e.message) {
+        toastStore.pushToast("error", t("NewTransactionScreen.error", undefined, { error: e.message }));
+      }
     }
   }
 

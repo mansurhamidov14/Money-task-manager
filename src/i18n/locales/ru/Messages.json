@@ -7,6 +7,10 @@
     "FormFields": {
       "required": "Значение поля не может быть пустым",
       "tooShort": "Длина должна быть не менее {{count}} символов"
+    },
+    "task": {
+      "missed": "Пропущен",
+      "completed": "Завершен"
     }
   },
   "ConfirmationRequest": {
@@ -199,7 +203,8 @@
       },
       "recurring": "Повторяющийся",
       "date": "Дата",
-      "time": "Время",
+      "startTime": "Время начала",
+      "endTime": "Время окончания",
       "startDate": "Дата начала",
       "endDate": "Дата окончания",
       "selectDays": "Выберите день/дни",

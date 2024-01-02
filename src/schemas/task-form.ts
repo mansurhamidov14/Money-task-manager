@@ -6,7 +6,8 @@ export type TaskFormSchema = {
   title: string;
   startDate: string;
   endDate?: string;
-  time?: string;
+  startTime?: string;
+  endTime?: string;
   isRecurring: "1" | "0";
   days?: RecurringTaskDay[];
 }
@@ -23,7 +24,12 @@ export function getTaskFormSchema(defaults: Partial<TaskFormSchema> = {}) {
       .required(t("common.FormFields.required"))
       .default(defaults.startDate),
     endDate: string().optional().default(defaults.endDate),
-    time: string().when("isRecurring", {
+    startTime: string().when("isRecurring", {
+        is: "0",
+        then: schema => schema.required(t("common.FormFields.required")),
+        otherwise: schema => schema.optional()
+      }),
+    endTime: string().when("isRecurring", {
         is: "0",
         then: schema => schema.required(t("common.FormFields.required")),
         otherwise: schema => schema.optional()
@@ -35,8 +41,8 @@ export function getTaskFormSchema(defaults: Partial<TaskFormSchema> = {}) {
             .max(7, t("common.FormFields.required"))
             .required(t("common.FormFields.required"))
             .default(1),
-          time: string()
-            .required(t("common.FormFields.required"))
+          startTime: string().required(t("common.FormFields.required")),
+          endTime: string().required(t("common.FormFields.required"))
         })
       ).when("isRecurring", {
         is: "1",

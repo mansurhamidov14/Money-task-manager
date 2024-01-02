@@ -54,8 +54,9 @@ export function Form(props: Account) {
       toastStore.pushToast("success", t("EditAccountScreen.success"));
       history.back();
     } catch (e: any) {
-      console.log(e);
-      toastStore.pushToast("error", t("EditAccountScreen.error", undefined, { error: e.message }));
+      if (e.message) {
+        toastStore.pushToast("error", t("EditAccountScreen.error", undefined, { error: e.message }));
+      }
     }
   }
 

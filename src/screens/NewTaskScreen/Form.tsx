@@ -29,18 +29,20 @@ export function Form() {
       toastStore.pushToast("success", t("NewTaskScreen.success"));
       history.back();
     } catch (e: any) {
-      toastStore.pushToast("success", t("NewTaskScreen.success", undefined, { error: e.message }));
+      if (e.message) {
+        toastStore.pushToast("error", t("NewTaskScreen.error", undefined, { error: e.message }));
+      }
     }
   }
 
   return (
     <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
       <TitleInput formHandler={formHandler} />
-      <div class="flex flex-wrap">
+      <div class="flex flex-wrap gap-3">
         <div class="w-full mb-3">
           <RecurringCheckbox formHandler={formHandler} />
         </div>
-        <div class="w-1/2 pr-2">
+        <div class="flex-1">
           <DateInput
             name="startDate"
             label={t(`NewTaskScreen.FormFields.${
@@ -51,19 +53,26 @@ export function Form() {
             formHandler={formHandler}
           />
         </div>
-        <div class="w-1/2 pl-2">
-          <Show
-            when={formHandler.getFieldValue("isRecurring") === "1"}
-            fallback={<TimeInput formHandler={formHandler} name="time" />}
-          >
+        <Show when={formHandler.getFieldValue("isRecurring") === "1"}>
+          <div class="flex-1">
             <DateInput
               name="endDate"
               label={t("NewTaskScreen.FormFields.endDate")}
               formHandler={formHandler}
             />
-          </Show>
-        </div>
+          </div>
+        </Show>
       </div>
+      <Show when={formHandler.getFieldValue("isRecurring") === "0"}>
+        <div class="flex gap-3">
+          <div class="flex-1">
+            <TimeInput formHandler={formHandler} name="startTime" label={t("NewTaskScreen.FormFields.startTime")} />
+          </div>
+          <div class="flex-1">
+            <TimeInput formHandler={formHandler} name="endTime" label={t("NewTaskScreen.FormFields.endTime")} />
+          </div>
+        </div>
+      </Show>
       <Show when={formHandler.formData().isRecurring === "1"}>
         <div class="flex flex-col gap-3">
           <h3 class="font-semibold text-lg">
@@ -71,18 +80,21 @@ export function Form() {
           </h3>
           <For each={formHandler.formData().days}>
             {(_, i) => (
-              <div class="flex gap-3">
-                <div class="w-1/2">
-                  <DaySelect formHandler={formHandler} name={`days.${i()}.day`} />
+              <div>
+                <DaySelect formHandler={formHandler} name={`days.${i()}.day`} />
+                <div class="flex gap-3 py-2">
+                  <div class="flex-1">
+                    <TimeInput formHandler={formHandler} name={`days.${i()}.startTime`} label={t("NewTaskScreen.FormFields.startTime")} />
+                  </div>
+                  <div class="flex-1">
+                    <TimeInput formHandler={formHandler} name={`days.${i()}.endTime`} label={t("NewTaskScreen.FormFields.endTime")} />
+                  </div>
+                  <Show when={i()}>
+                    <Button class="w-10 h-14 text-red-600 dark:text-red-400" variant="transparent" onClick={() => formHandler.removeFieldset(i(), "days")}>
+                      <FaRegularCalendarMinus size={18} />
+                    </Button>
+                  </Show>
                 </div>
-                <div class="flex-1">
-                  <TimeInput formHandler={formHandler} name={`days.${i()}.time`} />
-                </div>
-                <Show when={i()}>
-                  <Button class="w-10 h-14 text-red-600 dark:text-red-400" variant="transparent" onClick={() => formHandler.removeFieldset(i(), "days")}>
-                    <FaRegularCalendarMinus size={18} />
-                  </Button>
-                </Show>
               </div>
             )}
           </For>

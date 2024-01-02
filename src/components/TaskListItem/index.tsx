@@ -1,8 +1,10 @@
+import { IoCheckmark, IoClose } from "solid-icons/io";
+import { Match, Show, Switch, createMemo } from "solid-js";
+import { Message } from "@app/i18n";
 import { Task, TaskStatus } from "@app/stores";
-import { ListItem } from "../ListItem";
-import { TaskIcon } from "./TaskIcon";
 import { useDateProcessor } from "@app/providers";
-import { createMemo } from "solid-js";
+
+import "./style.css";
 
 export function TaskListItem(props: Task) {
   const dateProcessor = useDateProcessor();
@@ -18,11 +20,31 @@ export function TaskListItem(props: Task) {
   });
 
   return (
-    <ListItem
-      size="md"
-      icon={<TaskIcon status={taskStatus()} />}
-      title={<span classList={{"line-through font-normal text-muted": taskStatus() === "completed"}}>{props.title}</span>}
-      rightElement={(<span class="text-muted text-sm">{props.time}</span>)}
-    />
+    <div class={`task-item ${taskStatus()}`}>
+      <div class="task-item-status">
+        <Switch>
+          <Match when={taskStatus() === "completed"}>
+            <IoCheckmark />
+          </Match>
+          <Match when={taskStatus() === "missed"}>
+            <IoClose />
+          </Match>
+        </Switch>
+      </div>
+      <div class="task-item-main">
+        <div class="font-md">{props.title}</div>
+        <div class="text-sm text-muted">{props.startTime} - {props.endTime}</div>
+      </div>
+      <div class="text-right">
+        <div class="text-lg font-semibold">
+          {props.startTime}
+        </div>
+        <Show when={["completed", "missed"].includes(taskStatus())}>
+          <div class="text-xs task-item-status-text">
+            <Message>{`common.task.${taskStatus()}`}</Message>
+          </div>
+        </Show>
+      </div>
+    </div>
   );
 }

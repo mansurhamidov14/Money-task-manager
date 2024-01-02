@@ -7,6 +7,10 @@
     "FormFields": {
       "required": "This field is required",
       "tooShort": "Can not be shorter than {{count}} characters"
+    },
+    "task": {
+      "missed": "Missed",
+      "completed": "Completed"
     }
   },
   "ConfirmationRequest": {
@@ -199,7 +203,8 @@
       },
       "recurring": "Recurring",
       "date": "Date",
-      "time": "Time",
+      "startTime": "Start time",
+      "endTime": "End time",
       "startDate": "Start date",
       "endDate": "End date",
       "selectDays": "Select day/days",

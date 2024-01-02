@@ -1,10 +1,10 @@
 import { Field } from "solid-form-handler";
 import { TextInput } from "@app/components";
 import { InputProps } from "./types";
-import { t } from "@app/i18n";
 
 type TimeInputProps = InputProps & {
   name: string;
+  label: string;
 }
 
 export function TimeInput(props: TimeInputProps) {
@@ -17,7 +17,7 @@ export function TimeInput(props: TimeInputProps) {
         <TextInput
           id="date"
           type="time"
-          label={t("NewTaskScreen.FormFields.time")}
+          label={props.label}
           errorMessage={field.helpers.errorMessage}
           {...field.props}
         />

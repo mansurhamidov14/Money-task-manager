@@ -38,7 +38,9 @@ export function initTasksStore() {
       task.weekday === weekday &&
       task.startDate <= date &&
       (!task.endDate || task.endDate >= date
-    )));
+    ))).toSorted((a, b) => {
+      return a.startTime < b.startTime ? -1 : 1
+    });
   });
 
   return { tasks, addTask, todayTasks, fetchUserTasks, putIntoLoadingState };

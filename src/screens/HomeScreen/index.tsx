@@ -1,7 +1,6 @@
 import { For, Show, onCleanup, onMount } from "solid-js";
 import {
   AccountCard,
-  List,
   SectionTitle,
   TaskListItem,
   ThemeToggleButton,
@@ -93,13 +92,13 @@ export function HomeScreen() {
           <SectionTitle>
             <Message>HomeScreen.tasksOfTheDay</Message>
           </SectionTitle>
-          <List>
+          <div class="py-6">
             <For each={tasksStore.todayTasks()}>
               {task => (
                 <TaskListItem {...task} />
               )}
             </For>
-          </List>
+          </div>
         </Await>
       </main>
     </VerticalScroll>

@@ -60,7 +60,9 @@ export function Form(props: Transaction) {
       toastStore.pushToast("success", t("EditTransactionScreen.success"));
       history.back();
     } catch (e: any) {
-      toastStore.pushToast("error", t("EditTransactionScreen.error", undefined, { error: e.message }));
+      if (e.message) {
+        toastStore.pushToast("error", t("EditTransactionScreen.error", undefined, { error: e.message }));
+      }
     }
   }
 

@@ -7,6 +7,10 @@
     "FormFields": {
       "required": "Значення поля не може бути порожнім",
       "tooShort": "Довжина має бути не менше {{count}} символів"
+    },
+    "task": {
+      "missed": "Пропущено",
+      "completed": "Завершено"
     }
   },
   "ConfirmationRequest": {
@@ -199,7 +203,8 @@
       },
       "recurring": "Повторюваний",
       "date": "Дата",
-      "time": "Час",
+      "startTime": "Час початку",
+      "endTime": "Час закінчення",
       "startDate": "Дата початку",
       "endDate": "Дата закінчення",
       "selectDays": "Виберіть день/дні",
