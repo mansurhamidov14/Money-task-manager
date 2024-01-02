@@ -102,11 +102,6 @@ export class DateProcessor {
     return timestamp >= this.mondayStartTimestamp && timestamp <= this.sundayEndTimestamp;
   }
 
-  isTodayOrAfter(date: Date | number) {
-    const timestamp = typeof date === "number" ? date : date.getTime();
-    return timestamp >= this.today.timestamp;
-  }
-
   public getDayDifference(date: Date | number) {
     const timestamp = typeof date === "number" ? date : date.getTime();
     return (timestamp - this.today.timestamp) / MS_IN_DAY;

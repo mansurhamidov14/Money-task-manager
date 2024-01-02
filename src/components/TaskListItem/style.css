@@ -20,7 +20,7 @@
 
 .task-item:not(:last-child) .task-item-status::after {
   content: " ";
-  @apply absolute top-[37px] left-3 w-1 h-3/5 border-l-2 border-dashed border-green-500/20 dark:border-green-200/30;
+  @apply absolute top-10 left-3 w-1 h-3/5 border-l-2 border-dashed border-green-500/20 dark:border-green-200/30;
 }
 
 .task-item.completed .task-item-status {
@@ -41,4 +41,12 @@
 
 .task-item.missed .task-item-status::after {
   @apply border-red-500 dark:border-red-500;
+}
+
+.task-item-controls {
+  @apply overflow-hidden w-0 transition-all duration-300 flex flex-wrap;
+}
+
+.task-item:hover .task-item-controls {
+  @apply w-[3rem];
 }

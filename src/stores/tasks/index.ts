@@ -3,6 +3,7 @@ import { taskService } from "@app/services";
 import { Task } from "./types";
 import { AsyncStore } from "../types";
 import { TaskFormSchema } from "@app/schemas";
+import { toastStore } from "..";
 
 export function initTasksStore() {
   const [tasks, setTasks] = createSignal<AsyncStore<Task[]>>({ status: "loading" });
@@ -19,6 +20,32 @@ export function initTasksStore() {
   const addTask = async (user: number, task: TaskFormSchema) => {
     await taskService.create(user, task);
     putIntoLoadingState();
+  }
+
+  const updateTask = (id: number, updateData: Partial<Task>) => {
+    setTasks(prevValue => ({
+      ...prevValue,
+      data: prevValue.data?.map(task => {
+        if (id !== task.id) {
+          return task;
+        }
+        return { ...task, ...updateData };
+      })
+    }));
+  }
+
+  const toggleDone = async (task: Task, done: boolean) => {
+    const doneAt = done ? Date.now() : 0;
+    let prevDoneAt = task.doneAt;
+    updateTask(task.id, { doneAt });
+    try {
+      taskService.update(task.id, { doneAt });
+    } catch (e: any) {
+      if (e.message) {
+        updateTask(task.id, { doneAt: prevDoneAt });
+        toastStore.pushToast("error", e.message);
+      }
+    }
   }
 
   const putIntoLoadingState = () => {
@@ -43,7 +70,7 @@ export function initTasksStore() {
     });
   });
 
-  return { tasks, addTask, todayTasks, fetchUserTasks, putIntoLoadingState };
+  return { tasks, addTask, todayTasks, fetchUserTasks, toggleDone, putIntoLoadingState };
 }
 
 export const tasksStore = createRoot(initTasksStore);

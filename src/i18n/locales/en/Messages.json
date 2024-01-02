@@ -27,7 +27,8 @@
     "transactionDeletion": {
       "text": "The transaction will be deleted and this will be reflected in the account balance that was associated with this transaction. Are you sure?",
       "confirm": "Yes, I am",
-      "success": "The transaction was successfully deleted"
+      "success": "The transaction was successfully deleted",
+      "noTasksForToday": "No tasks scheduled for today"
     }
   },
   "BottomNavigation": {

@@ -17,7 +17,7 @@ export type ListItemProps = {
   description?: JSX.Element;
   rightElement?: JSX.Element;
   size?: "sm" | "md" | "lg";
-  controls?: ListItemControl[]; 
+  controls?: ListItemControl[];
 }
 
 

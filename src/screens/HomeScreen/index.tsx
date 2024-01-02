@@ -1,14 +1,8 @@
 import { For, Show, onCleanup, onMount } from "solid-js";
-import {
-  AccountCard,
-  SectionTitle,
-  TaskListItem,
-  ThemeToggleButton,
-  VerticalScroll
-} from "@app/components";
+import { AccountCard, ThemeToggleButton, VerticalScroll } from "@app/components";
 import { Message } from "@app/i18n";
-import { Await, accountsStore, tasksStore, transactionsStore, user } from "@app/stores";
-import { LatestTransactions, TransactionListSkeleton } from "./components";
+import { Await, accountsStore, user } from "@app/stores";
+import { LatestTransactions, TasksOfTheDay } from "./components";
 import { createSlider } from "solid-slider";
 
 let sliderRef: HTMLDivElement;
@@ -81,25 +75,8 @@ export function HomeScreen() {
             </div>
           </Show>
         </div>
-        <SectionTitle>
-          <Message>HomeScreen.recentTransactions</Message>  
-        </SectionTitle>
-        <Await for={[transactionsStore.transactions()]} fallback={<TransactionListSkeleton />}>
-          <LatestTransactions />
-        </Await>
-        <Await for={[tasksStore.tasks()]}>
-          <div class="mt-5" />
-          <SectionTitle>
-            <Message>HomeScreen.tasksOfTheDay</Message>
-          </SectionTitle>
-          <div class="py-6">
-            <For each={tasksStore.todayTasks()}>
-              {task => (
-                <TaskListItem {...task} />
-              )}
-            </For>
-          </div>
-        </Await>
+        <LatestTransactions />
+        <TasksOfTheDay />
       </main>
     </VerticalScroll>
   );

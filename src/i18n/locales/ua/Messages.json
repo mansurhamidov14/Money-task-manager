@@ -71,7 +71,8 @@
     "greeting": "Привіт, {{name}}!",
     "recentTransactions": "Нещодавні транзакції",
     "noRecentTransactions": "Немає транзакцій за останні {{count}} днів",
-    "tasksOfTheDay": "Справи на сьогодні"
+    "tasksOfTheDay": "Справи на сьогодні",
+    "noTasksForToday": "На сьогодні нічого не заплановано"
   },
   "HistoryScreen": {
     "title": "Історія транзакцій",

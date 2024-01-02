@@ -71,7 +71,8 @@
     "greeting": "Salam, {{name}}!",
     "recentTransactions": "Son əməliyyatlar",
     "noRecentTransactions": "Son {{count}} gündə heç bir əməliyyat olmayıb",
-    "tasksOfTheDay": "Günün tapşırıqları"
+    "tasksOfTheDay": "Günün tapşırıqları",
+    "noTasksForToday": "Bu gün üçün heç bir iş planlaşdırılmayıb"
   },
   "HistoryScreen": {
     "title": "Əməliyyat tarixçəsi",

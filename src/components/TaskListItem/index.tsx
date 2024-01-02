@@ -1,22 +1,44 @@
 import { IoCheckmark, IoClose } from "solid-icons/io";
-import { Match, Show, Switch, createMemo } from "solid-js";
+import { JSX, Match, Show, Switch, createMemo } from "solid-js";
 import { Message } from "@app/i18n";
-import { Task, TaskStatus } from "@app/stores";
+import { Task, TaskStatus, tasksStore } from "@app/stores";
 import { useDateProcessor } from "@app/providers";
 
 import "./style.css";
+import { Button, ButtonProps } from "..";
+import { FaSolidCalendarCheck, FaSolidCalendarXmark } from "solid-icons/fa";
 
 export function TaskListItem(props: Task) {
   const dateProcessor = useDateProcessor();
   const taskStatus = createMemo((): TaskStatus => {
     const doneWithThisWeek = dateProcessor.withinThisWeek(props.doneAt);
-    if (doneWithThisWeek && dateProcessor.isTodayOrAfter(props.doneAt)) {
+    if (doneWithThisWeek) {
       return "completed";
     } else if (!doneWithThisWeek && props.weekday >= dateProcessor.today.weekday) {
       return "todo";
     }
 
     return "missed";
+  });
+
+  const getToggleButtonProps = createMemo((): {
+    variant: ButtonProps["variant"],
+    nextValue: boolean,
+    icon: JSX.Element
+  } => {
+    if (taskStatus() === "completed") {
+      return {
+        variant: "secondary",
+        nextValue: false,
+        icon: <FaSolidCalendarXmark size={20} />
+      };
+    }
+
+    return {
+      variant: "success",
+      nextValue: true,
+      icon: <FaSolidCalendarCheck size={20} />
+    };
   });
 
   return (
@@ -35,7 +57,7 @@ export function TaskListItem(props: Task) {
         <div class="font-md">{props.title}</div>
         <div class="text-sm text-muted">{props.startTime} - {props.endTime}</div>
       </div>
-      <div class="text-right">
+      <div class="text-right pr-2">
         <div class="text-lg font-semibold">
           {props.startTime}
         </div>
@@ -44,6 +66,16 @@ export function TaskListItem(props: Task) {
             <Message>{`common.task.${taskStatus()}`}</Message>
           </div>
         </Show>
+      </div>
+      <div class="task-item-controls">
+        <Button
+          square
+          variant={getToggleButtonProps().variant}
+          class="rounded-none h-12 w-12"
+          onClick={() => tasksStore.toggleDone(props, getToggleButtonProps().nextValue)}
+        >
+          {getToggleButtonProps().icon}
+        </Button>
       </div>
     </div>
   );
