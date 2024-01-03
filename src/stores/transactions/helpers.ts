@@ -18,7 +18,3 @@ export const sumAmountByCurrency = (transactions: Transaction[]): TransactionGro
     return { formatter, amount: summ };
   });
 }
-
-export const descSorter = (a: Transaction, b: Transaction) => {
-  return a.transactionDateTime > b.transactionDateTime ? -1 : 1;
-}

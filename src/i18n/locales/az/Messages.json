@@ -219,7 +219,8 @@
     "error": "Tapşırığı əlavə edərkən xəta baş verdi: {{error}}"
   },
   "TasksScreen": {
-    "title": "Tapşırıqlar"
+    "title": "Tapşırıqlar",
+    "emptyList": "Bu gün üçün planlaşdırılmış tapşırıq yoxdur"
   },
   "SettingsScreen": {
     "title": "Tənzimləmələr",

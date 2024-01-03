@@ -15,5 +15,11 @@ Date.prototype.getWeekDay = function() {
 }
 
 Date.prototype.toDatePickerString = function() {
-  return this.toISOString().split("T")[0];
+  const year = this.toLocaleString('default', {year: 'numeric'});
+  const month = this.toLocaleString('default', {
+    month: '2-digit',
+  });
+  const day = this.toLocaleString('default', {day: '2-digit'});
+
+  return [year, month, day].join('-');
 }

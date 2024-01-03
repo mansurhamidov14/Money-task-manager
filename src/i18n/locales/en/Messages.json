@@ -24,11 +24,13 @@
       "confirm": "Yes, I am",
       "success": "Account was successfully deleted"
     },
+    "taskDeletion": {
+      "success": "Task was successfully deleted"
+    },
     "transactionDeletion": {
       "text": "The transaction will be deleted and this will be reflected in the account balance that was associated with this transaction. Are you sure?",
       "confirm": "Yes, I am",
-      "success": "The transaction was successfully deleted",
-      "noTasksForToday": "No tasks scheduled for today"
+      "success": "The transaction was successfully deleted"
     }
   },
   "BottomNavigation": {
@@ -72,7 +74,8 @@
     "greeting": "Hey, {{name}}!",
     "recentTransactions": "Recent transactions",
     "noRecentTransactions": "No transactions in the last {{count}} days",
-    "tasksOfTheDay": "Tasks of the Day"
+    "tasksOfTheDay": "Tasks of the Day",
+    "noTasksForToday": "No tasks scheduled for today"
   },
   "HistoryScreen": {
     "title": "Transactions History",
@@ -216,7 +219,8 @@
     "error": "An error occurred while creating a task: {{error}}"
   },
   "TasksScreen": {
-    "title": "Tasks"
+    "title": "Tasks",
+    "emptyList": "No scheduled tasks for this day"
   },
   "SettingsScreen": {
     "title": "Settings",

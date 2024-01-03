@@ -4,7 +4,7 @@ import { Transaction, TransactionsStore } from "./types";
 import { DateFilter } from "@app/screens/HistoryScreen/types";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
 import { transactionService } from "@app/services";
-import { descSorter } from "..";
+import { descSorter } from "@app/helpers";
 
 function initTransactionsStore() {
   const [transactions, setTransactions] = createSignal<TransactionsStore>({ status: "loading" });
@@ -65,7 +65,7 @@ function initTransactionsStore() {
       return transactionDate <= nowDate && transactionDate >= minDate;
     });
 
-    return last10daysTransactions.sort(descSorter).slice(0, 3);
+    return last10daysTransactions.sort(descSorter("transactionDateTime")).slice(0, 3);
   });
 
   const getFilteredTransactions = (category: CategoryId | null, dateFilter: DateFilter) => {
@@ -73,7 +73,7 @@ function initTransactionsStore() {
       const dateMatches = t.transactionDate >= dateFilter.startDate && t.transactionDate <= dateFilter.endDate;
       return dateMatches && (category ? t.category === category : true)
     });
-    return filteredData.toSorted(descSorter);
+    return filteredData.toSorted(descSorter("transactionDateTime"));
   }
 
   const updateCurrencyByAccount = async (user: number, account: number, currency: CurrencyCode) => {

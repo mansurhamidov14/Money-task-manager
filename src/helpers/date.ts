@@ -77,6 +77,10 @@ export class DateProcessor {
     return this.translateFn(`${type}.date.${date.getMonth()}`, { date: date.getDate() });
   }
 
+  dateFromWeekDay(weekday: number) {
+    return new Date(this.mondayStartTimestamp + (weekday - 1) * MS_IN_DAY);
+  } 
+
   getDate(date: Date, withoutLeadingZero = false) {
     const dayOfMonth = date.getDate();
     return !withoutLeadingZero ? `0${dayOfMonth}`.slice(-2) : dayOfMonth;

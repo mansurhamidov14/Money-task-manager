@@ -15,11 +15,11 @@ export function WeekDayButton(props: WeekDayButtonProps) {
   return (
     <button
       onClick={() => props.onClick(props.index())}
-      class={classNames("btn py-1.5 px-2", props.isActive ? "btn-primary" : "btn-secondary")}
+      class={classNames("btn py-1.5 w-10", props.isActive ? "btn-primary" : "btn-secondary")}
     >
-      <div class="flex flex-col items-center">
+      <div class="flex flex-col items-center normal-case">
         <div class="text-xs font-normal">{dateProcessor.humanizeWeekDay(props.date, "short")}</div>
-        <div class="text-lg">{dateProcessor.getDate(props.date)}</div>
+        <div class="text-base">{dateProcessor.getDate(props.date)}</div>
       </div>
     </button>
   );

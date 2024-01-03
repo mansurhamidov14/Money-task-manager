@@ -43,6 +43,10 @@
   @apply border-red-500 dark:border-red-500;
 }
 
+.task-item.missed .task-item-status-text {
+  @apply text-red-500/70 dark:text-red-400/60;
+}
+
 .task-item-controls {
   @apply overflow-hidden w-0 transition-all duration-300 flex;
 }
