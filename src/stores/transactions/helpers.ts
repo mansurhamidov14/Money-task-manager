@@ -1,12 +1,13 @@
+import { groupBy } from "@app/helpers";
 import { Transaction, TransactionGroupSum } from "./types"
 import { CurrencyCode, currencies } from "@app/constants";
 
 export const groupTransactionsByDate = (transactions: Transaction[]) => {
-  return transactions.groupBy(({ transactionDate  }) => transactionDate);
+  return groupBy(transactions, ({ transactionDate  }) => transactionDate);
 }
 
 export const sumAmountByCurrency = (transactions: Transaction[]): TransactionGroupSum[] => {
-  const groups = transactions.groupBy(({ currency }) => currency);
+  const groups = groupBy(transactions, ({ currency }) => currency);
 
   return Object.entries(groups).map(([currency, _transactions]) => {
     const formatter = currencies[currency as CurrencyCode].formatter;

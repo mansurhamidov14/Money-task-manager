@@ -5,7 +5,7 @@ import { AsyncStore } from "../types";
 import { TaskFormSchema } from "@app/schemas";
 import { toastStore } from "..";
 import { dateProcessor } from "@app/providers";
-import { ascSorter } from "@app/helpers";
+import { ascSorter, groupBy } from "@app/helpers";
 
 export function initTasksStore() {
   const [tasks, setTasks] = createSignal<AsyncStore<Task[]>>({ status: "loading" });
@@ -26,20 +26,24 @@ export function initTasksStore() {
 
   const tasksByWeekDay = createMemo(() => {
     if (tasks().status === "success" && tasks().data?.length) {
-      const weekdays = Array
-        .range(1, 7)
-        .map(weekday => ({
-          day: weekday,
-          date: dateProcessor.dateFromWeekDay(weekday).toDatePickerString()
-        }))
-        .groupBy(({ day}) => day);
-      return tasks().data!
-        .filter(task => {
-          const taskAccomplishDate = weekdays[task.weekday][0].date;
-          return task.startDate <= taskAccomplishDate && (!task.endDate || task.endDate >= taskAccomplishDate)
-        })
-        .toSorted(ascSorter("startTime"))
-        .groupBy(({ weekday }) => weekday);
+      const weekdays = groupBy(
+        Array
+          .range(1, 7)
+          .map(weekday => ({
+            day: weekday,
+            date: dateProcessor.dateFromWeekDay(weekday).toDatePickerString()
+          })),
+        ({ day}) => day
+      );
+      return groupBy(
+        tasks().data!
+          .filter(task => {
+            const taskAccomplishDate = weekdays[task.weekday][0].date;
+            return task.startDate <= taskAccomplishDate && (!task.endDate || task.endDate >= taskAccomplishDate)
+          })
+        .toSorted(ascSorter("startTime")),
+        ({ weekday }) => weekday
+      );
     }
 
     return {};
