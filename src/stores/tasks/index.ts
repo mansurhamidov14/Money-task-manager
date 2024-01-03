@@ -41,7 +41,7 @@ export function initTasksStore() {
             const taskAccomplishDate = weekdays[task.weekday][0].date;
             return task.startDate <= taskAccomplishDate && (!task.endDate || task.endDate >= taskAccomplishDate)
           })
-        .toSorted(ascSorter("startTime")),
+        .toSorted(ascSorter("time")),
         ({ weekday }) => weekday
       );
     }

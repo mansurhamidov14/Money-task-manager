@@ -15,12 +15,12 @@
 }
 
 .task-item:not(:last-child) {
-  @apply pb-8;
+  @apply pb-4;
 }
 
 .task-item:not(:last-child) .task-item-status::after {
   content: " ";
-  @apply absolute top-10 left-3 w-1 h-3/5 border-l-2 border-dashed border-gray-400 dark:border-gray-500;
+  @apply absolute top-10 left-3 w-1 h-1/2 border-l-2 border-dashed border-gray-400 dark:border-gray-500;
 }
 
 .task-item.completed .task-item-status {

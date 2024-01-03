@@ -20,14 +20,14 @@ function initAccountsStore() {
       const endTimestamp = Date.now();
       const startDate = new Date(endTimestamp - 30 * MS_IN_DAY);
       startDate.setHours(0, 0, 0, 0);
-      const startTimestamp = startDate.getTime();
+      const timestamp = startDate.getTime();
       accounts.forEach(account => {
         if (counters[account.id]) {
           return;
         }
 
         const accountTransactions = transactionsStore.transactions().data!.filter(t => (
-          t.createdAt >= startTimestamp &&
+          t.createdAt >= timestamp &&
             t.createdAt <= endTimestamp &&
             t.account === account.id
         ));

@@ -68,13 +68,10 @@ export function TaskListItem(props: Task) {
         <div class="font-md text-ellipsis overflow-hidden whitespace-nowrap" classList={{ "line-through text-muted": taskStatus() === "completed" }}>
           {props.title}
         </div>
-        <div class="text-sm text-muted" classList={{ "line-through": taskStatus() === "completed" }}>
-          {props.startTime} - {props.endTime}
-        </div>
       </div>
       <div class="text-right pr-2">
         <div class="text-lg font-semibold">
-          {props.startTime}
+          {props.time}
         </div>
         <Show when={["completed", "missed"].includes(taskStatus())}>
           <div class="text-xs task-item-status-text">

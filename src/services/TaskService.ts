@@ -17,8 +17,7 @@ class TaskService {
         startDate: task.startDate,
         endDate: task.endDate,
         weekday: day.day!,
-        startTime: day.startTime!,
-        endTime: day.endTime!,
+        time: day.time!,
         isRecurring: 1,
         doneAt: 0
       }));
@@ -43,8 +42,7 @@ class TaskService {
       startDate: task.startDate,
       endDate: task.startDate,
       weekday: new Date(task.startDate).getWeekDay(),
-      startTime: task.startTime!,
-      endTime: task.endTime!,
+      time: task.time!,
       doneAt: 0
     });
     return;
@@ -58,13 +56,11 @@ class TaskService {
         .reduce((acc, value) => {
           return [...acc, {
             day: value.weekday,
-            startTime: value.startTime,
-            endTime: value.endTime
+            time: value.time,
           }]
         }, [{
           day: originalTask.weekday,
-          startTime: originalTask.startTime,
-          endTime: originalTask.endTime
+          time: originalTask.time,
         }])
         .toSorted((a, b) => a.day < b.day ? -1 : 1);
 
@@ -85,8 +81,7 @@ class TaskService {
         user: originalTask.user,
         isRecurring: 0,
         date: originalTask.startDate,
-        startTime: originalTask.startTime,
-        endTime: originalTask.endTime
+        time: originalTask.time,
       };
     }
 
