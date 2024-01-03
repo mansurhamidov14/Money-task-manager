@@ -38,7 +38,7 @@ export function PinInput(props: PinInputProps) {
     if (valueLength() === validPinLength) {
       setTimeout(() => props.onSubmit(props.value()), 100);
     }
-  })
+  });
 
   return (
     <div class="flex flex-col gap-6">

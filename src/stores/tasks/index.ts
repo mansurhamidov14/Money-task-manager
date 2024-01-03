@@ -22,6 +22,17 @@ export function initTasksStore() {
     putIntoLoadingState();
   }
 
+  const tasksByWeekDay = createMemo(() => {
+    if (tasks().status === "success" && tasks().data?.length) {
+      const date = new Date().toDatePickerString();
+      return tasks().data!
+        .filter(task => task.startDate <= date && (!task.endDate || task.endDate >= date))
+        .groupBy(({ weekday }) => weekday);
+    }
+
+    return {};
+  });
+
   const updateTask = (id: number, updateData: Partial<Task>) => {
     setTasks(prevValue => ({
       ...prevValue,
@@ -78,7 +89,16 @@ export function initTasksStore() {
     });
   });
 
-  return { tasks, addTask, deleteTask, todayTasks, fetchUserTasks, toggleDone, putIntoLoadingState };
+  return {
+    tasks,
+    addTask,
+    tasksByWeekDay,
+    deleteTask,
+    todayTasks,
+    fetchUserTasks,
+    toggleDone,
+    putIntoLoadingState
+  };
 }
 
 export const tasksStore = createRoot(initTasksStore);

@@ -65,7 +65,7 @@ export function TaskListItem(props: Task) {
         </Switch>
       </div>
       <div class="task-item-main">
-        <div class="font-md" classList={{ "line-through text-muted": taskStatus() === "completed" }}>
+        <div class="font-md text-ellipsis overflow-hidden whitespace-nowrap" classList={{ "line-through text-muted": taskStatus() === "completed" }}>
           {props.title}
         </div>
         <div class="text-sm text-muted" classList={{ "line-through": taskStatus() === "completed" }}>
