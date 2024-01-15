@@ -6,6 +6,12 @@
         Apache Cordova Team
     </author>
     <content src="index.html" />
+    <icon src="res/icons/xxxhdpi.png" width="192" height="192" density="xxxhdpi" />
+    <icon src="res/icons/xxhdpi.png" width="144" height="144" density="xxhdpi" />
+    <icon src="res/icons/xhdpi.png" width="96" height="96" density="xhdpi" />
+    <icon src="res/icons/hdpi.png" width="72" height="72" density="hdpi" />
+    <icon src="res/icons/mdpi.png" width="48" height="48" density="mdpi" />
+    <icon src="res/icons/ldpi.png" width="36" height="36" density="ldpi" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
 </widget>
