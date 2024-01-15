@@ -79,7 +79,7 @@
   },
   "HistoryScreen": {
     "title": "Історія транзакцій",
-    "detailTransactions": "Деталізація транзакцій",
+    "categoryFilter": "Фільтр за категоріями",
     "noTransactionForTheFilter": "Не знайдено транзакцій по заданому фільтру",
     "DateFilters": {
       "day": "День",

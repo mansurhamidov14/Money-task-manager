@@ -36,7 +36,7 @@ export function HistoryScreen() {
           setDateFilter={setDateFilter}
         />
         <SectionTitle>
-          <Message>HistoryScreen.detailTransactions</Message>
+          <Message>HistoryScreen.categoryFilter</Message>
         </SectionTitle>
         <CategoryFilter filter={categoryFilter} setFilter={setCategoryFilter} />
         <Await for={[transactionsStore.transactions()]} fallback={<TransactionListSkeleton />}>

@@ -1,8 +1,12 @@
 {
-  "name": "finance-task-management",
+  "name": "com.wfo.app",
+  "displayName": "WealthFlow Organizer",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "keywords": [
+    "ecosystem:cordova"
+  ],
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",

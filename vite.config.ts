@@ -7,7 +7,8 @@ import legacy from '@vitejs/plugin-legacy';
 export default defineConfig({
   base: './',
   build: {
-    target: 'es2015'
+    target: 'es2015',
+    outDir: path.join(__dirname, "www")
   },
   plugins: [
     checker({ typescript: true }),

@@ -79,7 +79,7 @@
   },
   "HistoryScreen": {
     "title": "Əməliyyat tarixçəsi",
-    "detailTransactions": "Əməliyyat Təfərrüatları",
+    "categoryFilter": "Kateqoriya filtrı",
     "noTransactionForTheFilter": "Filtr üzrə heç bir əməliyyat tapılmadı",
     "DateFilters": {
       "day": "Gün",
