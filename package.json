@@ -3,14 +3,21 @@
   "displayName": "WealthFlow Organizer",
   "private": true,
   "version": "0.0.1",
-  "type": "module",
+  "type": "commonjs",
   "keywords": [
     "ecosystem:cordova"
   ],
+  "license": "Apache-2.0",
+  "cordova": {
+    "platforms": [
+      "android"
+    ]
+  },
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:android": "npm run build && cordova build android"
   },
   "dependencies": {
     "@rnwonder/solid-date-picker": "^0.8.4",
@@ -26,6 +33,7 @@
     "@types/node": "^20.10.4",
     "@vitejs/plugin-legacy": "^4.1.1",
     "autoprefixer": "^10.4.16",
+    "cordova-android": "^10.1.2",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
     "typescript": "^5.3.3",
