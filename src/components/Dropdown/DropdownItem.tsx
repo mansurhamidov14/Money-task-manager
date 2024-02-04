@@ -1,5 +1,6 @@
 import { ParentProps, mergeProps } from "solid-js";
 import { useDropdown } from ".";
+import { A } from "@solidjs/router";
 
 export function DropdownItem(props: ParentProps<{ href?: string, class?: string, onClick?: () => void, unstyled?: boolean }>) {
   const finalProps = mergeProps({ href: "#", class: "" }, props);
@@ -13,7 +14,7 @@ export function DropdownItem(props: ParentProps<{ href?: string, class?: string,
   }
 
   return (
-    <a
+    <A
       href={finalProps.href}
       onClick={handleClick}
       classList={{
@@ -23,6 +24,6 @@ export function DropdownItem(props: ParentProps<{ href?: string, class?: string,
       }}
     >
       {finalProps.children}
-    </a>
+    </A>
   );
 }

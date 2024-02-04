@@ -23,7 +23,6 @@ export function PasswordAuth(props: PasswordAuthProps) {
   const [passwordError, setPasswordError] = createSignal<null | string>(null);
 
   const handleSubmit = async (event: Event) => {
-    console.log("error", passwordError());
     event.preventDefault();
     try {
       await formHandler.validateField();

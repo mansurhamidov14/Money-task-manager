@@ -35,7 +35,6 @@ export function Form() {
       toastStore.pushToast("success", t("NewTaskScreen.success"));
       history.back();
     } catch (e: any) {
-      console.log(e);
       formHandler.fillForm({
         ...formHandler.formData(),
         days: filledDays

@@ -41,12 +41,10 @@ export function Form(props: Account) {
       }
 
       if (!oldValues.primary && formData.primary) {
-        console.log("Changing primary account");
         await accountsStore.removePrimaryFlag(userId);
       }
 
       if(oldValues.currency !== formData.currency) {
-        console.log("Changing account currency");
         await transactionsStore.updateCurrencyByAccount(userId, oldValues.id, formData.currency);
       }
 

@@ -79,7 +79,9 @@
   },
   "HistoryScreen": {
     "title": "Əməliyyat tarixçəsi",
-    "categoryFilter": "Kateqoriya filtrı",
+    "charts": {
+      "expensesStatistics": "Xərclərin statistikası"
+    },
     "noTransactionForTheFilter": "Filtr üzrə heç bir əməliyyat tapılmadı",
     "DateFilters": {
       "day": "Gün",

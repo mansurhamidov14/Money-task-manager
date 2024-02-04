@@ -79,7 +79,9 @@
   },
   "HistoryScreen": {
     "title": "Transactions History",
-    "categoryFilter": "Category filter",
+    "charts": {
+      "expensesStatistics": "Statistics of expenses"
+    },
     "noTransactionForTheFilter": "No transactions were found for the filter",
     "DateFilters": {
       "day": "Day",

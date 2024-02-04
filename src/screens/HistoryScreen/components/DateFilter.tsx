@@ -30,6 +30,7 @@ export function DateFilter({
   const handleDateFilterSwitch = (filter: DateFilterTab) => {
     setActiveTab(filter);
     if (filter !== "custom") {
+      setFilterDateRanges(initialDateRange);
       setDateFilter(getDateFilters(filter));
     }
   }
@@ -54,12 +55,14 @@ export function DateFilter({
           setValue={setFilterDateRanges}
           type="range"
           onClose={() => {
-            const filterRanges = filterDateRanges();
-            if (!filterRanges.value.end || !filterRanges.value.start) {
-              setActiveTab(previousTab());
-              setFilterDateRanges(initialDateRange);
-            } else {
-              setDateFilter(getDateFilters(activeTab(), filterRanges))
+            if (activeTab() === "custom") {
+              const filterRanges = filterDateRanges();
+              if (!filterRanges.value.end || !filterRanges.value.start) {
+                setActiveTab(previousTab());
+                setFilterDateRanges(initialDateRange);
+              } else {
+                setDateFilter(getDateFilters(activeTab(), filterRanges))
+              }
             }
           }}
           formatInputLabelRangeStart="d/m/yy"

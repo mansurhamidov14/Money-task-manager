@@ -1,3 +1,7 @@
+:is(.dark .dark\:rn-bg-dreamless-sleep) {
+  @apply bg-gray-700;
+}
+
 main {
   grid-row: 1;
 }

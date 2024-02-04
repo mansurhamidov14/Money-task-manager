@@ -79,7 +79,9 @@
   },
   "HistoryScreen": {
     "title": "Історія транзакцій",
-    "categoryFilter": "Фільтр за категоріями",
+    "charts": {
+      "expensesStatistics": "Статистика витрат"
+    },
     "noTransactionForTheFilter": "Не знайдено транзакцій по заданому фільтру",
     "DateFilters": {
       "day": "День",

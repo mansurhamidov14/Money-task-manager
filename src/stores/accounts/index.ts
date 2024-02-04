@@ -1,4 +1,4 @@
-import { createRoot, createSignal } from "solid-js";
+import { createMemo, createRoot, createSignal } from "solid-js";
 import { Account, AccountsStore, TransactionType, transactionsStore } from "../index";
 import { accountService } from "@app/services";
 import { counters, initCountersStore } from "./counters";
@@ -86,9 +86,19 @@ function initAccountsStore() {
     setAccountsData(accounts().data!.filter(a => a.id !== id));
   }
 
+  const primaryAccount = createMemo(() => {
+    const _accounts = accounts();
+    if (_accounts.status !== "success") {
+      return null;
+    }
+
+    return _accounts.data!.find(account => account.primary) || _accounts.data![0];
+  });
+
   return {
     accounts,
     addAccount,
+    primaryAccount,
     deleteAccount,
     setAccountsData,
     setAccountsLoading,
