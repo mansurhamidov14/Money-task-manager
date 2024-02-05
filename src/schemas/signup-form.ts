@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { t } from "@app/i18n";
-import { userService, CurrencyCode } from "@app/services";
+import { userService, CurrencyCode, currenciecService } from "@app/services";
 import {
   MIN_FIRST_NAME_LENGTH,
   MIN_LAST_NAME_LENGTH,
@@ -33,7 +33,7 @@ export function getSignUpFormSchema(): yup.Schema<SignUpForm> {
       .required(t("common.FormFields.required"))
       .min(MIN_PASSWORD_LENGTH, t("common.FormFields.tooShort", undefined, { count: MIN_PASSWORD_LENGTH })),
     primaryCurrency: yup.string()
-      .oneOf(Object.values(CurrencyCode))
-      .default(CurrencyCode.AZN)
+      .oneOf(currenciecService.availableCurrencyCodes)
+      .default(currenciecService.defaultCurrency)
   });
 }

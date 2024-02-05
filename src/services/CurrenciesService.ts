@@ -1,7 +1,6 @@
 import md5 from "md5";
 import { azFlag, euFlag, gbFlag, ruFlag, trFlag, uaFlag, usFlag } from "@app/assets";
 import { CURRENCY_RATES_ACCESS_SALT } from "@app/constants";
-import {} from "./types";
 import {
   cacheService,
   Currencies,
@@ -10,14 +9,17 @@ import {
   CurrencyRates,
   CurrencyRatesResponse,
   INITIAL_CURRENCY_RATES,
-  ipService,
+  clientService,
+  type ClientService,
 } from "@app/services";
 
 class CurrenciesService {
+  public availableCurrencyCodes: CurrencyCode[];
   public availableCurrenciesMap: Currencies;
   public avaliableCurrencies: Currency[];
+  public defaultCurrency: CurrencyCode = CurrencyCode.USD;
 
-  constructor() {
+  constructor(public clientService: ClientService) {
     this.availableCurrenciesMap = {
       AZN: this.generateCurrency(CurrencyCode.AZN, "₼", 2, azFlag, this.trailingSignFormatter),
       USD: this.generateCurrency(CurrencyCode.USD, "$", 2, usFlag),
@@ -28,6 +30,12 @@ class CurrenciesService {
       RUB: this.generateCurrency(CurrencyCode.RUB, "₽", 0, ruFlag, this.trailingSignFormatter),
     };
     this.avaliableCurrencies = Object.values(this.availableCurrenciesMap);
+    this.availableCurrencyCodes = Object.values(CurrencyCode);
+    this.clientService.onInitilized(() => {
+      if (this.availableCurrencyCodes.includes(this.clientService.localCurrency)) {
+        this.defaultCurrency = this.clientService.localCurrency;
+      }
+    });
   }
 
   async getRates(
@@ -51,7 +59,7 @@ class CurrenciesService {
       });
       const response = await fetch(`https://schoolplus.io/web/rates.php?${reqParams}`, {
         headers: {
-          'Access-Key': md5(CURRENCY_RATES_ACCESS_SALT + md5(ipService.clientIp))
+          'Access-Key': md5(CURRENCY_RATES_ACCESS_SALT + md5(this.clientService.ip))
         }
       });
       const ratesData = (await response.json()).body;
@@ -125,4 +133,4 @@ class CurrenciesService {
   }
 }
 
-export const currenciecService = new CurrenciesService();
+export const currenciecService = new CurrenciesService(clientService);

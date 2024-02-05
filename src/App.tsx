@@ -8,6 +8,7 @@ import {
   Layout,
   ToastList
 } from "@app/components";
+import { REDIRECT_URL_STORE_KEY } from "@app/constants";
 import { RerenderOnLangChange } from "@app/i18n";
 import {
   EditAccountScreen,
@@ -31,11 +32,10 @@ import {
   PersonalInfoScreen
 } from "@app/screens/SettingsScreen/pages";
 import { DateProcessorProvider } from "@app/providers";
-import { ipService, userService } from "@app/services";
+import { clientService, userService } from "@app/services";
 import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
-import { REDIRECT_URL_STORE_KEY } from "./constants";
 import "./App.css";
 
 const queryClient = new QueryClient();
@@ -56,11 +56,11 @@ function App(props: RouteSectionProps) {
 }
 
 export default function() {
-  const [ipInitialized, setIpInitialized] = createSignal(false);
+  const [clientInitialized, setClientInitialized] = createSignal(false);
 
   onMount(async () => {
-    ipService.onIpInitialized(() => {
-      setIpInitialized(true);
+    clientService.onInitilized(() => {
+      setClientInitialized(true);
     });
     const authorizedUser = await userService.getAuthorizedUser();
     if (authorizedUser) {
@@ -81,7 +81,7 @@ export default function() {
     <div class="app-container">
       <QueryClientProvider client={queryClient}>
         <Show
-          when={ipInitialized() && user.currentUser().status !== "loading"}
+          when={clientInitialized() && user.currentUser().status !== "loading"}
           fallback={<AppLoading />}
         >
           <Router root={App}>

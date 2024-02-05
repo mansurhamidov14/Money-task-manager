@@ -1,9 +1,9 @@
 import { JSX, ParentProps, Show, mergeProps } from "solid-js";
-import { AsyncStore } from "./types"
 import { Loading } from "@app/components";
+import { AsyncStore } from "./types"
 
 type AwaitProps = {
-  for: AsyncStore<any>[] | any[];
+  for: AsyncStore<unknown>[] | any[];
   fallback?: JSX.Element;
 }
 

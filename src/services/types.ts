@@ -43,3 +43,12 @@ export type CurrencyRatesResponse = {
 export type CachedData = {
   currencyRates: CachedCurrencyRates;
 }
+
+export type ClientDataResponse = {
+  ip: string;
+  currency: CurrencyCode;
+  country_code: string;
+  country_name: string;
+  city: string;
+  timezone: string;
+}
