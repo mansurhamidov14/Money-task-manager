@@ -63,13 +63,9 @@ export function PieCharts(props: {
             )
         );
       });
-      const formatter = (value: number) => {
-        return `≈ ${currenciecService.formatValue(primaryCurrency(), value)}`;
-      }
       return {
         type: "pie",
         options: {
-          dataLabels: { formatter },
           stroke: {
             colors: theme() === "dark" ? ["#1f2937"] : ["#f3f4f6"],
             width: 3
@@ -79,7 +75,11 @@ export function PieCharts(props: {
             height: 300
           },
           tooltip: {
-            y: { formatter },
+            y: {
+              formatter: (value: number) => {
+                return `≈ ${currenciecService.formatValue(primaryCurrency(), value)}`;
+              }
+            },
             theme: "dark"
           },
           colors,
