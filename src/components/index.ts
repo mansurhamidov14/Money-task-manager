@@ -1,5 +1,6 @@
 export * from "./AccountCard";
 export * from "./AmountCard";
+export * from "./AppLoading";
 export * from "./BottomNavigation";
 export * from "./Button";
 export * from "./CheckBox";

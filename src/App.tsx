@@ -1,11 +1,11 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
-import { Show, onMount } from "solid-js";
+import { Show, createSignal, onMount } from "solid-js";
 import {
+  AppLoading,
   BottomNavigation,
   ConfirmationModal,
   Layout,
-  Loading,
   ToastList
 } from "@app/components";
 import { RerenderOnLangChange } from "@app/i18n";
@@ -30,13 +30,13 @@ import {
   ChangePinScreen,
   PersonalInfoScreen
 } from "@app/screens/SettingsScreen/pages";
-import { userService } from "@app/services";
+import { DateProcessorProvider } from "@app/providers";
+import { ipService, userService } from "@app/services";
 import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
-import "./App.css";
 import { REDIRECT_URL_STORE_KEY } from "./constants";
-import { DateProcessorProvider } from "./providers/DateProcessorProvider";
+import "./App.css";
 
 const queryClient = new QueryClient();
 
@@ -56,7 +56,12 @@ function App(props: RouteSectionProps) {
 }
 
 export default function() {
+  const [ipInitialized, setIpInitialized] = createSignal(false);
+
   onMount(async () => {
+    ipService.onIpInitialized(() => {
+      setIpInitialized(true);
+    });
     const authorizedUser = await userService.getAuthorizedUser();
     if (authorizedUser) {
       if (authorizedUser.hasPinProtection) {
@@ -76,11 +81,8 @@ export default function() {
     <div class="app-container">
       <QueryClientProvider client={queryClient}>
         <Show
-          when={user.currentUser().status !== "loading"} fallback={(
-            <div class="h-[100svh] flex items-center bg-secondary-100 dark:bg-gray-800">
-              <Loading />
-            </div>
-          )}
+          when={ipInitialized() && user.currentUser().status !== "loading"}
+          fallback={<AppLoading />}
         >
           <Router root={App}>
             <Route path="/" component={() => <Navigate href="/home" />} />

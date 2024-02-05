@@ -1,8 +1,8 @@
 import { Show, createMemo } from "solid-js";
 import { FaSolidArrowTrendDown, FaSolidArrowTrendUp } from "solid-icons/fa";
-import { CurrencyCode, currencies } from "@app/constants";
 import { Message } from "@app/i18n";
 import { TransactionType } from "@app/stores";
+import { type CurrencyCode, currenciecService } from "@app/services";
 import "./style.css";
 
 export type AmountCardContentProps = {
@@ -24,8 +24,7 @@ export function AmountCard(props: AmountCardContentProps) {
     if (props.amount == null) {
       return "";
     }
-    
-    return `${currencies[props.currency].formatter(props.amount)}`
+    return currenciecService.formatValue(props.currency, props.amount);
   });
 
   return (

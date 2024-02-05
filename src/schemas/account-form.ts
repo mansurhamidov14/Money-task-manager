@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { t } from "@app/i18n";
-import { CurrencyCode } from "@app/constants";
+import { CurrencyCode } from "@app/services";
 
 type NewAccountForm = {
   title: string;

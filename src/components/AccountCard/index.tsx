@@ -1,8 +1,17 @@
 import { ParentProps, Show, createMemo, createSignal } from "solid-js";
 import { IoPencil, IoTrash } from "solid-icons/io";
-import { currencies, skins } from "@app/constants";
-import { Account, Link, accountsStore, confirmationStore, counters, toastStore, transactionsStore } from "@app/stores";
+import { skins } from "@app/constants";
+import {
+  Account,
+  Link,
+  accountsStore,
+  confirmationStore,
+  counters,
+  toastStore,
+  transactionsStore
+} from "@app/stores";
 import { Action, Message, t } from "@app/i18n";
+import { currenciecService } from "@app/services";
 
 import { AmountCard, Button } from "../index";
 import "./style.css";
@@ -66,7 +75,7 @@ export function AccountCardDumb(props: ParentProps<AccountCardProps>) {
                   <Message>common.balance</Message>
                 </div>
                 <div class="text-2xl font-bold">
-                  {currencies[props.account.currency].formatter(props.account.balance)}
+                  {currenciecService.formatValue(props.account.currency, props.account.balance)}
                 </div>
               </div>
             </div>

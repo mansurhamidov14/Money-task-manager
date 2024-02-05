@@ -2,11 +2,11 @@ import { createQuery } from "@tanstack/solid-query";
 import { ApexChartProps, SolidApexCharts } from "solid-apexcharts";
 import { Accessor, Show, createMemo } from "solid-js";
 import { SectionTitle } from "@app/components";
-import { Categories, CategoryId, currencies, type CurrencyCode } from "@app/constants";
+import { Categories, CategoryId } from "@app/constants";
 import { useDateProcessor } from "@app/providers";
 import { groupBy } from "@app/helpers";
 import { Message, t } from "@app/i18n";
-import { currencyRateService } from "@app/services";
+import { currenciecService, type CurrencyCode } from "@app/services";
 import { Transaction, accountsStore, themeStore } from "@app/stores";
 import { DateFilter } from "../types";
 
@@ -34,7 +34,7 @@ export function PieCharts(props: {
     const accessKey = [ratesDate, _primaryCurrency, currencies.join("")];
     return ({
       queryKey: accessKey,
-      queryFn: () => currencyRateService.getRates(_primaryCurrency, currencies, ratesDate, accessKey),
+      queryFn: () => currenciecService.getRates(_primaryCurrency, currencies, ratesDate, accessKey),
     });
   })
   
@@ -64,7 +64,7 @@ export function PieCharts(props: {
         );
       });
       const formatter = (value: number) => {
-        return `≈ ${currencies[primaryCurrency()].formatter(value)}`
+        return `≈ ${currenciecService.formatValue(primaryCurrency(), value)}`;
       }
       return {
         type: "pie",

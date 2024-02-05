@@ -1,4 +1,4 @@
-import { initialCacheData } from "./consts";
+import { INITIAL_CACHE_DATA } from "./consts";
 import { CachedData } from "./types";
 
 class CacheService {
@@ -7,11 +7,11 @@ class CacheService {
 
   constructor() {
     const cached = localStorage.getItem(this.localStorageAccessKey);
-    this.data = (cached ? JSON.parse(cached) : initialCacheData) as CachedData;
+    this.data = (cached ? JSON.parse(cached) : INITIAL_CACHE_DATA) as CachedData;
   }
 
   clear() {
-    this.write(initialCacheData);
+    this.write(INITIAL_CACHE_DATA);
   }
 
   write(data: CachedData) {

@@ -1,4 +1,4 @@
-import type { CurrencyCode } from "@app/constants";
+import type { CurrencyCode } from "@app/services";
 
 export type User = {
   id: number;

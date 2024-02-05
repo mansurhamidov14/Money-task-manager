@@ -1,8 +1,8 @@
-import { Select } from "@app/components";
-import { CurrencyCode, currencies } from "@app/constants";
-import { t } from "@app/i18n";
 import { Field } from "solid-form-handler";
-import { For } from "solid-js";
+import { For, Show } from "solid-js";
+import { Select } from "@app/components";
+import { t } from "@app/i18n";
+import { currenciecService } from "@app/services";
 import { InputProps } from "./types";
 
 export function CurrencySelect(props: InputProps) {
@@ -16,15 +16,14 @@ export function CurrencySelect(props: InputProps) {
           id="currency"
           label={t("NewAccountScreen.FormFields.currency")}
           addonStart={(
-            <img
-              src={currencies[props.formHandler.getFieldValue("currency") as CurrencyCode]?.flag}
-              class="w-full"
-            />
+            <Show when={field.props.value}>
+              <img src={currenciecService.getFlag(field.props.value)} class="w-full" />
+            </Show>
           )}
           errorMessage={field.helpers.errorMessage}
           {...field.props}
         >
-          <For each={Object.values(currencies)}>
+          <For each={currenciecService.avaliableCurrencies}>
             {currency => (
               <option value={currency.code}>
                 {currency.code}

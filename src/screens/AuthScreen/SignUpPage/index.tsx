@@ -6,15 +6,14 @@ import { IoKey } from "solid-icons/io";
 import { FiAtSign } from "solid-icons/fi";
 
 import { Button, Select, TextInput } from "@app/components";
+import { avatars } from "@app/screens/SettingsScreen/constants";
+import { getRandomElement } from "@app/helpers";
 import { Action, Message, t } from "@app/i18n";
-import { CurrencyCode, currencies } from "@app/constants";
 import { getSignUpFormSchema } from "@app/schemas";
-import { accountService, userService } from "@app/services";
+import { accountService, currenciecService, userService } from "@app/services";
 import { Link, user } from "@app/stores";
 
 import { AuthLayout } from "../AuthLayout";
-import { getRandomElement } from "@app/helpers";
-import { avatars } from "@app/screens/SettingsScreen/constants";
 
 export function SignUpPage() {
   const formHandler = useFormHandler(yupSchema(getSignUpFormSchema()), {
@@ -126,11 +125,15 @@ export function SignUpPage() {
               <Select
                 id="primaryCurrency"
                 label={t("AuthScreen.FormFields.Currency.label")}
-                addonStart={<img src={currencies[formHandler.getFieldValue("primaryCurrency") as CurrencyCode]?.flag} class="w-full" />}
+                addonStart={
+                  <Show when={field.props.value}>
+                    <img src={currenciecService.getFlag(field.props.value)} class="w-full" />
+                  </Show>
+                }
                 errorMessage={field.helpers.errorMessage}
                 {...field.props}
               >
-                <For each={Object.values(currencies)}>
+                <For each={currenciecService.avaliableCurrencies}>
                   {currency => (
                     <option value={currency.code}>
                       {t(`AuthScreen.FormFields.Currency.Options.${currency.code}`)}

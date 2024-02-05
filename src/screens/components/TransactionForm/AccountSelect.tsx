@@ -1,10 +1,10 @@
-import { For, createMemo } from "solid-js";
+import { For, Show, createMemo } from "solid-js";
 import { Field } from "solid-form-handler";
 import { Select } from "@app/components";
-import { currencies } from "@app/constants";
 import { t } from "@app/i18n";
 import { accountsStore } from "@app/stores";
 import { InputProps } from "./types";
+import { currenciecService } from "@app/services";
 
 export function AccountSelect(props: InputProps) {
   const selectedAccountFlag = createMemo(() => {
@@ -15,7 +15,7 @@ export function AccountSelect(props: InputProps) {
     
     if (!selectedAccount) return;
 
-    return currencies[selectedAccount.currency].flag;
+    return currenciecService.getFlag(selectedAccount.currency);
   });
 
   return (
@@ -27,8 +27,10 @@ export function AccountSelect(props: InputProps) {
         <Select
           id="account"
           label={t("NewTransactionScreen.FormFields.account")}
-          addonStart={selectedAccountFlag() && (
-            <img src={selectedAccountFlag()} class="w-full" />
+          addonStart={(
+            <Show when={selectedAccountFlag()}>
+              <img src={selectedAccountFlag()} class="w-full" />
+            </Show>
           )}
           errorMessage={field.helpers.errorMessage}
           {...field.props}

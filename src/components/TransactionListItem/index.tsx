@@ -1,16 +1,12 @@
+import { useNavigate } from "@solidjs/router";
 import { createMemo } from "solid-js";
-import {
-  Categories,
-  CategoryId,
-  CurrencyCode,
-  currencies
-} from "@app/constants";
-import { Message, t } from "@app/i18n";
-import { Transaction, accountsStore, confirmationStore, toastStore, transactionsStore } from "@app/stores";
-import { ListItem } from "../ListItem";
 import { HiOutlinePencilSquare } from "solid-icons/hi";
 import { IoTrash } from "solid-icons/io";
-import { useNavigate } from "@solidjs/router";
+import { Categories, CategoryId,  } from "@app/constants";
+import { Message, t } from "@app/i18n";
+import { currenciecService, type CurrencyCode } from "@app/services";
+import { Transaction, accountsStore, confirmationStore, toastStore, transactionsStore } from "@app/stores";
+import { ListItem } from "../ListItem";
 
 export type TransactionListItemProps = {
   category: CategoryId;
@@ -26,7 +22,7 @@ function getTransactionValue(
   currency: CurrencyCode,
   transactionType: TransactionListItemProps["transactionType"]
 ) {
-  return `${(transactionType === "expense" ? "-" : "+")}${currencies[currency].formatter(amount)}`;
+  return `${(transactionType === "expense" ? "-" : "+")}${currenciecService.formatValue(currency, amount)}`;
 }
 
 export function TransactionListItem(props: Transaction) {

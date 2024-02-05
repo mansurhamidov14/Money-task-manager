@@ -1,10 +1,10 @@
 import { createMemo, createRoot, createSignal } from "solid-js";
-import { CategoryId, CurrencyCode } from "@app/constants";
-import { Transaction, TransactionsStore } from "./types";
+import { CategoryId,  } from "@app/constants";
+import { descSorter } from "@app/helpers";
+import { transactionService, type CurrencyCode } from "@app/services";
 import { DateFilter } from "@app/screens/HistoryScreen/types";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
-import { transactionService } from "@app/services";
-import { descSorter } from "@app/helpers";
+import { Transaction, TransactionsStore } from "./types";
 
 function initTransactionsStore() {
   const [transactions, setTransactions] = createSignal<TransactionsStore>({ status: "loading" });

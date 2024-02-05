@@ -1,5 +1,4 @@
 import { UserPrivateData } from "@app/adapters/IDB";
-import { CurrencyCode } from "@app/constants";
 import { Account, Task, Transaction, User } from "@app/stores";
 
 export type CreationRequestData<T> = Omit<T, "id" | "createdAt" | "updatedAt">
@@ -8,7 +7,29 @@ export type NewUser = CreationRequestData<User & UserPrivateData>;
 export type NewTransaction = CreationRequestData<Transaction>;
 export type NewAccount = CreationRequestData<Account>;
 export type NewTask = CreationRequestData<Task>;
+
+export enum CurrencyCode {
+  AZN = "AZN",
+  GBP = "GBP",
+  USD = "USD",
+  UAH = "UAH",
+  RUB = "RUB",
+  TRY = "TRY",
+  EUR = "EUR",
+};
+
+export type Currency = {
+  code: CurrencyCode;
+  sign: string;
+  precision: number;
+  formatter: (value: number) => string;
+  flag: string;
+}
+
+export type Currencies = Record<CurrencyCode, Currency>;
+
 export type CurrencyRates = Record<CurrencyCode, number>; 
+
 export type CachedCurrencyRates = {
   [key: string]: CurrencyRates
 }
