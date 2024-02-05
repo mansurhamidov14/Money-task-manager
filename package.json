@@ -20,7 +20,7 @@
     "build:android": "npm run build && cordova build android"
   },
   "dependencies": {
-    "@rnwonder/solid-date-picker": "1.0.1",
+    "@rnwonder/solid-date-picker": "1.0.6",
     "@solidjs/router": "^0.10.1",
     "@tanstack/solid-query": "^5.18.1",
     "apexcharts": "^3.45.1",

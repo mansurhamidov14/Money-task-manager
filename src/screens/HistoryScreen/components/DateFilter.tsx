@@ -56,7 +56,6 @@ export function DateFilter({
           type="range"
           onClose={() => {
             // TODO: investigate
-            console.log("onClose event triggered");
             if (activeTab() === "custom") {
               const filterRanges = filterDateRanges();
               if (!filterRanges.value.end || !filterRanges.value.start) {
