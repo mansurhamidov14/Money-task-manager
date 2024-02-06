@@ -2,9 +2,8 @@ import { useNavigate } from "@solidjs/router";
 import { createMemo } from "solid-js";
 import { HiOutlinePencilSquare } from "solid-icons/hi";
 import { IoTrash } from "solid-icons/io";
-import { Categories, CategoryId,  } from "@app/constants";
 import { Message, t } from "@app/i18n";
-import { currenciecService, type CurrencyCode } from "@app/services";
+import { categoryService, CategoryId, currenciecService, type CurrencyCode } from "@app/services";
 import { Transaction, accountsStore, confirmationStore, toastStore, transactionsStore } from "@app/stores";
 import { ListItem } from "../ListItem";
 
@@ -28,7 +27,7 @@ function getTransactionValue(
 export function TransactionListItem(props: Transaction) {
   const navigate = useNavigate();
   const categoryIcon = createMemo(() => {
-    const Icon = Categories[props.category].icon;
+    const Icon = categoryService.getIcon(props.category);
     return <Icon size={28} />;
   });
 
@@ -56,8 +55,8 @@ export function TransactionListItem(props: Transaction) {
         <div
           class="h-full flex justify-center items-center"
           style={{
-            "background-color": Categories[props.category].colors.accent,
-            "color": Categories[props.category].colors.icon
+            "background-color": categoryService.getColors(props.category).accent,
+            "color": categoryService.getColors(props.category).icon
           }}
         >
           {categoryIcon()}

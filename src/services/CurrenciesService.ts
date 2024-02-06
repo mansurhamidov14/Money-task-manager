@@ -14,8 +14,8 @@ import {
 } from "@app/services";
 
 class CurrenciesService {
+  private availableCurrenciesMap: Currencies;
   public availableCurrencyCodes: CurrencyCode[];
-  public availableCurrenciesMap: Currencies;
   public avaliableCurrencies: Currency[];
   public defaultCurrency: CurrencyCode = CurrencyCode.USD;
 

@@ -1,17 +1,17 @@
 import { For, createMemo } from "solid-js";
 import { Field } from "solid-form-handler";
 import { Select } from "@app/components";
-import { Categories } from "@app/constants";
 import { Message, t } from "@app/i18n";
 import { InputProps } from "./types";
+import { categoryService } from "@app/services";
 
 export function CategorySelect(props: InputProps) {
   const getIcon = createMemo(() => {
-    // @ts-ignore
-    const category = Categories[props.formHandler.getFieldValue("category")];
-    if (category) {
-      const Icon = category.icon;
-      return <Icon />
+    const value = props.formHandler.getFieldValue("category");
+
+    if (value) {
+      const Icon = categoryService.getIcon(value);
+      return <Icon />;
     }
 
     return undefined
@@ -30,7 +30,7 @@ export function CategorySelect(props: InputProps) {
           errorMessage={field.helpers.errorMessage}
           {...field.props}
         >
-          <For each={Object.values(Categories)}>
+          <For each={categoryService.categories}>
             {category => (
               <option value={category.id}>
                 <Message>{`Category.${category.id}`}</Message>

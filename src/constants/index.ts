@@ -1,5 +1,3 @@
-export * from "./categories";
-export * from "./categories/types";
 export * from "./skins";
 export * from "./skins/types";
 

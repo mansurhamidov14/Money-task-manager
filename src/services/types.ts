@@ -1,5 +1,6 @@
 import { UserPrivateData } from "@app/adapters/IDB";
 import { Account, Task, Transaction, User } from "@app/stores";
+import { IconTypes } from "solid-icons";
 
 export type CreationRequestData<T> = Omit<T, "id" | "createdAt" | "updatedAt">
 export type UserCreationData = UserPrivateData & Omit<User, "id">;
@@ -51,4 +52,29 @@ export type ClientDataResponse = {
   country_name: string;
   city: string;
   timezone: string;
+}
+
+export type CategoryId =
+  | "market"
+  | "utility"
+  | "education"
+  | "entertainment"
+  | "health"
+  | "beauty"
+  | "clothing"
+  | "electronics"
+  | "restaurant"
+  | "transfer"
+  | "transport"
+  | "travel"
+  | "gift"
+  | "other";
+
+export type Category = {
+  id: CategoryId,
+  icon: IconTypes,
+  colors: {
+    accent: string;
+    icon: string;
+  }
 }

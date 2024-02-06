@@ -82,14 +82,14 @@ export class IDBAdapter {
         const id = request.result as number;
         db.close();
         resolve({ id, createdAt, updatedAt, ...data }) as T;
-      });
+      }, { once: true });
 
       request.addEventListener("error", () => {
         const error = request.error;
         console.log("err", error);
         db.close();
         reject(error);
-      });
+      }, { once: true });
     })
   }
 
@@ -151,12 +151,12 @@ export class IDBAdapter {
 
       updateRequest.addEventListener("success", () => {
         resolve(data);
-      });
+      }, { once: true });
 
       updateRequest.addEventListener("error", () => {
         // TODO: Prettify error message
         console.error("Can not update record");
-      });
+      }, { once: true });
     });
   }
 

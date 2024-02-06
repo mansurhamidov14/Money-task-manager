@@ -2,7 +2,7 @@ import { createMemo, createSignal } from "solid-js";
 import { PickerValue } from "@rnwonder/solid-date-picker";
 import { ScreenHeader, VerticalScroll } from "@app/components";
 import { t } from "@app/i18n";
-import { CategoryId } from "@app/constants";
+import { getDateFilters } from "./helpers";
 import { Await, accountsStore, transactionsStore } from "@app/stores";
 import { initialDateRange } from "./consts";
 import {
@@ -13,7 +13,7 @@ import {
   TransactionListSkeleton
 } from "./components";
 import { DateFilter as TDateFilter, DateFilterTab } from "./types";
-import { getDateFilters } from "./helpers";
+import { CategoryId } from "@app/services";
 
 export function HistoryScreen() {
   const [prevDateFilterTab, setPrevDateFilterTab] = createSignal<DateFilterTab>("month");

@@ -1,7 +1,6 @@
 import { createMemo, createRoot, createSignal } from "solid-js";
-import { CategoryId,  } from "@app/constants";
 import { descSorter } from "@app/helpers";
-import { transactionService, type CurrencyCode } from "@app/services";
+import { CategoryId, transactionService, type CurrencyCode } from "@app/services";
 import { DateFilter } from "@app/screens/HistoryScreen/types";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
 import { Transaction, TransactionsStore } from "./types";

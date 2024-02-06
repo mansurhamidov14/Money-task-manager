@@ -2,11 +2,15 @@ import { createQuery } from "@tanstack/solid-query";
 import { ApexChartProps, SolidApexCharts } from "solid-apexcharts";
 import { Accessor, Show, createMemo } from "solid-js";
 import { SectionTitle } from "@app/components";
-import { Categories, CategoryId } from "@app/constants";
 import { useDateProcessor } from "@app/providers";
 import { groupBy } from "@app/helpers";
 import { Message, t } from "@app/i18n";
-import { currenciecService, type CurrencyCode } from "@app/services";
+import {
+  categoryService,
+  CategoryId,
+  currenciecService,
+  type CurrencyCode
+} from "@app/services";
 import { Transaction, accountsStore, themeStore } from "@app/stores";
 import { DateFilter } from "../types";
 
@@ -50,9 +54,9 @@ export function PieCharts(props: {
       const colors: string[] = [];
       const series: number[] = [];
       Object.entries(categoryGroups).forEach(([cat, transactions]) => {
-        const category = Categories[cat as CategoryId]
+        const categoryColors = categoryService.getColors(cat as CategoryId);
         categoryNames.push(t(`Category.${cat}`));
-        colors.push(category.colors.icon);
+        colors.push(categoryColors.icon);
         series.push(
           transactions
             .reduce(

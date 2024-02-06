@@ -1,5 +1,6 @@
 export * from "./AccountService";
 export * from "./CacheService";
+export * from "./CategoryService";
 export * from "./ClientService";
 export * from "./CurrenciesService";
 export * from "./UserService";

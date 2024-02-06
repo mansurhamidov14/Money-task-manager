@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { t } from "@app/i18n";
-import { Categories, CategoryId } from "@app/constants";
 import { Account, TransactionType } from "@app/stores";
+import { CategoryId, categoryService } from "@app/services";
 
 type NewTransactionForm = {
   title: string;
@@ -28,7 +28,7 @@ export function getTransactionFormSchema(
       .default(defaults.type),
     category: yup.string()
       .required()
-      .oneOf(Object.keys(Categories) as CategoryId[])
+      .oneOf(categoryService.ids)
       .default(defaults.category),
     amount: yup.number()
       .required(t("common.FormFields.required"))

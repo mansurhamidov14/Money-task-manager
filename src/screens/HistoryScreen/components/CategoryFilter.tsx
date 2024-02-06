@@ -1,7 +1,7 @@
-import { Accessor, Setter } from "solid-js"
-import { Categories, CategoryId } from "@app/constants"
+import { Accessor, Setter } from "solid-js";
 import { FilterTab } from "@app/components";
 import { Message } from "@app/i18n";
+import { CategoryId, categoryService } from "@app/services";
 
 export type CategoryFilterProps = {
   filter: Accessor<CategoryId | null>;
@@ -22,7 +22,7 @@ export function CategoryFilter({
         >
           <Message>Category.all</Message>
         </FilterTab>
-          {Object.keys(Categories).map((category) => (
+          {categoryService.ids.map((category) => (
             <FilterTab
               id={category}
               onSwitch={setFilter}
