@@ -139,7 +139,7 @@ export const skins: Record<string, Skin> = {
     color: "#36220c",
     primaryTextColor: "rgba(255, 255, 255, .8)",
     secondaryTextColor: "rgba(255, 255, 255, .8)",
-    balancePlacement: "right-6 top-[35%]",
+    balancePlacement: "right-14 top-[24%]",
     hideAccountTitle: true
   },
   albaliPlus: {
@@ -147,7 +147,7 @@ export const skins: Record<string, Skin> = {
     color: "#450f42",
     primaryTextColor: "#FFFFFF",
     secondaryTextColor: "rgba(255, 255, 255, .9)",
-    balancePlacement: "right-6 top-[35%]",
+    balancePlacement: "right-14 top-[24%]",
     hideAccountTitle: true
   },
   ucard: {
