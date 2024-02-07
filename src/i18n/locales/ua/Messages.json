@@ -5,6 +5,11 @@
     "balance": "Баланс",
     "initialAccountName": "Основний рахунок",
     "FormFields": {
+      "title": {
+        "label": "Найменування",
+        "placeholder": "Короткий заголовок"
+      },
+      "dateTime": "Дата та час",
       "required": "Значення поля не може бути порожнім",
       "tooShort": "Довжина має бути не менше {{count}} символів"
     },
@@ -43,7 +48,8 @@
       "Items": {
         "account": "Рахунок",
         "transaction": "Транзакція",
-        "task": "Задача"
+        "task": "Задача",
+        "transfer": "Переказ грошей"
       }
     }
   },
@@ -58,7 +64,7 @@
     "health": "Здоров'я",
     "market": "Маркет",
     "Restaurant": "Кафе/Ресторан",
-    "transfer": "Трансфер",
+    "transfer": "Переказ",
     "transport": "Транспорт",
     "clothing": "Одяг",
     "education": "Освіта",
@@ -68,6 +74,7 @@
     "beauty": "Краса та догляд",
     "electronics": "Електроніка",
     "gift": "Подарунки",
+    "transferBetweenAccounts": "Переказ між рахунками",
     "other": "Інше"
   },
   "HomeScreen": {
@@ -142,10 +149,6 @@
   "NewTransactionScreen": {
     "title": "Нова транзакція",
     "FormFields": {
-      "title": {
-        "label": "Найменування",
-        "placeholder": "Короткий заголовок"
-      },
       "type": "Тип операції",
       "category": "Категорія",
       "account": "Рахунок операції",
@@ -158,13 +161,20 @@
     "success": "Транзакція успішно додана",
     "error": "Відбулася помилка під час додавання транзакції: {{error}}"
   },
+  "TransferBetweenAccountsScreen": {
+    "title": "Переказ між рахунками",
+    "FormFields": {
+      "expenseAmount": "Сума відправки",
+      "incomeAmount": "Сума отримання",
+      "fromAccount": "З рахунку",
+      "toAccount": "На рахунок"
+    },
+    "success": "Транзакції успішно додані",
+    "error": "Відбулася помилка під час додавання транзакцій: {{error}}"
+  },
   "NewAccountScreen": {
     "title": "Новий рахунок",
     "FormFields": {
-      "title": {
-        "label": "Найменування",
-        "placeholder": "Короткий заголовок"
-      },
       "currency": "Валюта",
       "balance": {
         "label": "Баланс",
@@ -203,10 +213,6 @@
   "NewTaskScreen": {
     "title": "Нове завдання",
     "FormFields": {
-      "title": {
-        "label": "Найменування",
-        "placeholder": "Короткий заголовок"
-      },
       "recurring": "Повторюваний",
       "date": "Дата",
       "time": "Час",

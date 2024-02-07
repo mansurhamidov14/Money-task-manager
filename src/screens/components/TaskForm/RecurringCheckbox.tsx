@@ -1,7 +1,7 @@
 import { Field } from "solid-form-handler";
-import { InputProps } from "./types";
 import { t } from "@app/i18n";
 import { CheckBox } from "@app/components";
+import { InputProps } from "../shared";
 
 export function RecurringCheckbox(props: InputProps) {
   return (

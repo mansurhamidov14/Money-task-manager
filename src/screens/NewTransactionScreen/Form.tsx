@@ -4,17 +4,15 @@ import { yupSchema } from "solid-form-handler/yup";
 import { Button } from "@app/components";
 import { Action, t } from "@app/i18n";
 import { getTransactionFormSchema } from "@app/schemas";
-import { transactionService } from "@app/services";
 import { accountsStore, transactionsStore, toastStore, user } from "@app/stores";
 
 import {
   AmountInput,
   CategorySelect,
   AccountSelect,
-  DateTimeInput,
-  TitleInput,
   TypeSelect
 } from "../components/TransactionForm";
+import { DateTimeInput, TitleInput } from "../components/shared";
 
 export function Form() {
   const formHandler = useFormHandler(yupSchema(getTransactionFormSchema({
@@ -30,27 +28,27 @@ export function Form() {
     event.preventDefault();
     try {
       await formHandler.validateForm();
+      const formData = formHandler.formData();
       const affectedAccount = accountsStore.accounts()
-        .data!.find(account => account.id === formHandler.getFieldValue("account"))!;
+        .data!.find(account => account.id === formData.account)!;
       const userId = user.currentUser().data!.id;
       const currency = affectedAccount.currency;
-      const type = formHandler.getFieldValue("type");
-      const amount = formHandler.getFieldValue("amount");
-      const transactionDateTime = new Date(formHandler.getFieldValue("date")).toISOString();
+      const type = formData.type;
+      const amount = formData.amount;
+      const transactionDateTime = new Date(formData.date).toISOString();
       const transactionDate = transactionDateTime.split("T")[0];
       const transactionData = {
         user: userId,
-        account: formHandler.getFieldValue("account"),
-        title: formHandler.getFieldValue("title"),
-        category: formHandler.getFieldValue("category"),
+        account: formData.account,
+        title: formData.title,
+        category: formData.category,
         type,
         currency,
         amount,
         transactionDate,
         transactionDateTime,
       };
-      const newTransaction = await transactionService.create(transactionData);
-      transactionsStore.addTransaction(newTransaction);
+      await transactionsStore.addTransaction(transactionData);
       accountsStore.changeBalance(affectedAccount.id, amount, type);
       toastStore.pushToast("success", t("NewTransactionScreen.success"));
       history.back();

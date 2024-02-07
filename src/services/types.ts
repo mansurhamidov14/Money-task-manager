@@ -68,6 +68,7 @@ export type CategoryId =
   | "transport"
   | "travel"
   | "gift"
+  | "transferBetweenAccounts"
   | "other";
 
 export type Category = {

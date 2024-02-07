@@ -11,10 +11,9 @@ import {
   AmountInput,
   CategorySelect,
   AccountSelect,
-  DateTimeInput,
-  TitleInput,
   TypeSelect
 } from "../components/TransactionForm";
+import { DateTimeInput, TitleInput } from "../components/shared";
 
 export function Form(props: Transaction) {
   const [loading, setLoading] = createSignal(false);

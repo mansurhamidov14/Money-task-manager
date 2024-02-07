@@ -1,6 +1,6 @@
 import { createMemo, createRoot, createSignal } from "solid-js";
 import { descSorter } from "@app/helpers";
-import { CategoryId, transactionService, type CurrencyCode } from "@app/services";
+import { CategoryId, transactionService, type CurrencyCode, NewTransaction } from "@app/services";
 import { DateFilter } from "@app/screens/HistoryScreen/types";
 import { RECENT_TRANSACTIONS_MAX_DAYS } from "./constants";
 import { Transaction, TransactionsStore } from "./types";
@@ -21,10 +21,10 @@ function initTransactionsStore() {
     }
   }
 
-  const addTransaction = (data: Transaction) => {
-    // TODO: add service method adding record to db
+  const addTransaction = async (data: NewTransaction) => {
+    const newTransaction = await transactionService.create(data);
     const prevData = transactions().data ?? [];
-    setTransactionsData([...prevData, data]);
+    setTransactionsData([...prevData, newTransaction]);
   }
 
   const deleteTransaction = async (id: number) => {

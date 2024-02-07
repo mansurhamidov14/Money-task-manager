@@ -1,11 +1,17 @@
-import { FaSolidCreditCard } from "solid-icons/fa";
+import { Show, createMemo } from "solid-js";
+import { FaSolidCreditCard, FaSolidMoneyBillTransfer } from "solid-icons/fa";
 import { TbReportMoney } from "solid-icons/tb";
+import { BiRegularTask } from "solid-icons/bi";
 import { Message, t } from "@app/i18n";
+import { accountsStore } from "@app/stores";
 import { CreateMenuItem } from "./CreateMenuItem";
 import { Dropdown, DropdownMenu, DropdownToggleButton } from "../Dropdown";
-import { BiRegularTask } from "solid-icons/bi";
 
 export function CreateButton() {
+  const canTransfer = createMemo(() => {
+    return accountsStore.accounts().status === "success" && accountsStore.accounts().data!.length > 1
+  });
+
   return (
     <div class="flex items-center justify-center relative">
       <Dropdown id="addMenu" horizontalPlacement="middle" hasOverlay>
@@ -33,6 +39,13 @@ export function CreateButton() {
             title={t("BottomNavigation.create.Items.task")}
             href="/new-task"
           />
+          <Show when={canTransfer()}>
+            <CreateMenuItem
+              icon={<FaSolidMoneyBillTransfer />}
+              title={t("BottomNavigation.create.Items.transfer")}
+              href="/new-transfer"
+            />
+          </Show>
         </DropdownMenu>
       </Dropdown>
     </div>

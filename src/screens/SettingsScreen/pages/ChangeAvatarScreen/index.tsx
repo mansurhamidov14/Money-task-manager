@@ -1,7 +1,7 @@
 import { For, createSignal } from "solid-js";
 import { Button, ScreenHeader, VerticalScroll } from "@app/components";
 import { Action, t } from "@app/i18n";
-import { ImageRadioButton } from "@app/screens/components/ImageRadioButton";
+import { ImageRadioButton } from "@app/screens/components/shared";
 import { user } from "@app/stores";
 import { avatars } from "../../constants";
 import { userService } from "@app/services";

@@ -8,3 +8,4 @@ export * from "./NewTransactionScreen";
 export * from "./NewAccountScreen";
 export * from "./SettingsScreen";
 export * from "./TasksScreen";
+export * from "./TransferBetweenAccountsScreen";

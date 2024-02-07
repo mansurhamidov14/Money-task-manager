@@ -1,6 +1,6 @@
 import { IconTypes } from "solid-icons";
 import { AiOutlineShoppingCart, AiOutlineAppstoreAdd } from "solid-icons/ai";
-import { FaRegularMoneyBill1, FaSolidComputer } from "solid-icons/fa";
+import { FaRegularMoneyBill1, FaSolidComputer, FaSolidMoneyBillTransfer } from "solid-icons/fa";
 import {
   IoGameControllerOutline,
   IoRestaurantOutline,
@@ -34,6 +34,7 @@ class CategoryService {
       electronics: this.generateCategory("electronics", FaSolidComputer, ["#d1fae5", "#059669"]),
       entertainment: this.generateCategory("entertainment", IoGameControllerOutline, ["#ede9fe", "#312e81"]),
       travel: this.generateCategory("travel", BiSolidPlaneAlt, ["#fdf2f8", "#d86779"]),
+      transferBetweenAccounts: this.generateCategory("transferBetweenAccounts", FaSolidMoneyBillTransfer, ["#f5f5f5", "#404040"]),
       other: this.generateCategory("other", AiOutlineAppstoreAdd, ["#f3f4f6", "#374151"])
     }
     this.categories = Object.values(this.categoriesMap);

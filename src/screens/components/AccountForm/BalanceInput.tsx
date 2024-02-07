@@ -1,7 +1,7 @@
 import { Field } from "solid-form-handler";
 import { TextInput } from "@app/components";
 import { t } from "@app/i18n";
-import { InputProps } from "./types";
+import { InputProps } from "../shared";
 
 export function BalanceInput(props: InputProps) {
   return (

@@ -36,6 +36,7 @@ export function getTransactionFormSchema(
       .default(defaults.amount),
     account: yup.number()
       .required()
+      .typeError(t("common.FormFields.required"))
       .oneOf(userAccountIds)
       .default(defaults.account),
     date: yup.string()

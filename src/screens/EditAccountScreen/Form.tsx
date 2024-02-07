@@ -10,10 +10,10 @@ import { user, toastStore, accountsStore, Account, transactionsStore } from "@ap
 import {
   CurrencySelect,
   BalanceInput,
-  TitleInput,
   PrimaryCheckbox,
   SkinSelect
 } from "../components/AccountForm";
+import { TitleInput } from "../components/shared";
 
 
 export function Form(props: Account) {

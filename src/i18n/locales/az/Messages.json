@@ -5,6 +5,11 @@
     "balance": "Balans",
     "initialAccountName": "Əsas hesab",
     "FormFields": {
+      "title": {
+        "label": "Başlıq",
+        "placeholder":"Qısa başlıq"
+      },
+      "dateTime": "Tarix və vaxt",
       "required": "Xana boş ola bilməz",
       "tooShort": "Ən az {{count}} simvoldan ibarət olmalıdır"
     },
@@ -43,7 +48,8 @@
       "Items": {
         "account": "Hesab",
         "transaction": "Əməliyyat",
-        "task": "Tapşırıq"
+        "task": "Tapşırıq",
+        "transfer": "Pul köçürməsi"
       }
     }
   },
@@ -68,6 +74,7 @@
     "beauty": "Gözəllik və özünə baxım",
     "electronics": "Elektronika",
     "gift": "Hədiyyələr",
+    "transferBetweenAccounts": "Hesablar arası köçürmə",
     "other": "Digər"
   },
   "HomeScreen": {
@@ -142,10 +149,6 @@
   "NewTransactionScreen": {
     "title": "Yeni əməliyyat",
     "FormFields": {
-      "title": {
-        "label": "Başlıq",
-        "placeholder": "Qısa başlıq"
-      },
       "type": "Əməliyyatın növü",
       "category": "Kateqoriya",
       "account": "Əməliyyat Hesabı",
@@ -158,13 +161,20 @@
     "success": "Əməliyyat müvəffəqiyyət ilə əlavə olundu",
     "error": "Əməliyyatı əlavə edərkən xəta baş verdi: {{error}}"
   },
+  "TransferBetweenAccountsScreen": {
+    "title": "Hesablar arası köçürmə",
+    "FormFields": {
+      "expenseAmount": "Məxaric məbləği",
+      "incomeAmount": "Mədaxil məbləği",
+      "fromAccount": "Məxaric hesabı",
+      "toAccount": "Mədaxil hesabı"
+    },
+    "success": "Əməliyyatlar müvəffəqiyyət ilə əlavə olundu",
+    "error": "Əməliyyatları əlavə edərkən xəta baş verdi: {{error}}"
+  },
   "NewAccountScreen": {
     "title": "Yeni hesab",
     "FormFields": {
-      "title": {
-        "label": "Başlıq",
-        "placeholder": "Qısa başlıq"
-      },
       "currency": "Valyuta",
       "balance": {
         "label": "Balans",
@@ -203,10 +213,6 @@
   "NewTaskScreen": {
     "title": "Yeni tapşırıq",
     "FormFields": {
-      "title": {
-        "label": "Başlıq",
-        "placeholder": "Qısa başlıq"
-      },
       "recurring": "Təkrarlanan",
       "date": "Tarix",
       "time": "Başlama vaxtı",

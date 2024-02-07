@@ -18,6 +18,6 @@ export function getChangePasswordSchema(): Schema<SignUpForm> {
     repeatPassword: string()
       .required(t("common.FormFields.required"))
       .min(MIN_PASSWORD_LENGTH, t("common.FormFields.tooShort", undefined, { count: MIN_PASSWORD_LENGTH }))
-      .oneOf([ref('newPassword'), ""], t("SettingsScreen.changePassword.passwordsDoNotMatch"))
+      .oneOf([ref("newPassword"), ""], t("SettingsScreen.changePassword.passwordsDoNotMatch"))
   });
 }

@@ -6,12 +6,16 @@ import { accountsStore } from "@app/stores";
 import { currenciecService } from "@app/services";
 import { InputProps } from "../shared";
 
-export function AccountSelect(props: InputProps) {
+type Props = InputProps & {
+  name: string;
+}
+
+export function AccountSelect(props: Props) {
   const selectedAccountFlag = createMemo(() => {
     const selectedAccount = accountsStore
       .accounts()
       .data
-      ?.find(account => account.id === props.formHandler.getFieldValue("account"));
+      ?.find(account => account.id === props.formHandler.getFieldValue(props.name));
     
     if (!selectedAccount) return;
 
@@ -21,12 +25,12 @@ export function AccountSelect(props: InputProps) {
   return (
     <Field
       mode="input"
-      name="account"
+      name={props.name}
       formHandler={props.formHandler}
       render={(field) => (
         <Select
-          id="account"
-          label={t("NewTransactionScreen.FormFields.account")}
+          id={props.name}
+          label={t(`TransferBetweenAccountsScreen.FormFields.${props.name}`)}
           addonStart={(
             <Show when={selectedAccountFlag()}>
               <img src={selectedAccountFlag()} class="w-full" />

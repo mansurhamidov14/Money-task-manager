@@ -2,7 +2,7 @@ import { Select } from "@app/components";
 import { t } from "@app/i18n";
 import { Field } from "solid-form-handler";
 import { For } from "solid-js";
-import { InputProps } from "./types";
+import { InputProps } from "../shared";
 
 function generateWeekdayOptions() {
   const weekdays: { value: number, children: string}[] = [];

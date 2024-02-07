@@ -3,7 +3,7 @@ import { For, Show } from "solid-js";
 import { Select } from "@app/components";
 import { t } from "@app/i18n";
 import { currenciecService } from "@app/services";
-import { InputProps } from "./types";
+import { InputProps } from "../shared";
 
 export function CurrencySelect(props: InputProps) {
   return (

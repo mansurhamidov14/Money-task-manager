@@ -10,10 +10,10 @@ import { user, toastStore, accountsStore, counters, initCountersStore } from "@a
 import {
   CurrencySelect,
   BalanceInput,
-  TitleInput,
   PrimaryCheckbox,
   SkinSelect
 } from "../components/AccountForm";
+import { TitleInput } from "../components/shared";
 
 export function Form() {
   const formHandler = useFormHandler(yupSchema(getAccountFormSchema({

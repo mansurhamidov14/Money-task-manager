@@ -5,3 +5,4 @@ export * from "./personal-info-form";
 export * from "./signup-form";
 export * from "./task-form";
 export * from "./transaction-form";
+export * from "./transfer-form";

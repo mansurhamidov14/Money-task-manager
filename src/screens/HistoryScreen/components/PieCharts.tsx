@@ -20,9 +20,9 @@ export function PieCharts(props: {
 }) {
   const { theme } = themeStore;
   const dateProcessor = useDateProcessor();
-  const processedTransactions = createMemo(() => {
-    return props.transactions().filter(t => t.type === "expense")
-  });
+  const processedTransactions = createMemo(() => (
+    props.transactions().filter(t => t.type === "expense" && t.category !== "transferBetweenAccounts")
+  ));
   const primaryCurrency = createMemo(() => accountsStore.primaryAccount()!.currency);
   const currencyRatesQuery = createQuery(() => {
     const _primaryCurrency = primaryCurrency();

@@ -5,6 +5,11 @@
     "balance": "Balance",
     "initialAccountName": "Primary account",
     "FormFields": {
+      "title": {
+        "label": "Title",
+        "placeholder": "Short title"
+      },
+      "dateTime": "Date and time",
       "required": "This field is required",
       "tooShort": "Can not be shorter than {{count}} characters"
     },
@@ -43,7 +48,8 @@
       "Items": {
         "account": "Account",
         "transaction": "Transaction",
-        "task": "Task"
+        "task": "Task",
+        "transfer": "Money transfer"
       }
     }
   },
@@ -68,6 +74,7 @@
     "beauty": "Beauty & Self-care",
     "electronics": "Elektronika",
     "gift": "Gifts",
+    "transferBetweenAccounts": "Transfer between accounts",
     "other": "Other"
   },
   "HomeScreen": {
@@ -142,10 +149,6 @@
   "NewTransactionScreen": {
     "title": "New Transaction",
     "FormFields": {
-      "title": {
-        "label": "Title",
-        "placeholder": "Short title"
-      },
       "type": "Transaction Type",
       "category": "Category",
       "account": "Transaction Account",
@@ -158,13 +161,20 @@
     "success": "Transaction was created successfully",
     "error": "An error occurred while creating a transaction: {{error}}"
   },
+  "TransferBetweenAccountsScreen": {
+    "title": "Transfer between accounts",
+    "FormFields": {
+      "expenseAmount": "Output amount",
+      "incomeAmount": "Input amount",
+      "fromAccount": "From account",
+      "toAccount": "To account"
+    },
+    "success": "Transactions were created successfully",
+    "error": "An error occurred while creating transactions: {{error}}"
+  },
   "NewAccountScreen": {
     "title": "New Account",
     "FormFields": {
-      "title": {
-        "label": "Title",
-        "placeholder": "Short title"
-      },
       "currency": "Currency",
       "balance": {
         "label": "Balance",
@@ -203,10 +213,6 @@
   "NewTaskScreen": {
     "title": "New Task",
     "FormFields": {
-      "title": {
-        "label": "Title",
-        "placeholder": "Short title"
-      },
       "recurring": "Recurring",
       "date": "Date",
       "time": "Time",

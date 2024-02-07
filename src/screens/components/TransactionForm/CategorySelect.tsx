@@ -2,7 +2,7 @@ import { For, createMemo } from "solid-js";
 import { Field } from "solid-form-handler";
 import { Select } from "@app/components";
 import { Message, t } from "@app/i18n";
-import { InputProps } from "./types";
+import { InputProps } from "../shared";
 import { categoryService } from "@app/services";
 
 export function CategorySelect(props: InputProps) {

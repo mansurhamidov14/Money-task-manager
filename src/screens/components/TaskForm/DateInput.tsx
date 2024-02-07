@@ -1,6 +1,6 @@
 import { Field } from "solid-form-handler";
 import { TextInput } from "@app/components";
-import { InputProps } from "./types";
+import { InputProps } from "../shared";
 
 type DateInputProps = InputProps & {
   name: string;

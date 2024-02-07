@@ -2,8 +2,7 @@ import { Field } from "solid-form-handler";
 import { For } from "solid-js";
 import { skins } from "@app/constants";
 import { Message } from "@app/i18n";
-import { InputProps } from "./types";
-import { ImageRadioButton } from "../ImageRadioButton";
+import { ImageRadioButton, InputProps } from "../shared";
 
 export function SkinSelect(props: InputProps) {
   return (

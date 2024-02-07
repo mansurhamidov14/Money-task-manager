@@ -22,7 +22,8 @@ import {
   PinInputPage,
   SettingsScreen,
   SignUpPage,
-  TasksScreen
+  TasksScreen,
+  TransferBetweenAccountsScreen
 } from "@app/screens";
 import {
   ChangeAvatarScreen,
@@ -99,6 +100,7 @@ export default function() {
             <ProtectedRoute path="/edit-transaction/:id" component={EditTransactionScreen} />
             <ProtectedRoute path="/new-task" component={NewTaskScreen} />
             <ProtectedRoute path="/tasks" component={TasksScreen} />
+            <ProtectedRoute path="/new-transfer" component={TransferBetweenAccountsScreen} />
             <Route path="/settings">
               <ProtectedRoute path="/" component={SettingsScreen} />
               <ProtectedRoute path="/change-avatar" component={ChangeAvatarScreen} />

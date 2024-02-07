@@ -13,8 +13,8 @@ export function TitleInput(props: InputProps) {
         <TextInput
           autocomplete="off"
           id="title"
-          label={t("NewAccountScreen.FormFields.title.label")}
-          placeholder={t("NewAccountScreen.FormFields.title.placeholder")}
+          label={t("common.FormFields.title.label")}
+          placeholder={t("common.FormFields.title.placeholder")}
           errorMessage={field.helpers.errorMessage}
           {...field.props}
         />

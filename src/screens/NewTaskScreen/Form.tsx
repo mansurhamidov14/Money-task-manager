@@ -11,10 +11,10 @@ import { tasksStore, toastStore, user } from "@app/stores";
 import {
   DateInput,
   RecurringCheckbox,
-  TitleInput,
   TimeInput,
   DaySelect,
 } from "../components/TaskForm";
+import { TitleInput } from "../components/shared";
 
 export function Form() {
   const formHandler = useFormHandler(yupSchema(getTaskFormSchema()), {

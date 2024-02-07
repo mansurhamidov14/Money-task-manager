@@ -5,6 +5,11 @@
     "balance": "Баланс",
     "initialAccountName": "Основной счет",
     "FormFields": {
+      "title": {
+        "label": "Наименование",
+        "placeholder": "Краткий заголовок"
+      },
+      "dateTime": "Дата и время",
       "required": "Значение поля не может быть пустым",
       "tooShort": "Длина должна быть не менее {{count}} символов"
     },
@@ -43,7 +48,8 @@
       "Items": {
         "account": "Счет",
         "transaction": "Транзакция",
-        "task": "Задача"
+        "task": "Задача",
+        "transfer": "Перевод"
       }
     }
   },
@@ -58,7 +64,7 @@
     "health": "Здоровье",
     "market": "Маркет",
     "restaurant": "Кафе/Ресторан",
-    "transfer": "Трансфер",
+    "transfer": "Перевод",
     "transport": "Транспорт",
     "clothing": "Одежда",
     "education": "Образование",
@@ -68,6 +74,7 @@
     "beauty": "Красота и уход",
     "electronics": "Электроника",
     "gift": "Подарки",
+    "transferBetweenAccounts": "Перевод между счетами",
     "other": "Другое"
   },
   "HomeScreen": {
@@ -142,10 +149,6 @@
   "NewTransactionScreen": {
     "title": "Новая транзакция",
     "FormFields": {
-      "title": {
-        "label": "Наименование",
-        "placeholder": "Краткий заголовок"
-      },
       "type": "Тип операции",
       "category": "Категория",
       "account": "Счет операции",
@@ -158,13 +161,20 @@
     "success": "Транзакция успешно добавлена",
     "error": "Произошла ошибка во время добавления транзакции: {{error}}"
   },
+  "TransferBetweenAccountsScreen": {
+    "title": "Перевод между счетами",
+    "FormFields": {
+      "expenseAmount": "Сумма отправки",
+      "incomeAmount": "Сумма получения",
+      "fromAccount": "Со счета",
+      "toAccount": "На счет"
+    },
+    "success": "Транзакции успешно добавлены",
+    "error": "Произошла ошибка во время добавления транзакций: {{error}}"
+  },
   "NewAccountScreen": {
     "title": "Новый счет",
     "FormFields": {
-      "title": {
-        "label": "Наименование",
-        "placeholder": "Краткий заголовок"
-      },
       "currency": "Валюта",
       "balance": {
         "label": "Баланс",
@@ -203,10 +213,6 @@
   "NewTaskScreen": {
     "title": "Новая задача",
     "FormFields": {
-      "title": {
-        "label": "Наименование",
-        "placeholder": "Краткий заголовок"
-      },
       "recurring": "Повторяющийся",
       "date": "Дата",
       "time": "Время",
