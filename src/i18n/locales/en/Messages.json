@@ -1,5 +1,6 @@
 {
   "common": {
+    "allAccounts": "All accounts",
     "expense": "Expense",
     "income": "Income",
     "balance": "Balance",

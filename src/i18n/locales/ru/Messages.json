@@ -1,5 +1,6 @@
 {
   "common": {
+    "allAccounts": "Все счета",
     "expense": "Расходы",
     "income": "Доходы",
     "balance": "Баланс",

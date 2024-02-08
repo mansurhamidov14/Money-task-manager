@@ -100,7 +100,7 @@ export function ChangePinScreen() {
               </Button>
             </Match>
             <Match when={currentStep() === 3}>
-              <Button variant="transparent" onClick={handleStepBack} class="gap-2 text-md text-primary-500 dark:text-primary-400">
+              <Button variant="ghost" onClick={handleStepBack} class="gap-2 text-md">
                 <FaSolidChevronLeft />
                 <Action>Back</Action>
               </Button>

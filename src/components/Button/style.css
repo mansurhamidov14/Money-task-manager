@@ -4,7 +4,6 @@
     font-semibold
     rounded-lg
     text-sm
-    uppercase
     inline-flex
     justify-center
     items-center
@@ -14,6 +13,10 @@
 
 .btn-full {
   @apply w-full;
+}
+
+.btn-xs {
+  @apply text-xs h-6;
 }
 
 .btn-sm {
@@ -51,6 +54,10 @@ button[type].btn-transparent, .btn-transparent {
     dark:text-secondary-200
     hover:bg-gray-200
     dark:hover:bg-gray-900/30;
+}
+
+button[type].btn-ghost, .btn-ghost {
+  @apply text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300;
 }
 
 button[type].btn-danger, .btn-danger {

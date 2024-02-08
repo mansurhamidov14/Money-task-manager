@@ -1,5 +1,6 @@
 {
   "common": {
+    "allAccounts": "Bütün hesablar",
     "expense": "Xərclər",
     "income": "Gəlir",
     "balance": "Balans",
@@ -74,7 +75,7 @@
     "beauty": "Gözəllik və özünə baxım",
     "electronics": "Elektronika",
     "gift": "Hədiyyələr",
-    "transferBetweenAccounts": "Hesablar arası köçürmə",
+    "transferBetweenAccounts": "Hesablararası köçürmə",
     "other": "Digər"
   },
   "HomeScreen": {
@@ -162,7 +163,7 @@
     "error": "Əməliyyatı əlavə edərkən xəta baş verdi: {{error}}"
   },
   "TransferBetweenAccountsScreen": {
-    "title": "Hesablar arası köçürmə",
+    "title": "Hesablararası köçürmə",
     "FormFields": {
       "expenseAmount": "Məxaric məbləği",
       "incomeAmount": "Mədaxil məbləği",

@@ -5,6 +5,9 @@ import { createSlider } from "solid-slider";
 import { AccountsSlideSelectItem } from "./AccountsSlideSelectItem";
 import { ExpandedAccountSelect } from "./ExpandedAccountSelect";
 import "./style.css";
+import { MAXIMIZE_PARAM_KEY } from "./consts";
+import { Button } from "..";
+import { Message } from "@app/i18n";
 
 export type AccountSlideSelectProps = Omit<
   JSX.InputHTMLAttributes<HTMLInputElement>,
@@ -20,10 +23,10 @@ export type AccountSlideSelectProps = Omit<
 
 export function AccountSlideSelect(props: AccountSlideSelectProps) {
   const [localProps, nativeProps] = splitProps(props, ["accounts", "errorMessage", "label"]);
+  const hasMoreThan1Accounts = createMemo(() => localProps.accounts.length > 1);
   const [searchParams, setSearchParams] = useSearchParams();
   let sliderRef: HTMLDivElement | undefined = undefined;
   let inputRef: HTMLInputElement | undefined = undefined;
-  const searchParamName = createMemo(() => `${nativeProps.name}SelectExpand`);
   const [slider, { current, moveTo, destroy }] = createSlider({
     slides: { origin: "center", perView: 1.1 },
     slideChanged: () => {
@@ -58,6 +61,12 @@ export function AccountSlideSelect(props: AccountSlideSelectProps) {
     sliderRef?.addEventListener("slideChanged", handleSlideChange);
   });
 
+  const expandSelect = () => {
+    if (hasMoreThan1Accounts()) {
+      setSearchParams({ ...setSearchParams, [MAXIMIZE_PARAM_KEY]: nativeProps.name })
+    }
+  }
+
   onCleanup(() => {
     destroy();
     sliderRef?.removeEventListener("slideChanged", handleSlideChange);
@@ -65,39 +74,45 @@ export function AccountSlideSelect(props: AccountSlideSelectProps) {
 
   return (
     <div class="-mx-5 relative">
-      <div class="px-4 pb-2 text-muted font-medium">{props.label}</div>
+      <div class="px-4 pb-2 flex justify-between items-center">
+        <div class="text-sm text-muted font-medium">
+          {props.label}
+        </div>
+        <Show when={hasMoreThan1Accounts()}>
+          <Button type="button" size="xs" variant="ghost" preserveCase onClick={expandSelect}>
+            <Message>common.allAccounts</Message>
+          </Button>
+        </Show>
+      </div>
       <div ref={sliderRef}>
         <For each={props.accounts}>
-          {account => (
-            <AccountsSlideSelectItem
-              account={account}
-              onClick={() => setSearchParams({ ...setSearchParams, [searchParamName()]: '1' })}
-            />
-          )}
+          {account => <AccountsSlideSelectItem account={account} onClick={expandSelect} />}
         </For>
       </div>
       <Show when={localProps.errorMessage}>
         <p class="text-xs mt-1 px-4 text-red-700 dark:text-red-400">{localProps.errorMessage}</p>
       </Show>
-      <div class="flex mt-2 justify-center gap-1.5">
-        <For each={localProps.accounts}>
-          {(_, index) => (
-            <div
-              classList={{
-                "rounded-full w-2 h-2 cursor-pointer": true,
-                "bg-secondary-400 dark:bg-secondary-300": current() === index(),
-                "bg-secondary-400/40 dark:bg-secondary-300/40": current() !== index()
-              }}
-              onClick={() => moveTo(index())}
-            />
-          )}
-        </For>
+      <div class="flex py-1.5 justify-center gap-1.5">
+        <Show when={hasMoreThan1Accounts()}>
+          <For each={localProps.accounts}>
+            {(_, index) => (
+              <div
+                classList={{
+                  "rounded-full w-2 h-2 cursor-pointer": true,
+                  "bg-secondary-400 dark:bg-secondary-300": current() === index(),
+                  "bg-secondary-400/40 dark:bg-secondary-300/40": current() !== index()
+                }}
+                onClick={() => moveTo(index())}
+              />
+            )}
+          </For>
+        </Show>
       </div>
       <ExpandedAccountSelect
         header={localProps.label}
         accounts={localProps.accounts}
         onSelect={moveTo}
-        visible={Boolean(searchParams[searchParamName()])}
+        visible={searchParams[MAXIMIZE_PARAM_KEY] === nativeProps.name}
       />
       <input ref={inputRef} type="hidden" {...nativeProps} />
     </div>

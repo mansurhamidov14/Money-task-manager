@@ -72,12 +72,12 @@ export function PinSetup() {
           onSubmit={handleSubmit}
         />
         <Show when={currentStep() === 2}>
-          <Button size="lg" variant="transparent" class="gap-1 text-md absolute bottom-3 left-3 text-primary-600 dark:text-primary-400" onClick={handleGoBack}>
+          <Button size="lg" variant="ghost" class="gap-1 text-md absolute bottom-3 left-3" onClick={handleGoBack}>
             <FaSolidChevronLeft />
             <Action>Back</Action>
           </Button>
         </Show>
-        <Button size="lg" variant="transparent" class="gap-1 text-md absolute bottom-3 right-3 text-primary-600 dark:text-primary-400" onClick={handleSkip}>
+        <Button size="lg" variant="ghost" class="gap-1 text-md absolute bottom-3 right-3" onClick={handleSkip}>
           <Action>Skip</Action>
           <FaSolidChevronRight />
         </Button>

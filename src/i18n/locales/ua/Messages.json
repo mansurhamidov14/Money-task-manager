@@ -1,5 +1,6 @@
 {
   "common": {
+    "allAccounts": "Усі рахунки",
     "expense": "Витрати",
     "income": "Доходи",
     "balance": "Баланс",
