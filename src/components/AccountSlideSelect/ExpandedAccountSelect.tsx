@@ -15,7 +15,7 @@ export function ExpandedAccountSelect(props: ExpandedAccountSelectProps) {
     <div classList={{"ass-expanded": true, "ass-expanded--visible": props.visible}}>
       <ScreenHeader withGoBackButton title={props.header} />
       <VerticalScroll hasHeader hasBottomNavigation>
-        <div class="flex flex-col gap-3 py-3 px-2">
+        <div class="flex flex-col gap-3 pt-3 px-2">
           <For each={props.accounts}>
             {(account, index) => (
               <AccountsSlideSelectItem

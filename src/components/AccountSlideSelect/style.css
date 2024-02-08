@@ -7,10 +7,10 @@
     left-0
     bg-secondary-100
     dark:bg-gray-800
-    z-50
     pointer-events-none
     opacity-0;
   transition: 200ms;
+  z-index: 11;
   transition-property: opacity;
 }
 

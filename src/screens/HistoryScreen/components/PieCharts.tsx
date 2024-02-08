@@ -1,7 +1,7 @@
 import { createQuery } from "@tanstack/solid-query";
 import { ApexChartProps, SolidApexCharts } from "solid-apexcharts";
 import { Accessor, Show, createMemo } from "solid-js";
-import { SectionTitle } from "@app/components";
+import { Loading, SectionTitle } from "@app/components";
 import { useDateProcessor } from "@app/providers";
 import { groupBy } from "@app/helpers";
 import { Message, t } from "@app/i18n";
@@ -101,11 +101,13 @@ export function PieCharts(props: {
 
   return (
     <div class="pb-2 text-center">
-      <Show when={chartData() && processedTransactions().length}>
-        <SolidApexCharts {...chartData()!} />
-        <SectionTitle>
-          <Message>HistoryScreen.charts.expensesStatistics</Message>
-        </SectionTitle>
+      <Show when={currencyRatesQuery.isSuccess} fallback={<div class="min-h-[7rem]"><Loading /></div>}>
+        <Show when={chartData() && processedTransactions().length}>
+          <SolidApexCharts {...chartData()!} />
+          <SectionTitle>
+            <Message>HistoryScreen.charts.expensesStatistics</Message>
+          </SectionTitle>
+        </Show>
       </Show>
     </div>
   )

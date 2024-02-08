@@ -28,7 +28,7 @@ export function AccountSlideSelect(props: AccountSlideSelectProps) {
   let sliderRef: HTMLDivElement | undefined = undefined;
   let inputRef: HTMLInputElement | undefined = undefined;
   const [slider, { current, moveTo, destroy }] = createSlider({
-    slides: { origin: "center", perView: 1.1 },
+    slides: { origin: "center", perView: hasMoreThan1Accounts() ? 1.1 : 1.05 },
     slideChanged: () => {
       sliderRef?.dispatchEvent(new CustomEvent("slideChanged"));
     }
@@ -75,7 +75,7 @@ export function AccountSlideSelect(props: AccountSlideSelectProps) {
   return (
     <div class="-mx-5 relative">
       <div class="px-4 pb-2 flex justify-between items-center">
-        <div class="text-sm text-muted font-medium">
+        <div class="pl-3 text-sm text-muted font-medium">
           {props.label}
         </div>
         <Show when={hasMoreThan1Accounts()}>
@@ -90,7 +90,7 @@ export function AccountSlideSelect(props: AccountSlideSelectProps) {
         </For>
       </div>
       <Show when={localProps.errorMessage}>
-        <p class="text-xs mt-1 px-4 text-red-700 dark:text-red-400">{localProps.errorMessage}</p>
+        <p class="text-xs mt-1 pl-7 pr-4 text-red-700 dark:text-red-400">{localProps.errorMessage}</p>
       </Show>
       <div class="flex py-1.5 justify-center gap-1.5">
         <Show when={hasMoreThan1Accounts()}>

@@ -1,6 +1,6 @@
 import { createMemo, createSignal } from "solid-js";
 import { PickerValue } from "@rnwonder/solid-date-picker";
-import { ScreenHeader, VerticalScroll } from "@app/components";
+import { Loading, ScreenHeader, VerticalScroll } from "@app/components";
 import { t } from "@app/i18n";
 import { getDateFilters } from "./helpers";
 import { Await, accountsStore, transactionsStore } from "@app/stores";
@@ -41,7 +41,10 @@ export function HistoryScreen() {
             setFilterDateRanges={setFilterDateRanges}
             setDateFilter={setDateFilter}
           />
-          <Await for={[transactionsStore.transactions(), accountsStore.accounts()]}>
+          <Await
+            for={[transactionsStore.transactions(), accountsStore.accounts()]}
+            fallback={<div class="min-h-[7rem]"><Loading /></div>}
+          >
             <PieCharts
               transactions={filteredTransactions}
               dateFilter={dateFilter}
