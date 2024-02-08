@@ -10,9 +10,12 @@ import { AmountInput, AccountSelect } from "../components/TransferForm";
 import { DateTimeInput, TitleInput } from "../components/shared";
 
 export function Form() {
+  const primaryAccountId = accountsStore.primaryAccount()!.id;
   const formHandler = useFormHandler(yupSchema(getTransferFormSchema({
     date: new Date().toLocaleDateTimePickerString(),
-    title: t("TransferBetweenAccountsScreen.title")
+    title: t("TransferBetweenAccountsScreen.title"),
+    fromAccount: primaryAccountId,
+    toAccount: accountsStore.accounts().data!.find(account => account.id !== primaryAccountId)?.id
   }, accountsStore.accounts().data!)), {
     validateOn: ["blur"],
   });
@@ -63,9 +66,11 @@ export function Form() {
 
   return (
     <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
+      <div>
+        <AccountSelect formHandler={formHandler} name="fromAccount" />
+        <AccountSelect formHandler={formHandler} name="toAccount" />
+      </div>
       <TitleInput formHandler={formHandler} />
-      <AccountSelect formHandler={formHandler} name="fromAccount" />
-      <AccountSelect formHandler={formHandler} name="toAccount" />
       <AmountInput
         formHandler={formHandler}
         name="expenseAmount"

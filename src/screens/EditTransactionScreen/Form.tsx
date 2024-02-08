@@ -68,10 +68,10 @@ export function Form(props: Transaction) {
   return (
     <Show when={!loading()} fallback={<Loading />}>
       <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
+        <AccountSelect formHandler={formHandler} />
         <TitleInput formHandler={formHandler} />
         <TypeSelect formHandler={formHandler} />
         <CategorySelect formHandler={formHandler} />
-        <AccountSelect formHandler={formHandler} />
         <AmountInput formHandler={formHandler} />
         <DateTimeInput formHandler={formHandler} />
         <Button type="submit" variant="primary" size="lg">
