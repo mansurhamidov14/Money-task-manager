@@ -1,9 +1,10 @@
 import { Account } from "@app/stores";
 import { useSearchParams } from "@solidjs/router";
-import { For, JSX, Show, onCleanup, onMount, splitProps } from "solid-js";
+import { For, JSX, Show, createMemo, onCleanup, onMount, splitProps } from "solid-js";
 import { createSlider } from "solid-slider";
 import { AccountsSlideSelectItem } from "./AccountsSlideSelectItem";
 import { ExpandedAccountSelect } from "./ExpandedAccountSelect";
+import "./style.css";
 
 export type AccountSlideSelectProps = Omit<
   JSX.InputHTMLAttributes<HTMLInputElement>,
@@ -22,6 +23,7 @@ export function AccountSlideSelect(props: AccountSlideSelectProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   let sliderRef: HTMLDivElement | undefined = undefined;
   let inputRef: HTMLInputElement | undefined = undefined;
+  const searchParamName = createMemo(() => `${nativeProps.name}SelectExpand`);
   const [slider, { current, moveTo, destroy }] = createSlider({
     slides: { origin: "center", perView: 1.1 },
     slideChanged: () => {
@@ -69,7 +71,7 @@ export function AccountSlideSelect(props: AccountSlideSelectProps) {
           {account => (
             <AccountsSlideSelectItem
               account={account}
-              onClick={() => setSearchParams({ ...setSearchParams, [`select_${nativeProps.name}`]: '1' })}
+              onClick={() => setSearchParams({ ...setSearchParams, [searchParamName()]: '1' })}
             />
           )}
         </For>
@@ -91,13 +93,12 @@ export function AccountSlideSelect(props: AccountSlideSelectProps) {
           )}
         </For>
       </div>
-      <Show when={searchParams[`select_${nativeProps.name}`]}>
-        <ExpandedAccountSelect
-          header={localProps.label}
-          accounts={localProps.accounts}
-          onSelect={moveTo}
-        />
-      </Show>
+      <ExpandedAccountSelect
+        header={localProps.label}
+        accounts={localProps.accounts}
+        onSelect={moveTo}
+        visible={Boolean(searchParams[searchParamName()])}
+      />
       <input ref={inputRef} type="hidden" {...nativeProps} />
     </div>
   );

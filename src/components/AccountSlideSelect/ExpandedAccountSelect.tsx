@@ -5,31 +5,30 @@ import { AccountsSlideSelectItem } from "./AccountsSlideSelectItem";
 
 export type ExpandedAccountSelectProps = {
   accounts: Account[];
+  visible: boolean;
   header: string;
   onSelect: (itemIdx: number) => void;
 }
 
 export function ExpandedAccountSelect(props: ExpandedAccountSelectProps) {
   return (
-    <div class="w-full h-[100svh] fixed top-0 left-0 bg-secondary-100 dark:bg-gray-800 z-50">
+    <div classList={{"ass-expanded": true, "ass-expanded--visible": props.visible}}>
       <ScreenHeader withGoBackButton title={props.header} />
-      <div class="py-3 px-2">
-        <VerticalScroll>
-          <div class="flex flex-col gap-3">
-            <For each={props.accounts}>
-              {(account, index) => (
-                <AccountsSlideSelectItem
-                  account={account}
-                  onClick={() => {
-                    props.onSelect(index());
-                    history.back();
-                  }}
-                />
-              )}
-            </For>
-          </div>
-        </VerticalScroll>
-      </div>
+      <VerticalScroll hasHeader hasBottomNavigation>
+        <div class="flex flex-col gap-3 py-3 px-2">
+          <For each={props.accounts}>
+            {(account, index) => (
+              <AccountsSlideSelectItem
+                account={account}
+                onClick={() => {
+                  props.onSelect(index());
+                  history.back();
+                }}
+              />
+            )}
+          </For>
+        </div>
+      </VerticalScroll>
     </div>
   );
 }

@@ -9,7 +9,7 @@ export function VerticalScroll(props: ParentProps<VerticalScrollProps>) {
   return (
     <div
       classList={{
-        "overflow-y-auto": true,
+        "vertical-scroll overflow-y-auto": true,
         "pb-16": props.hasBottomNavigation,
         "h-[calc(100svh-4rem)]": props.hasHeader,
         "h-full": !props.hasHeader

@@ -1,0 +1,20 @@
+.ass-expanded {
+  @apply w-full h-[100svh] fixed top-0 left-0 bg-secondary-100 dark:bg-gray-800 z-50 pointer-events-none opacity-0;
+  transition: 200ms;
+  transition-property: opacity;
+}
+
+.ass-expanded--visible {
+  @apply pointer-events-auto opacity-100;
+}
+
+.ass-expanded .vertical-scroll {
+  transition: 200ms;
+  transition-property: transform;
+  position: relative;
+  transform: translateX(100%);
+}
+
+.ass-expanded--visible .vertical-scroll {
+  transform: translateX(-0);
+}
