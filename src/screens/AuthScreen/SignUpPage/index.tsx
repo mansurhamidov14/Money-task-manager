@@ -10,7 +10,7 @@ import { avatars } from "@app/screens/SettingsScreen/constants";
 import { getRandomElement } from "@app/helpers";
 import { Action, Message, t } from "@app/i18n";
 import { getSignUpFormSchema } from "@app/schemas";
-import { accountService, currenciecService, userService } from "@app/services";
+import { accountService, currencyService, userService } from "@app/services";
 import { Link, user } from "@app/stores";
 
 import { AuthLayout } from "../AuthLayout";
@@ -127,13 +127,13 @@ export function SignUpPage() {
                 label={t("AuthScreen.FormFields.Currency.label")}
                 addonStart={
                   <Show when={field.props.value}>
-                    <img src={currenciecService.getFlag(field.props.value)} class="w-full" />
+                    <img src={currencyService.getFlag(field.props.value)} class="w-full" />
                   </Show>
                 }
                 errorMessage={field.helpers.errorMessage}
                 {...field.props}
               >
-                <For each={currenciecService.avaliableCurrencies}>
+                <For each={currencyService.avaliableCurrencies}>
                   {currency => (
                     <option value={currency.code}>
                       {t(`AuthScreen.FormFields.Currency.Options.${currency.code}`)}

@@ -1,5 +1,5 @@
 import { groupBy } from "@app/helpers";
-import { type CurrencyCode, currenciecService } from "@app/services";
+import { type CurrencyCode, currencyService } from "@app/services";
 import { Transaction, TransactionGroupSum } from "./types";
 
 export const groupTransactionsByDate = (transactions: Transaction[]) => {
@@ -10,7 +10,7 @@ export const sumAmountByCurrency = (transactions: Transaction[]): TransactionGro
   const groups = groupBy(transactions, ({ currency }) => currency);
 
   return Object.entries(groups).map(([currency, _transactions]) => {
-    const formatter = currenciecService.getFormatter(currency as CurrencyCode);
+    const formatter = currencyService.getFormatter(currency as CurrencyCode);
     const summ = _transactions.reduce((acc, transaction) => {
       const amount = transaction.type === "expense" ? transaction.amount * -1 : transaction.amount; 
       return acc + amount;

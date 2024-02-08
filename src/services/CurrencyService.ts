@@ -13,7 +13,7 @@ import {
   type ClientService,
 } from "@app/services";
 
-class CurrenciesService {
+class CurrencyService {
   private availableCurrenciesMap: Currencies;
   public availableCurrencyCodes: CurrencyCode[];
   public avaliableCurrencies: Currency[];
@@ -133,4 +133,4 @@ class CurrenciesService {
   }
 }
 
-export const currenciecService = new CurrenciesService(clientService);
+export const currencyService = new CurrencyService(clientService);

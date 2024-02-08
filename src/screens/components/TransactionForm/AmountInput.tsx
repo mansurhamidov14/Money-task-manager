@@ -2,7 +2,7 @@ import { createMemo } from "solid-js";
 import { Field } from "solid-form-handler";
 import { TextInput } from "@app/components";
 import { t } from "@app/i18n";
-import { currenciecService } from "@app/services";
+import { currencyService } from "@app/services";
 import { accountsStore } from "@app/stores";
 import { InputProps } from "../shared";
 
@@ -13,7 +13,7 @@ export function AmountInput(props: InputProps) {
       .data!
       .find(account => account.id === props.formHandler.getFieldValue("account"));
     
-    return selectedAccount && currenciecService.getSign(selectedAccount.currency);
+    return selectedAccount && currencyService.getSign(selectedAccount.currency);
   });
   return (
     <Field

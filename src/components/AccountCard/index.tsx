@@ -11,7 +11,7 @@ import {
   transactionsStore
 } from "@app/stores";
 import { Action, Message, t } from "@app/i18n";
-import { currenciecService } from "@app/services";
+import { currencyService } from "@app/services";
 
 import { AmountCard, Button } from "../index";
 import "./style.css";
@@ -75,7 +75,7 @@ export function AccountCardDumb(props: ParentProps<AccountCardProps>) {
                   <Message>common.balance</Message>
                 </div>
                 <div class="text-2xl font-bold">
-                  {currenciecService.formatValue(props.account.currency, props.account.balance)}
+                  {currencyService.formatValue(props.account.currency, props.account.balance)}
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { skins } from "@app/constants"
-import { currenciecService } from "@app/services"
+import { currencyService } from "@app/services"
 import { Account } from "@app/stores"
 
 export type AccountsSlideSelectItemProps = {
@@ -23,7 +23,7 @@ export function AccountsSlideSelectItem(props: AccountsSlideSelectItemProps) {
           <div>
             <div class="text-secondary-600 dark:text-secondary-300 text-sm">{props.account.title}</div>
             <div class="font-semibold text">
-              {currenciecService.formatValue(props.account.currency, props.account.balance)}
+              {currencyService.formatValue(props.account.currency, props.account.balance)}
             </div>
           </div>
         </div>

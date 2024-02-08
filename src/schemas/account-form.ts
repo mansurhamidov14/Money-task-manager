@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { t } from "@app/i18n";
-import { type CurrencyCode, currenciecService } from "@app/services";
+import { type CurrencyCode, currencyService } from "@app/services";
 
 type NewAccountForm = {
   title: string;
@@ -21,7 +21,7 @@ export function getAccountFormSchema(defaults: Partial<NewAccountForm>): yup.Sch
       .default(defaults.balance),
     currency: yup.string()
       .required()
-      .oneOf(currenciecService.availableCurrencyCodes)
+      .oneOf(currencyService.availableCurrencyCodes)
       .default(defaults.currency),
     primary: yup
       .mixed<"1" | "0">()

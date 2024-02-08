@@ -3,7 +3,7 @@ import { createMemo } from "solid-js";
 import { HiOutlinePencilSquare } from "solid-icons/hi";
 import { IoTrash } from "solid-icons/io";
 import { Message, t } from "@app/i18n";
-import { categoryService, CategoryId, currenciecService, type CurrencyCode } from "@app/services";
+import { categoryService, CategoryId, currencyService, type CurrencyCode } from "@app/services";
 import { Transaction, accountsStore, confirmationStore, toastStore, transactionsStore } from "@app/stores";
 import { ListItem } from "../ListItem";
 
@@ -21,7 +21,7 @@ function getTransactionValue(
   currency: CurrencyCode,
   transactionType: TransactionListItemProps["transactionType"]
 ) {
-  return `${(transactionType === "expense" ? "-" : "+")}${currenciecService.formatValue(currency, amount)}`;
+  return `${(transactionType === "expense" ? "-" : "+")}${currencyService.formatValue(currency, amount)}`;
 }
 
 export function TransactionListItem(props: Transaction) {

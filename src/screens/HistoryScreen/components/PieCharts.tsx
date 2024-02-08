@@ -8,7 +8,7 @@ import { Message, t } from "@app/i18n";
 import {
   categoryService,
   CategoryId,
-  currenciecService,
+  currencyService,
   type CurrencyCode
 } from "@app/services";
 import { Transaction, accountsStore, themeStore } from "@app/stores";
@@ -38,7 +38,7 @@ export function PieCharts(props: {
     const accessKey = [ratesDate, _primaryCurrency, currencies.join("")];
     return ({
       queryKey: accessKey,
-      queryFn: () => currenciecService.getRates(_primaryCurrency, currencies, ratesDate, accessKey),
+      queryFn: () => currencyService.getRates(_primaryCurrency, currencies, ratesDate, accessKey),
     });
   })
   
@@ -81,7 +81,7 @@ export function PieCharts(props: {
           tooltip: {
             y: {
               formatter: (value: number) => {
-                return `≈ ${currenciecService.formatValue(primaryCurrency(), value)}`;
+                return `≈ ${currencyService.formatValue(primaryCurrency(), value)}`;
               }
             },
             theme: "dark"

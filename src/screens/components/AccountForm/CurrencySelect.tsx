@@ -2,7 +2,7 @@ import { Field } from "solid-form-handler";
 import { For, Show } from "solid-js";
 import { Select } from "@app/components";
 import { t } from "@app/i18n";
-import { currenciecService } from "@app/services";
+import { currencyService } from "@app/services";
 import { InputProps } from "../shared";
 
 export function CurrencySelect(props: InputProps) {
@@ -17,13 +17,13 @@ export function CurrencySelect(props: InputProps) {
           label={t("NewAccountScreen.FormFields.currency")}
           addonStart={(
             <Show when={field.props.value}>
-              <img src={currenciecService.getFlag(field.props.value)} class="w-full" />
+              <img src={currencyService.getFlag(field.props.value)} class="w-full" />
             </Show>
           )}
           errorMessage={field.helpers.errorMessage}
           {...field.props}
         >
-          <For each={currenciecService.avaliableCurrencies}>
+          <For each={currencyService.avaliableCurrencies}>
             {currency => (
               <option value={currency.code}>
                 {currency.code}
