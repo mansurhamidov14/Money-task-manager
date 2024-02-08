@@ -28,7 +28,7 @@ export function DaySelect(props: DaySelectProps) {
       render={(field) => (
         <Select
           id="day"
-          label={t("NewTaskScreen.FormFields.weekday")}
+          label={t("TaskFormFields.weekday")}
           errorMessage={field.helpers.errorMessage}
           {...field.props}
         >

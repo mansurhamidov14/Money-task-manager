@@ -36,6 +36,7 @@ export function getTaskFormSchema(defaults: Partial<TaskFormSchema> = {}) {
           .required(t("common.FormFields.required"))
           .default(1),
         time: string().required(t("common.FormFields.required")),
+        doneAt: number().default(0).optional()
       })
     ).when("isRecurring", {
       is: "1",

@@ -19,7 +19,7 @@ class TaskService {
         weekday: day.day!,
         time: day.time!,
         isRecurring: 1,
-        doneAt: 0
+        doneAt: day.doneAt || 0
       }));
 
       const originalTask = await this.collection.create(records[0]);
@@ -49,39 +49,50 @@ class TaskService {
   }
 
   async getById(id: number): Promise<RecurringTask | OneTimeTask | null> {
-    const originalTask = await this.collection.queryOne(id);
-    if (originalTask && originalTask.isRecurring) {
-      const relatedTasks = await this.collection.queryAll({ originalId: id });
+    const task = await this.collection.queryOne(id);
+    if (task && task.isRecurring) {
+      let originalTask: Task | null;
+      if (task.originalId && task.originalId !== task.id) {
+        originalTask = await this.collection.queryOne(task.originalId);
+        if (!originalTask) {
+          throw new Error("Task item is broken");
+        }
+      } else {
+        originalTask = task;
+      }
+      const relatedTasks = await this.collection.queryAll({ originalId: task.originalId || task.id });
       const taskDays: RecurringTaskDay[] = relatedTasks
         .reduce((acc, value) => {
           return [...acc, {
             day: value.weekday,
             time: value.time,
+            doneAt: value.doneAt
           }]
         }, [{
           day: originalTask.weekday,
           time: originalTask.time,
+          doneAt: originalTask.doneAt
         }])
         .toSorted((a, b) => a.day < b.day ? -1 : 1);
 
 
       return {
         id: originalTask.id,
-        user: originalTask.user,
-        title: originalTask.title,
+        user: task.user,
+        title: task.title,
         isRecurring: 1,
-        startDate: originalTask.startDate,
-        endDate: originalTask.endDate,
+        startDate: task.startDate,
+        endDate: task.endDate,
         days: taskDays
       };
-    } else if (originalTask) {
+    } else if (task) {
       return {
-        id: originalTask.id,
-        title: originalTask.title,
-        user: originalTask.user,
+        id: task.id,
+        title: task.title,
+        user: task.user,
         isRecurring: 0,
-        date: originalTask.startDate,
-        time: originalTask.time,
+        date: task.startDate,
+        time: task.time,
       };
     }
 
@@ -111,7 +122,8 @@ class TaskService {
     }
   }
 
-  deleteByOriginaId(originalId: number) {
+  async deleteByOriginaId(originalId: number) {
+    await this.collection.delete(originalId);
     return this.collection.delete({ originalId });
   }
 }

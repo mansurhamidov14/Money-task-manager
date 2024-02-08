@@ -12,7 +12,7 @@ export function RecurringCheckbox(props: InputProps) {
       uncheckedValue="0"
       formHandler={props.formHandler}
       render={(field) => (
-        <CheckBox label={t("NewTaskScreen.FormFields.recurring")} {...field.props} />
+        <CheckBox label={t("TaskFormFields.recurring")} {...field.props} />
       )}
     />
   );

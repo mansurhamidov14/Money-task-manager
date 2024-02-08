@@ -212,20 +212,25 @@
     "success": "Hesab müvəffəqiyyət ilə əlavə olundu",
     "error": "Hesabı əlavə edərkən xəta baş verdi: {{error}}"
   },
+  "TaskFormFields": {
+    "recurring": "Təkrarlanan",
+    "date": "Tarix",
+    "time": "Başlama vaxtı",
+    "startDate": "Başlama tarixi",
+    "endDate": "Bitmə tarixi",
+    "selectDays": "Gün/günlər seçin",
+    "addWeekday": "Gün əlavə et",
+    "weekday": "Gün"
+  },
   "NewTaskScreen": {
     "title": "Yeni tapşırıq",
-    "FormFields": {
-      "recurring": "Təkrarlanan",
-      "date": "Tarix",
-      "time": "Başlama vaxtı",
-      "startDate": "Başlama tarixi",
-      "endDate": "Bitmə tarixi",
-      "selectDays": "Gün/günlər seçin",
-      "addWeekday": "Gün əlavə et",
-      "weekday": "Gün"
-    },
     "success": "Tapşırıq müvəffəqiyyətlə əlavə olundu",
     "error": "Tapşırığı əlavə edərkən xəta baş verdi: {{error}}"
+  },
+  "EditTaskScreen": {
+    "title": "Tapşırıq redaktoru",
+    "success": "Tapşırıq müvəffəqiyyətlə redaktə olundu",
+    "error": "Tapşırığı redaktə edərkən xəta baş verdi: {{error}}"
   },
   "TasksScreen": {
     "title": "Tapşırıqlar",

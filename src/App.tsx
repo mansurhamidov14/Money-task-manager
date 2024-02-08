@@ -38,6 +38,7 @@ import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
 import "./App.css";
+import { EditTaskScreen } from "./screens/EditTaskScreen";
 
 const queryClient = new QueryClient();
 
@@ -99,6 +100,7 @@ export default function() {
             <ProtectedRoute path="/new-transaction" component={NewTransactionScreen} />
             <ProtectedRoute path="/edit-transaction/:id" component={EditTransactionScreen} />
             <ProtectedRoute path="/new-task" component={NewTaskScreen} />
+            <ProtectedRoute path="/edit-task/:id" component={EditTaskScreen} />
             <ProtectedRoute path="/tasks" component={TasksScreen} />
             <ProtectedRoute path="/new-transfer" component={TransferBetweenAccountsScreen} />
             <Route path="/settings">

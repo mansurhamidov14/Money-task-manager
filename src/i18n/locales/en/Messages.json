@@ -212,20 +212,25 @@
     "success": "Account was created successfully",
     "error": "An error occurred while creating an account: {{error}}"
   },
+  "TaskFormFields": {
+    "recurring": "Recurring",
+    "date": "Date",
+    "time": "Time",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "selectDays": "Select day/days",
+    "addWeekday": "Add day",
+    "weekday": "Day"
+  },
   "NewTaskScreen": {
     "title": "New Task",
-    "FormFields": {
-      "recurring": "Recurring",
-      "date": "Date",
-      "time": "Time",
-      "startDate": "Start date",
-      "endDate": "End date",
-      "selectDays": "Select day/days",
-      "addWeekday": "Add day",
-      "weekday": "Day"
-    },
     "success": "Task was created successfully",
     "error": "An error occurred while creating a task: {{error}}"
+  },
+  "EditTaskScreen": {
+    "title": "Edit task",
+    "success": "Task was edited successfully",
+    "error": "An error occurred while editing the account: {{error}}"
   },
   "TasksScreen": {
     "title": "Tasks",

@@ -212,20 +212,25 @@
     "success": "Рахунок успішно доданий",
     "error": "Помилка під час додавання рахунку: {{error}}"
   },
+  "TaskFormFields": {
+    "recurring": "Повторюваний",
+    "date": "Дата",
+    "time": "Час",
+    "startDate": "Дата початку",
+    "endDate": "Дата закінчення",
+    "selectDays": "Виберіть день/дні",
+    "addWeekday": "Додати день",
+    "weekday": "День"
+  },
   "NewTaskScreen": {
     "title": "Нове завдання",
-    "FormFields": {
-      "recurring": "Повторюваний",
-      "date": "Дата",
-      "time": "Час",
-      "startDate": "Дата початку",
-      "endDate": "Дата закінчення",
-      "selectDays": "Виберіть день/дні",
-      "addWeekday": "Додати день",
-      "weekday": "День"
-    },
     "success": "Задача успішно додана",
     "error": "Помилка під час додавання задачі: {{error}}"
+  },
+  "EditTaskScreen": {
+    "title": "Редактор задачі",
+    "success": "Задача успішно відредагована",
+    "error": "Відбулася помилка під час редагування задачі: {{error}}"
   },
   "TasksScreen": {
     "title": "Задачі",

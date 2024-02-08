@@ -52,5 +52,5 @@
 }
 
 .task-item:hover .task-item-controls {
-  @apply w-[6rem];
+  @apply w-[9rem];
 }

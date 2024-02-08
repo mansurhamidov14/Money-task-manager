@@ -1,6 +1,7 @@
 export * from "./AuthScreen";
 export * from "./EditAccountScreen";
 export * from "./EditTransactionScreen";
+export * from "./EditTaskScreen"
 export * from "./HistoryScreen"
 export * from "./HomeScreen";
 export * from "./NewTaskScreen";

@@ -78,7 +78,7 @@ export function TransactionListItem(props: Transaction) {
         {
           label: t("Edit", "Actions"),
           icon: HiOutlinePencilSquare,
-          variant: "success",
+          variant: "primary",
           onClick: () => navigate(`/edit-transaction/${props.id}`)
         },
         {

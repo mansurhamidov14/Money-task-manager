@@ -7,9 +7,12 @@ import { useDateProcessor } from "@app/providers";
 
 import { Button, ButtonProps } from "../Button";
 import "./style.css";
+import { useNavigate } from "@solidjs/router";
+import { HiOutlinePencilSquare } from "solid-icons/hi";
 
 export function TaskListItem(props: Task) {
   const dateProcessor = useDateProcessor();
+  const navigate = useNavigate();
   const taskStatus = createMemo((): TaskStatus => {
     const doneWithThisWeek = dateProcessor.withinThisWeek(props.doneAt);
     if (doneWithThisWeek) {
@@ -88,8 +91,15 @@ export function TaskListItem(props: Task) {
           {getToggleButtonProps().icon}
         </Button>
         <Button
+          variant="primary"
+          class="rounded-none h-12 w-12"
+          onClick={() => navigate(`/edit-task/${props.id}`)}
+        >
+          <HiOutlinePencilSquare size={20} />
+        </Button>
+        <Button
           variant="danger"
-          class="rounded-none w-12 h-12"
+          class="rounded-none h-12 w-12"
           onClick={() => requestDeletion(props.id)}
         >
           <IoTrash size={20} />

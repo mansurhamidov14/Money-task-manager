@@ -15,6 +15,7 @@ export type Task = {
 
 type TaskBase = {
   id: number;
+  originalId?: number;
   title: string;
   user: number;
 }
@@ -23,7 +24,7 @@ export type RecurringTask = TaskBase & {
   isRecurring: 1;
   startDate: string;
   endDate?: string;
-  days: RecurringTaskDay[];
+  days?: RecurringTaskDay[];
 }
 
 export type OneTimeTask = TaskBase & {
@@ -33,8 +34,9 @@ export type OneTimeTask = TaskBase & {
 }
 
 export type RecurringTaskDay = {
-  day?: number;
-  time?: string;
+  day: number;
+  time: string;
+  doneAt: number;
 }
 
 export type TaskStatus = "completed" | "todo" | "missed";
