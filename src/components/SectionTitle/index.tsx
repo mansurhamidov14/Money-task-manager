@@ -6,6 +6,6 @@ export type SectionTitleProps = {
 
 export function SectionTitle(props: SectionTitleProps) {
   return (
-    <h3 class="text-xl font-bold py-3">{props.children}</h3>
+    <h3 class="text-xl font-bold pt-3">{props.children}</h3>
   );
 }

@@ -100,7 +100,7 @@ export function PieCharts(props: {
   });
 
   return (
-    <div class="pb-2 text-center">
+    <div class="pb-4 text-center">
       <Show when={currencyRatesQuery.isSuccess} fallback={<div class="min-h-[7rem]"><Loading /></div>}>
         <Show when={chartData() && processedTransactions().length}>
           <SolidApexCharts {...chartData()!} />
