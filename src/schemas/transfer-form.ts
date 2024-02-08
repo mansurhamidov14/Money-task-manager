@@ -29,18 +29,17 @@ export function getTransferFormSchema(
       .required(t("common.FormFields.required"))
       .typeError(t("NewTransactionScreen.FormFields.amount.invalidFormat"))
       .default(defaults.incomeAmount),
+    fromAccount: number()
+      .required(t("common.FormFields.required"))
+      .typeError(t("common.FormFields.required"))
+      .oneOf(userAccountIds)
+      .default(defaults.fromAccount),
     toAccount: number()
       .required(t("common.FormFields.required"))
       .typeError(t("common.FormFields.required"))
       .oneOf(userAccountIds)
       .default(defaults.toAccount)
-      .notOneOf([ref("fromAccount")], "Transfer accounts can not be same"),
-    fromAccount: number()
-      .required(t("common.FormFields.required"))
-      .typeError(t("common.FormFields.required"))
-      .oneOf(userAccountIds)
-      .default(defaults.fromAccount)
-      .notOneOf([ref("toAccount")], "Transfer accounts can not be same"),
+      .notOneOf([ref("fromAccount")], t("TransferBetweenAccountsScreen.FormFields.transferAccountsMustDiffer")),
     date: string()
       .required(t("common.FormFields.required"))
       .default(defaults.date)

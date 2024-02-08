@@ -14,6 +14,7 @@ export function AccountSelect(props: Props) {
       mode="input"
       name={props.name}
       formHandler={props.formHandler}
+      triggers={["toAccount"]}
       render={(field) => (
         <AccountSlideSelect
           id={props.name}

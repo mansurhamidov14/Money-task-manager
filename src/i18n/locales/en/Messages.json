@@ -167,7 +167,8 @@
       "expenseAmount": "Output amount",
       "incomeAmount": "Input amount",
       "fromAccount": "From account",
-      "toAccount": "To account"
+      "toAccount": "To account",
+      "transferAccountsMustDiffer": "Accounts must be different"
     },
     "success": "Transactions were created successfully",
     "error": "An error occurred while creating transactions: {{error}}"

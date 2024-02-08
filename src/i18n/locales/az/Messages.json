@@ -167,7 +167,8 @@
       "expenseAmount": "Məxaric məbləği",
       "incomeAmount": "Mədaxil məbləği",
       "fromAccount": "Məxaric hesabı",
-      "toAccount": "Mədaxil hesabı"
+      "toAccount": "Mədaxil hesabı",
+      "transferAccountsMustDiffer": "Hesablar müxtəlif olmalıdır"
     },
     "success": "Əməliyyatlar müvəffəqiyyət ilə əlavə olundu",
     "error": "Əməliyyatları əlavə edərkən xəta baş verdi: {{error}}"

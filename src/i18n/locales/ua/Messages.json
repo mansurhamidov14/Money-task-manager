@@ -167,7 +167,8 @@
       "expenseAmount": "Сума відправки",
       "incomeAmount": "Сума отримання",
       "fromAccount": "З рахунку",
-      "toAccount": "На рахунок"
+      "toAccount": "На рахунок",
+      "transferAccountsMustDiffer": "Рахунки мають бути різні"
     },
     "success": "Транзакції успішно додані",
     "error": "Відбулася помилка під час додавання транзакцій: {{error}}"

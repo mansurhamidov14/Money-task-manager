@@ -37,9 +37,7 @@ export function AccountSlideSelect(props: AccountSlideSelectProps) {
       inputRef.dispatchEvent(new Event("input", {
         bubbles: true,
       }));
-      if (localProps.errorMessage) {
-        inputRef.dispatchEvent(new Event("blur"));
-      }
+      inputRef.dispatchEvent(new Event("blur"));
     }
   }
 
