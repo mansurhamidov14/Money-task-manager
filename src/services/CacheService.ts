@@ -18,6 +18,15 @@ class CacheService {
     this.data = data;
     localStorage.setItem(this.localStorageAccessKey, JSON.stringify(data))
   }
+
+  writeToSection<S extends keyof CachedData, D extends CachedData[S]>(section: S, data: D) {
+    this.data[section] = data;
+    this.write(this.data);
+  }
+
+  getCacheData<K extends keyof CachedData>(key: K, defaultValue: CachedData[K]): CachedData[K] {
+    return this.data[key] ?? defaultValue;
+  }
 }
 
 export const cacheService = new CacheService();

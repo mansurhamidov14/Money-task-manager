@@ -38,7 +38,7 @@ export function PieCharts(props: {
     const accessKey = [ratesDate, _primaryCurrency, currencies.join("")];
     return ({
       queryKey: accessKey,
-      queryFn: () => currencyService.getRates(_primaryCurrency, currencies, ratesDate, accessKey),
+      queryFn: () => currencyService.getRates(_primaryCurrency, currencies, ratesDate),
     });
   })
   

@@ -32,7 +32,7 @@ export type Currencies = Record<CurrencyCode, Currency>;
 export type CurrencyRates = Record<CurrencyCode, number>; 
 
 export type CachedCurrencyRates = {
-  [key: string]: CurrencyRates
+  [key: string]: Partial<CurrencyRates>
 }
 
 export type CurrencyRatesResponse = {

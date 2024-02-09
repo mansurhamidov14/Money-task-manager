@@ -12,6 +12,7 @@ import {
   clientService,
   type ClientService,
 } from "@app/services";
+import { getAbsentKeys } from "@app/helpers";
 
 class CurrencyService {
   private availableCurrenciesMap: Currencies;
@@ -41,20 +42,22 @@ class CurrencyService {
   async getRates(
     baseCurrency: CurrencyCode,
     currencies: CurrencyCode[],
-    date: string,
-    accessKey: string[]
+    date: string
   ): Promise<CurrencyRates> {
     if (!currencies.length) {
       return INITIAL_CURRENCY_RATES;
     }
-    const key = accessKey.join("_");
-    const cachedData = cacheService.data;
-    const cachedRates = cachedData.currencyRates[key];
-    if (cachedRates) return cachedRates;
+    const key = `${date}_${baseCurrency}`;
+    const cachedRates = cacheService.getCacheData("currencyRates", {});
+    const cachedRatesOfDate = cachedRates[key] ?? {};
+    const absentCurrencies = getAbsentKeys(cachedRatesOfDate, currencies);
+    if (!absentCurrencies.length) {
+      return { ...INITIAL_CURRENCY_RATES, ...cachedRatesOfDate };
+    }
     try {
       const reqParams = new URLSearchParams({
         base: baseCurrency,
-        currencies: currencies.join(","),
+        currencies: absentCurrencies.join(","),
         date
       });
       const response = await fetch(`https://schoolplus.io/web/rates.php?${reqParams}`, {
@@ -64,19 +67,19 @@ class CurrencyService {
       });
       const ratesData = (await response.json()).body;
       const res = this.formatResponse(ratesData);
-      cachedData.currencyRates[key] = res;
-      cacheService.write(cachedData);
-      return res;
+      cachedRates[key] = { ...cachedRatesOfDate, ...res };
+      cacheService.writeToSection("currencyRates", cachedRates)
+      return { ...INITIAL_CURRENCY_RATES, ...cachedRates[key] };
     } catch (e) {
       return INITIAL_CURRENCY_RATES;
     };
   }
 
-  private formatResponse(response: CurrencyRatesResponse): Record<CurrencyCode, number> {
+  private formatResponse(response: CurrencyRatesResponse): Partial<Record<CurrencyCode, number>> {
     return response.reduce((result, rate) => {
       result[rate.to] = rate.result;
       return result;
-    }, { ...INITIAL_CURRENCY_RATES });
+    }, {} as Partial<Record<CurrencyCode, number>>);
   }
 
   getCurrency(code: CurrencyCode) {
@@ -107,7 +110,7 @@ class CurrencyService {
     formatter: (sign: string, precision: number) => (value: number) => string = this.leadingSignFormatter,
   ): Currency => ({ code, sign, precision, flag, formatter: formatter(sign, precision) });
 
-  private trailingSignFormatter = function(sign: string, precision: number) {
+  private trailingSignFormatter = (sign: string, precision: number) => {
     return function (value: number): string {
       const isWhole = value % 1 === 0;
       const amount = new Intl.NumberFormat("en-US", {
@@ -118,7 +121,7 @@ class CurrencyService {
     }
   }
 
-  private leadingSignFormatter = function(sign: string, precision: number) {
+  private leadingSignFormatter = (sign: string, precision: number) => {
     return function (value: number): string {
       const isWhole = value % 1 === 0;
       const amount = new Intl.NumberFormat("en-US", {

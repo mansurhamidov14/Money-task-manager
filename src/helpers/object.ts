@@ -18,3 +18,17 @@ export function flattenObject(
 
   return accumulator;
 }
+
+export function getAbsentKeys<T extends {}, K extends keyof T>(obj: T, keys: K[]): K[] {
+  if (!obj) {
+    return keys;
+  }
+
+  return keys.reduce((acc, key) => {
+    if (obj[key]) {
+      return acc;
+    }
+
+    return [...acc, key]
+  }, [] as K[]);
+}
