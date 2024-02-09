@@ -7,6 +7,6 @@ export const INITIAL_CURRENCY_RATES: Record<CurrencyCode, number> = Object
     return result;
   }, {} as Record<CurrencyCode, number>);
 
-export const INITIAL_CACHE_DATA: CachedData = {
+export const getInitialCacheData = (): CachedData => ({
   currencyRates: {}
-};
+});

@@ -267,6 +267,10 @@
       "error": "An error occurred while updating PIN: {{error}}",
       "protectionRemoveSuccess": "PIN protection was successfully removed"
     },
+    "clearCache": {
+      "title": "Clear cache",
+      "success": "The cache was cleared successfully!"
+    },
     "wipeData": "Wipe data"
   },
   "EditAccountScreen": {

@@ -267,6 +267,10 @@
       "error": "Помилка під час оновлення PIN-коду: {{error}}",
       "protectionRemoveSuccess": "Захист PIN-кодом успішно знято"
     },
+    "clearCache": {
+      "title": "Очистити кеш",
+      "success": "Кеш був успішно очищений!"
+    },
     "wipeData": "Видалення даних"
   },
   "EditAccountScreen": {

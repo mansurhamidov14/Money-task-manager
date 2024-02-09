@@ -267,6 +267,10 @@
       "error": "PİN-kodu yeniləyərkən xəta baş verdi: {{error}}",
       "protectionRemoveSuccess": "PİN qoruması müvəffəqiyyətlə silindi"
     },
+    "clearCache": {
+      "title": "Keşi təmizlə",
+      "success": "Keş müvəffəqiyyətlə təmizləndi!"
+    },
     "wipeData": "Məlumatların silinməsi"
   },
   "EditAccountScreen": {

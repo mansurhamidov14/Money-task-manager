@@ -6,14 +6,25 @@ import { VsColorMode } from "solid-icons/vs";
 
 import { List, ListItem, ScreenHeader, ThemeToggleButton, VerticalScroll } from "@app/components";
 import { getLocale, langData, t } from "@app/i18n";
-import { Link, user } from "@app/stores";
+import { Link, confirmationStore, toastStore, user } from "@app/stores";
 
 import { ChevronRight, ItemIcon } from "./components";
 import { FiLogOut } from "solid-icons/fi";
+import { cacheService } from "@app/services";
+import { TbDatabaseX } from "solid-icons/tb";
 
 export function SettingsScreen() {
   const currentUser = user.currentUser().data!;
   const navigate = useNavigate();
+
+  const requestCacheClear = () => {
+    confirmationStore.requestConfirmation({
+      onConfirm: () => {
+        cacheService.clear();
+        toastStore.pushToast("success", t("SettingsScreen.clearCache.success"));
+      }
+    });
+  }
 
   return (
     <main>
@@ -75,6 +86,12 @@ export function SettingsScreen() {
               icon={<ItemIcon icon={BsShieldLockFill} />}
               title={t("SettingsScreen.pinCode.title")}
               rightElement={<ChevronRight />}
+            />
+            <ListItem
+              size="sm"
+              onClick={requestCacheClear}
+              icon={<ItemIcon icon={TbDatabaseX} />}
+              title={t("SettingsScreen.clearCache.title")}
             />
             {/* <ListItem
               size="sm"
