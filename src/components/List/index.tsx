@@ -7,9 +7,9 @@ export type TransactionListGroupProps = {
 }
 
 export function List(_props: TransactionListGroupProps) {
-  const props = mergeProps({ gap: "md" }, _props);
+  const props = mergeProps({ itemsGap: "md" }, _props);
   return (
-    <div class={`wfo-list gap-${props.gap}`}>
+    <div class={`wfo-list gap-${props.itemsGap}`}>
       {props.children}
     </div>
   );

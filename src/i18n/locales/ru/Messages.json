@@ -1,6 +1,7 @@
 {
   "common": {
     "allAccounts": "Все счета",
+    "emptyList": "Список пуст",
     "expense": "Расходы",
     "income": "Доходы",
     "balance": "Баланс",
@@ -234,7 +235,9 @@
   },
   "TasksScreen": {
     "title": "Задачи",
-    "emptyList": "На этот день нет запланированных задач"
+    "emptyList": "На этот день нет запланированных задач",
+    "archive": "Архив задач",
+    "futureTasks": "Будущие задачи"
   },
   "SettingsScreen": {
     "title": "Настройки",

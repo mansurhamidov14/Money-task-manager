@@ -5,6 +5,7 @@ import { Button, ButtonProps } from "../Button";
 
 type DropdownToggleButtonProps = Omit<ButtonProps, "id" | "type" | "onClick" | "type"> & {
   unstyled?: boolean;
+  hideChevron?: boolean;
 }
 
 export function DropdownToggleButton(props: DropdownToggleButtonProps) {
@@ -34,11 +35,20 @@ export function DropdownToggleButton(props: DropdownToggleButtonProps) {
         {localProps.children}
       </button>
     )}>
-      <Button type="button" id={dropdown.id} onBlur={handleBlur} onClick={handleClick} class="min-w-[6em]" {...forwardedProps}>
+      <Button
+        type="button"
+        id={dropdown.id}
+        onBlur={handleBlur}
+        onClick={handleClick}
+        class={!props.hideChevron ? "min-w-[6em]" : undefined}
+        {...forwardedProps}
+      >
         <div class="flex w-full justify-between items-center text-sm gap-2 px-2">
           <span>{localProps.children}</span>
-          <Show when={dropdown.isOpen()} fallback={<FiChevronDown />}>
-            <FiChevronUp />
+          <Show when={!props.hideChevron}>
+            <Show when={dropdown.isOpen()} fallback={<FiChevronDown />}>
+              <FiChevronUp />
+            </Show>
           </Show>
         </div>
       </Button>

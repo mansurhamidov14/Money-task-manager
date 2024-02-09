@@ -1,5 +1,5 @@
 
-import { getInitialCacheData } from ".";
+import { getInitialCacheData } from "./consts";
 import { CachedData } from "./types";
 
 class CacheService {
@@ -16,7 +16,6 @@ class CacheService {
   }
 
   write(data: CachedData) {
-    console.log("new Data", data);
     this.data = data;
     localStorage.setItem(this.localStorageAccessKey, JSON.stringify(data))
   }

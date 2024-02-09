@@ -6,6 +6,7 @@ import { ascSorter, groupBy } from "@app/helpers";
 import { Task } from "./types";
 import { toastStore } from "..";
 import { AsyncStore } from "../types";
+import { withUniqueFilter } from "./helpers";
 
 export function initTasksStore() {
   const [tasks, setTasks] = createSignal<AsyncStore<Task[]>>({ status: "loading" });
@@ -97,10 +98,36 @@ export function initTasksStore() {
     return tasksByWeekDay()[weekday] ?? [];
   });
 
+  const filterTasks = (filterFn: (task: Task) => any) => {
+    if (tasks().status !== "success") {
+      return [];
+    }
+
+    return tasks().data!.filter(filterFn);
+  }
+
+  const futureTasks = createMemo(() => (
+    filterTasks(
+      withUniqueFilter(
+        task => task.startDate > new Date().toDatePickerString()
+      )
+    )
+  ));
+
+  const archiveTasks = createMemo(() => (
+    filterTasks(
+      withUniqueFilter(
+        task => task.endDate && task.endDate < new Date().toDatePickerString()
+      )
+    )
+  ));
+
   return {
     tasks,
     addTask,
     tasksByWeekDay,
+    archiveTasks,
+    futureTasks,
     deleteTask,
     todayTasks,
     fetchUserTasks,

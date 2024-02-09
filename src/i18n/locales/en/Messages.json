@@ -1,6 +1,7 @@
 {
   "common": {
     "allAccounts": "All accounts",
+    "emptyList": "The list is empty",
     "expense": "Expense",
     "income": "Income",
     "balance": "Balance",
@@ -234,7 +235,9 @@
   },
   "TasksScreen": {
     "title": "Tasks",
-    "emptyList": "No scheduled tasks for this day"
+    "emptyList": "No scheduled tasks for this day",
+    "archive": "Tasks archive",
+    "futureTasks": "Future tasks"
   },
   "SettingsScreen": {
     "title": "Settings",

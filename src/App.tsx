@@ -39,6 +39,7 @@ import { ProtectedRoute } from "@app/stores/navigation/components";
 
 import "./App.css";
 import { EditTaskScreen } from "./screens/EditTaskScreen";
+import { FutureTasksScreen, TasksArchiveScreen } from "./screens/TasksScreen/pages";
 
 const queryClient = new QueryClient();
 
@@ -101,7 +102,11 @@ export default function() {
             <ProtectedRoute path="/edit-transaction/:id" component={EditTransactionScreen} />
             <ProtectedRoute path="/new-task" component={NewTaskScreen} />
             <ProtectedRoute path="/edit-task/:id" component={EditTaskScreen} />
-            <ProtectedRoute path="/tasks" component={TasksScreen} />
+            <Route path="/tasks">
+              <ProtectedRoute path="/" component={TasksScreen} />
+              <ProtectedRoute path="/future" component={FutureTasksScreen} />
+              <ProtectedRoute path="/archive" component={TasksArchiveScreen} />
+            </Route>
             <ProtectedRoute path="/new-transfer" component={TransferBetweenAccountsScreen} />
             <Route path="/settings">
               <ProtectedRoute path="/" component={SettingsScreen} />

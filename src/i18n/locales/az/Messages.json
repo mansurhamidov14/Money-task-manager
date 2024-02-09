@@ -1,6 +1,7 @@
 {
   "common": {
     "allAccounts": "Bütün hesablar",
+    "emptyList": "Siyahı boşdur",
     "expense": "Xərclər",
     "income": "Gəlir",
     "balance": "Balans",
@@ -234,7 +235,9 @@
   },
   "TasksScreen": {
     "title": "Tapşırıqlar",
-    "emptyList": "Bu gün üçün planlaşdırılmış tapşırıq yoxdur"
+    "emptyList": "Bu gün üçün planlaşdırılmış tapşırıq yoxdur",
+    "archive": "Tapşırıqların arxivi",
+    "futureTasks": "Gələcək tapşırıqlar"
   },
   "SettingsScreen": {
     "title": "Tənzimləmələr",

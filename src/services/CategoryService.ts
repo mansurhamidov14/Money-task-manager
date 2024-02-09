@@ -38,7 +38,7 @@ class CategoryService {
       other: this.generateCategory("other", AiOutlineAppstoreAdd, ["#f3f4f6", "#374151"])
     }
     this.categories = Object.values(this.categoriesMap);
-    this.ids = Object.keys(this.categoriesMap) as CategoryId[];
+    this.ids = Object.keys(this.categoriesMap);
   }
 
   public getCategory(id: CategoryId) {

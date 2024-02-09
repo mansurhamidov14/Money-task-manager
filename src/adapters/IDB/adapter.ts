@@ -161,7 +161,7 @@ export class IDBAdapter {
   }
 
   private getQueryFilters<T>(condition: Partial<T>): { accessor: string, searchValues: any | any[] } {
-    const keys = Object.keys(condition).toSorted() as (keyof Partial<T>)[];
+    const keys = Object.keys(condition).toSorted();
     const searchValues = keys.map(key => condition[key]);
 
     return {
