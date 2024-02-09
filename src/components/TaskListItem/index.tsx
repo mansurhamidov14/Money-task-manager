@@ -49,9 +49,11 @@ export function TaskListItem(props: Task) {
     toastStore.pushToast("success", t("ConfirmationRequest.taskDeletion.success"));
   }
 
-  const requestDeletion = (id: number) => {
+  const requestDeletion = (task: Task) => {
     confirmationStore.requestConfirmation({
-      onConfirm: () => deleteTask(id)
+      onConfirm: () => deleteTask(task.id),
+      text: t("ConfirmationRequest.taskDeletion.text.partial", undefined, { title: task.title }),
+      confirmButton: { label: t("ConfirmationRequest.taskDeletion.confirm")}
     });
   }
 
@@ -100,7 +102,7 @@ export function TaskListItem(props: Task) {
         <Button
           variant="danger"
           class="rounded-none h-12 w-12"
-          onClick={() => requestDeletion(props.id)}
+          onClick={() => requestDeletion(props)}
         >
           <IoTrash size={20} />
         </Button>

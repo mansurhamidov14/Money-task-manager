@@ -6,6 +6,7 @@ export * from "./BottomNavigation";
 export * from "./Button";
 export * from "./CheckBox";
 export * from "./ConfirmationModal";
+export * from "./Dropdown";
 export * from "./EmptyList";
 export * from "./FilterTab";
 export * from "./Layout";

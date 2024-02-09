@@ -1,12 +1,14 @@
+import { useNavigate } from "@solidjs/router";
 import { For, Show } from "solid-js";
-import { BsArrowRepeat } from "solid-icons/bs";
-import { IoCalendarNumberOutline } from "solid-icons/io";
-import { EmptyList, List, ListItem, ScreenHeader, VerticalScroll } from "@app/components";
-import { useDateProcessor } from "@app/providers";
-import { Await, Task, tasksStore } from "@app/stores";
-import { TaskListSkeleton } from ".";
 import { BiRegularTaskX } from "solid-icons/bi";
+import { BsArrowRepeat } from "solid-icons/bs";
+import { IoCalendarNumberOutline, IoTrash } from "solid-icons/io";
+import { EmptyList, List, ListItem, ScreenHeader, VerticalScroll } from "@app/components";
 import { t } from "@app/i18n";
+import { useDateProcessor } from "@app/providers";
+import { Await, Task, confirmationStore, tasksStore, toastStore } from "@app/stores";
+import { TaskListSkeleton } from "./TaskListSkeleton";
+import { HiOutlinePencilSquare } from "solid-icons/hi";
 
 export type TasksListProps = {
   tasks: Task[];
@@ -15,6 +17,21 @@ export type TasksListProps = {
 
 export function TaskList(props: TasksListProps) {
   const dateProcessor = useDateProcessor();
+  const navigate = useNavigate();
+
+  const deleteTask = async (id: number) => {
+    await tasksStore.deleteByOriginalId(id);
+    toastStore.pushToast("success", t("ConfirmationRequest.taskDeletion.success"));
+  }
+
+  const requestDeletion = (task: Task) => {
+    confirmationStore.requestConfirmation({
+      onConfirm: () => deleteTask(task.id),
+      text: t("ConfirmationRequest.taskDeletion.text.complete", undefined, { title: task.title }),
+      confirmButton: { label: t("ConfirmationRequest.taskDeletion.confirm")}
+    });
+  }
+
   return (
     <main>
       <ScreenHeader title={props.title} withGoBackButton />
@@ -44,6 +61,20 @@ export function TaskList(props: TasksListProps) {
                           {task.isRecurring ? <BsArrowRepeat size={28} /> : <IoCalendarNumberOutline size={28} />}
                         </div>
                       }
+                      controls={[
+                        {
+                          label: t("Edit", "Actions"),
+                          icon: HiOutlinePencilSquare,
+                          variant: "primary",
+                          onClick: () => navigate(`/edit-task/${task.id}`)
+                        },
+                        {
+                          label: t("Delete", "Actions"),
+                          icon: IoTrash,
+                          variant: "danger",
+                          onClick: () => requestDeletion(task)
+                        },
+                      ]}
                     />
                   )}
                 </For>

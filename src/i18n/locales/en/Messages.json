@@ -32,6 +32,11 @@
       "success": "Account was successfully deleted"
     },
     "taskDeletion": {
+      "text": {
+        "partial": "The \"{{title}}\" task will be deleted. Are you sure?",
+        "complete": "The \"{{title}}\" task will be completely deleted. Are you sure?"
+      },
+      "confirm":  "Yes, I am",
       "success": "Task was successfully deleted"
     },
     "transactionDeletion": {

@@ -1,16 +1,24 @@
+import { For, Show, onCleanup, onMount } from "solid-js";
 import { createSlider } from "solid-slider";
 import { AiOutlineHistory } from "solid-icons/ai";
 import { BiRegularTaskX } from "solid-icons/bi";
-import { CgCalendarNext } from "solid-icons/cg";
 import { FiMoreVertical } from "solid-icons/fi";
-import { EmptyList, ScreenHeader, TaskListItem, VerticalScroll } from "@app/components";
+import { CgCalendarNext } from "solid-icons/cg";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggleButton,
+  EmptyList,
+  ScreenHeader,
+  TaskListItem,
+  VerticalScroll
+} from "@app/components";
 import { MS_IN_DAY } from "@app/constants";
 import { t } from "@app/i18n";
 import { useDateProcessor } from "@app/providers";
-import { For, Show, onCleanup, onMount } from "solid-js";
-import { WeekDayButton } from "./components";
 import { tasksStore } from "@app/stores";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggleButton } from "@app/components/Dropdown";
+import { WeekDayButton } from "./components";
 
 let sliderRef: HTMLDivElement;
 

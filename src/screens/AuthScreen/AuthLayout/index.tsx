@@ -1,8 +1,14 @@
 import { Navigate } from "@solidjs/router";
 import { For, ParentProps, Show } from "solid-js";
 import { logoDark, logoLight } from "@app/assets";
-import { ThemeToggleButton, VerticalScroll } from "@app/components";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggleButton } from "@app/components/Dropdown";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggleButton,
+  ThemeToggleButton,
+  VerticalScroll
+} from "@app/components";
 import { getLocale, langData, setLocale } from "@app/i18n";
 import { availableLangs } from "@app/i18n/init";
 import { themeStore, user } from "@app/stores";

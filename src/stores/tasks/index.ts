@@ -70,6 +70,14 @@ export function initTasksStore() {
     }));
   }
 
+  const deleteByOriginalId = async (id: number) => {
+    await taskService.deleteByOriginaId(id);
+    setTasks(prevValue => ({
+      ...prevValue,
+      data: prevValue.data?.filter(task => task.id !== id && task.originalId !== id)
+    }));
+  }
+
   const toggleDone = async (task: Task, done: boolean) => {
     const doneAt = done ? Date.now() : 0;
     let prevDoneAt = task.doneAt;
@@ -132,7 +140,8 @@ export function initTasksStore() {
     todayTasks,
     fetchUserTasks,
     toggleDone,
-    putIntoLoadingState
+    putIntoLoadingState,
+    deleteByOriginalId
   };
 }
 

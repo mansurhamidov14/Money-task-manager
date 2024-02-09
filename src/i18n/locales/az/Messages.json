@@ -32,6 +32,11 @@
       "success": "Hesab müvəffəqiyyət ilə silindi"
     },
     "taskDeletion": {
+      "text": {
+        "partial": "\"{{title}}\" tapşırığı silincək. Əməliyyatı icra etmək istədiyinizə əminsiniz?",
+        "complete": "\"{{title}}\" tapşırığı tamamilə silincək. Əməliyyatı icra etmək istədiyinizə əminsiniz?"
+      },
+      "confirm": "Bəli, əminəm",
       "success": "Tapşırıq müvəffəqiyyətlə silindi"
     },
     "transactionDeletion": {
