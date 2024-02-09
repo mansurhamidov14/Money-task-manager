@@ -1,14 +1,14 @@
-import { IoCheckmark, IoClose, IoTrash } from "solid-icons/io";
-import { FaRegularCircleDot, FaSolidCalendarCheck, FaSolidCalendarXmark } from "solid-icons/fa";
 import { JSX, Match, Show, Switch, createMemo } from "solid-js";
+import { useNavigate } from "@solidjs/router";
+import { FaRegularCircleDot, FaSolidCalendarCheck, FaSolidCalendarXmark } from "solid-icons/fa";
+import { HiOutlinePencilSquare } from "solid-icons/hi";
+import { IoCheckmark, IoClose, IoTrash } from "solid-icons/io";
 import { Message, t } from "@app/i18n";
 import { Task, TaskStatus, confirmationStore, tasksStore, toastStore } from "@app/stores";
 import { useDateProcessor } from "@app/providers";
 
 import { Button, ButtonProps } from "../Button";
 import "./style.css";
-import { useNavigate } from "@solidjs/router";
-import { HiOutlinePencilSquare } from "solid-icons/hi";
 
 export function TaskListItem(props: Task) {
   const dateProcessor = useDateProcessor();

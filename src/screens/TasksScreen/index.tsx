@@ -1,7 +1,8 @@
-import { AiOutlineHistory, AiOutlineMore } from "solid-icons/ai";
+import { createSlider } from "solid-slider";
+import { AiOutlineHistory } from "solid-icons/ai";
 import { BiRegularTaskX } from "solid-icons/bi";
 import { CgCalendarNext } from "solid-icons/cg";
-import { createSlider } from "solid-slider";
+import { FiMoreVertical } from "solid-icons/fi";
 import { EmptyList, ScreenHeader, TaskListItem, VerticalScroll } from "@app/components";
 import { MS_IN_DAY } from "@app/constants";
 import { t } from "@app/i18n";
@@ -42,7 +43,7 @@ export function TasksScreen() {
         rightElement={(
           <Dropdown id="langDropdown" horizontalPlacement="right">
             <DropdownToggleButton unstyled class="btn btn-square btn-transparent btn-md">
-              <AiOutlineMore size={24} />
+              <FiMoreVertical size={24} />
             </DropdownToggleButton>
             <DropdownMenu class="font-medium w-[11em]">
               <DropdownItem size="lg" href="/tasks/future">
