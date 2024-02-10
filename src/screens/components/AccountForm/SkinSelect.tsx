@@ -20,8 +20,9 @@ export function SkinSelect(props: InputProps) {
                     <ImageRadioButton
                       {...field.props}
                       id={`${field.props.id}-${index()}`}
+                      fallbackColor={skin.color}
                       img={skin.image}
-                      imgClass="w-full rounded-md"
+                      imgClass="w-full rounded-md aspect-[100/64]"
                       checked={field.helpers.isChecked(value)}
                       textLabel={<Message>{`NewAccountScreen.FormFields.skins.${value}`}</Message>}
                       value={value}

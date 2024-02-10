@@ -3,12 +3,13 @@ import { JSX, Show, splitProps } from "solid-js";
 
 export type ImageRadioButtonProps = {
   img: string;
+  fallbackColor?: string;
   imgClass?: string;
   textLabel?: JSX.Element;
 } & Omit<JSX.InputHTMLAttributes<HTMLInputElement>, "type">
 
 export function ImageRadioButton(props: ImageRadioButtonProps) {
-  const [localProps, nativeProps] = splitProps(props, ["img", "imgClass", "textLabel"]);
+  const [localProps, nativeProps] = splitProps(props, ["img", "fallbackColor", "imgClass", "textLabel"]);
   return (
     <>
       <input
@@ -23,7 +24,14 @@ export function ImageRadioButton(props: ImageRadioButtonProps) {
         }}
         for={nativeProps.id}
       >
-        <img class={localProps.imgClass} src={localProps.img} />
+        <div
+          class={localProps.imgClass}
+          style={{
+            "background-color": localProps.fallbackColor,
+            "background-image": `url('${localProps.img}')`,
+            "background-size": "cover"
+          }}
+        />
         <Show when={localProps.textLabel}>
           <div class="text-xs mt-0.5">{localProps.textLabel}</div>
         </Show>

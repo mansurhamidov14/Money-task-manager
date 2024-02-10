@@ -54,7 +54,7 @@ export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
         >
           <div
             class="account-card-face account-card-face--front"
-            style={`background-image: url('${skin().image}'); color: ${skin().primaryTextColor};`}
+            style={`background-color: ${skin().color}; background-image: url('${skin().image}'); color: ${skin().primaryTextColor};`}
           >
             <Show when={!skin().hideAccountTitle}>
               <div class="font-semibold text-xl">{props.account.title}</div>

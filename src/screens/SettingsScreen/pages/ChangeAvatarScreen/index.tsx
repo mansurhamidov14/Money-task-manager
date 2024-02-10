@@ -38,7 +38,7 @@ export function ChangeAvatarScreen() {
                         img={avatar}
                         checked={selectedAvatar() === avatar}
                         onChange={() => setSelectedAvatar(avatar)}
-                        imgClass="w-full rounded-full"
+                        imgClass="w-full rounded-full aspect-square"
                       />
                     </div>
                   )}

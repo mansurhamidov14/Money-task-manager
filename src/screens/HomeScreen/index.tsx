@@ -3,7 +3,6 @@ import { Message } from "@app/i18n";
 import { Await, accountsStore, user } from "@app/stores";
 import { AccountsSlider, LatestTransactions, TasksOfTheDay } from "./components";
 
-
 export function HomeScreen() {
   const currentUser = user.currentUser().data!;
 
@@ -18,7 +17,7 @@ export function HomeScreen() {
           <ThemeToggleButton />
         </div>
         <Await for={[accountsStore.accounts()]}>
-          <AccountsSlider />
+          <AccountsSlider accounts={accountsStore.accounts().data!} />
         </Await>
         <LatestTransactions />
         <TasksOfTheDay />

@@ -1,32 +1,22 @@
 import { AccountCard } from "@app/components";
-import { accountsStore } from "@app/stores";
+import { Account } from "@app/stores";
 import { For, Show, onCleanup, onMount } from "solid-js";
 import { createSlider } from "solid-slider";
 
-export function AccountsSlider() {
+export function AccountsSlider(props: { accounts: Account[] }) {
   let sliderRef: HTMLDivElement | undefined = undefined;
   const [slider, { current, moveTo, destroy }] = createSlider({
     slides: { origin: "center" },
+    initial: props.accounts.findIndex(a => a.primary),
     breakpoints: {
       "(min-width: 768px)": {
-        slides: { origin: "center", perView: accountsStore.accounts().data!.length > 1 ? 2 : 1 }
+        slides: { origin: "center", perView: props.accounts.length > 1 ? 2 : 1 }
       }
     }
   });
 
-  const moveToPrimaryAccountSlide = () => {
-    if (accountsStore.accounts().status === "success") {
-      setTimeout(() => moveTo(
-        accountsStore.accounts().data!.findIndex(a => a.primary)
-      ), 20);
-    }
-  };
-
   onMount(async () => {
-    if (accountsStore.accounts().status === "success") {
-      slider(sliderRef!);
-    }
-    moveToPrimaryAccountSlide();
+    slider(sliderRef!);
   });
 
   onCleanup(() => {
@@ -36,13 +26,13 @@ export function AccountsSlider() {
   return (
     <div class="-mx-3 md:-mx-9 lg:-mx-14 relative">
       <div ref={sliderRef}>
-        <For each={accountsStore.accounts().data!}>
+        <For each={props.accounts}>
           {account => <AccountCard hasBackSide account={account} />}
         </For>
       </div>
-      <Show when={accountsStore.accounts().status === "success" && accountsStore.accounts().data!.length > 1}>
+      <Show when={props.accounts.length > 1}>
         <div class="absolute w-full bottom-1 flex justify-center gap-2">
-          <For each={accountsStore.accounts().data!}>
+          <For each={props.accounts}>
             {(_, index) => (
               <button
                 type="button"
