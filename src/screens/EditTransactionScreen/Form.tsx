@@ -56,6 +56,7 @@ export function Form(props: Transaction) {
       await transactionsStore.updateTransaction(prevData.id, transactionData);
       await accountsStore.changeBalance(prevData.account, prevData.amount * -1, prevData.type);
       await accountsStore.changeBalance(affectedAccount.id, amount, type);
+      await accountsStore.fetchUserAccounts(props.user);
       toastStore.pushToast("success", t("EditTransactionScreen.success"));
       history.back();
     } catch (e: any) {

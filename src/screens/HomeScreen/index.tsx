@@ -1,43 +1,11 @@
-import { For, Show, onCleanup, onMount } from "solid-js";
-import { AccountCard, ThemeToggleButton, VerticalScroll } from "@app/components";
+import { ThemeToggleButton, VerticalScroll } from "@app/components";
 import { Message } from "@app/i18n";
 import { Await, accountsStore, user } from "@app/stores";
-import { LatestTransactions, TasksOfTheDay } from "./components";
-import { createSlider } from "solid-slider";
+import { AccountsSlider, LatestTransactions, TasksOfTheDay } from "./components";
 
-let sliderRef: HTMLDivElement;
+
 export function HomeScreen() {
   const currentUser = user.currentUser().data!;
-  
-  const options = { duration: 1000 };
-  const [slider, { current, moveTo, destroy }] = createSlider(options);
-
-  const moveToPrimaryAccountSlide = () => {
-    if (accountsStore.accounts().status === "success") {
-      setTimeout(() => moveTo(
-        accountsStore.accounts().data!.findIndex(a => a.primary)
-      ), 20);
-    }
-  };
-
-  const reBuildSlider = () => {
-    destroy();
-    slider(sliderRef);
-    moveToPrimaryAccountSlide();
-  };
-
-  onMount(async () => {
-    if (accountsStore.accounts().status === "success") {
-      slider(sliderRef);
-    }
-    moveToPrimaryAccountSlide();
-    window.addEventListener("accountsstoreupdated", reBuildSlider);
-  });
-
-  onCleanup(() => {
-    window.removeEventListener("accountsstoreupdated", reBuildSlider);
-    destroy();
-  });
 
   return (
     <VerticalScroll hasBottomNavigation>
@@ -49,32 +17,9 @@ export function HomeScreen() {
           </div>
           <ThemeToggleButton />
         </div>
-        <div class="-mx-3 relative">
-          <div ref={sliderRef}>
-            <Await for={[accountsStore.accounts()]}>
-              <For each={accountsStore.accounts().data!}>
-                {account => <AccountCard hasBackSide account={account} />}
-              </For>
-            </Await>
-          </div>
-          <Show when={accountsStore.accounts().status === "success" && accountsStore.accounts().data!.length > 1}>
-            <div class="absolute w-full bottom-1 flex justify-center gap-2">
-              <For each={accountsStore.accounts().data!}>
-                {(_, index) => (
-                  <button
-                    type="button"
-                    classList={{
-                      "rounded-full w-3 h-3 cursor-pointer": true,
-                      "bg-secondary-400 dark:bg-secondary-300": current() === index(),
-                      "bg-secondary-400/40 dark:bg-secondary-300/40": current() !== index()
-                    }}
-                    onClick={() => moveTo(index())}
-                  />
-                )}
-              </For>
-            </div>
-          </Show>
-        </div>
+        <Await for={[accountsStore.accounts()]}>
+          <AccountsSlider />
+        </Await>
         <LatestTransactions />
         <TasksOfTheDay />
       </main>

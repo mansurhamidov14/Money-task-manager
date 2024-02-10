@@ -21,7 +21,11 @@ export type AccountCardProps = {
   hasBackSide?: boolean;
 }
 
-export function AccountCardDumb(props: ParentProps<AccountCardProps>) {
+export type AccountCardDumbProps = AccountCardProps & {
+  onDelete?: (id: number) => void;
+}
+
+export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
   const [flipped, setFlipped] = createSignal(false);
   const skin = createMemo(() => {
     return skins[props.account.skin];
@@ -40,22 +44,8 @@ export function AccountCardDumb(props: ParentProps<AccountCardProps>) {
     }
   };
 
-  const deleteAccount = async (id: number) => {
-    await accountsStore.deleteAccount(id);
-    await transactionsStore.deleteByAccountId(id);
-    toastStore.pushToast("success", t("ConfirmationRequest.accountDeletion.success"));
-  }
-
-  const requestDeletion = (id: number) => {
-    confirmationStore.requestConfirmation({
-      text: t("ConfirmationRequest.accountDeletion.text"),
-      onConfirm: () => deleteAccount(id),
-      confirmButton: { label: t("ConfirmationRequest.accountDeletion.confirm") }
-    });
-  }
-
   return (
-    <div class="px-5 py-6">
+    <div class="px-5 py-6 max-w-md mx-auto">
       <div class="account-card-scene" onMouseLeave={handleMouseLeave}>
         <div
           class="account-card"
@@ -103,7 +93,7 @@ export function AccountCardDumb(props: ParentProps<AccountCardProps>) {
                   </span>
                 </Link>
                 <Show when={!props.account.primary}>
-                  <Button variant="danger" size="lg" class="px-5" onClick={() => requestDeletion(props.account.id)}>
+                  <Button variant="danger" size="lg" class="px-5" onClick={() => props.onDelete?.(props.account.id)}>
                     <IoTrash size={24} />
                     <span class="sr-only">
                       <Action>Delete</Action>
@@ -124,8 +114,23 @@ export function AccountCard(props: AccountCardProps) {
     return accountsStore.accounts().status === "success";
   });
 
+  const deleteAccount = async (id: number) => {
+    await accountsStore.deleteAccount(id);
+    await transactionsStore.deleteByAccountId(id);
+    accountsStore.reload();
+    toastStore.pushToast("success", t("ConfirmationRequest.accountDeletion.success"));
+  }
+
+  const requestDeletion = (id: number) => {
+    confirmationStore.requestConfirmation({
+      text: t("ConfirmationRequest.accountDeletion.text"),
+      onConfirm: () => deleteAccount(id),
+      confirmButton: { label: t("ConfirmationRequest.accountDeletion.confirm") }
+    });
+  }
+
   return (
-    <AccountCardDumb account={props.account} hasBackSide={props.hasBackSide}>
+    <AccountCardDumb account={props.account} hasBackSide={props.hasBackSide} onDelete={requestDeletion}>
       <AmountCard
         amount={counters[props.account.id].totalIncome()}
         currency={props.account.currency}

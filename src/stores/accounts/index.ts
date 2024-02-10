@@ -9,10 +9,20 @@ function initAccountsStore() {
 
   const setAccountsData = (accounts: Account[]) => {
     setAccounts({ status: "success", data: accounts });
-    window.dispatchEvent(new CustomEvent("accountsstoreupdated"));
   }
   const setAccountsLoading = () => setAccounts({ status: "loading" });
   const setAccountsError = (error: string) => setAccounts({ status: "error", error });
+
+  /** This function prevents accounts slider from getting broken */
+  const reload = () => {
+    if (accounts().status === "success") {
+      const data = accounts().data!;
+      setAccountsLoading();
+      setTimeout(() => {
+        setAccountsData(data);
+      }, 10);
+    }
+  }
 
   const fetchUserAccounts = async (userId: number) => {
     try {
@@ -77,7 +87,6 @@ function initAccountsStore() {
     } else {
       counters[id].setTotalExpense(prev => prev += amount);
     }
-
     return accountService.changeBalance(id, difference);
   }
 
@@ -106,6 +115,7 @@ function initAccountsStore() {
     updateAccount,
     changeBalance,
     fetchUserAccounts,
+    reload,
     removePrimaryFlag
   }
 }

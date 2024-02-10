@@ -35,6 +35,7 @@ export function TransactionListItem(props: Transaction) {
     const { id, account, amount, type } = transaction;
     await transactionsStore.deleteTransaction(id);
     await accountsStore.changeBalance(account, amount * -1, type);
+    accountsStore.reload();
     toastStore.pushToast("success", t("ConfirmationRequest.transactionDeletion.success"));
   };
 

@@ -15,7 +15,9 @@ export function VerticalScroll(props: ParentProps<VerticalScrollProps>) {
         "h-full": !props.hasHeader
       }}
     >
-      {props.children}
+      <div class="max-w-5xl mx-auto sm:px-3 md:px-6 lg:px-10">
+        {props.children}
+      </div>
     </div>
   );
 }

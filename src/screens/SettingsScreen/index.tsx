@@ -46,7 +46,7 @@ export function SettingsScreen() {
           </div>
         </div>
         <div class="px-3 pt-2">
-          <List itemsGap="sm">
+          <List>
             <ListItem
               size="sm"
               onClick={() => navigate("/settings/personal-info")}
