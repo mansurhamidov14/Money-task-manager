@@ -1,7 +1,3 @@
-interface ArrayConstructor {
-  range: (start: number, end?: number, interval?: number) => number[];
-}
-
 Array.range = function(start: number, end?: number, interval = 1) {
   const result = [];
   var from = end ? start : 1;

@@ -2,7 +2,7 @@ import { createMemo, createRoot, createSignal } from "solid-js";
 import { taskService } from "@app/services";
 import { TaskFormSchema } from "@app/schemas";
 import { dateProcessor } from "@app/providers";
-import { ascSorter, groupBy } from "@app/helpers";
+import { ascSorter, descSorter, groupBy } from "@app/helpers";
 import { Task } from "./types";
 import { toastStore } from "..";
 import { AsyncStore } from "../types";
@@ -119,7 +119,7 @@ export function initTasksStore() {
       withUniqueFilter(
         task => task.startDate > new Date().toDatePickerString()
       )
-    )
+    ).toSorted(ascSorter("startDate"))
   ));
 
   const archiveTasks = createMemo(() => (
@@ -127,7 +127,7 @@ export function initTasksStore() {
       withUniqueFilter(
         task => task.endDate && task.endDate < new Date().toDatePickerString()
       )
-    )
+    ).toSorted(descSorter("startDate"))
   ));
 
   return {

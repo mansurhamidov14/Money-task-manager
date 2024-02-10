@@ -1,9 +1,3 @@
-interface Date {
-  getWeekDay: () => number;
-  toLocaleDateTimePickerString: () => string;
-  toDatePickerString: () => string;
-}
-
 Date.prototype.toLocaleDateTimePickerString = function() {
   const dateStr = this.toISOString().split("T")[0];
   const timeStr = this.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });

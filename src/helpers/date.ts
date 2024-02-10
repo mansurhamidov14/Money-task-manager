@@ -6,6 +6,7 @@ type DateProcessorDay = {
   date: Date;
   dateString: string;
   weekday: number;
+  year: number;
 }
 
 export class DateProcessor {
@@ -42,20 +43,23 @@ export class DateProcessor {
       timestamp: todayTimestamp,
       dateString: todayDate.toLocaleDateString(locale),
       weekday: todayWeekDay,
+      year: todayDate.getFullYear()
     };
 
     this.yesterday = {
       date: yesterdayDate,
       timestamp: yesterdayTimestamp,
       dateString: yesterdayDate.toLocaleDateString(locale),
-      weekday: yesterdayDate.getWeekDay()
+      weekday: yesterdayDate.getWeekDay(),
+      year: yesterdayDate.getFullYear()
     };
 
     this.tomorrow = {
       date: tomorrowDate,
       timestamp: tomorrowTimestamp,
       dateString: tomorrowDate.toLocaleDateString(locale),
-      weekday: tomorrowDate.getWeekDay()
+      weekday: tomorrowDate.getWeekDay(),
+      year: tomorrowDate.getFullYear()
     };
   }
 
@@ -74,7 +78,13 @@ export class DateProcessor {
       return this.translateFn("tomorrow");
     }
 
-    return this.translateFn(`${type}.date.${date.getMonth()}`, { date: date.getDate() });
+    const translation = this.translateFn(`${type}.date.${date.getMonth()}`, { date: date.getDate() });
+    const year = date.getFullYear();
+    if (year === this.today.year || type === "short") {
+      return translation;
+    }
+
+    return translation + ` ${year}`;
   }
 
   dateFromWeekDay(weekday: number) {

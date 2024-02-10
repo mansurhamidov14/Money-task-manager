@@ -11,6 +11,7 @@ import {
   INITIAL_CURRENCY_RATES,
   clientService,
   type ClientService,
+  OptionalCurrencyRates,
 } from "@app/services";
 import { getAbsentKeys } from "@app/helpers";
 
@@ -75,11 +76,11 @@ class CurrencyService {
     };
   }
 
-  private formatResponse(response: CurrencyRatesResponse): Partial<Record<CurrencyCode, number>> {
+  private formatResponse(response: CurrencyRatesResponse): OptionalCurrencyRates {
     return response.reduce((result, rate) => {
       result[rate.to] = rate.result;
       return result;
-    }, {} as Partial<Record<CurrencyCode, number>>);
+    }, {} as OptionalCurrencyRates);
   }
 
   getCurrency(code: CurrencyCode) {

@@ -29,10 +29,11 @@ export type Currency = {
 
 export type Currencies = Record<CurrencyCode, Currency>;
 
-export type CurrencyRates = Record<CurrencyCode, number>; 
+export type CurrencyRates = Record<CurrencyCode, number>;
+export type OptionalCurrencyRates = Partial<CurrencyRates>;
 
 export type CachedCurrencyRates = {
-  [key: string]: Partial<CurrencyRates>
+  [key: string]: OptionalCurrencyRates;
 }
 
 export type CurrencyRatesResponse = {
