@@ -1,8 +1,8 @@
 import { Field } from "solid-form-handler";
 import { For } from "solid-js";
-import { skins } from "@app/constants";
 import { Message } from "@app/i18n";
 import { ImageRadioButton, InputProps } from "../shared";
+import { skinService } from "@app/services";
 
 export function SkinSelect(props: InputProps) {
   return (
@@ -14,18 +14,17 @@ export function SkinSelect(props: InputProps) {
         <div class="-mx-5">
           <div class="overflow-x-auto w-full pb-4 px-5">
             <div class="grid grid-rows-3 grid-flow-col w-fit gap-3" style="grid-template-rows: auto auto;">
-              <For each={Object.entries(skins)}>
-                {([value, skin], index) => (
+              <For each={skinService.skins}>
+                {(skin, index) => (
                   <div class="w-[8rem] relative">
                     <ImageRadioButton
                       {...field.props}
                       id={`${field.props.id}-${index()}`}
-                      fallbackColor={skin.color}
                       img={skin.image}
                       imgClass="w-full rounded-md aspect-[100/64]"
-                      checked={field.helpers.isChecked(value)}
-                      textLabel={<Message>{`NewAccountScreen.FormFields.skins.${value}`}</Message>}
-                      value={value}
+                      checked={field.helpers.isChecked(skin.id)}
+                      textLabel={<Message>{`NewAccountScreen.FormFields.skins.${skin.id}`}</Message>}
+                      value={String(skin.id)}
                     />
                   </div>
                 )}

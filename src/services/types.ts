@@ -80,3 +80,8 @@ export type Category = {
     icon: string;
   }
 }
+
+export type Skin = {
+  id: string;
+  image: string;
+}

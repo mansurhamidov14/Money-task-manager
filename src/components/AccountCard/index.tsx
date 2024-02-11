@@ -1,6 +1,5 @@
 import { ParentProps, Show, createMemo, createSignal } from "solid-js";
 import { IoPencil, IoTrash } from "solid-icons/io";
-import { skins } from "@app/constants";
 import {
   Account,
   Link,
@@ -11,10 +10,11 @@ import {
   transactionsStore
 } from "@app/stores";
 import { Action, Message, t } from "@app/i18n";
-import { currencyService } from "@app/services";
+import { currencyService, skinService } from "@app/services";
 
 import { AmountCard, Button } from "../index";
 import "./style.css";
+import "./skins.css";
 
 export type AccountCardProps = {
   account: Account;
@@ -27,9 +27,6 @@ export type AccountCardDumbProps = AccountCardProps & {
 
 export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
   const [flipped, setFlipped] = createSignal(false);
-  const skin = createMemo(() => {
-    return skins[props.account.skin];
-  });
 
 
   const handleFlip = (event: MouseEvent & {currentTarget: HTMLDivElement; target: Element;}) => {
@@ -48,23 +45,22 @@ export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
     <div class="px-5 py-6 max-w-md mx-auto">
       <div class="account-card-scene" onMouseLeave={handleMouseLeave}>
         <div
-          class="account-card"
+          class={`account-card ${props.account.skin}`}
           classList={{ "is-flipped": flipped() && props.hasBackSide }}
           onClick={handleFlip}
         >
           <div
             class="account-card-face account-card-face--front"
-            style={`background-color: ${skin().color}; background-image: url('${skin().image}'); color: ${skin().primaryTextColor};`}
+            style={{'background-image': `url('${skinService.getImage(props.account.skin)}')`}}
           >
-            <Show when={!skin().hideAccountTitle}>
-              <div class="font-semibold text-xl">{props.account.title}</div>
-            </Show>
-            <div class={`absolute ${skin().balancePlacement}`}>
+            
+            <div class="font-bold text-xl account-card-title">{props.account.title}</div>
+            <div class="account-card-balance-container">
               <div class="flex flex-col">
-                <div class="text-xs font-normal" style={`color: ${skin().secondaryTextColor}`}>
+                <div class="text-xs account-card-balance-title">
                   <Message>common.balance</Message>
                 </div>
-                <div class="text-2xl font-bold">
+                <div class="text-2xl font-bold account-card-balance-amount">
                   {currencyService.formatValue(props.account.currency, props.account.balance)}
                 </div>
               </div>
@@ -74,7 +70,7 @@ export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
             </div>
           </div>
           <Show when={props.hasBackSide}>
-            <div class="account-card-face account-card-face--back" style={`background-color: ${skin().color}`}>
+            <div class="account-card-face account-card-face--back">
               <div class="h-16 bg-black mt-6"></div>
               <div class="mt-4 mr-6 bg-white text-end flex flex-col justify-around relative h-8">
                 <div class="h-0.5 bg-cyan-100"></div>

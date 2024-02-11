@@ -4,6 +4,7 @@ export * from "./CategoryService";
 export * from "./ClientService";
 export * from "./CurrencyService";
 export * from "./UserService";
+export * from "./SkinService";
 export * from "./TransactionService";
 export * from "./TaskService";
 export * from "./consts";

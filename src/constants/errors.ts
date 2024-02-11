@@ -1,3 +1,0 @@
-export const Errors = {
-  EMAIL_ALREADY_REGISTERED: "EMAIL_ALREADY_REGISTERED"
-}

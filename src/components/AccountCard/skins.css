@@ -1,0 +1,329 @@
+/** default styles */
+.account-card {
+  --card-color: #000000;
+  --title-color: #FFFFFF;
+  --title-shadow: unset;
+  --balance-title-color: rgba(255, 255, 255, .8);
+  --balance-amount-color: var(--title-color);
+  --balance-amount-shadow: unset;
+  --balance-title-fw: 400;
+  --custom-text-shadow-color: unset;
+  --title-color-shadow: 1px 1px 0 var(--title-color),
+    -1px 1px 0 var(--title-color),
+    -1px -1px 0 var(--title-color),
+    1px -1px 0 var(--title-color);
+  --card-color-text-shadow: 1px 1px 0 var(--card-color),
+    -1px 1px 0 var(--card-color),
+    -1px -1px 0 var(--card-color),
+    1px -1px 0 var(--card-color);
+  --black-text-shadow: 1px 1px 0 #000,
+    -1px 1px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000;
+  --white-text-shadow: 1px 1px 0 #FFF,
+    -1px 1px 0 #FFF,
+    -1px -1px 0 #FFF,
+    1px -1px 0 #FFF;
+  --custom-text-shadow: 1px 1px 0 var(--custom-text-shadow-color),
+    -1px 1px 0 var(--custom-text-shadow-color),
+    -1px -1px 0 var(--custom-text-shadow-color),
+    1px -1px 0 var(--custom-text-shadow-color);
+}
+
+.account-card .account-card-balance-container {
+  @apply right-10 top-[30%];
+}
+
+.account-card.yellow {
+  --card-color: #fdb004;
+  --title-color: #92400e;
+  --balance-title-color: #92400e;
+  --balance-amount-color: #92400e;
+}
+.account-card.yellow .account-card-balance-container {
+  @apply top-[32%];
+}
+
+.account-card.green {
+  --card-color: #066b48;
+  --title-color: #f0fdf4;
+  --balance-title-color: #bbf7d0;
+  --balance-amount-color: #f0fdf4;
+}
+
+.account-card.blue {
+  --card-color: #026698;
+  --title-color: #f0fdf4;
+  --balance-title-color: #bbf7d0;
+  --balance-amount-color: #f0fdf4;
+}
+
+.account-card.blue .account-card-balance-container {
+  @apply right-auto top-1/3;
+}
+
+.account-card.pink {
+  --card-color: #c51765;
+}
+
+.account-card.lightPink {
+  --card-color: #FFC4DE;
+  --title-color: #BD8749;
+  --balance-title-color: rgba(189, 135, 73, 0.8);
+  --balance-amount-color: rgb(189, 135, 73);
+}
+
+.account-card.red {
+  --card-color: #bf0303;
+}
+
+.account-card.black {
+  --card-color: #2A2A2C;
+}
+
+.account-card.travel {
+  --card-color: #7d7353;
+}
+
+.account-card.travel .account-card-balance-container {
+  @apply top-[32%];
+}
+
+.account-card.piggy {
+  --card-color: #7c6053;
+}
+
+.account-card.piggy .account-card-balance-container {
+  @apply top-[32%];
+}
+
+.account-card.space {
+  --card-color: #4a394e;
+}
+
+.account-card.redPlanet {
+  --card-color: #621c11;
+  --title-color: rgba(255, 255, 255, .8);
+  --balance-amount-color: rgba(255, 255, 255, .8);
+}
+
+.account-card.abbTam {
+  --card-color: #556772;
+  --balance-title-color: #FFFFFF;
+}
+
+.account-card.abbTam .account-card-balance-container {
+  @apply right-auto left-[27%] top-[31%];
+}
+
+.account-card.birbank {
+  --card-color: #353132;
+  --balance-title-color: rgba(255, 255, 255, .9);
+}
+
+.account-card.birbank .account-card-balance-container {
+  @apply right-16 top-[35%];
+}
+
+.account-card.rabitaKartmane {
+  --card-color: #309838;
+}
+
+.account-card.rabitaKartmane .account-card-balance-container {
+  @apply right-14 top-[28%];
+}
+
+.account-card.albali {
+  --card-color: #36220c;
+  --balance-title-color: rgba(255, 255, 255, .9);
+}
+
+.account-card.albaliPlus {
+  --card-color: #450f42;
+  --balance-title-color: rgba(255, 255, 255, .9);
+}
+
+.account-card.albali .account-card-balance-container,
+.account-card.albaliPlus .account-card-balance-container {
+  @apply right-14 top-[24%]
+}
+
+.account-card.ucard {
+  --card-color:#e2a532 ;
+  --balance-title-color: rgba(0, 0, 0, .4);
+  --balance-amount-color: rgba(0, 0, 0, .3);
+}
+
+.account-card.ucard .account-card-balance-container {
+  @apply right-auto left-4;
+}
+
+.account-card.monobank {
+  --card-color: #141414;
+  --balance-title-color: rgba(255, 255, 255, .6);
+  --balance-amount-color: rgba(255, 255, 255, .7);
+}
+
+.account-card.monobank .account-card-balance-container {
+  @apply right-auto left-[29%] top-[32%];
+}
+
+.account-card.oschadBank {
+  --card-color: #FEED00;
+  --balance-title-color: #000000;
+  --balance-amount-color: #000000;
+}
+
+.account-card.oschadBank .account-card-balance-container {
+  @apply right-6 top-[32%];
+}
+
+.account-card.privatUniversal {
+  --card-color: #144BA6;
+  --balance-title-color: #FFFFFF;
+}
+
+.account-card.privatUniversal .account-card-balance-container {
+  @apply right-6 top-[32%];
+}
+
+.account-card.juventus {
+  --card-color: #1A1A1A;
+  --title-shadow: var(--black-text-shadow);
+  --balance-title-shadow: var(--title-shadow);
+  --balance-title-color: var(--title-color);
+  --balance-title-fw: 500;
+  --balance-amount-shadow: var(--title-shadow);
+}
+
+.account-card.juventus .account-card-balance-container {
+  @apply right-auto left-[29%] top-[34%];
+}
+
+.account-card.manCity {
+  --card-color: #79B6DA;
+  --title-shadow: var(--card-color-text-shadow);
+  --balance-title-color: var(--title-color);
+  --custom-text-shadow-color: #6091AD;
+  --balance-title-shadow: var(--custom-text-shadow);
+  --balance-amount-color: var(--title-color);
+  --balance-amount-shadow: var(--balance-title-shadow);
+}
+
+.account-card.manCity .account-card-balance-container {
+  @apply right-6 top-[35%];
+}
+
+.account-card.manUtd {
+  --card-color: #222624;
+  --title-color: #AA1207;
+  --custom-text-shadow-color: #FEEC01;
+  --balance-title-color: var(--custom-text-shadow-color);
+  --balance-title-fw: 500;
+  --title-shadow: var(--custom-text-shadow);
+  --balance-amount-shadow: var(--title-shadow);
+}
+
+.account-card.manUtd .account-card-balance-container {
+  @apply right-auto left-[27%] top-[34%];
+}
+
+.account-card.napoli {
+  --card-color: #00A2D4;
+  --title-shadow: var(--card-color-text-shadow);
+  --balance-title-color: var(--title-color)
+  --balance-title-shadow: var(--title-shadow);
+  --balance-amount-shadow: var(--title-shadow);
+}
+
+.account-card.napoli .account-card-balance-container {
+  @apply right-6 top-[32%];
+}
+
+.account-card.neftchi {
+  --card-color: #222222;
+  --title-shadow: var(--card-color-text-shadow);
+  --balance-title-shadow: var(--title-shadow);
+  --balance-amount-shadow: var(--title-shadow);
+}
+
+.account-card.neftchi .account-card-balance-container {
+  @apply right-6 top-[35%];
+}
+
+.account-card.qarabag {
+  --card-color: #281C4D;
+  --title-color: #C57A01;
+  --title-shadow: var(--card-color-text-shadow);
+  --balance-title-color: var(--card-color);
+  --balance-title-fw: 700;
+  --balance-title-shadow: var(--white-text-shadow);
+  --balance-amount-color: var(--card-color);
+  --balance-amount-shadow: var(--white-text-shadow);
+}
+
+.account-card.qarabag .account-card-balance-container {
+  @apply right-6 top-[35%];
+}
+
+.account-card.realMadrid {
+  --card-color: #C6BDBD;
+  --title-color: #004A9C;
+  --custom-text-shadow-color: #F4C408;
+  --title-shadow: var(--custom-text-shadow);
+  --balance-title-color: var(--title-color);
+  --balance-title-shadow: var(--title-shadow);
+  --balance-amount-color: var(--title-color);
+  --balance-amount-shadow: var(--title-shadow);
+  --balance-title-fw: 700;
+}
+
+.account-card.realMadrid .account-card-balance-container {
+  @apply right-6 top-[35%];
+}
+
+.account-card.tottenham {
+  --card-color: #B2B2B2;
+  --title-color:#001854;
+  --title-shadow: var(--white-text-shadow);
+  --balance-title-color: white;
+  --balance-title-shadow: var(--title-color-shadow);
+  --balance-amount-color: white;
+  --balance-amount-shadow: var(--title-color-shadow);
+}
+
+.account-card.tottenham .account-card-balance-container {
+  @apply right-6 top-[35%];
+}
+
+.account-card .account-card-face {
+  background-color: var(--card-color);
+}
+
+.account-card .account-card-title {
+  text-shadow: var(--title-shadow);
+  color: var(--title-color);
+}
+
+.account-card .account-card-balance-title {
+  color: var(--balance-title-color);
+  font-weight: var(--balance-title-fw);
+  text-shadow: var(--balance-title-shadow);
+}
+
+.account-card .account-card-balance-amount {
+  color: var(--balance-amount-color);
+  text-shadow: var(--balance-amount-shadow);
+}
+
+.account-card.abbTam .account-card-title,
+.account-card.albali .account-card-title,
+.account-card.albaliPlus .account-card-title,
+.account-card.birbank .account-card-title,
+.account-card.rabitaKartmane .account-card-title,
+.account-card.oschadBank .account-card-title,
+.account-card.monobank .account-card-title,
+.account-card.privatUniversal .account-card-title,
+.account-card.ucard .account-card-title {
+  display: none;
+}

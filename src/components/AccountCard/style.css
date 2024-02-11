@@ -34,3 +34,7 @@
   background: blue;
   transform: rotateY( 180deg );
 }
+
+.account-card-balance-container {
+  position: absolute;
+}
