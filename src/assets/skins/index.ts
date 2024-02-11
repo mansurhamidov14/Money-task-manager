@@ -26,7 +26,7 @@ import atleticoMadrid from "./at_madrid_card.png";
 import barcelona from "./barcelona_card.png";
 import bayern from "./bayern_card.png";
 import bvb from "./bvb_card.png";
-import chelse from "./chelsea_card.png";
+import chelsea from "./chelsea_card.png";
 import interMilan from "./intermilan_card.png";
 import juventus from "./juventus_card.png";
 import liverpool from "./liverpool_card.png";
@@ -76,7 +76,7 @@ const football = {
   barcelona,
   bayern,
   bvb,
-  chelse,
+  chelsea,
   interMilan,
   juventus,
   liverpool,

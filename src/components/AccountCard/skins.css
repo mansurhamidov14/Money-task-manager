@@ -3,10 +3,10 @@
   --card-color: #000000;
   --title-color: #FFFFFF;
   --title-shadow: unset;
-  --balance-title-color: rgba(255, 255, 255, .8);
+  --balance-title-color: var(--title-color);
   --balance-amount-color: var(--title-color);
   --balance-amount-shadow: unset;
-  --balance-title-fw: 400;
+  --balance-title-fw: 500;
   --custom-text-shadow-color: unset;
   --title-color-shadow: 1px 1px 0 var(--title-color),
     -1px 1px 0 var(--title-color),
@@ -31,7 +31,7 @@
 }
 
 .account-card .account-card-balance-container {
-  @apply right-10 top-[30%];
+  @apply right-6 bottom-[46%];
 }
 
 .account-card.yellow {
@@ -40,37 +40,31 @@
   --balance-title-color: #92400e;
   --balance-amount-color: #92400e;
 }
-.account-card.yellow .account-card-balance-container {
-  @apply top-[32%];
-}
 
 .account-card.green {
   --card-color: #066b48;
   --title-color: #f0fdf4;
-  --balance-title-color: #bbf7d0;
-  --balance-amount-color: #f0fdf4;
 }
 
 .account-card.blue {
   --card-color: #026698;
-  --title-color: #f0fdf4;
-  --balance-title-color: #bbf7d0;
-  --balance-amount-color: #f0fdf4;
 }
 
 .account-card.blue .account-card-balance-container {
-  @apply right-auto top-1/3;
+  @apply right-auto;
 }
 
 .account-card.pink {
   --card-color: #c51765;
 }
 
+.account-card.pink .account-card-balance-container {
+  @apply bottom-[50%];
+}
+
 .account-card.lightPink {
   --card-color: #FFC4DE;
   --title-color: #BD8749;
-  --balance-title-color: rgba(189, 135, 73, 0.8);
-  --balance-amount-color: rgb(189, 135, 73);
 }
 
 .account-card.red {
@@ -85,16 +79,8 @@
   --card-color: #7d7353;
 }
 
-.account-card.travel .account-card-balance-container {
-  @apply top-[32%];
-}
-
 .account-card.piggy {
   --card-color: #7c6053;
-}
-
-.account-card.piggy .account-card-balance-container {
-  @apply top-[32%];
 }
 
 .account-card.space {
@@ -103,26 +89,22 @@
 
 .account-card.redPlanet {
   --card-color: #621c11;
-  --title-color: rgba(255, 255, 255, .8);
-  --balance-amount-color: rgba(255, 255, 255, .8);
 }
 
 .account-card.abbTam {
   --card-color: #556772;
-  --balance-title-color: #FFFFFF;
 }
 
 .account-card.abbTam .account-card-balance-container {
-  @apply right-auto left-[27%] top-[31%];
+  @apply right-auto left-[27%] bottom-[49%];
 }
 
 .account-card.birbank {
   --card-color: #353132;
-  --balance-title-color: rgba(255, 255, 255, .9);
 }
 
 .account-card.birbank .account-card-balance-container {
-  @apply right-16 top-[35%];
+  @apply right-16 bottom-[44%];
 }
 
 .account-card.rabitaKartmane {
@@ -130,7 +112,7 @@
 }
 
 .account-card.rabitaKartmane .account-card-balance-container {
-  @apply right-14 top-[28%];
+  @apply right-14 bottom-[52%];
 }
 
 .account-card.albali {
@@ -145,37 +127,26 @@
 
 .account-card.albali .account-card-balance-container,
 .account-card.albaliPlus .account-card-balance-container {
-  @apply right-14 top-[24%]
+  @apply right-14 bottom-[57%]
 }
 
 .account-card.ucard {
-  --card-color:#e2a532 ;
-  --balance-title-color: rgba(0, 0, 0, .4);
-  --balance-amount-color: rgba(0, 0, 0, .3);
-}
-
-.account-card.ucard .account-card-balance-container {
-  @apply right-auto left-4;
+  --card-color:#e2a532;
+  --title-color: rgba(0, 0, 0, .55);
 }
 
 .account-card.monobank {
   --card-color: #141414;
-  --balance-title-color: rgba(255, 255, 255, .6);
-  --balance-amount-color: rgba(255, 255, 255, .7);
+  --title-color: rgba(255, 255, 255, .7);
 }
 
 .account-card.monobank .account-card-balance-container {
-  @apply right-auto left-[29%] top-[32%];
+  @apply right-auto left-[29%] bottom-[48%];
 }
 
 .account-card.oschadBank {
   --card-color: #FEED00;
-  --balance-title-color: #000000;
-  --balance-amount-color: #000000;
-}
-
-.account-card.oschadBank .account-card-balance-container {
-  @apply right-6 top-[32%];
+  --title-color: #000;
 }
 
 .account-card.privatUniversal {
@@ -183,35 +154,118 @@
   --balance-title-color: #FFFFFF;
 }
 
-.account-card.privatUniversal .account-card-balance-container {
-  @apply right-6 top-[32%];
+.account-card.acMilan {
+  --card-color: #121212;
+  --custom-text-shadow-color: #AB0000;
+  --title-shadow: var(--black-text-shadow);
+  --balance-title-shadow: var(--custom-text-shadow);
+  --balance-amount-shadow: var(--title-shadow);
+}
+
+.account-card.acMilan .account-card-balance-container {
+  @apply right-auto left-[29%];
+}
+
+.account-card.arsenal {
+  --card-color: #E5050A;
+  --balance-title-shadow: var(--card-color-text-shadow);
+  --balance-amount-shadow: var(--card-color-text-shadow);
+}
+
+.account-card.asRoma {
+  --card-color: #C40030;
+  --title-color: #FFB800;
+  --balance-amount-color: var(--card-color);
+  --title-shadow: var(--card-color-text-shadow);
+  --balance-title-shadow: var(--card-color-text-shadow);
+  --balance-amount-shadow: var(--title-color-shadow)
+}
+
+.account-card.atleticoMadrid {
+  --card-color: #FF1828;
+  --title-shadow: var(--card-color-text-shadow);
+  --balance-title-color: var(--title-color);
+  --balance-title-shadow: var(--title-shadow);
+  --balance-amount-shadow: var(--title-shadow);
+}
+
+.account-card.barcelona {
+  --card-color: #162066;
+  --custom-text-shadow-color: #A00003;
+  --title-shadow: var(--custom-text-shadow);
+  --balance-title-shadow: var(--title-shadow);
+  --balance-amount-shadow: var(--title-shadow);
+}
+
+.account-card.barcelona .account-card-balance-container {
+  @apply right-auto left-[10%] bottom-1/4;
+}
+
+.account-card.bayern {
+  --card-color: red;
+  --title-color: #F9D601;
+  --balance-title-shadow: var(--card-color-text-shadow);
+  --balance-amount-shadow: var(--card-color-text-shadow);
+}
+
+.account-card.bvb {
+  --card-color: #FFE200;
+  --title-color: #1F191A;
+  --balance-amount-color: var(--card-color);
+  --title-shadow: var(--card-color-text-shadow);
+  --balance-title-shadow: var(--card-color-text-shadow);
+  --balance-amount-shadow: var(--title-color-shadow)
+}
+
+.account-card.bvb .account-card-balance-container {
+  @apply bottom-[44%];
+}
+
+.account-card.chelsea {
+  --card-color: #001337;
+  --title-color: #CFCFCF;
+  --title-shadow: var(--card-color-text-shadow);
+  --balance-title-shadow: var(--card-color-text-shadow);
+  --balance-amount-shadow: var(--card-color-text-shadow);
+}
+
+.account-card.interMilan {
+  --card-color: #000000;
+  --title-color: #FFFFFF;
+  --custom-text-shadow-color: #082A9F;
+  --title-shadow: var(--custom-text-shadow);
+  --balance-title-shadow: var(--title-shadow);
+  --balance-amount-shadow: var(--title-shadow);
+}
+
+.account-card.interMilan .account-card-balance-container {
+  @apply right-auto left-[29%];
 }
 
 .account-card.juventus {
   --card-color: #1A1A1A;
   --title-shadow: var(--black-text-shadow);
   --balance-title-shadow: var(--title-shadow);
-  --balance-title-color: var(--title-color);
-  --balance-title-fw: 500;
   --balance-amount-shadow: var(--title-shadow);
 }
 
 .account-card.juventus .account-card-balance-container {
-  @apply right-auto left-[29%] top-[34%];
+  @apply right-auto left-[29%];
+}
+
+.account-card.liverpool {
+  --card-color: #E5050A;
+  --balance-title-shadow: var(--card-color-text-shadow);
+  --balance-amount-shadow: var(--card-color-text-shadow);
 }
 
 .account-card.manCity {
   --card-color: #79B6DA;
   --title-shadow: var(--card-color-text-shadow);
-  --balance-title-color: var(--title-color);
   --custom-text-shadow-color: #6091AD;
   --balance-title-shadow: var(--custom-text-shadow);
   --balance-amount-color: var(--title-color);
   --balance-amount-shadow: var(--balance-title-shadow);
-}
-
-.account-card.manCity .account-card-balance-container {
-  @apply right-6 top-[35%];
 }
 
 .account-card.manUtd {
@@ -219,25 +273,19 @@
   --title-color: #AA1207;
   --custom-text-shadow-color: #FEEC01;
   --balance-title-color: var(--custom-text-shadow-color);
-  --balance-title-fw: 500;
   --title-shadow: var(--custom-text-shadow);
   --balance-amount-shadow: var(--title-shadow);
 }
 
 .account-card.manUtd .account-card-balance-container {
-  @apply right-auto left-[27%] top-[34%];
+  @apply left-[29%];
 }
 
 .account-card.napoli {
   --card-color: #00A2D4;
   --title-shadow: var(--card-color-text-shadow);
-  --balance-title-color: var(--title-color)
   --balance-title-shadow: var(--title-shadow);
   --balance-amount-shadow: var(--title-shadow);
-}
-
-.account-card.napoli .account-card-balance-container {
-  @apply right-6 top-[32%];
 }
 
 .account-card.neftchi {
@@ -245,10 +293,6 @@
   --title-shadow: var(--card-color-text-shadow);
   --balance-title-shadow: var(--title-shadow);
   --balance-amount-shadow: var(--title-shadow);
-}
-
-.account-card.neftchi .account-card-balance-container {
-  @apply right-6 top-[35%];
 }
 
 .account-card.qarabag {
@@ -262,24 +306,15 @@
   --balance-amount-shadow: var(--white-text-shadow);
 }
 
-.account-card.qarabag .account-card-balance-container {
-  @apply right-6 top-[35%];
-}
-
 .account-card.realMadrid {
   --card-color: #C6BDBD;
   --title-color: #004A9C;
   --custom-text-shadow-color: #F4C408;
   --title-shadow: var(--custom-text-shadow);
-  --balance-title-color: var(--title-color);
   --balance-title-shadow: var(--title-shadow);
   --balance-amount-color: var(--title-color);
   --balance-amount-shadow: var(--title-shadow);
   --balance-title-fw: 700;
-}
-
-.account-card.realMadrid .account-card-balance-container {
-  @apply right-6 top-[35%];
 }
 
 .account-card.tottenham {
@@ -290,10 +325,6 @@
   --balance-title-shadow: var(--title-color-shadow);
   --balance-amount-color: white;
   --balance-amount-shadow: var(--title-color-shadow);
-}
-
-.account-card.tottenham .account-card-balance-container {
-  @apply right-6 top-[35%];
 }
 
 .account-card .account-card-face {

@@ -201,8 +201,6 @@
         "piggy": "Pul qutusu",
         "space": "Kainat",
         "redPlanet": "Qırmızı planet",
-        "juventus": "Yuventus",
-        "arsenal": "Arsenal",
         "albali": "Unibank Albalı",
         "albaliPlus": "Unibank Albalı Plus",
         "red": "Qırmızı",
@@ -212,7 +210,10 @@
         "ucard": "Unibank Ucard",
         "monobank": "Monobank",
         "oschadbank": "Oschadbank",
-        "privatUniversal": "Privat \"Universal\""
+        "privatUniversal": "Privat \"Universal\"",
+        "arsenal": "Arsenal",
+        "barcelona": "Barselona",
+        "juventus": "Yuventus"
       }
     },
     "success": "Hesab müvəffəqiyyət ilə əlavə olundu",
