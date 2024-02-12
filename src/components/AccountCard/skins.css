@@ -5,6 +5,7 @@
   --title-shadow: unset;
   --balance-title-color: var(--title-color);
   --balance-amount-color: var(--title-color);
+  --income-expense-color: #FFFFFF;
   --balance-amount-shadow: unset;
   --balance-title-fw: 500;
   --custom-text-shadow-color: unset;
@@ -32,6 +33,10 @@
 
 .account-card .account-card-balance-container {
   @apply right-6 bottom-[46%];
+}
+
+.account-card .amount-card {
+  color: var(--income-expense-color);
 }
 
 .account-card.yellow {
@@ -195,6 +200,10 @@
   --title-shadow: var(--custom-text-shadow);
   --balance-title-shadow: var(--title-shadow);
   --balance-amount-shadow: var(--title-shadow);
+}
+
+.account-card.barcelona .account-card-content {
+  @apply bottom-1;
 }
 
 .account-card.barcelona .account-card-balance-container {

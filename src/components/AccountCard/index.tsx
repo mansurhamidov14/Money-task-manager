@@ -1,4 +1,4 @@
-import { ParentProps, Show, createMemo, createSignal } from "solid-js";
+import { ParentProps, Show, createSignal } from "solid-js";
 import { IoPencil, IoTrash } from "solid-icons/io";
 import {
   Account,
@@ -65,7 +65,7 @@ export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
                 </div>
               </div>
             </div>
-            <div class="absolute left-0 bottom-6 px-8 w-full flex gap-6 content-between">
+            <div class="account-card-content absolute left-0 bottom-2 px-8 w-full flex gap-3 justify-center">
               {props.children}
             </div>
           </div>
@@ -106,10 +106,6 @@ export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
 }
 
 export function AccountCard(props: AccountCardProps) {
-  const accountsLoaded = createMemo(() => {
-    return accountsStore.accounts().status === "success";
-  });
-
   const deleteAccount = async (id: number) => {
     await accountsStore.deleteAccount(id);
     await transactionsStore.deleteByAccountId(id);
@@ -130,13 +126,11 @@ export function AccountCard(props: AccountCardProps) {
       <AmountCard
         amount={counters[props.account.id].totalIncome()}
         currency={props.account.currency}
-        loading={!accountsLoaded()}
         type="income"
       />
       <AmountCard
         amount={-counters[props.account.id].totalExpense()}
         currency={props.account.currency}
-        loading={!accountsLoaded()}
         type="expense"
       />
     </AccountCardDumb>

@@ -1,11 +1,24 @@
 .amount-card {
-  @apply flex flex-1 gap-3 justify-between items-center pt-2 pb-2 pl-3 rounded-lg shadow;
+  @apply flex gap-3 items-center py-1 pl-3 rounded-lg;
+  text-shadow: 2px 2px 2px var(--tw-shadow-color),
+    -2px 2px 2px var(--tw-shadow-color),
+    -2px -2px 2px var(--tw-shadow-color),
+    2px -2px 2px var(--tw-shadow-color);
+}
+
+.amount-card .amount-card-icon {
+  filter:
+    drop-shadow(1px 1px 1px var(--tw-shadow-color))
+    drop-shadow(-1px 0px 1px var(--tw-shadow-color))
+    drop-shadow(-1px 1px 1px var(--tw-shadow-color))
+    drop-shadow(1px -1px 1px var(--tw-shadow-color));
 }
 
 .amount-card.expense {
-  @apply bg-red-200/70 text-red-700/90 shadow-red-400;
+  @apply shadow-red-500;
 }
 
 .amount-card.income {
-  @apply bg-teal-200/70 text-teal-700/90 shadow-teal-300;
+  @apply shadow-teal-500;
 }
+
