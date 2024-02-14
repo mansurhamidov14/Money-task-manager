@@ -2,7 +2,7 @@ import { Show, createSignal } from "solid-js";
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 
-import {AccountCardDumb, Button, Loading } from "@app/components";
+import { AccountCardDumb, Button, Loading } from "@app/components";
 import { Action, t } from "@app/i18n";
 import { getAccountFormSchema } from "@app/schemas";
 import { user, toastStore, accountsStore, Account, transactionsStore } from "@app/stores";
@@ -14,7 +14,6 @@ import {
   SkinSelect
 } from "../components/AccountForm";
 import { TitleInput } from "../components/shared";
-
 
 export function Form(props: Account) {
   const userId = user.currentUser().data!.id;
