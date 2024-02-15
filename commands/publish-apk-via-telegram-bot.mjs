@@ -9,12 +9,15 @@ async function sendApkToChannel() {
   try {
     const cwd = process.cwd();
     const pkgJsonPath = `${cwd}/package.json`;
-    const publishedBuildsJsonPath = `${cwd}/published-builds.json`;
-    const latestPublishedBuilds = JSON.parse(fs.readFileSync(publishedBuildsJsonPath));
-    const latesAndroidBuild = latestPublishedBuilds.android;
-    const jsonData = JSON.parse(fs.readFileSync(pkgJsonPath));
-    const buildName = getBuildFilename(jsonData.version);
-    if (latesAndroidBuild === buildName) {
+    const publishedBuildsJsonPath = `${cwd}/publish-history.json`;
+    const publishHistory = JSON.parse(fs.readFileSync(publishedBuildsJsonPath));
+    const packageData = JSON.parse(fs.readFileSync(pkgJsonPath));
+    const buildVersion = packageData.version;
+    const buildName = getBuildFilename(buildVersion);
+    const isPublished = publishHistory.some(
+      publication => publication.platform === "android" && publication.version === buildVersion
+    );
+    if (isPublished) {
       throw new Error("Latest build already published to channel");
     }
     const channelId = process.env.TELEGRAM_CHANNEL_ID;
@@ -24,7 +27,7 @@ async function sendApkToChannel() {
     const apkFile = new File([apkBlob], buildName);
     payload.append('chat_id', channelId);
     payload.append('document', apkFile);
-    await axios.post(
+    const { data } = await axios.post(
       `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendDocument`,
       payload,
       {
@@ -34,8 +37,15 @@ async function sendApkToChannel() {
         }
       }
     );
-    latestPublishedBuilds.android = buildName;
-    fs.writeFileSync(publishedBuildsJsonPath, JSON.stringify(latestPublishedBuilds, null, 2));
+    publishHistory.push({
+      platform: "android",
+      version: buildVersion,
+      fileName: buildName,
+      chatId: channelId,
+      messageId: data.result.message_id,
+      date: new Date().toISOString()
+    });
+    fs.writeFileSync(publishedBuildsJsonPath, JSON.stringify(publishHistory, null, 2));
   } catch (e) {
     console.error(e);
   }
