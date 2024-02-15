@@ -47,7 +47,7 @@ async function sendApkToChannel() {
     });
     fs.writeFileSync(publishedBuildsJsonPath, JSON.stringify(publishHistory, null, 2));
   } catch (e) {
-    console.error(e);
+    console.error(e.message);
   }
 }
 

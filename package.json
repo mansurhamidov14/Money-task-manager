@@ -21,7 +21,8 @@
     "build:web:android": "npm run build:web && npm run build:android",
     "upgrade:build:web:android": "npm run upgrade & npm run build:web:android",
     "upgrade:build:android": "npm run upgrade && npm run build:android",
-    "publish:android": "node ./commands/publish-apk-via-telegram-bot.mjs",
+    "publish:android": "node ./commands/publish-android-to-tg.mjs",
+    "discard-publication:android": "node ./commands/discard-android-tg-publication.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
