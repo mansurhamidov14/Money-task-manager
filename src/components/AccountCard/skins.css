@@ -155,8 +155,36 @@
 }
 
 .account-card.privatUniversal {
-  --card-color: #144BA6;
+  --card-color: #253D65;
   --balance-title-color: #FFFFFF;
+}
+
+.account-card.privatUniversal2 {
+  --card-color: #E3E1E8;
+  --balance-title-color: #222224;
+  --balance-amount-color: #222224;
+  --title-shadow: var(--white-text-shadow);
+  --balance-title-shadow: var(--white-text-shadow);
+  --balance-amount-shadow: var(--white-text-shadow);
+}
+
+.account-card.privatPayments {
+  --card-color: #6C2D34;
+  --balance-title-color: #FFFFFF;
+  --balance-amount-color: #E7DEDA;
+}
+
+.account-card.revolut {
+  --card-color: #264491;
+  --balance-title-color: #FFFFFF;
+}
+
+.account-card.revolut .account-card-face--back {
+  background: linear-gradient(120deg, rgba(38,68,145,1) 40%, rgba(215,56,107,1) 100%);
+}
+
+.account-card.revolut .account-card-balance-container {
+  @apply right-auto left-[24px];
 }
 
 .account-card.acMilan {
@@ -316,13 +344,14 @@
 .account-card.barcelona .account-card-balance-container,
 .account-card.neftchi .account-card-balance-container,
 .account-card.juventus .account-card-balance-container,
-.account-card.interMilan .account-card-balance-container
+.account-card.interMilan .account-card-balance-container,
 .account-card.manUtd .account-card-balance-container {
   @apply right-auto left-[28%];
 }
 
 .account-card .account-card-face {
   background-color: var(--card-color);
+  background-size: cover;
 }
 
 .account-card .account-card-title {
@@ -349,6 +378,9 @@
 .account-card.oschadBank .account-card-title,
 .account-card.monobank .account-card-title,
 .account-card.privatUniversal .account-card-title,
+.account-card.privatUniversal2 .account-card-title,
+.account-card.privatPayments .account-card-title,
+.account-card.revolut .account-card-title,
 .account-card.ucard .account-card-title {
   display: none;
 }

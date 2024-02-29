@@ -20,6 +20,9 @@ import rabitaKartmane from "./rabite_kartmane_card.png";
 import red from "./red_card.png";
 import ucard from "./uniban_ucard.png";
 import privatUniversal from "./privat_universal_card.png";
+import privatUniversal2 from "./privat_universal2_card.png";
+import privatPayments from "./privat_payments_card.png";
+import revolut from "./revolut_card.png";
 import acMilan from "./ac_milan_card.png";
 import asRoma from "./as_roma_card.png";
 import atleticoMadrid from "./at_madrid_card.png";
@@ -66,6 +69,9 @@ const banks = {
   rabitaKartmane,
   ucard,
   privatUniversal,
+  privatUniversal2,
+  privatPayments,
+  revolut
 }
 
 const football = {
