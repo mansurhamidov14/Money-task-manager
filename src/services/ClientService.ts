@@ -1,33 +1,43 @@
+import { API_BASE_URL } from "@app/constants";
 import { ClientDataResponse, CurrencyCode } from "./types";
+import { HttpService } from ".";
 
 export class ClientService {
   ip = "0.0.0.0";
   localCurrency: CurrencyCode = CurrencyCode.USD;
   private clientInitialized = "clientinitialized";
+  private clientConnectionSuccess = "clientConnectionSuccess";
 
-  constructor() {
+  constructor(private http: HttpService) {
     this.fetchUserIp(() => window.dispatchEvent(new CustomEvent(this.clientInitialized)));
     window.addEventListener("online", this.onlineHandler);
   }
 
   private fetchUserIp = async (finalCallback?: () => void) => {
     try {
-      const response = await fetch("https://ipapi.co/json/");
-      const clientData = await response.json() as ClientDataResponse;
-      this.ip = clientData.ip;
-      this.localCurrency = clientData.currency;
-    } finally {
+      const { data } = await this.http.get<ClientDataResponse>(`/client/info`);
+      this.ip = data.ip;
+      this.localCurrency = data.currency;
+      window.dispatchEvent(new CustomEvent(this.clientConnectionSuccess));
+    } catch (e) {} finally {
       finalCallback?.();
     }
   }
 
-  private onlineHandler = () => {
-    this.fetchUserIp();
+  private onlineHandler = async () => {
+    await this.fetchUserIp();
+    window.dispatchEvent(new CustomEvent(this.clientConnectionSuccess))
   }
 
   onInitilized(callback: () => void) {
     window.addEventListener(this.clientInitialized, callback, { once: true });
   }
+
+  onConnectionSuccess(callback: () => void) {
+    window.addEventListener(this.clientConnectionSuccess, callback);
+  }
 }
 
-export const clientService = new ClientService();
+export const clientService = new ClientService(
+  new HttpService(API_BASE_URL)
+);

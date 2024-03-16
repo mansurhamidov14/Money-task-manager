@@ -1,6 +1,6 @@
 import md5 from "md5";
 import { azFlag, euFlag, gbFlag, ruFlag, trFlag, uaFlag, usFlag } from "@app/assets";
-import { CURRENCY_RATES_ACCESS_SALT } from "@app/constants";
+import { API_BASE_URL, CURRENCY_RATES_ACCESS_SALT } from "@app/constants";
 import {
   cacheService,
   Currencies,
@@ -12,6 +12,7 @@ import {
   clientService,
   type ClientService,
   OptionalCurrencyRates,
+  HttpService,
 } from "@app/services";
 import { getAbsentKeys } from "@app/helpers";
 
@@ -21,7 +22,7 @@ class CurrencyService {
   public avaliableCurrencies: Currency[];
   public defaultCurrency: CurrencyCode = CurrencyCode.USD;
 
-  constructor(public clientService: ClientService) {
+  constructor(private http: HttpService, clientService: ClientService) {
     this.availableCurrenciesMap = {
       AZN: this.generateCurrency(CurrencyCode.AZN, "₼", 2, azFlag, this.trailingSignFormatter),
       USD: this.generateCurrency(CurrencyCode.USD, "$", 2, usFlag),
@@ -33,9 +34,15 @@ class CurrencyService {
     };
     this.avaliableCurrencies = Object.values(this.availableCurrenciesMap);
     this.availableCurrencyCodes = Object.values(CurrencyCode);
-    this.clientService.onInitilized(() => {
-      if (this.availableCurrencyCodes.includes(this.clientService.localCurrency)) {
-        this.defaultCurrency = this.clientService.localCurrency;
+    clientService.onInitilized(() => {
+      if (this.availableCurrencyCodes.includes(clientService.localCurrency)) {
+        this.defaultCurrency = clientService.localCurrency;
+        
+      }
+    });
+    clientService.onConnectionSuccess(() => {
+      this.http.headers = {
+        'Access-Key': md5(CURRENCY_RATES_ACCESS_SALT + md5(clientService.ip))
       }
     });
   }
@@ -56,22 +63,15 @@ class CurrencyService {
       return { ...INITIAL_CURRENCY_RATES, ...cachedRatesOfDate };
     }
     try {
-      const reqParams = new URLSearchParams({
-        base: baseCurrency,
-        currencies: absentCurrencies.join(","),
-        date
-      });
-      const response = await fetch(`https://schoolplus.io/web/rates.php?${reqParams}`, {
-        headers: {
-          'Access-Key': md5(CURRENCY_RATES_ACCESS_SALT + md5(this.clientService.ip))
-        }
-      });
-      const ratesData = (await response.json()).body;
-      const res = this.formatResponse(ratesData);
+      const absentCurrenciesStr = absentCurrencies.join(",");
+      const { data } = await this.http.get<CurrencyRatesResponse>(
+        `/currency/rates/${baseCurrency}/${absentCurrenciesStr}/${date}`
+      );
+      const res = this.formatResponse(data);
       cachedRates[key] = { ...cachedRatesOfDate, ...res };
       cacheService.writeToSection("currencyRates", cachedRates)
       return { ...INITIAL_CURRENCY_RATES, ...cachedRates[key] };
-    } catch (e) {
+    } catch (e: any) {
       return INITIAL_CURRENCY_RATES;
     };
   }
@@ -137,4 +137,4 @@ class CurrencyService {
   }
 }
 
-export const currencyService = new CurrencyService(clientService);
+export const currencyService = new CurrencyService(new HttpService(API_BASE_URL), clientService);

@@ -1,3 +1,4 @@
+export * from "./HttpService";
 export * from "./AccountService";
 export * from "./CacheService";
 export * from "./CategoryService";

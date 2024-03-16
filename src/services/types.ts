@@ -85,3 +85,14 @@ export type Skin = {
   id: string;
   image: string;
 }
+
+export type HttpParseMode = keyof Pick<Response, 'arrayBuffer' | 'blob' | 'text' | 'json'>;
+export type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE" | "OPTIONS";
+export type HttpRequestBody = BodyInit | null | undefined;
+export type HttpResponse<T> = { status: number; data: T};
+export type HttpError = { status: number, message: string; };
+export type HttpRequestOptions = {
+  headers?: HeadersInit;
+  parseMode: HttpParseMode;
+}
+

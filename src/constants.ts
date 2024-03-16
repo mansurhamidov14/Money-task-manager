@@ -5,4 +5,4 @@ export const CURRENCY_RATES_ACCESS_SALT = 'kqHMgjXXSFQMZGM4YcQ9JUra';
 export const Errors = {
   EMAIL_ALREADY_REGISTERED: "EMAIL_ALREADY_REGISTERED"
 }
-
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
