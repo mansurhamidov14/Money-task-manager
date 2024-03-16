@@ -9,10 +9,10 @@ import {
   categoryService,
   CategoryId,
   currencyService,
-  type CurrencyCode
 } from "@app/services";
 import { Transaction, accountsStore, themeStore } from "@app/stores";
 import { DateFilter } from "../types";
+import { CurrencyCode } from "@app/entities";
 
 export function PieCharts(props: {
   transactions: Accessor<Transaction[]>;

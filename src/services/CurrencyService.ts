@@ -4,8 +4,6 @@ import { API_BASE_URL, CURRENCY_RATES_ACCESS_SALT } from "@app/constants";
 import {
   cacheService,
   Currencies,
-  Currency,
-  CurrencyCode,
   CurrencyRates,
   CurrencyRatesResponse,
   INITIAL_CURRENCY_RATES,
@@ -15,6 +13,7 @@ import {
   HttpService,
 } from "@app/services";
 import { getAbsentKeys } from "@app/helpers";
+import { Currency, CurrencyCode } from "@app/entities";
 
 class CurrencyService {
   private availableCurrenciesMap: Currencies;
@@ -24,13 +23,13 @@ class CurrencyService {
 
   constructor(private http: HttpService, clientService: ClientService) {
     this.availableCurrenciesMap = {
-      AZN: this.generateCurrency(CurrencyCode.AZN, "₼", 2, azFlag, this.trailingSignFormatter),
-      USD: this.generateCurrency(CurrencyCode.USD, "$", 2, usFlag),
-      EUR: this.generateCurrency(CurrencyCode.EUR, "€", 2, euFlag),
-      GBP: this.generateCurrency(CurrencyCode.GBP, "£", 2, gbFlag),
-      TRY: this.generateCurrency(CurrencyCode.TRY, "₺", 0, trFlag),
-      UAH: this.generateCurrency(CurrencyCode.UAH, "₴", 0, uaFlag),
-      RUB: this.generateCurrency(CurrencyCode.RUB, "₽", 0, ruFlag, this.trailingSignFormatter),
+      AZN: new Currency({ code: CurrencyCode.AZN, sign: "₼", flag: azFlag, formatter: Currency.trailingSignFormatter }),
+      USD: new Currency({ code: CurrencyCode.USD, sign: "$", flag: usFlag }),
+      EUR: new Currency({ code: CurrencyCode.EUR, sign: "€", flag: euFlag }),
+      GBP: new Currency({ code: CurrencyCode.GBP, sign: "£", flag: gbFlag }),
+      TRY: new Currency({ code: CurrencyCode.TRY, sign: "₺", precision: 0, flag: trFlag }),
+      UAH: new Currency({ code: CurrencyCode.UAH, sign: "₴", precision: 0, flag: uaFlag }),
+      RUB: new Currency({ code: CurrencyCode.RUB, sign: "₽", precision: 0, flag: ruFlag, formatter: Currency.trailingSignFormatter}),
     };
     this.avaliableCurrencies = Object.values(this.availableCurrenciesMap);
     this.availableCurrencyCodes = Object.values(CurrencyCode);
@@ -88,12 +87,8 @@ class CurrencyService {
     return this.availableCurrenciesMap[code];
   }
 
-  getFormatter(code: CurrencyCode) {
-    return this.getCurrency(code).formatter;
-  }
-
   formatValue(code: CurrencyCode, value: number) {
-    return this.getFormatter(code)(value);
+    return this.getCurrency(code).formatValue(value);
   }
   
   getFlag(code: CurrencyCode) {
@@ -102,39 +97,6 @@ class CurrencyService {
 
   getSign(code: CurrencyCode) {
     return this.getCurrency(code).sign;
-  }
-
-  private generateCurrency = (
-    code: CurrencyCode,
-    sign: string,
-    precision: number,
-    flag: string,
-    formatter: (sign: string, precision: number) => (value: number) => string = this.leadingSignFormatter,
-  ): Currency => ({ code, sign, precision, flag, formatter: formatter(sign, precision) });
-
-  private trailingSignFormatter = (sign: string, precision: number) => {
-    return function (value: number): string {
-      const isWhole = value % 1 === 0;
-      const amount = new Intl.NumberFormat("en-US", {
-        minimumFractionDigits: isWhole ? 0 : precision,
-        maximumFractionDigits: precision
-      }).format(value);
-      return `${amount}${sign}`;
-    }
-  }
-
-  private leadingSignFormatter = (sign: string, precision: number) => {
-    return function (value: number): string {
-      const isWhole = value % 1 === 0;
-      const amount = new Intl.NumberFormat("en-US", {
-        minimumFractionDigits: isWhole ? 0 : precision,
-        maximumFractionDigits: precision
-      }).format(Math.abs(value));
-      
-      let result = `${sign}${amount}`;
-      if (value < 0) result = "-" + result;
-      return result;
-    }
   }
 
   private getAccessKey(ipAddress: string) {

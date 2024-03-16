@@ -1,5 +1,6 @@
-import { CategoryId, Currency, type CurrencyCode } from "@app/services";
+import { CategoryId } from "@app/services";
 import { AsyncStore } from "../types";
+import type { Currency, CurrencyCode } from "@app/entities";
 
 export type TransactionType = "expense" | "income";
 export type Transaction = {
@@ -18,7 +19,7 @@ export type Transaction = {
 }
 
 export type TransactionGroupSum = {
-  formatter: Currency["formatter"];
+  currency: Currency;
   amount: number;
 }
 

@@ -1,6 +1,7 @@
 import * as yup from "yup";
+import { CurrencyCode } from "@app/entities";
 import { t } from "@app/i18n";
-import { userService, CurrencyCode, currencyService } from "@app/services";
+import { userService, currencyService } from "@app/services";
 import {
   MIN_FIRST_NAME_LENGTH,
   MIN_LAST_NAME_LENGTH,

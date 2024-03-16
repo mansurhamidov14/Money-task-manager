@@ -1,6 +1,7 @@
 import { API_BASE_URL } from "@app/constants";
-import { ClientDataResponse, CurrencyCode } from "./types";
+import { ClientDataResponse } from "./types";
 import { HttpService } from ".";
+import { CurrencyCode } from "@app/entities";
 
 export class ClientService {
   ip = "0.0.0.0";

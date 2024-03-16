@@ -1,6 +1,7 @@
 import * as yup from "yup";
+import type { CurrencyCode } from "@app/entities";
 import { t } from "@app/i18n";
-import { type CurrencyCode, currencyService } from "@app/services";
+import { currencyService } from "@app/services";
 
 type NewAccountForm = {
   title: string;

@@ -1,4 +1,5 @@
 import { UserPrivateData } from "@app/adapters/IDB";
+import type { Currency, CurrencyCode } from "@app/entities";
 import { Account, Task, Transaction, User } from "@app/stores";
 import { IconTypes } from "solid-icons";
 
@@ -8,24 +9,6 @@ export type NewUser = CreationRequestData<User & UserPrivateData>;
 export type NewTransaction = CreationRequestData<Transaction>;
 export type NewAccount = CreationRequestData<Account>;
 export type NewTask = CreationRequestData<Task>;
-
-export enum CurrencyCode {
-  AZN = "AZN",
-  GBP = "GBP",
-  USD = "USD",
-  UAH = "UAH",
-  RUB = "RUB",
-  TRY = "TRY",
-  EUR = "EUR",
-};
-
-export type Currency = {
-  code: CurrencyCode;
-  sign: string;
-  precision: number;
-  formatter: (value: number) => string;
-  flag: string;
-}
 
 export type Currencies = Record<CurrencyCode, Currency>;
 

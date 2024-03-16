@@ -1,4 +1,4 @@
-import type { CurrencyCode } from "@app/services";
+import type { CurrencyCode } from "@app/entities";
 import { AsyncStore } from "../types";
 
 export type Account = {

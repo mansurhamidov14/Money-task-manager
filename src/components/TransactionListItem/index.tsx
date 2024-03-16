@@ -2,8 +2,9 @@ import { useNavigate } from "@solidjs/router";
 import { createMemo } from "solid-js";
 import { HiOutlinePencilSquare } from "solid-icons/hi";
 import { IoTrash } from "solid-icons/io";
+import type { CurrencyCode } from "@app/entities";
 import { Message, t } from "@app/i18n";
-import { categoryService, CategoryId, currencyService, type CurrencyCode } from "@app/services";
+import { categoryService, CategoryId, currencyService } from "@app/services";
 import { Transaction, accountsStore, confirmationStore, toastStore, transactionsStore } from "@app/stores";
 import { ListItem } from "../ListItem";
 

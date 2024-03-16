@@ -1,4 +1,5 @@
-import { CachedData, CurrencyCode } from "./types";
+import { CurrencyCode } from "@app/entities";
+import { CachedData } from "./types";
 
 export const INITIAL_CURRENCY_RATES: Record<CurrencyCode, number> = Object
   .values(CurrencyCode)
