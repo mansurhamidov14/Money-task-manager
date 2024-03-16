@@ -26,7 +26,7 @@ class CurrencyService {
     this.availableCurrenciesMap = {
       AZN: this.generateCurrency(CurrencyCode.AZN, "₼", 2, azFlag, this.trailingSignFormatter),
       USD: this.generateCurrency(CurrencyCode.USD, "$", 2, usFlag),
-      EUR: this.generateCurrency(CurrencyCode.EUR, "€", 2, euFlag, ),
+      EUR: this.generateCurrency(CurrencyCode.EUR, "€", 2, euFlag),
       GBP: this.generateCurrency(CurrencyCode.GBP, "£", 2, gbFlag),
       TRY: this.generateCurrency(CurrencyCode.TRY, "₺", 0, trFlag),
       UAH: this.generateCurrency(CurrencyCode.UAH, "₴", 0, uaFlag),
@@ -34,16 +34,17 @@ class CurrencyService {
     };
     this.avaliableCurrencies = Object.values(this.availableCurrenciesMap);
     this.availableCurrencyCodes = Object.values(CurrencyCode);
+  
+    /** Setting up app default currency according to user's country */
     clientService.onInitilized(() => {
       if (this.availableCurrencyCodes.includes(clientService.localCurrency)) {
         this.defaultCurrency = clientService.localCurrency;
-        
       }
     });
+  
+    /** Setting up httpClient request headers */
     clientService.onConnectionSuccess(() => {
-      this.http.headers = {
-        'Access-Key': md5(CURRENCY_RATES_ACCESS_SALT + md5(clientService.ip))
-      }
+      this.http.headers = this.createRequestHeaders(clientService.ip);
     });
   }
 
@@ -134,6 +135,16 @@ class CurrencyService {
       if (value < 0) result = "-" + result;
       return result;
     }
+  }
+
+  private getAccessKey(ipAddress: string) {
+    return md5(CURRENCY_RATES_ACCESS_SALT + md5(ipAddress));
+  }
+
+  private createRequestHeaders(ipAddress: string) {
+    return {
+      'Access-Key': this.getAccessKey(ipAddress)
+    };
   }
 }
 
