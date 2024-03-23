@@ -1,7 +1,6 @@
-import { API_BASE_URL } from "@app/constants";
-import { ClientDataResponse } from "./types";
-import { HttpService } from ".";
 import { CurrencyCode } from "@app/entities";
+import type { HttpService } from "./HttpService";
+import { ClientDataResponse } from "./types";
 
 export class ClientService {
   ip = "0.0.0.0";
@@ -38,7 +37,3 @@ export class ClientService {
     window.addEventListener(this.clientConnectionSuccess, callback);
   }
 }
-
-export const clientService = new ClientService(
-  new HttpService(API_BASE_URL)
-);

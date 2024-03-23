@@ -1,10 +1,9 @@
-import { IDBCollection, SearchCondition } from "@app/adapters/IDB";
-import { taskCollection } from "@app/db";
+import { type IDBCollection, SearchCondition } from "@app/adapters/IDB";
 import { OneTimeTask, RecurringTask, RecurringTaskDay, Task } from "@app/stores";
 import { TaskFormSchema } from "@app/schemas";
-import { NewTask } from ".";
+import { NewTask } from "./types";
 
-class TaskService {
+export class TaskService {
   constructor (private collection: IDBCollection<Task>) { }
 
   async create(user: number, task: TaskFormSchema): Promise<void> {
@@ -127,5 +126,3 @@ class TaskService {
     return this.collection.delete({ originalId });
   }
 }
-
-export const taskService = new TaskService(taskCollection);

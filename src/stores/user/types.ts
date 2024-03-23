@@ -1,7 +1,7 @@
 import type { CurrencyCode } from "@app/entities";
 
 export type User = {
-  id: number;
+  id: string;
   avatar: string;
   firstName: string;
   lastName: string;

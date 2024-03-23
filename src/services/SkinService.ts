@@ -21,5 +21,3 @@ export class SkinService {
     return this.skinsMap[id] ?? this.fallbackImg;
   }
 }
-
-export const skinService = new SkinService();

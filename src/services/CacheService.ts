@@ -1,33 +1,37 @@
 
+import { StorageItem } from "@app/entities";
 import { getInitialCacheData } from "./consts";
 import { CachedData } from "./types";
 
-class CacheService {
-  data: CachedData;
-  private localStorageAccessKey = "wfoAppCache";
+export class CacheService {
+  private storageItem: StorageItem<CachedData>;
 
   constructor() {
-    const cached = localStorage.getItem(this.localStorageAccessKey);
-    this.data = (cached ? JSON.parse(cached) : getInitialCacheData()) as CachedData;
+    this.storageItem = new StorageItem({
+      accessor: "wfoAppCache",
+      initialValue: getInitialCacheData
+    });
+  }
+
+  get data() {
+    return this.storageItem.value;
   }
 
   clear() {
-    this.write(getInitialCacheData());
+    this.storageItem.clear();
   }
 
   write(data: CachedData) {
-    this.data = data;
-    localStorage.setItem(this.localStorageAccessKey, JSON.stringify(data))
+    this.storageItem.value = data;
   }
 
   writeToSection<S extends keyof CachedData, D extends CachedData[S]>(section: S, data: D) {
-    this.data[section] = data;
-    this.write(this.data);
+    const value = this.data;
+    value[section] = data;
+    this.write(value);
   }
 
-  getCacheData<K extends keyof CachedData>(key: K, defaultValue: CachedData[K]): CachedData[K] {
-    return this.data[key] ?? defaultValue;
+  getCacheData<K extends keyof CachedData>(key: K): CachedData[K] {
+    return this.data[key];
   }
 }
-
-export const cacheService = new CacheService();

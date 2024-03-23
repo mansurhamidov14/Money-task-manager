@@ -1,27 +1,23 @@
-import md5 from "md5";
 import { azFlag, euFlag, gbFlag, ruFlag, trFlag, uaFlag, usFlag } from "@app/assets";
-import { API_BASE_URL, CURRENCY_RATES_ACCESS_SALT } from "@app/constants";
-import {
-  cacheService,
-  Currencies,
-  CurrencyRates,
-  CurrencyRatesResponse,
-  INITIAL_CURRENCY_RATES,
-  clientService,
-  type ClientService,
-  OptionalCurrencyRates,
-  HttpService,
-} from "@app/services";
-import { getAbsentKeys } from "@app/helpers";
 import { Currency, CurrencyCode } from "@app/entities";
+import { getAbsentKeys, toMap } from "@app/helpers";
+import { Currencies, CurrencyRates, CurrencyRatesResponse, INITIAL_CURRENCY_RATES } from "@app/services";
 
-class CurrencyService {
+import type { CacheService } from "./CacheService";
+import type { ClientService } from "./ClientService";
+import type { HttpService } from "./HttpService";
+
+export class CurrencyService {
   private availableCurrenciesMap: Currencies;
   public availableCurrencyCodes: CurrencyCode[];
   public avaliableCurrencies: Currency[];
   public defaultCurrency: CurrencyCode = CurrencyCode.USD;
 
-  constructor(private http: HttpService, clientService: ClientService) {
+  constructor(
+    private http: HttpService,
+    private cacheService: CacheService,
+    clientService: ClientService
+  ) {
     this.availableCurrenciesMap = {
       AZN: new Currency({ code: CurrencyCode.AZN, sign: "₼", flag: azFlag, formatter: Currency.trailingSignFormatter }),
       USD: new Currency({ code: CurrencyCode.USD, sign: "$", flag: usFlag }),
@@ -40,11 +36,6 @@ class CurrencyService {
         this.defaultCurrency = clientService.localCurrency;
       }
     });
-  
-    /** Setting up httpClient request headers */
-    clientService.onConnectionSuccess(() => {
-      this.http.headers = this.createRequestHeaders(clientService.ip);
-    });
   }
 
   async getRates(
@@ -56,7 +47,7 @@ class CurrencyService {
       return INITIAL_CURRENCY_RATES;
     }
     const key = `${date}_${baseCurrency}`;
-    const cachedRates = cacheService.getCacheData("currencyRates", {});
+    const cachedRates = this.cacheService.getCacheData("currencyRates");
     const cachedRatesOfDate = cachedRates[key] ?? {};
     const absentCurrencies = getAbsentKeys(cachedRatesOfDate, currencies);
     if (!absentCurrencies.length) {
@@ -67,20 +58,13 @@ class CurrencyService {
       const { data } = await this.http.get<CurrencyRatesResponse>(
         `/currency/rates/${baseCurrency}/${absentCurrenciesStr}/${date}`
       );
-      const res = this.formatResponse(data);
-      cachedRates[key] = { ...cachedRatesOfDate, ...res };
-      cacheService.writeToSection("currencyRates", cachedRates)
+      const replenishedRates = toMap(data, 'to', 'result');
+      cachedRates[key] = { ...cachedRatesOfDate, ...replenishedRates };
+      this.cacheService.writeToSection("currencyRates", cachedRates)
       return { ...INITIAL_CURRENCY_RATES, ...cachedRates[key] };
     } catch (e: any) {
       return INITIAL_CURRENCY_RATES;
     };
-  }
-
-  private formatResponse(response: CurrencyRatesResponse): OptionalCurrencyRates {
-    return response.reduce((result, rate) => {
-      result[rate.to] = rate.result;
-      return result;
-    }, {} as OptionalCurrencyRates);
   }
 
   getCurrency(code: CurrencyCode) {
@@ -98,16 +82,4 @@ class CurrencyService {
   getSign(code: CurrencyCode) {
     return this.getCurrency(code).sign;
   }
-
-  private getAccessKey(ipAddress: string) {
-    return md5(CURRENCY_RATES_ACCESS_SALT + md5(ipAddress));
-  }
-
-  private createRequestHeaders(ipAddress: string) {
-    return {
-      'Access-Key': this.getAccessKey(ipAddress)
-    };
-  }
 }
-
-export const currencyService = new CurrencyService(new HttpService(API_BASE_URL), clientService);

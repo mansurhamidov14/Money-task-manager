@@ -1,14 +1,14 @@
 import * as yup from "yup";
 import { CurrencyCode } from "@app/entities";
 import { t } from "@app/i18n";
-import { userService, currencyService } from "@app/services";
+import { authService, currencyService } from "@app/services";
 import {
   MIN_FIRST_NAME_LENGTH,
   MIN_LAST_NAME_LENGTH,
   MIN_PASSWORD_LENGTH
 } from "./constants";
 
-type SignUpForm = {
+export type SignUpForm = {
   firstName: string;
   lastName: string;
   email: string;
@@ -28,7 +28,7 @@ export function getSignUpFormSchema(): yup.Schema<SignUpForm> {
       .required(t("common.FormFields.required"))
       .email(t("AuthScreen.FormFields.Email.invalidFormat"))
       .test("unique", t("AuthScreen.FormFields.Email.notUnique"), async (value) => {
-        return !(await userService.userExist(value))
+        return !(await authService.userExist(value))
       }),
     newPassword: yup.string()
       .required(t("common.FormFields.required"))

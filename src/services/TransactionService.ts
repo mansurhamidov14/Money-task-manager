@@ -1,9 +1,8 @@
-import { IDBCollection, SearchCondition } from "@app/adapters/IDB";
-import { transactionCollection } from "@app/db";
+import { type IDBCollection, SearchCondition } from "@app/adapters/IDB";
 import { Transaction } from "@app/stores";
 import { NewTransaction } from "./types";
 
-class TransactionService {
+export class TransactionService {
   constructor (private collection: IDBCollection<Transaction>) { }
 
   create(transaction: NewTransaction) {
@@ -30,5 +29,3 @@ class TransactionService {
     return this.collection.delete({ account });
   }
 }
-
-export const transactionService = new TransactionService(transactionCollection);

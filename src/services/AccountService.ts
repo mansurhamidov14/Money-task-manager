@@ -1,9 +1,8 @@
-import { IDBCollection, SearchCondition } from "@app/adapters/IDB";
-import { accountCollection } from "@app/db";
+import { type IDBCollection, SearchCondition } from "@app/adapters/IDB";
 import { Account } from "@app/stores";
 import { NewAccount } from "./types";
 
-class AccountService {
+export class AccountService {
   constructor (private collection: IDBCollection<Account>) { }
 
   create(account: NewAccount) {
@@ -34,4 +33,3 @@ class AccountService {
   }
 }
 
-export const accountService = new AccountService(accountCollection);

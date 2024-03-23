@@ -32,7 +32,7 @@ export function SignUpPage() {
         email: formData.email.toLowerCase(),
         password: formData.newPassword,
         primaryCurrency: formData.primaryCurrency,
-        hasPinProtection: 0 as 0 | 1,
+        hasPinProtection: 0 as const,
         avatar: getRandomElement(avatars),
       };
       const newUser = await userService.signUp(userData);

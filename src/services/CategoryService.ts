@@ -14,7 +14,7 @@ import { BiSolidPlaneAlt } from "solid-icons/bi";
 import { BsLightbulb, BsScissors } from "solid-icons/bs";
 import { Category, CategoryId } from "@app/services";
 
-class CategoryService {
+export class CategoryService {
   private categoriesMap: Record<CategoryId, Category>;
   public categories: Category[];
   public ids: CategoryId[];
@@ -66,5 +66,3 @@ class CategoryService {
     }
   });
 }
-
-export const categoryService = new CategoryService();

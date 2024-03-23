@@ -1,18 +1,13 @@
-import {
-  HttpRequestBody,
-  HttpError,
-  HttpMethod,
-  HttpRequestOptions,
-  HttpResponse
-} from ".";
+import { HttpError, HttpMethod, HttpRequestOptions, HttpResponse } from ".";
 
 export class HttpService {
+  private errorHandlers: Record<number, () => void> = {};
   constructor(
     public baseUrl: string,
     public headers: Record<string, string> = {}
   ) {}
 
-  public async fetch<T = unknown, B extends HttpRequestBody = undefined>(
+  public async fetch<T = unknown, B = unknown>(
     url: string,
     method: HttpMethod,
     body?: B,
@@ -24,7 +19,7 @@ export class HttpService {
       const fetchUrl = this.isAbsolute(url) ? url : `${this.baseUrl}${url}`;
       const response = await fetch(fetchUrl, {
         headers,
-        body,
+        body: JSON.stringify(body),
         method
       });
   
@@ -38,6 +33,7 @@ export class HttpService {
 
       const error = new Error(response.statusText) as any;
       error.status = response.status;
+      this.errorHandlers[response.status]?.();
       throw error as HttpError;
     } catch (e) {
       throw e;
@@ -52,7 +48,7 @@ export class HttpService {
     return this.fetch<T>(url, "DELETE", undefined, options);
   }
 
-  post<T = unknown, B extends HttpRequestBody = undefined>(
+  post<T = unknown, B = unknown>(
     url: string,
     body?: B,
     options?: HttpRequestOptions
@@ -60,7 +56,7 @@ export class HttpService {
     return this.fetch<T, B>(url, "POST", body, options);
   }
 
-  patch<T = unknown, B extends HttpRequestBody = undefined>(
+  patch<T = unknown, B = unknown>(
     url: string,
     body?: B,
     options?: HttpRequestOptions
@@ -71,5 +67,9 @@ export class HttpService {
   private isAbsolute(url: string) {
     var regExp = new RegExp('^(?:[a-z+]+:)?//', 'i');
     return regExp.test(url);
+  }
+
+  public registerErrorHandler(statusCode: number, callback: () => void) {
+    this.errorHandlers[statusCode] = callback;
   }
 }
