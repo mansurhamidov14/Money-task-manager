@@ -10,7 +10,7 @@ import { avatars } from "@app/screens/SettingsScreen/constants";
 import { getRandomElement } from "@app/helpers";
 import { Action, Message, t } from "@app/i18n";
 import { getSignUpFormSchema } from "@app/schemas";
-import { authService, accountService, currencyService } from "@app/services";
+import { authService, accountService, currencyService, userService } from "@app/services";
 import { Link, user } from "@app/stores";
 
 import { AuthLayout } from "../AuthLayout";
@@ -34,7 +34,8 @@ export function SignUpPage() {
         primaryCurrency: formData.primaryCurrency,
         avatar: getRandomElement(avatars),
       };
-      const newUser = await authService.signUp(userData);
+      const { user: newUser, access_token } = await authService.signUp(userData);
+      userService.setAccessToken(access_token);
       await accountService.create({
         user: newUser.id,
         title: t("common.initialAccountName"),

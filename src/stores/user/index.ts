@@ -18,13 +18,11 @@ function initUserStore() {
     }));
   }
   
-  const logOut = () => {
-    authService.logOut();
+  const logOut = async () => {
     setCurrentUser({ status: "loading" });
-    setTimeout(() => {
-      setCurrentUser({ status: "unauthorized" });
-      transactionsStore.setTransactionsLoading();
-    }, 500);
+    await authService.logOut();
+    setCurrentUser({ status: "unauthorized" });
+    transactionsStore.setTransactionsLoading();
   }
 
   return {

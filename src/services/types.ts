@@ -2,8 +2,16 @@ import type { Currency, CurrencyCode } from "@app/entities";
 import { Account, Task, Transaction, User } from "@app/stores";
 import { IconTypes } from "solid-icons";
 
-export type CreationRequestData<T> = Omit<T, "id" | "createdAt" | "updatedAt">
-export type AuthResponse = { access_token: string, user: User }
+export type TokenResponse = {
+  access_token: string;
+  refresh_token: string;
+}
+
+export type AuthResponse = TokenResponse & {
+  user: User;
+}
+
+export type CreationRequestData<T> = Omit<T, "id" | "createdAt" | "updatedAt">;
 export type NewTransaction = CreationRequestData<Transaction>;
 export type NewAccount = CreationRequestData<Account>;
 export type NewTask = CreationRequestData<Task>;

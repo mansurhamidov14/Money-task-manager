@@ -1,18 +1,11 @@
-import { StorageItem } from "@app/entities";
 import { User } from "@app/stores";
 import type { HttpService } from "./HttpService";
 
 export class UserService {
-  constructor(private httpClient: HttpService, private accessToken: StorageItem<string | null>) {}
+  constructor(private httpClient: HttpService) {}
 
   async getUser() {
-    try {
-      const { data } = await this.httpClient.get<User>('/user');
-      return data;
-    } catch (e) {
-      this.accessToken.clear();
-      return null;
-    }
+    return await this.httpClient.get<User>('/user')
   }
 
   update(data: Partial<User>) {
@@ -42,5 +35,9 @@ export class UserService {
 
   resetPassword(password: string, newPassword: string) {
     return this.httpClient.post<boolean>('/user/reset-password', { password, newPassword });
+  }
+
+  setAccessToken(accessToken: string) {
+    this.httpClient.headers.Authorization = `Bearer ${accessToken}`;
   }
 }

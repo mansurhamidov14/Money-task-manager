@@ -1,28 +1,30 @@
 import { StorageItem } from "@app/entities";
 import { SignUpForm } from "@app/schemas";
-import { User } from "@app/stores";
 
 import type { HttpService } from "./HttpService";
-import { AuthResponse } from "./types";
+import { AuthResponse, TokenResponse } from "./types";
 
 export class AuthService {
-  constructor (private httpClient: HttpService, private accessToken: StorageItem<string | null>) {}
+  constructor (
+    private httpClient: HttpService,
+    private refreshToken: StorageItem<string | null>
+  ) {}
 
-  async signUp(formData: SignUpForm): Promise<User> {
+  async signUp(formData: SignUpForm): Promise<AuthResponse> {
     try {
-      const { data: { access_token, user } } = await this.httpClient.post<AuthResponse, SignUpForm>('/auth/signup', formData);
-      this.accessToken.value = access_token;
-      return user;
+      const { data } = await this.httpClient.post<AuthResponse, SignUpForm>('/auth/signup', formData);
+      this.refreshToken.value = data.refresh_token;
+      return data;
     } catch (error) {
       throw error;
     }
   }
 
-  async auth(email: string, password: string): Promise<User> {
+  async auth(email: string, password: string): Promise<AuthResponse> {
     try {
       const { data } = await this.httpClient.post<AuthResponse>('/auth/signin', { email, password });
-      this.accessToken.value = data.access_token;
-      return data.user;
+      this.refreshToken.value = data.refresh_token;
+      return data;
     } catch (e) {
       throw e;
     }
@@ -38,7 +40,21 @@ export class AuthService {
   }
 
   async logOut() {
-    this.accessToken.clear();
-    return true;
+    try {
+      await this.httpClient.post('/auth/logout');
+    } catch (e) {} finally {
+      this.refreshToken.clear();
+      window.history.replaceState({}, "", "/");
+    }
+  }
+
+  async getRefreshToken() {
+    try {
+      const { data } = await this.httpClient.post<TokenResponse>('/auth/refresh-token');
+      this.refreshToken.value = data.refresh_token;
+      return data;
+    } catch (e) {
+      throw e;
+    }
   }
 }

@@ -33,7 +33,7 @@ import {
   PersonalInfoScreen
 } from "@app/screens/SettingsScreen/pages";
 import { DateProcessorProvider } from "@app/providers";
-import { clientService, userService } from "@app/services";
+import { authService, clientService, userService } from "@app/services";
 import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
@@ -65,8 +65,10 @@ export default function() {
     clientService.onInitilized(() => {
       setClientInitialized(true);
     });
-    const authorizedUser = await userService.getUser();
-    if (authorizedUser) {
+    try {
+      const { access_token } = await authService.getRefreshToken();
+      userService.setAccessToken(access_token);
+      const { data: authorizedUser } = await userService.getUser();
       if (authorizedUser.hasPinProtection) {
         const currentUrl = window.location.hash.slice(1);
         localStorage.setItem(REDIRECT_URL_STORE_KEY, currentUrl ?? "/home");
@@ -75,7 +77,8 @@ export default function() {
         status: authorizedUser.hasPinProtection ? "locked" : "authorized",
         data: authorizedUser
       });
-    } else {
+    } catch (e) {
+      await authService.logOut();
       user.setCurrentUser({ status: "unauthorized" });
     }
   });

@@ -8,7 +8,7 @@ import { FiAtSign } from "solid-icons/fi";
 import { Button, TextInput } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
 import { getLoginFormSchema } from "@app/schemas";
-import { authService } from "@app/services";
+import { authService, userService } from "@app/services";
 import { Link, toastStore, user } from "@app/stores";
 
 import { AuthLayout } from "../AuthLayout";
@@ -25,7 +25,8 @@ export function LoginPage() {
       const email = formHandler.getFieldValue("email");
       const password = formHandler.getFieldValue("password");
       const data = await authService.auth(email.toLowerCase(), password);
-      user.setCurrentUser({ status: "authorized", data });
+      userService.setAccessToken(data.access_token);
+      user.setCurrentUser({ status: "authorized", data: data.user });
       navigate("/");
     } catch (e: any) {
       toastStore.handleServerError(e);
