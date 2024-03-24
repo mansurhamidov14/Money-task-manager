@@ -1,4 +1,4 @@
-import { Accessor, For, Setter, createEffect, createMemo } from "solid-js";
+import { Accessor, For, Setter, createEffect, createMemo, onCleanup, onMount } from "solid-js";
 import { Row } from "./Row";
 import { Key } from "./Key";
 import { IoBackspaceOutline } from "solid-icons/io";
@@ -14,6 +14,22 @@ export type PinInputProps = {
 }
 
 export function PinInput(props: PinInputProps) {
+  const keyDownHandler = (event: KeyboardEvent) => {
+    if (isNaN(Number(event.key))) {
+      return;
+    }
+
+    props.onChange(value => value + event.key)
+  }
+
+  onMount(() => {
+    document.addEventListener("keydown", keyDownHandler);
+  });
+
+  onCleanup(() => {
+    document.removeEventListener("keydown", keyDownHandler);
+  })
+
   const handleNumberPress = (key: string) => {
     if (props.error && props.onClearError) {
       props.onClearError();

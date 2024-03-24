@@ -15,44 +15,56 @@ export function ChangePinScreen() {
   const [loading, setLoading] = createSignal(false);
   const [pinError, setPinError] = createSignal<null | string>(null);
 
-  const handleSubmit = async (pin: string) => {
-    const step = currentStep();
-
-    if (step === 1) {
-      setLoading(true);
-      const isValidPin = await userService.validatePin(currentUser.id, pin);
+  const handleFirstStep = async (value: string) => {
+    setLoading(true);
+    try {
+      await userService.validatePin(value);
+      setCurrentStep(2);
+      setValidCurrentPin(value);
+      setPinError(null);
+    } catch (e: any) {
+      vibrate();
+      setPinError(t(e.message, "Exceptions"));
+    } finally {
       setLoading(false);
       setCurrentValue("");
-      if (isValidPin) {
-        setCurrentStep(2);
-        setValidCurrentPin(pin);
-        setPinError(null);
-      } else {
-        vibrate();
-        setPinError(t("SettingsScreen.pinCode.invalidPIN"));
-      }
-    } else if (step === 2) {
-      setPrevValue(pin);
-      setCurrentValue("");
-      setCurrentStep(3);
-    } else {
-      const arePINsEqual = pin === prevValue();
-      setCurrentValue("");
-
-      if (arePINsEqual) {
-        try {
-          await userService.setUpPinProtection(currentUser, pin, validCurrentPin());
-          user.updateUserData({ hasPinProtection: 1 });
-          toastStore.pushToast("success", t("SettingsScreen.pinCode.success"));
-          history.back();
-        } catch (e: any) {
-          toastStore.pushToast("error", t("SettingsScreen.pinCode.error", undefined, { error: e.message }));
-        }
-      } else {
-        vibrate();
-        setPinError(t("SettingsScreen.pinCode.confirmationError"));
-      }
     }
+  }
+
+  const handleSecondStep = (value: string) => {
+    setPrevValue(value);
+    setCurrentValue("");
+    setCurrentStep(3);
+  }
+
+  const handleThirdStep = async (value: string) => {
+    const arePINsEqual = value === prevValue();
+    setCurrentValue("");
+
+    if (arePINsEqual) {
+      try {
+        await userService.setUpPinProtection(validCurrentPin(), value);
+        user.updateUserData({ hasPinProtection: 1 });
+        toastStore.pushToast("success", t("SettingsScreen.pinCode.success"), undefined, toastStore.TIMEOUT_SHORT);
+        history.back();
+      } catch (e: any) {
+        toastStore.pushToast("error", t("SettingsScreen.pinCode.error", undefined, { error: e.message }));
+      }
+    } else {
+      vibrate();
+      setPinError(t("SettingsScreen.pinCode.confirmationError"));
+    }
+  }
+
+  const handleSubmit = async (pin: string) => {
+    const step = currentStep();
+    const handlers: Record<number, (pin: string) => void> = {
+      1: handleFirstStep,
+      2: handleSecondStep,
+      3: handleThirdStep
+    }
+
+    handlers[step]?.(pin);
   }
 
   const handleStepBack = () => {
@@ -64,11 +76,13 @@ export function ChangePinScreen() {
 
   const handleProtectionRemove = async () => {
     try {
-      await userService.removePinProtectionByPin(currentUser.id, validCurrentPin());
+      await userService.setUpPinProtection(validCurrentPin());
       user.updateUserData({ hasPinProtection: 0 });
       toastStore.pushToast("success", t("SettingsScreen.pinCode.protectionRemoveSuccess"));
     } catch (e: any) {
-      toastStore.pushToast("error", t("SettingsScreen.pinCode.error", undefined, { error: e.message }));
+      if (e.message) {
+        toastStore.pushToast("error", t("SettingsScreen.pinCode.error", undefined, { error: e.message }));
+      }
     } finally {
       history.back();
     }

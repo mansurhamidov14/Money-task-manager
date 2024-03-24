@@ -2,10 +2,13 @@ import { HttpError, HttpMethod, HttpRequestOptions, HttpResponse } from ".";
 
 export class HttpService {
   private errorHandlers: Record<number, () => void> = {};
+  headers: Record<string, string | null> = {}
   constructor(
     public baseUrl: string,
-    public headers: Record<string, string> = {}
-  ) {}
+    headers: Record<string, string> = {}
+  ) {
+    this.headers = { ...headers, 'Content-Type': 'application/json' }
+  }
 
   public async fetch<T = unknown, B = unknown>(
     url: string,
@@ -24,14 +27,21 @@ export class HttpService {
       });
   
       if (response.ok) {
-        const data = await response[parseMode]();
-        return {
+        const resp = {
           status: response.status,
-          data
-        };
+          data: null as any
+        }; 
+        try {
+          resp.data = await response[parseMode]()
+        } catch {
+          resp.data = await response.text() as any
+        } finally {
+          return resp; 
+        }
       }
 
-      const error = new Error(response.statusText) as any;
+      const errorMessage = (await response.json()).message
+      const error = new Error(errorMessage) as any;
       error.status = response.status;
       this.errorHandlers[response.status]?.();
       throw error as HttpError;

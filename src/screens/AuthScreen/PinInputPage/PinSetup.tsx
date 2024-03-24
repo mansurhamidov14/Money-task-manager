@@ -43,7 +43,7 @@ export function PinSetup() {
       } else {
         const currentUser = user.currentUser().data!;
         user.setCurrentUser({ status: "loading" });
-        await userService.setUpPinProtection(currentUser, currentValue());
+        await userService.setUpPinProtection(undefined, currentValue());
         user.setCurrentUser({
           status: "authorized",
           data: { ...currentUser, hasPinProtection: 1 }

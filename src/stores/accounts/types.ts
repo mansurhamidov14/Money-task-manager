@@ -3,7 +3,7 @@ import { AsyncStore } from "../types";
 
 export type Account = {
   id: number;
-  user: number;
+  user: string;
   title: string;
   balance: number;
   currency: CurrencyCode;

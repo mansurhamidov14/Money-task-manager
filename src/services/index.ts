@@ -19,14 +19,17 @@ export * from "./consts";
 export * from "./types";
 
 function buildServices() {
-  const accessKeyHttpClient = new HttpService(API_BASE_URL);
-  const httpClient = new HttpService(API_BASE_URL);
-  const authUserHttpClient = new HttpService(API_BASE_URL);
-
   const accessTokenItem = new StorageItem<string | null>({
     accessor: 'access_token',
     initialValue: null,
   });
+  const accessKeyHttpClient = new HttpService(API_BASE_URL);
+  const httpClient = new HttpService(API_BASE_URL);
+  const authUserHttpClient = new HttpService(API_BASE_URL, accessTokenItem.value ? {
+    Authorization: `Bearer ${accessTokenItem.value}`
+  }: undefined);
+
+  
   accessTokenItem.onChange((token) => {
     if (!token) {
       delete authUserHttpClient.headers.Authorization;
@@ -75,5 +78,6 @@ export const {
   skinService,
   taskService,
   transactionService,
+  userService,
   httpClient
 } = buildServices();

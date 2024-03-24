@@ -15,16 +15,32 @@ export class UserService {
     }
   }
 
+  update(data: Partial<User>) {
+    return this.httpClient.patch<Partial<User>>('/user', data);
+  }
+
   async validatePin(pinCode: string) {
     try {
-      await this.httpClient.post<boolean>('/auth/validate-pin', { pinCode });
+      await this.httpClient.post<boolean>('/user/validate-pin', { pinCode });
       return true;
-    } catch (e) {
+    } catch (e: any) {
+      console.log(JSON.stringify(e));
       throw(e);
     }
   }
 
-  async setUpPinProtection(newPin: string, prevPin?: string) {
-    // TODO implement from scratch
+  setUpPinProtection(prevPin?: string, newPin?: string) {
+    return this.httpClient.post<boolean>('/user/set-pin', {
+      pinCode: prevPin,
+      newPinCode: newPin
+    });
+  }
+
+  removePinProtectionByPassword(password: string) {
+    return this.httpClient.post<boolean>('/user/remove-pin-by-password', { password });
+  }
+
+  resetPassword(password: string, newPassword: string) {
+    return this.httpClient.post<boolean>('/user/reset-password', { password, newPassword });
   }
 }

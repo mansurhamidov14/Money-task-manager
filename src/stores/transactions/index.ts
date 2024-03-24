@@ -13,7 +13,7 @@ function initTransactionsStore() {
   const setTransactionsLoading = () => setTransactions({ status: "loading" });
   const setTransactionsData = (data: Transaction[]) => setTransactions({ status: "success", data });
 
-  const fetchUserTransactions = async (userId: number) => {
+  const fetchUserTransactions = async (userId: string) => {
     try {
       const userTransactions = await transactionService.getUserTransactions(userId);
       setTransactionsData(userTransactions);
@@ -76,7 +76,7 @@ function initTransactionsStore() {
     return filteredData.toSorted(descSorter("transactionDateTime"));
   }
 
-  const updateCurrencyByAccount = async (user: number, account: number, currency: CurrencyCode) => {
+  const updateCurrencyByAccount = async (user: string, account: number, currency: CurrencyCode) => {
     await transactionService.update({ account, user }, { currency });
     setTransactionsData(transactions().data!.map(transaction => {
       if (transaction.account !== account) return transaction;

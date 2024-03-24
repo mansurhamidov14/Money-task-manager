@@ -10,7 +10,7 @@ import { avatars } from "@app/screens/SettingsScreen/constants";
 import { getRandomElement } from "@app/helpers";
 import { Action, Message, t } from "@app/i18n";
 import { getSignUpFormSchema } from "@app/schemas";
-import { accountService, currencyService, userService } from "@app/services";
+import { authService, accountService, currencyService } from "@app/services";
 import { Link, user } from "@app/stores";
 
 import { AuthLayout } from "../AuthLayout";
@@ -30,12 +30,11 @@ export function SignUpPage() {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email.toLowerCase(),
-        password: formData.newPassword,
+        password: formData.password,
         primaryCurrency: formData.primaryCurrency,
-        hasPinProtection: 0 as const,
         avatar: getRandomElement(avatars),
       };
-      const newUser = await userService.signUp(userData);
+      const newUser = await authService.signUp(userData);
       await accountService.create({
         user: newUser.id,
         title: t("common.initialAccountName"),
@@ -105,11 +104,11 @@ export function SignUpPage() {
           />
           <Field
             mode="input"
-            name="newPassword"
+            name="password"
             formHandler={formHandler}
             render={(field) => (
               <TextInput
-                id="newPassword"
+                id="password"
                 type="password"
                 label={t("AuthScreen.FormFields.Password.label")}
                 placeholder="••••••••••"

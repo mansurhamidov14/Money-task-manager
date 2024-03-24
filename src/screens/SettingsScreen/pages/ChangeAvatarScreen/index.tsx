@@ -2,7 +2,7 @@ import { For, createSignal } from "solid-js";
 import { Button, ScreenHeader, VerticalScroll } from "@app/components";
 import { Action, t } from "@app/i18n";
 import { ImageRadioButton } from "@app/screens/components/shared";
-import { user } from "@app/stores";
+import { toastStore, user } from "@app/stores";
 import { avatars } from "../../constants";
 import { userService } from "@app/services";
 
@@ -11,7 +11,8 @@ export function ChangeAvatarScreen() {
   const [selectedAvatar, setSelectedAvatar] = createSignal<string>(currentUser.avatar || avatars[0]);
   const saveAvatar = async () => {
     const avatar = selectedAvatar();
-    await userService.update(currentUser.id, { avatar });
+    await userService.update({ avatar });
+    toastStore.pushToast("success", t("SettingsScreen.changeAvatar.success"), undefined, toastStore.TIMEOUT_SHORT)
     user.updateUserData({ avatar });
     history.back();
   }
@@ -20,7 +21,7 @@ export function ChangeAvatarScreen() {
     <main>
       <ScreenHeader
         withGoBackButton
-        title={t("SettingsScreen.changeAvatar")}
+        title={t("SettingsScreen.changeAvatar.title")}
       />
       <VerticalScroll hasBottomNavigation hasHeader>
         <div class="flex py-3 flex-col items-center gap-3">

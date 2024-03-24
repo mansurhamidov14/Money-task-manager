@@ -1,0 +1,6 @@
+{
+  "InvalidCredentials": "Invalid email or password!",
+  "IncorrectPin": "You've entered an incorrect PIN code",
+  "IncorrectPinBlock": "You've tried too many times. Try again in 5 minutes!",
+  "InvalidPassword": "Password was entered incorrectly"
+}

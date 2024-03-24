@@ -11,7 +11,7 @@ import { withUniqueFilter } from "./helpers";
 export function initTasksStore() {
   const [tasks, setTasks] = createSignal<AsyncStore<Task[]>>({ status: "loading" });
 
-  const fetchUserTasks = async (user: number) => {
+  const fetchUserTasks = async (user: string) => {
     try {
       const data = await taskService.getUserTasks(user);
       setTasks({ status: "success", data });
@@ -20,7 +20,7 @@ export function initTasksStore() {
     } 
   }
 
-  const addTask = async (user: number, task: TaskFormSchema) => {
+  const addTask = async (user: string, task: TaskFormSchema) => {
     await taskService.create(user, task);
     putIntoLoadingState();
   }
@@ -83,7 +83,7 @@ export function initTasksStore() {
     let prevDoneAt = task.doneAt;
     updateTask(task.id, { doneAt });
     try {
-      taskService.update(task.id, { doneAt });
+      await taskService.update(task.id, { doneAt });
     } catch (e: any) {
       if (e.message) {
         updateTask(task.id, { doneAt: prevDoneAt });

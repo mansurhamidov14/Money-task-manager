@@ -26,8 +26,8 @@ export function PasswordAuth(props: PasswordAuthProps) {
     event.preventDefault();
     try {
       await formHandler.validateField();
-      const { email, password } = formHandler.formData();
-      await userService.removePinProtectionByPassword(email.toLowerCase(), password);
+      const { password } = formHandler.formData();
+      await userService.removePinProtectionByPassword(password);
       user.setCurrentUser({
         status: "locked",
         data: { ...user.currentUser().data!, hasPinProtection: 0 }

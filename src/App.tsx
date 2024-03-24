@@ -65,7 +65,7 @@ export default function() {
     clientService.onInitilized(() => {
       setClientInitialized(true);
     });
-    const authorizedUser = await userService.getAuthorizedUser();
+    const authorizedUser = await userService.getUser();
     if (authorizedUser) {
       if (authorizedUser.hasPinProtection) {
         const currentUrl = window.location.hash.slice(1);

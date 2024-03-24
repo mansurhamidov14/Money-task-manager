@@ -9,7 +9,7 @@ export class AccountService {
     return this.collection.create(account);
   }
 
-  getUserAccounts(user: number) {
+  getUserAccounts(user: string) {
     return this.collection.queryAll({ user });
   }
 
@@ -28,7 +28,7 @@ export class AccountService {
     return this.collection.delete(id);
   }
 
-  getById(id: number, user: number) {
+  getById(id: number, user: string) {
     return this.collection.queryOne({ id, user });
   }
 }

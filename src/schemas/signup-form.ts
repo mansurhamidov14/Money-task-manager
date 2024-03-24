@@ -12,7 +12,7 @@ export type SignUpForm = {
   firstName: string;
   lastName: string;
   email: string;
-  newPassword: string;
+  password: string;
   primaryCurrency: CurrencyCode;
 }
 
@@ -28,9 +28,10 @@ export function getSignUpFormSchema(): yup.Schema<SignUpForm> {
       .required(t("common.FormFields.required"))
       .email(t("AuthScreen.FormFields.Email.invalidFormat"))
       .test("unique", t("AuthScreen.FormFields.Email.notUnique"), async (value) => {
+        if (!value) return true;
         return !(await authService.userExist(value))
       }),
-    newPassword: yup.string()
+    password: yup.string()
       .required(t("common.FormFields.required"))
       .min(MIN_PASSWORD_LENGTH, t("common.FormFields.tooShort", undefined, { count: MIN_PASSWORD_LENGTH })),
     primaryCurrency: yup.string()

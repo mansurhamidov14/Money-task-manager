@@ -139,18 +139,13 @@
     "signIn": "Sign In",
     "dontHaveAnAccount": "Don't have an account?",
     "signUp": "Sign Up",
-    "Exceptions": {
-      "WrongEmailOrPasswordException": "Invalid email or password!"
-    },
     "PINInput": {
       "greeting": "Hello, ",
       "enterNewPIN": "Enter a new PIN",
       "confirmPIN": "Confirm your PIN",
       "confirmationError": "PIN codes do not match",
-      "invalidPIN": "You entered an incorrect PIN code",
       "forgotPIN": "I forgot my PIN",
-      "rememberPIN": "I remember my PIN",
-      "invalidPassword": "Password was entered incorrectly"
+      "rememberPIN": "I remember my PIN"
     }
   },
   "NewTransactionScreen": {
@@ -265,8 +260,14 @@
   },
   "SettingsScreen": {
     "title": "Settings",
-    "changeAvatar": "Change avatar",
-    "personalInfo": "Personal Info",
+    "changeAvatar": {
+      "title": "Change profile photo",
+      "success": "Profile photo was successfully updated!"
+    },
+    "personalInfo": {
+      "title": "Personal Info",
+      "success": "Personal info was successfully updated!"
+    },
     "language": "Language",
     "colorScheme": "Color scheme",
     "logOut": "Sign out",
@@ -277,7 +278,6 @@
       "oldPassword": "Current password",
       "newPassword": "New password",
       "repeatPassword": "Confirm the password",
-      "invalidPassword": "Current password was entered incorrectly",
       "passwordsDoNotMatch": "Passwords do not match"
     },
     "pinCode": {
@@ -287,7 +287,6 @@
         "2": "Enter a new PIN",
         "3": "Confirm the PIN"
       },
-      "invalidPIN": "You entered an incorrect PIN code",
       "confirmationError": "PIN codes do not match",
       "removeProtection": "Remove PIN protection",
       "success": "PIN was successfully updated",

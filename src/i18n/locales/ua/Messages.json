@@ -139,18 +139,13 @@
     "signIn": "Увійти",
     "dontHaveAnAccount": "Не зареєстровано?",
     "signUp": "Створити обліковий запис",
-    "Exceptions": {
-      "WrongEmailOrPasswordException": "Неправильний пароль або адреса електронної пошти!"
-    },
     "PINInput": {
       "greeting": "Привіт, ",
       "enterNewPIN": "Введіть новий PIN",
       "confirmPIN": "Підтвердіть Ваш PIN",
       "confirmationError": "PIN-коди не збігаються",
-      "invalidPIN": "Ви ввели неправильний PIN-код",
       "forgotPIN": "Я забув свій PIN-код",
-      "rememberPIN": "Я пам'ятаю свій PIN-код",
-      "invalidPassword": "Неправильно введено пароль"
+      "rememberPIN": "Я пам'ятаю свій PIN-код"
     }
   },
   "NewTransactionScreen": {
@@ -265,8 +260,14 @@
   },
   "SettingsScreen": {
     "title": "Налаштування",
-    "changeAvatar": "Змінити аватар",
-    "personalInfo": "Особиста Інформація",
+    "changeAvatar": {
+      "title": "Змінити аватар",
+      "success": "Аватар успішно оновлено!"
+    },
+    "personalInfo": {
+      "title": "Особиста інформація",
+      "success": "Особисту інформацію успішно оновлено!"
+    },
     "language": "Мова",
     "colorScheme": "Схема кольорів",
     "logOut": "Вийти з аккаунта",
@@ -277,7 +278,6 @@
       "oldPassword": "Поточний пароль",
       "newPassword": "Новий пароль",
       "repeatPassword": "Підтвердіть пароль",
-      "invalidPassword": "Поточний пароль введено неправильно",
       "passwordsDoNotMatch": "Паролі не збігаються"
     },
     "pinCode": {
@@ -287,7 +287,6 @@
         "2": "Введіть новий PIN",
         "3": "Підтвердіть новий PIN"
       },
-      "invalidPIN": "Ви ввели неправильний PIN-код",
       "confirmationError": "PIN-коди не збігаються",
       "removeProtection": "Зняти захист PIN-кодом",
       "success": "PIN-код успішно оновлено",

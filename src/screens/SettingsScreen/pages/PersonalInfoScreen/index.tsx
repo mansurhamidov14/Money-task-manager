@@ -4,7 +4,7 @@ import { yupSchema } from "solid-form-handler/yup";
 import { Button, ScreenHeader, VerticalScroll, TextInput } from "@app/components";
 import { Action, t } from "@app/i18n";
 import { getPersonalInfoSchema } from "@app/schemas";
-import { user } from "@app/stores";
+import { toastStore, user } from "@app/stores";
 import { userService } from "@app/services";
 
 export function PersonalInfoScreen() {
@@ -18,15 +18,18 @@ export function PersonalInfoScreen() {
     try {
       await formHandler.validateForm();
       const formData = formHandler.formData();
-      await userService.update(currentUser.id, formData);
-      user.updateUserData(formData)
+      await userService.update(formData);
+      user.updateUserData(formData);
+      toastStore.pushToast("success", t("SettingsScreen.personalInfo.success"), undefined, toastStore.TIMEOUT_SHORT);
       history.back();
-    } catch (e: any) { }
+    } catch (e: any) {
+      toastStore.handleServerError(e);
+    }
   }
 
   return (
     <main>
-      <ScreenHeader withGoBackButton title={t("SettingsScreen.personalInfo")} />
+      <ScreenHeader withGoBackButton title={t("SettingsScreen.personalInfo.title")} />
       <VerticalScroll hasHeader hasBottomNavigation>
         <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
           <Field

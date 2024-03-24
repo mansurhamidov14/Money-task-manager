@@ -3,11 +3,10 @@ import { yupSchema } from "solid-form-handler/yup";
 import { Button, ScreenHeader, VerticalScroll, TextInput } from "@app/components";
 import { Action, t } from "@app/i18n";
 import { getChangePasswordSchema } from "@app/schemas";
-import { toastStore, user } from "@app/stores";
+import { toastStore } from "@app/stores";
 import { userService } from "@app/services";
 
 export function ChangePasswordScreen() {
-  const currentUser = user.currentUser().data!
   const formHandler = useFormHandler(yupSchema(getChangePasswordSchema()), {
     validateOn: ["blur"],
   });
@@ -17,13 +16,11 @@ export function ChangePasswordScreen() {
     try {
       const formData = formHandler.formData();
       await formHandler.validateForm();
-      await userService.resetPassword(currentUser, formData.password, formData.newPassword);
-      toastStore.pushToast("success", t("SettingsScreen.changePassword.success"));
+      await userService.resetPassword(formData.password, formData.newPassword);
+      toastStore.pushToast("success", t("SettingsScreen.changePassword.success"), undefined, toastStore.TIMEOUT_SHORT);
       history.back();
     } catch (e: any) {
-      if (e.message) {
-        toastStore.pushToast("error", t("SettingsScreen.changePassword.error", undefined, { error: e.message }));
-      }
+      toastStore.handleServerError(e);
     }
   }
 

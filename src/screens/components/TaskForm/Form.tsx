@@ -22,7 +22,7 @@ export type Props = {
 }
 
 export function Form({ task }: Props) {
-  const translationPrefix = task ? "EditTaskScreen" : "NewTaskScreen";
+  const screenTranslationPrefix = task ? "EditTaskScreen" : "NewTaskScreen";
   const [loading, setLoading] = createSignal(false);
   const formHandler = useFormHandler(yupSchema(getTaskFormSchema()), {
     validateOn: ["blur"],
@@ -48,7 +48,7 @@ export function Form({ task }: Props) {
       }
       await formHandler.validateForm();
       await tasksStore.addTask(user.currentUser().data!.id, formHandler.formData());
-      toastStore.pushToast("success", t(`${translationPrefix}.success`));
+      toastStore.pushToast("success", t(`${screenTranslationPrefix}.success`));
       history.back();
     } catch (e: any) {
       formHandler.fillForm({
@@ -57,7 +57,7 @@ export function Form({ task }: Props) {
       });
       setLoading(false);
       if (e.message) {
-        toastStore.pushToast("error", t(t(`${translationPrefix}.error`), undefined, { error: e.message }));
+        toastStore.pushToast("error", t(`${screenTranslationPrefix}.error`, undefined, { error: e.message }));
       }
     }
   }

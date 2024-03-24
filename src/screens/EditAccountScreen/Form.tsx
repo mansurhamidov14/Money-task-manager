@@ -67,7 +67,7 @@ export function Form(props: Account) {
           skin: formHandler.getFieldValue("skin"),
           balance: formHandler.getFieldValue("balance"),
           currency: formHandler.getFieldValue("currency"),
-          user: 0,
+          user: "0",
           createdAt: 0,
           updatedAt: 0
         }}

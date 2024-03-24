@@ -13,7 +13,7 @@ export class TransactionService {
     return this.collection.queryOne(id);
   }
 
-  getUserTransactions(user: number) {
+  getUserTransactions(user: string) {
     return this.collection.queryAll({ user });
   }
 

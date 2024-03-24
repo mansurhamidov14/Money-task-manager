@@ -139,18 +139,13 @@
     "signIn": "Daxil ol",
     "dontHaveAnAccount": "Hesabınız yoxdur?",
     "signUp": "Hesab yaradın",
-    "Exceptions": {
-      "WrongEmailOrPasswordException": "Email ünvanı və ya şifrə yanlışdır!"
-    },
     "PINInput": {
       "greeting": "Salam, ",
       "enterNewPIN": "Yeni PİN-kod daxil edin",
       "confirmPIN": "PİN-kodunuzu təsdiq edin",
       "confirmationError": "PİN-kodlar eyni deyil",
-      "invalidPIN": "PİN-kod yanlış daxil edilib",
       "forgotPIN": "PİN-kodumu unutmuşam",
-      "rememberPIN": "PİN-kodumu biliriəm",
-      "invalidPassword": "Şifrə yanlış daxil edilib"
+      "rememberPIN": "PİN-kodumu biliriəm"
     }
   },
   "NewTransactionScreen": {
@@ -265,8 +260,14 @@
   },
   "SettingsScreen": {
     "title": "Tənzimləmələr",
-    "changeAvatar": "Avatarı dəyişdir",
-    "personalInfo": "Şəxsi məlumatlar",
+    "changeAvatar": {
+      "title": "Avatarı dəyişdir",
+      "success": "Avatar müvəffəqiyyətlə yeniləndi!"
+    },
+    "personalInfo": {
+      "title": "Şəxsi məlumatlar",
+      "success": "Şəxsi məlumatlar müvəffəqiyyətlə yeniləndi!"
+    },
     "language": "Dil",
     "colorScheme": "Rəngli sxem",
     "logOut": "Çıxış et",
@@ -277,7 +278,6 @@
       "oldPassword": "Cari şifrə",
       "newPassword": "Yeni şifrə",
       "repeatPassword": "Şifrəni təsdiq edin",
-      "invalidPassword": "Cari şifrə yanlış daxil edilib",
       "passwordsDoNotMatch": "Şifrələr eyni deyil"
     },
     "pinCode": {
@@ -287,7 +287,6 @@
         "2": "Yeni PİN-kod daxil edin",
         "3": "Yeni PİN-kodu təsdiq edin"
       },
-      "invalidPIN": "PİN-kod yanlış daxil edilib",
       "confirmationError": "PİN-kodlar eyni deyil",
       "removeProtection": "PİN qoruması silinsin",
       "success": "PİN-kod müvəffəqiyyətlə yeniləndi",

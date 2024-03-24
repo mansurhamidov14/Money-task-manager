@@ -4,13 +4,16 @@ import { ToastVariant } from "@app/components";
 import { t } from "@app/i18n";
 
 function initToastStore() {
+  const TIMEOUT_SHORT = 1000;
+  const TIMEOUT_MEDIUM = 3000;
+  const TIMEOUT_LONG = 6000;
   const [toasts, setToasts] = createSignal<ToastData[]>([]);
 
   const pushToast = (
     type: ToastVariant,
     text: string,
     title: string | null = null,
-    autocloseTimeout: number | null = 3000,
+    autocloseTimeout: number | null = TIMEOUT_MEDIUM,
     closable = true
   ) => {
     const id = `toast-${Date.now()}`;
@@ -29,6 +32,12 @@ function initToastStore() {
         closeTimeout
       }
     ]);
+  }
+
+  const handleServerError = (error: { message?: string }) => {
+    if (error.message) {
+      pushToast("error", t(error.message, "Exceptions"));
+    }
   }
 
   const putToClosingState = (toastId: string | number, timeoutMs: number) => {
@@ -51,7 +60,15 @@ function initToastStore() {
     }
   }
 
-  return { toasts, pushToast, closeToast };
+  return {
+    toasts,
+    pushToast,
+    handleServerError,
+    closeToast,
+    TIMEOUT_SHORT,
+    TIMEOUT_MEDIUM,
+    TIMEOUT_LONG
+  };
 }
 
 export const toastStore = createRoot(initToastStore);

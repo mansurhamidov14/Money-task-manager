@@ -16,6 +16,11 @@ import messagesEn from "./locales/en/Messages.json";
 import messagesRu from "./locales/ru/Messages.json";
 import messagesUa from "./locales/ua/Messages.json";
 
+import exceptionsAz from "./locales/az/Exceptions.json";
+import exceptionsEn from "./locales/en/Exceptions.json";
+import exceptionsRu from "./locales/ru/Exceptions.json";
+import exceptionsUa from "./locales/ua/Exceptions.json";
+
 import { i18nConfig, initI18n, translations } from "./init";
 import { Lang, LangData } from "./types";
 
@@ -50,21 +55,25 @@ const resources: Record<Lang, any> = {
     Actions: actionsAz,
     Date: dateAz,
     Messages: messagesAz,
+    Exceptions: exceptionsAz
   },
   en: {
     Actions: actionsEn,
     Date: dateEn,
     Messages: messagesEn,
+    Exceptions: exceptionsEn
   },
   ru: {
     Actions: actionsRu,
     Date: dateRu,
     Messages: messagesRu,
+    Exceptions: exceptionsRu
   },
   ua: {
     Actions: actionsUa,
     Date: dateUa,
-    Messages: messagesUa
+    Messages: messagesUa,
+    Exceptions: exceptionsUa
   }
 };
 

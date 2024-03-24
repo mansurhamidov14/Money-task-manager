@@ -1,9 +1,7 @@
 import { createRoot, createSignal } from "solid-js";
 import { UserStore } from "./types";
-import { userService } from "@app/services";
+import { authService } from "@app/services";
 import { transactionsStore } from "..";
-
-
 
 function initUserStore() {
   const [currentUser, setCurrentUser] = createSignal<UserStore>({
@@ -21,12 +19,12 @@ function initUserStore() {
   }
   
   const logOut = () => {
-    userService.logOut();
-      setCurrentUser({ status: "loading" });
-      setTimeout(() => {
-        setCurrentUser({ status: "unauthorized" });
-        transactionsStore.setTransactionsLoading();
-      }, 500);
+    authService.logOut();
+    setCurrentUser({ status: "loading" });
+    setTimeout(() => {
+      setCurrentUser({ status: "unauthorized" });
+      transactionsStore.setTransactionsLoading();
+    }, 500);
   }
 
   return {

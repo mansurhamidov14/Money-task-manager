@@ -1,0 +1,6 @@
+{
+  "InvalidCredentials": "Email ünvanı və ya şifrə yanlışdır!",
+  "IncorrectPin": "PİN-kod yanlış daxil edilib",
+  "IncorrectPinBlock": "Siz həddindən çox cəhd etdiniz. 5 dəqiqə sonra yenidən cəhd edin!",
+  "InvalidPassword": "Şifrə yanlış daxil edilib"
+}

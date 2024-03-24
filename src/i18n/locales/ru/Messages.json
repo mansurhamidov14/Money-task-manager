@@ -139,18 +139,13 @@
     "signIn": "Войти",
     "dontHaveAnAccount": "Не зарегистрированы?",
     "signUp": "Создать аккаунт",
-    "Exceptions": {
-      "WrongEmailOrPasswordException": "Неверный пароль или адрес электронной почты!"
-    },
     "PINInput": {
       "greeting": "Привет, ",
       "enterNewPIN": "Введите новый PIN",
       "confirmPIN": "Подтвердите Ваш PIN",
       "confirmationError": "PIN-коды не совпадают",
-      "invalidPIN": "Вы ввели неверный PIN-код",
       "forgotPIN": "Я забыл свой PIN-код",
-      "rememberPIN": "Я помню свой PIN-код",
-      "invalidPassword": "Пароль введен неверно"
+      "rememberPIN": "Я помню свой PIN-код"
     }
   },
   "NewTransactionScreen": {
@@ -265,8 +260,14 @@
   },
   "SettingsScreen": {
     "title": "Настройки",
-    "changeAvatar": "Сменить аватар",
-    "personalInfo": "Личная информация",
+    "changeAvatar": {
+      "title": "Сменить аватар",
+      "success": "Аватар успешно обновлен!"
+    },
+    "personalInfo": {
+      "title": "Личная информация",
+      "success":  "Личная информация успешно обновлена!"
+    },
     "language": "Язык",
     "colorScheme": "Цветовая схема",
     "logOut": "Выйти из аккаунта",
@@ -277,7 +278,6 @@
       "oldPassword": "Текущий пароль",
       "newPassword": "Новый пароль",
       "repeatPassword": "Подтвердите пароль",
-      "invalidPassword": "Текущий пароль введен неверно",
       "passwordsDoNotMatch": "Пароли не совпадают"
     },
     "pinCode": {
@@ -287,7 +287,6 @@
         "2": "Введите новый PIN",
         "3": "Подтвердите новый PIN"
       },
-      "invalidPIN": "Вы ввели неверный PIN-код",
       "confirmationError": "PIN-коды не совпадают",
       "removeProtection": "Убрать защиту PIN-кодом",
       "success": "PIN-код успешно обновлен",

@@ -1,5 +1,6 @@
 import { Navigate, useNavigate } from "@solidjs/router";
 import { Field, useFormHandler } from "solid-form-handler";
+import { Show } from "solid-js";
 import { yupSchema } from "solid-form-handler/yup";
 import { IoKey } from "solid-icons/io";
 import { FiAtSign } from "solid-icons/fi";
@@ -7,11 +8,10 @@ import { FiAtSign } from "solid-icons/fi";
 import { Button, TextInput } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
 import { getLoginFormSchema } from "@app/schemas";
-import { userService } from "@app/services";
+import { authService } from "@app/services";
 import { Link, toastStore, user } from "@app/stores";
 
 import { AuthLayout } from "../AuthLayout";
-import { Show } from "solid-js";
 
 export function LoginPage() {
   const formHandler = useFormHandler(yupSchema(getLoginFormSchema()), {
@@ -21,13 +21,14 @@ export function LoginPage() {
   const handleSubmit = async (event: Event) => {
     event.preventDefault();
     try {
+      await formHandler.validateForm();
       const email = formHandler.getFieldValue("email");
       const password = formHandler.getFieldValue("password");
-      const data = await userService.auth(email.toLowerCase(), password);
+      const data = await authService.auth(email.toLowerCase(), password);
       user.setCurrentUser({ status: "authorized", data });
       navigate("/");
     } catch (e: any) {
-      toastStore.pushToast("error", t(`AuthScreen.Exceptions.${e.message}`));
+      toastStore.handleServerError(e);
     }
   }
 

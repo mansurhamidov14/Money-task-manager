@@ -1,7 +1,7 @@
 export type Task = {
   id: number;
   originalId?: number;
-  user: number;
+  user: string;
   title: string;
   isRecurring: 1 | 0;
   startDate: string;
@@ -17,7 +17,7 @@ type TaskBase = {
   id: number;
   originalId?: number;
   title: string;
-  user: number;
+  user: string;
 }
 
 export type RecurringTask = TaskBase & {

@@ -24,7 +24,7 @@ function initAccountsStore() {
     }
   }
 
-  const fetchUserAccounts = async (userId: number) => {
+  const fetchUserAccounts = async (userId: string) => {
     try {
       const accounts = await accountService.getUserAccounts(userId);
       const endTimestamp = Date.now();
@@ -63,7 +63,7 @@ function initAccountsStore() {
 
   const addAccount = (newAccount: Account) => setAccountsData([...accounts().data!, newAccount]);
 
-  const removePrimaryFlag = async (user: number) => {
+  const removePrimaryFlag = async (user: string) => {
     await accountService.update({ primary: 1, user }, { primary: 0 });
     setAccountsData(accounts().data!.map(account => account.primary
       ? { ...account, primary: 0 }

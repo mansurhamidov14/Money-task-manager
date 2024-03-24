@@ -34,7 +34,7 @@ export function SettingsScreen() {
           <img src={currentUser.avatar} class="max-w-full rounded-full" />
           <Link href="/settings/change-avatar" class="btn btn-transparent btn-sm flex gap-1 text-green-600 dark:text-green-300">
             <IoPencil />
-            <span>{t("SettingsScreen.changeAvatar")}</span>
+            <span>{t("SettingsScreen.changeAvatar.title")}</span>
           </Link>
           <div class="text-center">
             <h3 class="text-lg font-bold">
@@ -51,7 +51,7 @@ export function SettingsScreen() {
               size="sm"
               onClick={() => navigate("/settings/personal-info")}
               icon={<ItemIcon icon={FaSolidCircleUser} />}
-              title={t("SettingsScreen.personalInfo")}
+              title={t("SettingsScreen.personalInfo.title")}
               rightElement={<ChevronRight />}
             />
             <ListItem
