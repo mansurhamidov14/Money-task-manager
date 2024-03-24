@@ -12,29 +12,6 @@ const structure: Structure = {
   version: DB_VERSION,
   collections: [
     {
-      name: "users",
-      config: defaultTableConfig,
-      version: 1,
-      fields: [
-        createColumn("email", 1, true),
-        createColumn("firstName"),
-        createColumn("lastName"),
-        createColumn("password"),
-        createColumn("hasPinProtection"),
-        createColumn("pinCode"),
-        createColumn("avatar"),
-        createColumn("primaryCurrency"),
-        createColumn("createdAt"),
-        createColumn("updatedAt"),
-      ],
-      complexIndices: [
-        createMultiColumnIndex(["email", "password"]),
-        createMultiColumnIndex(["email", "id" ]),
-        createMultiColumnIndex(["email", "pinCode"]),
-        createMultiColumnIndex(["id", "pinCode"]),
-      ]
-    },
-    {
       name: "transactions",
       config: defaultTableConfig,
       version: 1,

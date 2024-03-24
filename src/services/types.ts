@@ -1,12 +1,9 @@
-import { UserPrivateData } from "@app/adapters/IDB";
 import type { Currency, CurrencyCode } from "@app/entities";
 import { Account, Task, Transaction, User } from "@app/stores";
 import { IconTypes } from "solid-icons";
 
 export type CreationRequestData<T> = Omit<T, "id" | "createdAt" | "updatedAt">
-export type UserCreationData = UserPrivateData & Omit<User, "id">; // TODO delete this type
 export type AuthResponse = { access_token: string, user: User }
-export type NewUser = CreationRequestData<User & UserPrivateData>; // TODO delete this type
 export type NewTransaction = CreationRequestData<Transaction>;
 export type NewAccount = CreationRequestData<Account>;
 export type NewTask = CreationRequestData<Task>;

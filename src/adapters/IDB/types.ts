@@ -1,5 +1,3 @@
-import { User } from "@app/stores";
-
 type Upgradable<T> = {
   version: number;
 } & T;
@@ -31,12 +29,6 @@ export type Structure = Upgradable<{
   collections: Collection[];
 }>;
 
-export type UserPrivateData = {
-  password: string;
-  pinCode?: string;
-};
-
-export type UserDbData = User & UserPrivateData;
 
 export type SearchCondition<T> = Partial<T> | number | string;
 
