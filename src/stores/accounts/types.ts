@@ -1,14 +1,15 @@
 import type { CurrencyCode } from "@app/entities";
 import { AsyncStore } from "../types";
+import { User } from "..";
 
 export type Account = {
-  id: number;
-  user: string;
+  id: string;
+  userId: User['id'];
   title: string;
   balance: number;
   currency: CurrencyCode;
   skin: string;
-  primary: 1 | 0;
+  primary: boolean;
   createdAt: number;
   updatedAt: number;
 }

@@ -1,5 +1,5 @@
 import { type IDBCollection, SearchCondition } from "@app/adapters/IDB";
-import { Transaction } from "@app/stores";
+import { Account, Transaction } from "@app/stores";
 import { NewTransaction } from "./types";
 
 export class TransactionService {
@@ -25,7 +25,7 @@ export class TransactionService {
     return this.collection.delete(id);
   }
 
-  deleteByAccountId(account: number) {
+  deleteByAccountId(account: Account['id']) {
     return this.collection.delete({ account });
   }
 }

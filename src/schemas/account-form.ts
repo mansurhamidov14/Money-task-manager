@@ -3,7 +3,7 @@ import type { CurrencyCode } from "@app/entities";
 import { t } from "@app/i18n";
 import { currencyService } from "@app/services";
 
-type NewAccountForm = {
+export type AccountForm = {
   title: string;
   balance: number;
   currency: CurrencyCode;
@@ -11,7 +11,7 @@ type NewAccountForm = {
   skin: string;
 }
 
-export function getAccountFormSchema(defaults: Partial<NewAccountForm>): yup.Schema<NewAccountForm> {
+export function getAccountFormSchema(defaults: Partial<AccountForm>): yup.Schema<AccountForm> {
   return yup.object({
     title: yup.string()
       .required(t("common.FormFields.required"))

@@ -6,8 +6,8 @@ type TransferForm = {
   title: string;
   expenseAmount: number;
   incomeAmount: number;
-  fromAccount: number;
-  toAccount: number;
+  fromAccount: string;
+  toAccount: string;
   date: string;
 }
 
@@ -29,12 +29,12 @@ export function getTransferFormSchema(
       .required(t("common.FormFields.required"))
       .typeError(t("NewTransactionScreen.FormFields.amount.invalidFormat"))
       .default(defaults.incomeAmount),
-    fromAccount: number()
+    fromAccount: string()
       .required(t("common.FormFields.required"))
       .typeError(t("common.FormFields.required"))
       .oneOf(userAccountIds)
       .default(defaults.fromAccount),
-    toAccount: number()
+    toAccount: string()
       .required(t("common.FormFields.required"))
       .typeError(t("common.FormFields.required"))
       .oneOf(userAccountIds)

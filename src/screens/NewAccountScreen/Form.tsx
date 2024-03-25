@@ -27,25 +27,10 @@ export function Form() {
     try {
       await formHandler.validateForm();
 
-      /** Type conversion due to validation bug with 0 number */
-      const isPrimary = Number(formHandler.getFieldValue("primary")) as any;
-      const userId = user.currentUser().data!.id;
-      if (isPrimary) {
-        await accountsStore.removePrimaryFlag(userId);
-      }
-
-      const accountData = {
-        user: user.currentUser().data!.id,
-        title: formHandler.getFieldValue("title"),
-        currency: formHandler.getFieldValue("currency"),
-        balance: formHandler.getFieldValue("balance"),
-        createdAt: new Date().getTime(),
-        skin: formHandler.getFieldValue("skin"),
-        primary: isPrimary
-      };
-      const newAccount = await accountService.create(accountData);
+      const accountData = formHandler.formData();
+      const { data: newAccount } = await accountService.create(accountData);
       counters[newAccount.id] = initCountersStore([]);
-      accountsStore.addAccount(newAccount);
+      accountsStore.setAccountsLoading();
       toastStore.pushToast("success", t("NewAccountScreen.success"));
       history.back();
     } catch (e: any) {
@@ -59,13 +44,13 @@ export function Form() {
     <>
       <AccountCardDumb
         account={{
-          id: 0,
+          id: "0",
           title: formHandler.getFieldValue("title"),
           primary: formHandler.getFieldValue("primary"),
           skin: formHandler.getFieldValue("skin"),
           balance: formHandler.getFieldValue("balance"),
           currency: formHandler.getFieldValue("currency"),
-          user: "0",
+          userId: "0",
           createdAt: 0,
           updatedAt: 0
         }}

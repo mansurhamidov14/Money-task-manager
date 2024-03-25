@@ -1,12 +1,12 @@
 import { type IDBCollection, SearchCondition } from "@app/adapters/IDB";
-import { OneTimeTask, RecurringTask, RecurringTaskDay, Task } from "@app/stores";
+import { OneTimeTask, RecurringTask, RecurringTaskDay, Task, User } from "@app/stores";
 import { TaskFormSchema } from "@app/schemas";
 import { NewTask } from "./types";
 
 export class TaskService {
   constructor (private collection: IDBCollection<Task>) { }
 
-  async create(user: string, task: TaskFormSchema): Promise<void> {
+  async create(user: User['id'], task: TaskFormSchema): Promise<void> {
     const isRecurring = Number(task.isRecurring);
 
     if (isRecurring) {
@@ -98,7 +98,7 @@ export class TaskService {
     return null;
   }
 
-  getUserTasks(user: string) {
+  getUserTasks(user: User['id']) {
     return this.collection.queryAll({ user });
   }
 

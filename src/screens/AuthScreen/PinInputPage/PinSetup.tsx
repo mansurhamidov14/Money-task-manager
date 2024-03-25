@@ -17,8 +17,8 @@ export function PinSetup() {
   const [pinError, setPinError] = createSignal<string | null>(null);
 
   const navigateToInitialAccountEdit = async () => {
-    const [initialAccount] = await accountService.getUserAccounts(user.currentUser().data!.id);
-    navigate(`/edit-account/${initialAccount.id}`);
+    const { data } = await accountService.getUserAccounts();
+    navigate(`/edit-account/${data[0].id}`);
   }
 
   const handleGoBack = () => {

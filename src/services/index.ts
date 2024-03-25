@@ -1,5 +1,5 @@
 import { API_BASE_URL, API_KEY_SALT } from "@app/constants";
-import { accountCollection, taskCollection, transactionCollection } from "@app/db";
+import { taskCollection, transactionCollection } from "@app/db";
 import { StorageItem } from "@app/entities";
 import md5 from "md5";
 
@@ -35,7 +35,7 @@ function buildServices() {
   const authUserHttpClient = new HttpService(API_BASE_URL);
 
   const authService = new AuthService(apiKeyHttpClient, refreshTokenItem);
-  const accountService = new AccountService(accountCollection);
+  const accountService = new AccountService(authUserHttpClient);
   const categoryService = new CategoryService();
   const clientService = new ClientService(httpClient);
   const cacheService = new CacheService();

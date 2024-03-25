@@ -1,11 +1,12 @@
 import { CategoryId } from "@app/services";
 import { AsyncStore } from "../types";
 import type { Currency, CurrencyCode } from "@app/entities";
+import { Account } from "..";
 
 export type TransactionType = "expense" | "income";
 export type Transaction = {
   id: number;
-  account: number;
+  account: Account['id'];
   user: string; 
   title: string;
   currency: CurrencyCode;

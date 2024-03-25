@@ -8,7 +8,7 @@ type NewTransactionForm = {
   type: TransactionType;
   category: CategoryId;
   amount: number;
-  account: number;
+  account: Account['id'];
   date: string;
 }
 
@@ -34,7 +34,7 @@ export function getTransactionFormSchema(
       .required(t("common.FormFields.required"))
       .typeError(t("NewTransactionScreen.FormFields.amount.invalidFormat"))
       .default(defaults.amount),
-    account: yup.number()
+    account: yup.string()
       .required()
       .typeError(t("common.FormFields.required"))
       .oneOf(userAccountIds)

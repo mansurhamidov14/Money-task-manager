@@ -50,7 +50,7 @@ export function AccountSlideSelect(props: AccountSlideSelectProps) {
     slider(sliderRef as HTMLDivElement);
     setTimeout(() => {
       if (nativeProps.value) {
-        moveTo(localProps.accounts.findIndex((account) => account.id === Number(nativeProps.value)))
+        moveTo(localProps.accounts.findIndex((account) => account.id === nativeProps.value))
       } else if (inputRef) {
         inputRef.value = String(localProps.accounts[0].id);
         inputRef.dispatchEvent(new Event("input", {

@@ -9,7 +9,7 @@ export function DataProvider(props: ParentProps) {
     }
 
     if (accountsStore.accounts().status !== "success") {
-      await accountsStore.fetchUserAccounts(userId);
+      await accountsStore.fetchUserAccounts();
     }
 
     if (tasksStore.tasks().status === "loading") {
