@@ -8,7 +8,7 @@ type NewTransactionForm = {
   type: TransactionType;
   category: CategoryId;
   amount: number;
-  account: string;
+  account: Account['id'];
   date: string;
 }
 

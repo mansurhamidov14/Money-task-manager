@@ -50,7 +50,7 @@ function initAccountsStore() {
     }
   }
 
-  const changeBalance = (id: string, amount: number, type: TransactionType) => {
+  const changeBalance = (id: Account['id'], amount: number, type: TransactionType) => {
     const difference = type === "expense" ? amount * -1 : amount;
     setAccountsData(accounts().data!.map(account => {
       if (account.id !== id) return account;
@@ -69,7 +69,7 @@ function initAccountsStore() {
     return accountService.changeBalance(id, difference);
   }
 
-  const deleteAccount = async (id: string) => {
+  const deleteAccount = async (id: Account['id']) => {
     await accountService.delete(id);
     setAccountsData(accounts().data!.filter(a => a.id !== id));
   }

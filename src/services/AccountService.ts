@@ -13,22 +13,22 @@ export class AccountService {
     return this.httpClient.get<Account[]>('/account/list');
   }
 
-  getById(id: string) {
+  getById(id: Account['id']) {
     return this.httpClient.get<Account>(`/account/${id}`);
   }
 
-  update(id: string, data: AccountForm) {
+  update(id: Account['id'], data: AccountForm) {
     return this.httpClient.patch<boolean, AccountForm>(`/account/${id}`, data);
   }
 
-  changeBalance(id: string, balanceChange: number) {
+  changeBalance(id: Account['id'], balanceChange: number) {
     return this.httpClient.patch<boolean, { difference: number}>(
       `/account/change-balance/${id}`,
       { difference: balanceChange}
     )
   }
 
-  delete(id: string) {
+  delete(id: Account['id']) {
     return this.httpClient.delete<boolean>(`/account/${id}`);
   }
 }
