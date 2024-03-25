@@ -31,7 +31,7 @@ export class CurrencyService {
     this.availableCurrencyCodes = Object.values(CurrencyCode);
   
     /** Setting up app default currency according to user's country */
-    clientService.onInitilized(() => {
+    clientService.onConnectionSuccess(() => {
       if (this.availableCurrencyCodes.includes(clientService.localCurrency)) {
         this.defaultCurrency = clientService.localCurrency;
       }

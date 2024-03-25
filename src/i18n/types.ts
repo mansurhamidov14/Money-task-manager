@@ -8,6 +8,7 @@ export type I18nOptions = {
 
 export type TrComponentProps = {
   children: string;
+  ns?: string;
 } & { [key: string]: string | number }
 
 export type LangData = Record<Lang, {

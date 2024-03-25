@@ -1,11 +1,12 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
-import { Show, createSignal, onMount } from "solid-js";
+import { Match, Show, Switch, createEffect, createSignal, onMount } from "solid-js";
 import {
   AppLoading,
   BottomNavigation,
   ConfirmationModal,
   Layout,
+  NetworkError,
   ToastList
 } from "@app/components";
 import { REDIRECT_URL_STORE_KEY } from "@app/constants";
@@ -37,9 +38,9 @@ import { authService, clientService, userService } from "@app/services";
 import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
-import "./App.css";
 import { EditTaskScreen } from "./screens/EditTaskScreen";
 import { FutureTasksScreen, TasksArchiveScreen } from "./screens/TasksScreen/pages";
+import "./App.css";
 
 const queryClient = new QueryClient();
 
@@ -59,12 +60,9 @@ function App(props: RouteSectionProps) {
 }
 
 export default function() {
-  const [clientInitialized, setClientInitialized] = createSignal(false);
+  const [networkStatus, setNetworkStatus] = createSignal<"idle" | "error" | "success">("idle");
 
-  onMount(async () => {
-    clientService.onInitilized(() => {
-      setClientInitialized(true);
-    });
+  const initApp = async () => {
     try {
       const { access_token } = await authService.getRefreshToken();
       userService.setAccessToken(access_token);
@@ -77,50 +75,75 @@ export default function() {
         status: authorizedUser.hasPinProtection ? "locked" : "authorized",
         data: authorizedUser
       });
-    } catch (e) {
-      await authService.logOut();
-      user.setCurrentUser({ status: "unauthorized" });
+    } catch (e: any) {
+      if (e.status === 401) {
+        await authService.logOut();
+        return user.setCurrentUser({ status: "unauthorized" });
+      }
+    }
+  }
+
+  onMount(() => {
+    clientService.onConnectionError(async () => {
+      setNetworkStatus("error");
+    });
+
+    clientService.onConnectionSuccess(async () => {
+      setNetworkStatus("success");
+    });
+  });
+
+  const refetchClientData = () => {
+    setNetworkStatus("idle");
+    clientService.fetchClientData();
+  }
+
+  createEffect(() => {
+    if (networkStatus() === "success") {
+      initApp();
     }
   });
 
   return (
     <div class="app-container">
       <QueryClientProvider client={queryClient}>
-        <Show
-          when={clientInitialized() && user.currentUser().status !== "loading"}
-          fallback={<AppLoading />}
-        >
-          <Router root={App}>
-            <Route path="/" component={() => <Navigate href="/home" />} />
-            <Route path="/auth">
-              <Route path="/" component={LoginPage} />
-              <Route path="/signup" component={SignUpPage} />
-              <Route path="/pin" component={PinInputPage} />
-            </Route>
-            <ProtectedRoute path="/home" component={HomeScreen} />
-            <ProtectedRoute path="/history" component={HistoryScreen} />
-            <ProtectedRoute path="/new-account" component={NewAccountScreen} />
-            <ProtectedRoute path="/edit-account/:id" component={EditAccountScreen} />
-            <ProtectedRoute path="/new-transaction" component={NewTransactionScreen} />
-            <ProtectedRoute path="/edit-transaction/:id" component={EditTransactionScreen} />
-            <ProtectedRoute path="/new-task" component={NewTaskScreen} />
-            <ProtectedRoute path="/edit-task/:id" component={EditTaskScreen} />
-            <Route path="/tasks">
-              <ProtectedRoute path="/" component={TasksScreen} />
-              <ProtectedRoute path="/future" component={FutureTasksScreen} />
-              <ProtectedRoute path="/archive" component={TasksArchiveScreen} />
-            </Route>
-            <ProtectedRoute path="/new-transfer" component={TransferBetweenAccountsScreen} />
-            <Route path="/settings">
-              <ProtectedRoute path="/" component={SettingsScreen} />
-              <ProtectedRoute path="/change-avatar" component={ChangeAvatarScreen} />
-              <ProtectedRoute path="/change-language" component={ChangeLanguageScreen} />
-              <ProtectedRoute path="/change-password" component={ChangePasswordScreen} />
-              <ProtectedRoute path="/change-pin" component={ChangePinScreen} />
-              <ProtectedRoute path="/personal-info" component={PersonalInfoScreen} />
-            </Route>
-          </Router>
-        </Show>
+        <Switch fallback={<AppLoading />}>
+          <Match when={networkStatus() === "success" && user.currentUser().status !== "loading"}>
+            <Router root={App}>
+              <Route path="/" component={() => <Navigate href="/home" />} />
+              <Route path="/auth">
+                <Route path="/" component={LoginPage} />
+                <Route path="/signup" component={SignUpPage} />
+                <Route path="/pin" component={PinInputPage} />
+              </Route>
+              <ProtectedRoute path="/home" component={HomeScreen} />
+              <ProtectedRoute path="/history" component={HistoryScreen} />
+              <ProtectedRoute path="/new-account" component={NewAccountScreen} />
+              <ProtectedRoute path="/edit-account/:id" component={EditAccountScreen} />
+              <ProtectedRoute path="/new-transaction" component={NewTransactionScreen} />
+              <ProtectedRoute path="/edit-transaction/:id" component={EditTransactionScreen} />
+              <ProtectedRoute path="/new-task" component={NewTaskScreen} />
+              <ProtectedRoute path="/edit-task/:id" component={EditTaskScreen} />
+              <Route path="/tasks">
+                <ProtectedRoute path="/" component={TasksScreen} />
+                <ProtectedRoute path="/future" component={FutureTasksScreen} />
+                <ProtectedRoute path="/archive" component={TasksArchiveScreen} />
+              </Route>
+              <ProtectedRoute path="/new-transfer" component={TransferBetweenAccountsScreen} />
+              <Route path="/settings">
+                <ProtectedRoute path="/" component={SettingsScreen} />
+                <ProtectedRoute path="/change-avatar" component={ChangeAvatarScreen} />
+                <ProtectedRoute path="/change-language" component={ChangeLanguageScreen} />
+                <ProtectedRoute path="/change-password" component={ChangePasswordScreen} />
+                <ProtectedRoute path="/change-pin" component={ChangePinScreen} />
+                <ProtectedRoute path="/personal-info" component={PersonalInfoScreen} />
+              </Route>
+            </Router>
+          </Match>
+          <Match when={networkStatus() === "error"}>
+            <NetworkError onTryAgain={refetchClientData} />
+          </Match>
+        </Switch>
         <ToastList />
         <ConfirmationModal />
       </QueryClientProvider>

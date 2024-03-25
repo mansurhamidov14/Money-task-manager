@@ -5,35 +5,30 @@ import { ClientDataResponse } from "./types";
 export class ClientService {
   ip = "0.0.0.0";
   localCurrency: CurrencyCode = CurrencyCode.USD;
-  private clientInitialized = "clientinitialized";
   private clientConnectionSuccess = "clientConnectionSuccess";
+  private clientConnectionError = "clientConnectionError";
 
   constructor(private http: HttpService) {
-    this.fetchUserIp(() => window.dispatchEvent(new CustomEvent(this.clientInitialized)));
-    window.addEventListener("online", this.onlineHandler);
+    this.fetchClientData();
+    window.addEventListener("online", this.fetchClientData);
   }
 
-  private fetchUserIp = async (finalCallback?: () => void) => {
+  public fetchClientData = async () => {
     try {
       const { data } = await this.http.get<ClientDataResponse>(`/client/info`);
       this.ip = data.ip;
       this.localCurrency = data.currency;
       window.dispatchEvent(new CustomEvent(this.clientConnectionSuccess));
-    } catch (e) {} finally {
-      finalCallback?.();
+    } catch (e) {
+      window.dispatchEvent(new CustomEvent(this.clientConnectionError));
     }
-  }
-
-  private onlineHandler = async () => {
-    await this.fetchUserIp();
-    window.dispatchEvent(new CustomEvent(this.clientConnectionSuccess))
-  }
-
-  onInitilized(callback: () => void) {
-    window.addEventListener(this.clientInitialized, callback, { once: true });
   }
 
   onConnectionSuccess(callback: () => void) {
     window.addEventListener(this.clientConnectionSuccess, callback);
+  }
+
+  onConnectionError(callback: () => void) {
+    window.addEventListener(this.clientConnectionError, callback);
   }
 }
