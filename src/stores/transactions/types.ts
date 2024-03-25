@@ -5,7 +5,7 @@ import type { Currency, CurrencyCode } from "@app/entities";
 export type TransactionType = "expense" | "income";
 export type Transaction = {
   id: number;
-  account: number;
+  account: string;
   user: string; 
   title: string;
   currency: CurrencyCode;

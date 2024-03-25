@@ -1,5 +1,5 @@
 import type { Currency, CurrencyCode } from "@app/entities";
-import { Account, Task, Transaction, User } from "@app/stores";
+import { Task, Transaction, User } from "@app/stores";
 import { IconTypes } from "solid-icons";
 
 export type TokenResponse = {
@@ -13,7 +13,6 @@ export type AuthResponse = TokenResponse & {
 
 export type CreationRequestData<T> = Omit<T, "id" | "createdAt" | "updatedAt">;
 export type NewTransaction = CreationRequestData<Transaction>;
-export type NewAccount = CreationRequestData<Account>;
 export type NewTask = CreationRequestData<Task>;
 
 export type Currencies = Record<CurrencyCode, Currency>;

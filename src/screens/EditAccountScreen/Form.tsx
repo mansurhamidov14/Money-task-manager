@@ -14,6 +14,7 @@ import {
   SkinSelect
 } from "../components/AccountForm";
 import { TitleInput } from "../components/shared";
+import { accountService } from "@app/services";
 
 export function Form(props: Account) {
   const userId = user.currentUser().data!.id;
@@ -23,7 +24,7 @@ export function Form(props: Account) {
     currency: props.currency,
     balance: props.balance,
     skin: props.skin,
-    primary: String(props.primary) as "0" | "1",
+    primary: String(Number(props.primary)) as "0" | "1",
   })), {
     validateOn: ["blur"],
   });
@@ -34,23 +35,18 @@ export function Form(props: Account) {
       setLoading(true);
       await formHandler.validateForm();
       const oldValues = props;
-      const formData = {
-        ...formHandler.formData(),
-        primary: Number(formHandler.getFieldValue("primary")) as 1 | 0,
-      }
+      const formData = formHandler.formData();
 
-      if (!oldValues.primary && formData.primary) {
-        await accountsStore.removePrimaryFlag(userId);
-      }
-
-      if(oldValues.currency !== formData.currency) {
+      if (oldValues.currency !== formData.currency) {
         await transactionsStore.updateCurrencyByAccount(userId, oldValues.id, formData.currency);
       }
 
-      await accountsStore.updateAccount(oldValues.id, formData);
+      await accountService.update(oldValues.id, formData);
+      accountsStore.setAccountsLoading();
       toastStore.pushToast("success", t("EditAccountScreen.success"));
       history.back();
     } catch (e: any) {
+      console.log(e);
       if (e.message) {
         toastStore.pushToast("error", t("EditAccountScreen.error", undefined, { error: e.message }));
       }
@@ -61,13 +57,13 @@ export function Form(props: Account) {
     <Show when={!loading()} fallback={<Loading />}>
       <AccountCardDumb
         account={{
-          id: 0,
+          id: "0",
           title: formHandler.getFieldValue("title"),
           primary: formHandler.getFieldValue("primary"),
           skin: formHandler.getFieldValue("skin"),
           balance: formHandler.getFieldValue("balance"),
           currency: formHandler.getFieldValue("currency"),
-          user: "0",
+          userId: "0",
           createdAt: 0,
           updatedAt: 0
         }}

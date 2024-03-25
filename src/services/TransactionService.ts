@@ -25,7 +25,7 @@ export class TransactionService {
     return this.collection.delete(id);
   }
 
-  deleteByAccountId(account: number) {
+  deleteByAccountId(account: string) {
     return this.collection.delete({ account });
   }
 }

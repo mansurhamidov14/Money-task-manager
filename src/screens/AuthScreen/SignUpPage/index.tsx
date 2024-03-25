@@ -37,12 +37,11 @@ export function SignUpPage() {
       const { user: newUser, access_token } = await authService.signUp(userData);
       userService.setAccessToken(access_token);
       await accountService.create({
-        user: newUser.id,
         title: t("common.initialAccountName"),
         currency: formHandler.getFieldValue("primaryCurrency"),
         balance: 0,
         skin: "green",
-        primary: 1,
+        primary: "1",
       });
       user.setCurrentUser({
         status: "locked",

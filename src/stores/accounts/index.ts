@@ -24,9 +24,9 @@ function initAccountsStore() {
     }
   }
 
-  const fetchUserAccounts = async (userId: string) => {
+  const fetchUserAccounts = async () => {
     try {
-      const accounts = await accountService.getUserAccounts(userId);
+      const { data: accounts} = await accountService.getUserAccounts();
       const endTimestamp = Date.now();
       const startDate = new Date(endTimestamp - 30 * MS_IN_DAY);
       startDate.setHours(0, 0, 0, 0);
@@ -50,28 +50,7 @@ function initAccountsStore() {
     }
   }
 
-  const updateAccount = async (id: number, data: Partial<Account>) => {
-    await accountService.update(id, data);
-    setAccountsData(accounts().data!.map(account => {
-      if (account.id !== id) return account;
-      return {
-        ...account,
-        ...data
-      }
-    }));
-  }
-
-  const addAccount = (newAccount: Account) => setAccountsData([...accounts().data!, newAccount]);
-
-  const removePrimaryFlag = async (user: string) => {
-    await accountService.update({ primary: 1, user }, { primary: 0 });
-    setAccountsData(accounts().data!.map(account => account.primary
-      ? { ...account, primary: 0 }
-      : account 
-    ));
-  }
-
-  const changeBalance = (id: number, amount: number, type: TransactionType) => {
+  const changeBalance = (id: string, amount: number, type: TransactionType) => {
     const difference = type === "expense" ? amount * -1 : amount;
     setAccountsData(accounts().data!.map(account => {
       if (account.id !== id) return account;
@@ -90,7 +69,7 @@ function initAccountsStore() {
     return accountService.changeBalance(id, difference);
   }
 
-  const deleteAccount = async (id: number) => {
+  const deleteAccount = async (id: string) => {
     await accountService.delete(id);
     setAccountsData(accounts().data!.filter(a => a.id !== id));
   }
@@ -106,17 +85,14 @@ function initAccountsStore() {
 
   return {
     accounts,
-    addAccount,
     primaryAccount,
     deleteAccount,
     setAccountsData,
     setAccountsLoading,
     setAccountsError,
-    updateAccount,
     changeBalance,
     fetchUserAccounts,
-    reload,
-    removePrimaryFlag
+    reload
   }
 }
 

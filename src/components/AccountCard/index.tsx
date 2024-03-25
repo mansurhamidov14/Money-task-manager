@@ -22,7 +22,7 @@ export type AccountCardProps = {
 }
 
 export type AccountCardDumbProps = AccountCardProps & {
-  onDelete?: (id: number) => void;
+  onDelete?: (id: string) => void;
 }
 
 export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
@@ -78,7 +78,7 @@ export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
                 <div class="h-0.5 bg-cyan-100"></div>
                 <div class="h-0.5 bg-cyan-100"></div>
                 <div class="text-black pt-1 pb-1 pr-4 font-semibold absolute right-0">
-                  {100 + props.account.id}
+                  {props.account.id.slice(-3).toUpperCase()}
                 </div>
               </div>
               <div class="mt-5 flex justify-around px-14 opacity-80">
@@ -106,14 +106,14 @@ export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
 }
 
 export function AccountCard(props: AccountCardProps) {
-  const deleteAccount = async (id: number) => {
+  const deleteAccount = async (id: string) => {
     await accountsStore.deleteAccount(id);
     await transactionsStore.deleteByAccountId(id);
     accountsStore.reload();
     toastStore.pushToast("success", t("ConfirmationRequest.accountDeletion.success"));
   }
 
-  const requestDeletion = (id: number) => {
+  const requestDeletion = (id: string) => {
     confirmationStore.requestConfirmation({
       text: t("ConfirmationRequest.accountDeletion.text"),
       onConfirm: () => deleteAccount(id),

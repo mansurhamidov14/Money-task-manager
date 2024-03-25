@@ -4,18 +4,17 @@ import { useNavigate, useParams } from "@solidjs/router";
 import { ScreenHeader, VerticalScroll } from "@app/components";
 import { t } from "@app/i18n";
 import { accountService } from "@app/services";
-import { user, accountsStore, Account, transactionsStore, Await } from "@app/stores";
+import { accountsStore, Account, transactionsStore, Await } from "@app/stores";
 
 import { Form } from "./Form";
 
 export function EditAccountScreen() {
-  const userId = user.currentUser().data!.id;
   const [editedAccount, setEditedAccount] = createSignal<Account>();
   const navigate = useNavigate();
   const routeParams = useParams();
 
   onMount(async () => {
-    const account = await accountService.getById(Number(routeParams.id), userId);
+    const { data: account} = await accountService.getById(routeParams.id);
     if (!account) {
       return navigate("/");
     }

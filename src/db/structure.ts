@@ -41,26 +41,6 @@ const structure: Structure = {
       ]
     },
     {
-      name: "accounts",
-      config: defaultTableConfig,
-      version: 1,
-      fields: [
-        createColumn("user"),
-        createColumn("title"),
-        createColumn("currency"),
-        createColumn("balance"),
-        createColumn("primary"),
-        createColumn("skin"),
-        createColumn("createdAt"),
-        createColumn("updatedAt"),
-      ],
-      complexIndices: [
-        createMultiColumnIndex(["id", "user"]),
-        createMultiColumnIndex(["currency", "user"]),
-        createMultiColumnIndex(["primary", "user"]),
-      ]
-    },
-    {
       name: "tasks",
       config: defaultTableConfig,
       version: 1,

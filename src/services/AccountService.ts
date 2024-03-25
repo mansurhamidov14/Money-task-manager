@@ -1,35 +1,35 @@
-import { type IDBCollection, SearchCondition } from "@app/adapters/IDB";
 import { Account } from "@app/stores";
-import { NewAccount } from "./types";
+import type { HttpService } from "./HttpService";
+import { AccountForm } from "@app/schemas";
 
 export class AccountService {
-  constructor (private collection: IDBCollection<Account>) { }
+  constructor (private httpClient: HttpService) {}
 
-  create(account: NewAccount) {
-    return this.collection.create(account);
+  create(data: AccountForm) {
+    return this.httpClient.post<Account, AccountForm>('/account/new', data);
   }
 
-  getUserAccounts(user: string) {
-    return this.collection.queryAll({ user });
+  getUserAccounts() {
+    return this.httpClient.get<Account[]>('/account/list');
   }
 
-  update(filter: SearchCondition<Account>, data: Partial<Account>) {
-    return this.collection.update(filter, data);
+  getById(id: string) {
+    return this.httpClient.get<Account>(`/account/${id}`);
   }
 
-  changeBalance(id: number, balanceChange: number) {
-    return this.collection.update(id, oldData => ({
-      ...oldData,
-      balance: oldData.balance + balanceChange
-    }));
+  update(id: string, data: AccountForm) {
+    return this.httpClient.patch<boolean, AccountForm>(`/account/${id}`, data);
   }
 
-  delete(id: number) {
-    return this.collection.delete(id);
+  changeBalance(id: string, balanceChange: number) {
+    return this.httpClient.patch<boolean, { difference: number}>(
+      `/account/change-balance/${id}`,
+      { difference: balanceChange}
+    )
   }
 
-  getById(id: number, user: string) {
-    return this.collection.queryOne({ id, user });
+  delete(id: string) {
+    return this.httpClient.delete<boolean>(`/account/${id}`);
   }
 }
 
