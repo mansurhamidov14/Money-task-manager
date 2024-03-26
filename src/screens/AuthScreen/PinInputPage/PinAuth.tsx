@@ -5,8 +5,8 @@ import { createSignal } from "solid-js";
 import { AuthLayout } from "../AuthLayout";
 import { userService } from "@app/services";
 import { vibrate } from "@app/helpers";
-import { REDIRECT_URL_STORE_KEY } from "@app/constants";
 import { useNavigate } from "@solidjs/router";
+import { redirectAfterLogin } from "@app/storage";
 
 export type PinAuthProps = {
   onForgotPin: () => void;
@@ -21,8 +21,8 @@ export function PinAuth(props: PinAuthProps) {
     try {
       await userService.validatePin(value);
       user.setCurrentUser({ status: "authorized", data: user.currentUser().data });
-      const nextUrl = localStorage.getItem(REDIRECT_URL_STORE_KEY);
-      localStorage.removeItem(REDIRECT_URL_STORE_KEY);
+      const nextUrl = redirectAfterLogin.value;
+      redirectAfterLogin.clear();
       if (nextUrl) {
         navigate(nextUrl);
       }

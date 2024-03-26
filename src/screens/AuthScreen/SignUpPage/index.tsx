@@ -14,7 +14,7 @@ import { authService, accountService, currencyService, userService } from "@app/
 import { Link, user } from "@app/stores";
 
 import { AuthLayout } from "../AuthLayout";
-import { FIRST_RUN_STORE_KEY } from "@app/constants";
+import { firstRunHappened } from "@app/storage";
 
 export function SignUpPage() {
   const formHandler = useFormHandler(yupSchema(getSignUpFormSchema()), {
@@ -47,7 +47,7 @@ export function SignUpPage() {
         status: "locked",
         data: newUser
       });
-      localStorage.setItem(FIRST_RUN_STORE_KEY, "1");
+      firstRunHappened.value = true;
       navigate("/auth/pin");
     } catch (e) { }
   }

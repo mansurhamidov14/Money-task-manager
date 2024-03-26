@@ -1,5 +1,5 @@
-import { getLocale, langData, setLocale } from "@app/i18n";
-import { availableLangs } from "@app/i18n/init";
+import { availableLangs, getLocale, langData, setLocale } from "@app/i18n";
+import {  } from "@app/i18n/consts";
 import { For } from "solid-js";
 import {
   Dropdown,

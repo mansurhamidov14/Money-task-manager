@@ -9,7 +9,6 @@ import {
   NetworkError,
   ToastList
 } from "@app/components";
-import { REDIRECT_URL_STORE_KEY } from "@app/constants";
 import { RerenderOnLangChange } from "@app/i18n";
 import {
   EditAccountScreen,
@@ -35,12 +34,13 @@ import {
 } from "@app/screens/SettingsScreen/pages";
 import { DateProcessorProvider } from "@app/providers";
 import { authService, clientService, userService } from "@app/services";
-import { user } from "@app/stores";
+import { accountsStore, tasksStore, transactionsStore, user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
 import { EditTaskScreen } from "./screens/EditTaskScreen";
 import { FutureTasksScreen, TasksArchiveScreen } from "./screens/TasksScreen/pages";
 import "./App.css";
+import { redirectAfterLogin } from "./storage";
 
 const queryClient = new QueryClient();
 
@@ -69,7 +69,7 @@ export default function() {
       const { data: authorizedUser } = await userService.getUser();
       if (authorizedUser.hasPinProtection) {
         const currentUrl = window.location.hash.slice(1);
-        localStorage.setItem(REDIRECT_URL_STORE_KEY, currentUrl ?? "/home");
+        redirectAfterLogin.value = currentUrl ?? "/home";
       }
       user.setCurrentUser({
         status: authorizedUser.hasPinProtection ? "locked" : "authorized",
@@ -77,9 +77,10 @@ export default function() {
       });
     } catch (e: any) {
       if (e.status === 401) {
-        await authService.logOut();
-        return user.setCurrentUser({ status: "unauthorized" });
+        return user.logOut();
       }
+
+      setNetworkStatus("error");
     }
   }
 

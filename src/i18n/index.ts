@@ -1,5 +1,6 @@
 import { createSignal } from "solid-js";
 import { azFlag, ruFlag, uaFlag, usFlag } from "@app/assets";
+import { appLang } from "@app/storage";
 
 import actionsAz from "./locales/az/Actions.json";
 import actionsEn from "./locales/en/Actions.json";
@@ -25,8 +26,8 @@ import { i18nConfig, initI18n, translations } from "./init";
 import { Lang, LangData } from "./types";
 
 export * from "./components";
+export * from "./consts";
 
-const localStorageAccessKey = "WFOAppLang";
 export const langData: LangData = {
   az: {
     code: "AZ",
@@ -103,17 +104,22 @@ function bindParams(text: string, params: Record<string, number | string>) {
 }
 
 initI18n({ resources });
-const initialLang = localStorage.getItem(localStorageAccessKey) as Lang | null || i18nConfig.defaultLang;
+const initialLang = appLang.value;
 const [getLocale, setLocale] = createSignal<Lang>(initialLang);
 document.getElementsByTagName("html")[0]!.setAttribute("lang", initialLang);
 
-const setLocaleWrapper = (locale: Lang) => {
-  document.getElementsByTagName("html")[0]!.setAttribute("lang", locale);
+appLang.onChange(value => {
+  document.getElementsByTagName("html")[0]!.setAttribute("lang", value);
+
+  // TODO review the line
   setTimeout(() => {
-    setLocale(locale);
-    localStorage.setItem(localStorageAccessKey, locale);
-    window.dispatchEvent(new CustomEvent("appLanguageChange"))
+    setLocale(value);
+    window.dispatchEvent(new CustomEvent("appLanguageChange"));
   });
+})
+
+const setLocaleWrapper = (locale: Lang) => {
+  appLang.value = locale;
 }
 
 export {

@@ -14,10 +14,11 @@ export class StorageItem<T extends any> {
     this.storage = options.storage ?? window.localStorage;
     this.initialValue = options.initialValue;
     const storageItem = this.storage.getItem(options.accessor);
-    this.currentValue = storageItem ? JSON.parse(storageItem)
-      : typeof this.initialValue !== 'function'
+    this.currentValue = this.parseStorageValue(storageItem) ?? (
+      typeof this.initialValue !== 'function'
         ? this.initialValue
-        : this.initialValue();
+        : this.initialValue()
+    );
     this.accessor = options.accessor;
   }
 
@@ -45,5 +46,15 @@ export class StorageItem<T extends any> {
 
   private get changeEventName() {
     return `storageItemChange${this.accessor}`;
+  }
+
+  private parseStorageValue(value?: string | null) {
+    if (!value) return value;
+    try {
+      const parsed = JSON.parse(value);
+      return parsed;
+    } catch {
+      return value;
+    }
   }
 }

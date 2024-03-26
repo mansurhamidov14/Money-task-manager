@@ -1,6 +1,6 @@
 import { API_BASE_URL, API_KEY_SALT } from "@app/constants";
 import { taskCollection, transactionCollection } from "@app/db";
-import { StorageItem } from "@app/entities";
+import { refreshTokenItem } from "@app/storage";
 import md5 from "md5";
 
 import { AccountService } from "./AccountService";
@@ -17,11 +17,6 @@ import { UserService } from "./UserService";
 
 export * from "./consts";
 export * from "./types";
-
-const refreshTokenItem = new StorageItem<string | null>({
-  accessor: 'refresh_token',
-  initialValue: null,
-});
 
 function buildServices() {
   const httpClient = new HttpService(API_BASE_URL);

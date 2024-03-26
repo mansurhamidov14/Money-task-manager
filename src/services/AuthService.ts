@@ -44,7 +44,6 @@ export class AuthService {
       await this.httpClient.post('/auth/logout');
     } catch (e) {} finally {
       this.refreshToken.clear();
-      window.history.replaceState({}, "", "/");
     }
   }
 

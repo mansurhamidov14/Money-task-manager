@@ -12,6 +12,7 @@ import { authService, userService } from "@app/services";
 import { Link, toastStore, user } from "@app/stores";
 
 import { AuthLayout } from "../AuthLayout";
+import { firstRunHappened } from "@app/storage";
 
 export function LoginPage() {
   const formHandler = useFormHandler(yupSchema(getLoginFormSchema()), {
@@ -27,6 +28,7 @@ export function LoginPage() {
       const data = await authService.auth(email.toLowerCase(), password);
       userService.setAccessToken(data.access_token);
       user.setCurrentUser({ status: "authorized", data: data.user });
+      firstRunHappened.value = true;
       navigate("/");
     } catch (e: any) {
       toastStore.handleServerError(e);

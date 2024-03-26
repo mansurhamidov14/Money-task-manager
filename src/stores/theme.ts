@@ -1,28 +1,20 @@
+import { appTheme } from "@app/storage";
 import { createRoot, createSignal } from "solid-js";
 
 export type Theme = "dark" | "light";
-const localStoreAccessKey = "WFOAppTheme";
 function initThemeStore() {
   const htmlDoc = document.getElementsByTagName("html")[0];
-  const localStorageValue = localStorage.getItem(localStoreAccessKey) as Theme;
-  const [theme, setTheme] = createSignal<Theme>(
-    localStorageValue ?? (
-      window?.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light"
-    )
-  );
+  const [theme, setTheme] = createSignal<Theme>(appTheme.value);
   htmlDoc.className = theme();
 
-  if (!localStorageValue) {
-    localStorage.setItem(localStoreAccessKey, theme());
-  }
+  appTheme.onChange((value) => {
+    htmlDoc.className = value;
+    setTheme(value);
+  })
 
   const toggleTheme = () => {
     const newTheme = theme() === "dark" ? "light" : "dark";
-    localStorage.setItem(localStoreAccessKey, newTheme);
-    htmlDoc.className = newTheme;
-    setTheme(newTheme);
+    appTheme.value = newTheme;
   }
 
   return { theme, toggleTheme }
