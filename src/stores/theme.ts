@@ -7,7 +7,7 @@ function initThemeStore() {
   const [theme, setTheme] = createSignal<Theme>(appTheme.value);
   htmlDoc.className = theme();
 
-  appTheme.onChange((value) => {
+  appTheme.on("change", (value) => {
     htmlDoc.className = value;
     setTheme(value);
   })

@@ -1,6 +1,6 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
-import { Match, Show, Switch, createEffect, createSignal, onMount } from "solid-js";
+import { Match, Show, Switch, createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import {
   AppLoading,
   BottomNavigation,
@@ -34,7 +34,7 @@ import {
 } from "@app/screens/SettingsScreen/pages";
 import { DateProcessorProvider } from "@app/providers";
 import { authService, clientService, userService } from "@app/services";
-import { accountsStore, tasksStore, transactionsStore, user } from "@app/stores";
+import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
 import { EditTaskScreen } from "./screens/EditTaskScreen";
@@ -84,15 +84,18 @@ export default function() {
     }
   }
 
-  onMount(() => {
-    clientService.onConnectionError(async () => {
-      setNetworkStatus("error");
-    });
+  const connectionSuccesHandler = () => setNetworkStatus("success");
+  const connectionErrorHandler = () => setNetworkStatus("error");
 
-    clientService.onConnectionSuccess(async () => {
-      setNetworkStatus("success");
-    });
+  onMount(() => {
+    clientService.on("connectionSuccess", connectionSuccesHandler);
+    clientService.on("connectionError", connectionErrorHandler);
   });
+
+  onCleanup(() => {
+    clientService.off("connectionSuccess", connectionSuccesHandler);
+    clientService.off("connectionError", connectionErrorHandler);
+  })
 
   const refetchClientData = () => {
     setNetworkStatus("idle");

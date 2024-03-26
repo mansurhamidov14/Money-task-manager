@@ -1,14 +1,14 @@
-import { CurrencyCode } from "@app/entities";
+import { CurrencyCode, DataWithEventHandlers } from "@app/entities";
 import type { HttpService } from "./HttpService";
-import { ClientDataResponse } from "./types";
+import { ClientDataResponse, ClientServiceEvent, ClientServiceEventHandler } from "./types";
 
-export class ClientService {
+const events: ClientServiceEvent[] = ["connectionError", "connectionSuccess"];
+export class ClientService extends DataWithEventHandlers<ClientServiceEvent, ClientServiceEventHandler> {
   ip = "0.0.0.0";
   localCurrency: CurrencyCode = CurrencyCode.USD;
-  private clientConnectionSuccess = "clientConnectionSuccess";
-  private clientConnectionError = "clientConnectionError";
 
   constructor(private http: HttpService) {
+    super(events);
     this.fetchClientData();
     window.addEventListener("online", this.fetchClientData);
   }
@@ -18,17 +18,9 @@ export class ClientService {
       const { data } = await this.http.get<ClientDataResponse>(`/client/info`);
       this.ip = data.ip;
       this.localCurrency = data.currency;
-      window.dispatchEvent(new CustomEvent(this.clientConnectionSuccess));
+      this.dispatchEvent("connectionSuccess");
     } catch (e) {
-      window.dispatchEvent(new CustomEvent(this.clientConnectionError));
+      this.dispatchEvent("connectionError");
     }
-  }
-
-  onConnectionSuccess(callback: () => void) {
-    window.addEventListener(this.clientConnectionSuccess, callback);
-  }
-
-  onConnectionError(callback: () => void) {
-    window.addEventListener(this.clientConnectionError, callback);
   }
 }

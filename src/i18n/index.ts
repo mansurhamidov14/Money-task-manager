@@ -108,15 +108,10 @@ const initialLang = appLang.value;
 const [getLocale, setLocale] = createSignal<Lang>(initialLang);
 document.getElementsByTagName("html")[0]!.setAttribute("lang", initialLang);
 
-appLang.onChange(value => {
+appLang.on("change", value => {
   document.getElementsByTagName("html")[0]!.setAttribute("lang", value);
-
-  // TODO review the line
-  setTimeout(() => {
-    setLocale(value);
-    window.dispatchEvent(new CustomEvent("appLanguageChange"));
-  });
-})
+  setLocale(value);
+});
 
 const setLocaleWrapper = (locale: Lang) => {
   appLang.value = locale;

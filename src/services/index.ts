@@ -40,11 +40,11 @@ function buildServices() {
   const transactionService = new TransactionService(transactionCollection);
   const userService = new UserService(authUserHttpClient);
 
-  clientService.onConnectionSuccess(() => {
+  clientService.on("connectionSuccess", () => {
     apiKeyHttpClient.headers['Api-Key'] = md5(API_KEY_SALT + md5(clientService.ip));
   });
 
-  refreshTokenItem.onChange((token) => {
+  refreshTokenItem.on("change", (token) => {
     if (!token) {
       delete apiKeyHttpClient.headers.Authorization;
       return;

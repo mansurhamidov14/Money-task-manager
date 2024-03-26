@@ -1,4 +1,5 @@
 import { Loading } from "@app/components";
+import { appLang } from "@app/storage";
 import { ParentProps, Show, createSignal, onCleanup, onMount } from "solid-js";
 
 export function RerenderOnLangChange(props: ParentProps) {
@@ -10,11 +11,11 @@ export function RerenderOnLangChange(props: ParentProps) {
   };
 
   onMount(() => {
-    window.addEventListener("appLanguageChange", langChangeHandler);
+    appLang.on("change", langChangeHandler);
   });
 
   onCleanup(() => {
-    window.removeEventListener("appLanguageChange", langChangeHandler);
+    appLang.off("change", langChangeHandler);
   });
 
   return (

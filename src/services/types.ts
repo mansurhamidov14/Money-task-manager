@@ -84,3 +84,5 @@ export type HttpRequestOptions = {
   parseMode: HttpParseMode;
 }
 
+export type ClientServiceEvent = "connectionSuccess" | "connectionError";
+export type ClientServiceEventHandler = () => void;
