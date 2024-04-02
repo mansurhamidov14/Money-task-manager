@@ -37,7 +37,7 @@ function buildServices() {
   const currencyService = new CurrencyService(authUserHttpClient, cacheService, clientService);
   const skinService = new SkinService();
   const taskService = new TaskService(taskCollection);
-  const transactionService = new TransactionService(transactionCollection);
+  const transactionService = new TransactionService(authUserHttpClient);
   const userService = new UserService(authUserHttpClient);
 
   clientService.on("connectionSuccess", () => {

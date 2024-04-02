@@ -43,6 +43,7 @@ export class StorageItem<T extends any> extends DataWithEventHandlers<StorageEve
 
   private parseStorageValue(value?: string | null) {
     if (!value) return value;
+
     try {
       const parsed = JSON.parse(value);
       return parsed;

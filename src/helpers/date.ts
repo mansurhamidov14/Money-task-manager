@@ -100,13 +100,13 @@ export class DateProcessor {
     return this.translateFn(`${type}.weekdays.${date.getDay()}`);
   }
 
-  isToday(date: Date | number) {
-    const dateObj = typeof date === "number" ? new Date(date) : date;
+  isToday(date: Date | number | string) {
+    const dateObj = this.getDateObj(date);
     return dateObj.toLocaleDateString(this.locale) === this.today.dateString;
   }
 
   isYesterday(date: Date | number) {
-    const dateObj = typeof date === "number" ? new Date(date) : date;
+    const dateObj = this.getDateObj(date);
     return dateObj.toLocaleDateString(this.locale) === this.yesterday.dateString;
   }
 
@@ -115,17 +115,33 @@ export class DateProcessor {
     return dateObj.toLocaleDateString(this.locale) === this.yesterday.dateString;
   }
 
-  isWeekAgoOrMore(date: Date | number) {
+  isWeekAgoOrMore(date: Date | number | string) {
     return this.getDayDifference(date) <= -7
   }
 
-  withinThisWeek(date: Date | number) {
-    const timestamp = typeof date === "number" ? date : date.getTime();
+  private getDateObj(date: Date | number | string) {
+    return date instanceof Date ? date : new Date(date);
+  }
+
+  private getTimestamp(date: Date | number | string) {
+    if (date instanceof Date) {
+      return date.getTime();
+    }
+
+    if (typeof date === 'number') {
+      return date;
+    }
+
+    return new Date(date).getTime();
+  }
+
+  withinThisWeek(date: Date | number | string) {
+    const timestamp = this.getTimestamp(date);
     return timestamp >= this.mondayStartTimestamp && timestamp <= this.sundayEndTimestamp;
   }
 
-  public getDayDifference(date: Date | number) {
-    const timestamp = typeof date === "number" ? date : date.getTime();
+  public getDayDifference(date: Date | number | string) {
+    const timestamp = this.getTimestamp(date);
     return (timestamp - this.today.timestamp) / MS_IN_DAY;
   }
 

@@ -6,7 +6,7 @@ import { NewTask } from "./types";
 export class TaskService {
   constructor (private collection: IDBCollection<Task>) { }
 
-  async create(user: User['id'], task: TaskFormSchema): Promise<void> {
+  async create(user: User["id"], task: TaskFormSchema): Promise<void> {
     const isRecurring = Number(task.isRecurring);
 
     if (isRecurring) {
@@ -98,7 +98,7 @@ export class TaskService {
     return null;
   }
 
-  getUserTasks(user: User['id']) {
+  getUserTasks(user: User["id"]) {
     return this.collection.queryAll({ user });
   }
 

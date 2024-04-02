@@ -4,7 +4,7 @@ import { User } from "..";
 
 export type Account = {
   id: string;
-  userId: User['id'];
+  userId: User["id"];
   title: string;
   balance: number;
   currency: CurrencyCode;

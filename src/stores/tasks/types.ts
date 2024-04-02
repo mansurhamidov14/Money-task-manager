@@ -3,7 +3,7 @@ import { User } from "..";
 export type Task = {
   id: number;
   originalId?: number;
-  user: User['id'];
+  user: User["id"];
   title: string;
   isRecurring: 1 | 0;
   startDate: string;

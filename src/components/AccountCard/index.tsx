@@ -22,7 +22,7 @@ export type AccountCardProps = {
 }
 
 export type AccountCardDumbProps = AccountCardProps & {
-  onDelete?: (id: Account['id']) => void;
+  onDelete?: (id: Account["id"]) => void;
 }
 
 export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
@@ -106,14 +106,14 @@ export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
 }
 
 export function AccountCard(props: AccountCardProps) {
-  const deleteAccount = async (id: Account['id']) => {
+  const deleteAccount = async (id: Account["id"]) => {
     await accountsStore.deleteAccount(id);
     await transactionsStore.deleteByAccountId(id);
     accountsStore.reload();
     toastStore.pushToast("success", t("ConfirmationRequest.accountDeletion.success"));
   }
 
-  const requestDeletion = (id: Account['id']) => {
+  const requestDeletion = (id: Account["id"]) => {
     confirmationStore.requestConfirmation({
       text: t("ConfirmationRequest.accountDeletion.text"),
       onConfirm: () => deleteAccount(id),

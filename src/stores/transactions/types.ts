@@ -6,7 +6,7 @@ import { Account } from "..";
 export type TransactionType = "expense" | "income";
 export type Transaction = {
   id: number;
-  account: Account['id'];
+  account: Account["id"];
   user: string; 
   title: string;
   currency: CurrencyCode;

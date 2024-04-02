@@ -3,19 +3,19 @@ import { t } from "@app/i18n";
 import { Account, TransactionType } from "@app/stores";
 import { CategoryId, categoryService } from "@app/services";
 
-type NewTransactionForm = {
+export type TransactionForm = {
   title: string;
   type: TransactionType;
   category: CategoryId;
   amount: number;
-  account: Account['id'];
+  account: Account["id"];
   date: string;
 }
 
 export function getTransactionFormSchema(
-  defaults: Partial<NewTransactionForm>,
+  defaults: Partial<TransactionForm>,
   userAccounts: Account[]
-): yup.Schema<NewTransactionForm> {
+): yup.Schema<TransactionForm> {
   const userAccountIds = userAccounts.map(account => account.id);
 
   return yup.object({

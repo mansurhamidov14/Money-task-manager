@@ -1,7 +1,7 @@
+import { DataProvider } from "@app/providers";
 import { Navigate } from "@solidjs/router";
 import { Component, Match, Switch } from "solid-js";
 import { user } from "../user";
-import { DataProvider } from "..";
 import { firstRunHappened } from "@app/storage";
 
 export function withProtectedRoute(Component: Component): Component {

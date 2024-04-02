@@ -1,5 +1,5 @@
 import type { Currency, CurrencyCode } from "@app/entities";
-import { Task, Transaction, User } from "@app/stores";
+import { Task, User } from "@app/stores";
 import { IconTypes } from "solid-icons";
 
 export type TokenResponse = {
@@ -12,7 +12,6 @@ export type AuthResponse = TokenResponse & {
 }
 
 export type CreationRequestData<T> = Omit<T, "id" | "createdAt" | "updatedAt">;
-export type NewTransaction = CreationRequestData<Transaction>;
 export type NewTask = CreationRequestData<Task>;
 
 export type Currencies = Record<CurrencyCode, Currency>;
@@ -81,7 +80,8 @@ export type HttpResponse<T> = { status: number; data: T};
 export type HttpError = { status: number, message: string; };
 export type HttpRequestOptions = {
   headers?: HeadersInit;
-  parseMode: HttpParseMode;
+  params?: Record<string, string | number | null | undefined>;
+  parseMode?: HttpParseMode;
 }
 
 export type ClientServiceEvent = "connectionSuccess" | "connectionError";

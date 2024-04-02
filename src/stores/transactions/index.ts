@@ -36,7 +36,7 @@ function initTransactionsStore() {
     );
   }
 
-  const deleteByAccountId = async (account: Account['id']) => {
+  const deleteByAccountId = async (account: Account["id"]) => {
     await transactionService.deleteByAccountId(account);
     setTransactionsData(
       transactions().data!.filter(t => t.account !== account)
@@ -77,7 +77,7 @@ function initTransactionsStore() {
     return filteredData.toSorted(descSorter("transactionDateTime"));
   }
 
-  const updateCurrencyByAccount = async (user: User['id'], account: Account['id'], currency: CurrencyCode) => {
+  const updateCurrencyByAccount = async (user: User["id"], account: Account["id"], currency: CurrencyCode) => {
     await transactionService.update({ account, user }, { currency });
     setTransactionsData(transactions().data!.map(transaction => {
       if (transaction.account !== account) return transaction;
