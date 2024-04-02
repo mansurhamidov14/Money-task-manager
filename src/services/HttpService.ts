@@ -19,7 +19,7 @@ export class HttpService {
     try {
       const headers = Object.assign(options?.headers || {}, this.headers);
       const parseMode = options?.parseMode || "json";
-      const fetchUrl = this.isAbsolute(url) ? url : `${this.baseUrl}${url}`;
+      const fetchUrl = HttpService.buildUrlWithSearchParams(this.baseUrl, url, options?.params);
       const response = await fetch(fetchUrl, {
         headers,
         body: JSON.stringify(body),
@@ -74,12 +74,40 @@ export class HttpService {
     return this.fetch<T, B>(url, "PATCH", body, options);
   }
 
-  private isAbsolute(url: string) {
+  public registerErrorHandler(statusCode: number, callback: () => void) {
+    this.errorHandlers[statusCode] = callback;
+  }
+
+  private static arrayFromParams = (params: HttpRequestOptions['params']): string[] => {
+    const result = params
+      ? Object.entries(params).reduce((acc, [key, value]) => {
+        if (value == undefined) return acc;
+        if (typeof value !== 'object' && typeof value !== 'function') {
+          return [...acc, `${key}=${value}`];
+        } else if (Array.isArray(value)) {
+          return [...acc, ...value.map(item => HttpService.buildParams({ [`${key}[]`]: item }))];
+        } else if (typeof value === 'object') {
+          return [...acc, ...Object.entries(value).map(([valKey, valVal]) => HttpService.buildParams({ [`${key}[${valKey}]`]: valVal }))]
+        }
+        return acc;
+      }, [] as string[])
+      : [];
+    return result;
+  }
+  
+  private static isAbsolute = (url: string) => {
     var regExp = new RegExp('^(?:[a-z+]+:)?//', 'i');
     return regExp.test(url);
   }
-
-  public registerErrorHandler(statusCode: number, callback: () => void) {
-    this.errorHandlers[statusCode] = callback;
+  
+  private static buildParams(params: HttpRequestOptions['params']): string {
+    return HttpService.arrayFromParams(params).join('&')
+  }
+  
+  private static buildUrlWithSearchParams = (baseUrl: string, path: string, params: HttpRequestOptions['params']) => {
+    const searchParams = HttpService.buildParams(params);
+    const paramsPrefix = searchParams && (path.indexOf('?') !== -1 ? '&' : '?');
+    const derivedPath = `${path}${paramsPrefix}${searchParams}`;
+    return HttpService.isAbsolute(derivedPath) ? derivedPath : `${baseUrl}${derivedPath}`;
   }
 }

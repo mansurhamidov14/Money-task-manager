@@ -80,7 +80,7 @@ export type HttpResponse<T> = { status: number; data: T};
 export type HttpError = { status: number, message: string; };
 export type HttpRequestOptions = {
   headers?: HeadersInit;
-  params?: Record<string, string | number | null | undefined>;
+  params?: Record<string, any>;
   parseMode?: HttpParseMode;
 }
 
