@@ -1,3 +1,3 @@
 export * from "./Currency";
-export * from "./DataWithEventHandlers";
+export * from "./EventHandler";
 export * from "./StorageItem";

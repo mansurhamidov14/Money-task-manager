@@ -1,12 +1,14 @@
+import { EventHandler } from "@app/entities";
 import { HttpError, HttpMethod, HttpRequestOptions, HttpResponse } from ".";
 
-export class HttpService {
-  private errorHandlers: Record<number, () => void> = {};
-  headers: Record<string, string | null> = {}
+export class HttpService extends EventHandler<number, () => void> {
+  headers: Record<string, string | null> = {};
+
   constructor(
     public baseUrl: string,
     headers: Record<string, string> = {}
   ) {
+    super();
     this.headers = { ...headers, 'Content-Type': 'application/json' }
   }
 
@@ -25,7 +27,8 @@ export class HttpService {
         body: JSON.stringify(body),
         method
       });
-  
+      this.dispatchEvent(response.status);
+
       if (response.ok) {
         const resp = {
           status: response.status,
@@ -43,7 +46,6 @@ export class HttpService {
       const errorMessage = (await response.json()).message
       const error = new Error(errorMessage) as any;
       error.status = response.status;
-      this.errorHandlers[response.status]?.();
       throw error as HttpError;
     } catch (e) {
       throw e;
@@ -72,10 +74,6 @@ export class HttpService {
     options?: HttpRequestOptions
   ) {
     return this.fetch<T, B>(url, "PATCH", body, options);
-  }
-
-  public registerErrorHandler(statusCode: number, callback: () => void) {
-    this.errorHandlers[statusCode] = callback;
   }
 
   private static arrayFromParams = (params: HttpRequestOptions['params']): string[] => {
