@@ -65,7 +65,7 @@ export default function() {
   const initApp = async () => {
     try {
       const { access_token } = await authService.getRefreshToken();
-      userService.setAccessToken(access_token);
+      authUserHttpClient.accessToken = access_token;
       const { data: authorizedUser } = await userService.getUser();
       if (authorizedUser.hasPinProtection) {
         const currentUrl = window.location.hash.slice(1);

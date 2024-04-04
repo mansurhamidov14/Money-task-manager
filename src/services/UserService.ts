@@ -36,8 +36,4 @@ export class UserService {
   resetPassword(password: string, newPassword: string) {
     return this.httpClient.post<boolean>('/user/reset-password', { password, newPassword });
   }
-
-  setAccessToken(accessToken: string) {
-    this.httpClient.headers.Authorization = `Bearer ${accessToken}`;
-  }
 }

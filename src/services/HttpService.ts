@@ -18,6 +18,14 @@ export class HttpService extends EventHandler<HttpStatus, () => void> {
     this.headers = { ...headers, 'Content-Type': 'application/json' }
   }
 
+  set accessToken(value: string | null | undefined) {
+    if (!value) {
+      delete this.headers.Authorization;
+    } else {
+      this.headers.Authorization = `Bearer ${value}`;
+    }
+  }
+
   public async fetch<T = unknown, B = unknown>(
     url: string,
     method: HttpMethod,

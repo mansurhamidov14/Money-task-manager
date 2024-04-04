@@ -53,6 +53,7 @@ export class AuthService {
       this.refreshToken.value = data.refresh_token;
       return data;
     } catch (e) {
+      this.refreshToken.clear();
       throw e;
     }
   }

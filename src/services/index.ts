@@ -1,6 +1,6 @@
 import { API_BASE_URL, API_KEY_SALT } from "@app/constants";
 import { taskCollection } from "@app/db";
-import { refreshTokenItem } from "@app/storage";
+import { refreshToken } from "@app/storage";
 import md5 from "md5";
 
 import { AccountService } from "./AccountService";
@@ -22,14 +22,13 @@ function buildServices() {
   const httpClient = new HttpService(API_BASE_URL);
 
   /** HTTP client which sends Api-Key in headers to ensure access to API */
-  const apiKeyHttpClient = new HttpService(API_BASE_URL, refreshTokenItem.value ? {
-    Authorization: `Bearer ${refreshTokenItem.value}`
-  } : undefined);
+  const apiKeyHttpClient = new HttpService(API_BASE_URL);
+  if (refreshToken.value) apiKeyHttpClient.accessToken = refreshToken.value;
 
   /** HTTP client which we use for services that request private user data */
   const authUserHttpClient = new HttpService(API_BASE_URL);
 
-  const authService = new AuthService(apiKeyHttpClient, refreshTokenItem);
+  const authService = new AuthService(apiKeyHttpClient, refreshToken);
   const accountService = new AccountService(authUserHttpClient);
   const categoryService = new CategoryService();
   const clientService = new ClientService(httpClient);
@@ -44,18 +43,16 @@ function buildServices() {
     apiKeyHttpClient.headers['Api-Key'] = md5(API_KEY_SALT + md5(clientService.ip));
   });
 
-  refreshTokenItem.on("change", (token) => {
-    if (!token) {
-      delete apiKeyHttpClient.headers.Authorization;
-      return;
+  refreshToken.on("change", (token) => {
+    apiKeyHttpClient.accessToken = token;
+    if (token) {
+      setTimeout(() => {
+        authService.getRefreshToken()
+          .then(({ access_token }) => {
+            authUserHttpClient.accessToken = access_token;
+          });
+      }, 900000);
     }
-    apiKeyHttpClient.headers.Authorization = `Bearer ${token}`;
-    setTimeout(() => {
-      authService.getRefreshToken()
-        .then(({ access_token }) => {
-          userService.setAccessToken(access_token);
-        });
-    }, 900000);
   });
 
   return {

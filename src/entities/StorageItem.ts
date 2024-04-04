@@ -39,6 +39,7 @@ export class StorageItem<T extends any> extends EventHandler<StorageEvent, Stora
   clear() {
     this.currentValue = typeof this.initialValue !== 'function' ? this.initialValue : this.initialValue();
     this.storage.removeItem(this.accessor);
+    this.dispatchEvent("change", this.currentValue);
   }
 
   private parseStorageValue(value?: string | null) {
