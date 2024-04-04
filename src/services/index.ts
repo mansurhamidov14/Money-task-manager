@@ -1,5 +1,5 @@
 import { API_BASE_URL, API_KEY_SALT } from "@app/constants";
-import { taskCollection, transactionCollection } from "@app/db";
+import { taskCollection } from "@app/db";
 import { refreshTokenItem } from "@app/storage";
 import md5 from "md5";
 
@@ -54,12 +54,13 @@ function buildServices() {
       authService.getRefreshToken()
         .then(({ access_token }) => {
           userService.setAccessToken(access_token);
-        })
+        });
     }, 900000);
   });
 
   return {
     authService,
+    authUserHttpClient,
     accountService,
     categoryService,
     cacheService,
@@ -75,6 +76,7 @@ function buildServices() {
 
 export const {
   authService,
+  authUserHttpClient,
   accountService,
   categoryService,
   cacheService,

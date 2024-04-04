@@ -33,7 +33,7 @@ import {
   PersonalInfoScreen
 } from "@app/screens/SettingsScreen/pages";
 import { DateProcessorProvider } from "@app/providers";
-import { authService, clientService, userService } from "@app/services";
+import { HttpStatus, authService, authUserHttpClient, clientService, userService } from "@app/services";
 import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
@@ -76,11 +76,9 @@ export default function() {
         data: authorizedUser
       });
     } catch (e: any) {
-      if (e.status === 401) {
-        return user.logOut();
+      if (e.status !== HttpStatus.UNAUTHORIZED) {
+        setNetworkStatus("error");
       }
-
-      setNetworkStatus("error");
     }
   }
 
@@ -90,12 +88,14 @@ export default function() {
   onMount(() => {
     clientService.on("connectionSuccess", connectionSuccesHandler);
     clientService.on("connectionError", connectionErrorHandler);
+    authUserHttpClient.on(HttpStatus.UNAUTHORIZED, user.logOut);
   });
 
   onCleanup(() => {
     clientService.off("connectionSuccess", connectionSuccesHandler);
     clientService.off("connectionError", connectionErrorHandler);
-  })
+    authUserHttpClient.off(HttpStatus.UNAUTHORIZED, user.logOut);
+  });
 
   const refetchClientData = () => {
     setNetworkStatus("idle");

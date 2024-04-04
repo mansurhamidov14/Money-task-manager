@@ -1,6 +1,5 @@
 import { createSignal } from "solid-js";
 import { AsyncData } from "./types";
-import { user } from "@app/stores";
 import { HttpResponse } from "@app/services";
 
 export function useAsyncData<T = unknown>() {
@@ -16,9 +15,6 @@ export function useAsyncData<T = unknown>() {
         data: response.data 
       });
     } catch (e: any) {
-      if (e.status === 401) {
-        return user.logOut();
-      }
       setAsyncData({
         status: "error",
         error: e.message

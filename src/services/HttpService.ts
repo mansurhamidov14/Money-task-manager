@@ -1,7 +1,13 @@
 import { EventHandler } from "@app/entities";
-import { HttpError, HttpMethod, HttpRequestOptions, HttpResponse } from ".";
+import {
+  HttpError,
+  HttpMethod,
+  HttpRequestOptions,
+  HttpResponse,
+  type HttpStatus
+} from ".";
 
-export class HttpService extends EventHandler<number, () => void> {
+export class HttpService extends EventHandler<HttpStatus, () => void> {
   headers: Record<string, string | null> = {};
 
   constructor(

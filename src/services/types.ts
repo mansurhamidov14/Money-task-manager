@@ -73,6 +73,18 @@ export type Skin = {
   image: string;
 }
 
+export enum HttpStatus {
+  OK = 200,
+  CREATED = 201,
+  ACCEPTED = 202,
+  MOVED_PERMANENTLY = 301,
+  FOUND = 302,
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
+  NOT_FOUND = 404,
+  INTERNAL_SERVER_ERROR = 500,
+}
 export type HttpParseMode = keyof Pick<Response, 'arrayBuffer' | 'blob' | 'text' | 'json'>;
 export type HttpMethod = "GET" | "POST" | "PATCH" | "DELETE" | "OPTIONS";
 export type HttpRequestBody = BodyInit | null | undefined;
