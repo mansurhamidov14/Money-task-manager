@@ -1,10 +1,9 @@
+import { type CurrencyCode, Transaction, TransactionGroupSum } from "@app/entities";
 import { groupBy } from "@app/helpers";
 import { currencyService } from "@app/services";
-import { Transaction, TransactionGroupSum } from "./types";
-import type { CurrencyCode } from "@app/entities";
 
 export const groupTransactionsByDate = (transactions: Transaction[]) => {
-  return groupBy(transactions, ({ transactionDate  }) => transactionDate);
+  return groupBy(transactions, ({ transactionDateTime }) => new Date(transactionDateTime).toDatePickerString());
 }
 
 export const sumAmountByCurrency = (transactions: Transaction[]): TransactionGroupSum[] => {

@@ -1,10 +1,11 @@
-import { ScreenHeader, VerticalScroll } from "@app/components";
-import { Form } from "../components/TaskForm/Form";
-import { t } from "@app/i18n";
 import { useParams, useNavigate } from "@solidjs/router";
 import { createSignal, onMount } from "solid-js";
+import { ScreenHeader, VerticalScroll } from "@app/components";
+import { OneTimeTask, RecurringTask } from "@app/entities";
+import { t } from "@app/i18n";
 import { taskService } from "@app/services";
-import { Await, OneTimeTask, RecurringTask } from "@app/stores";
+import { Await } from "@app/stores";
+import { Form } from "../components/TaskForm/Form";
 
 export function EditTaskScreen() {
   const params = useParams();

@@ -3,8 +3,9 @@ import { useNavigate } from "@solidjs/router";
 import { FaRegularCircleDot, FaSolidCalendarCheck, FaSolidCalendarXmark } from "solid-icons/fa";
 import { HiOutlinePencilSquare } from "solid-icons/hi";
 import { IoCheckmark, IoClose, IoTrash } from "solid-icons/io";
+import { Task, TaskStatus } from "@app/entities";
 import { Message, t } from "@app/i18n";
-import { Task, TaskStatus, confirmationStore, tasksStore, toastStore } from "@app/stores";
+import { confirmationStore, tasksStore, toastStore } from "@app/stores";
 import { useDateProcessor } from "@app/providers";
 
 import { Button, ButtonProps } from "../Button";

@@ -1,4 +1,4 @@
-import { Account } from "@app/stores";
+import { Account } from "@app/entities";
 import { useSearchParams } from "@solidjs/router";
 import { For, JSX, Show, createMemo, onCleanup, onMount, splitProps } from "solid-js";
 import { createSlider } from "solid-slider";

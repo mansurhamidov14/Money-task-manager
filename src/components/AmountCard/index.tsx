@@ -1,8 +1,7 @@
 import { createMemo } from "solid-js";
 import { FaSolidArrowTrendDown, FaSolidArrowTrendUp } from "solid-icons/fa";
-import type { CurrencyCode } from "@app/entities";
+import type { CurrencyCode, TransactionType } from "@app/entities";
 import { Message } from "@app/i18n";
-import { TransactionType } from "@app/stores";
 import { currencyService } from "@app/services";
 import "./style.css";
 

@@ -1,12 +1,12 @@
 import { createMemo, createRoot, createSignal } from "solid-js";
-import { taskService } from "@app/services";
-import { TaskFormSchema } from "@app/schemas";
-import { dateProcessor } from "@app/providers";
+import { Task } from "@app/entities";
 import { ascSorter, descSorter, groupBy } from "@app/helpers";
-import { Task } from "./types";
+import { TaskFormSchema } from "@app/schemas";
+import { taskService } from "@app/services";
+import { dateProcessor } from "@app/providers";
+import { withUniqueFilter } from "./helpers";
 import { toastStore } from "..";
 import { AsyncStore } from "../types";
-import { withUniqueFilter } from "./helpers";
 
 export function initTasksStore() {
   const [tasks, setTasks] = createSignal<AsyncStore<Task[]>>({ status: "loading" });

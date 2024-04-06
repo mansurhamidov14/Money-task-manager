@@ -1,6 +1,6 @@
 import { string, number, object, Schema, ref } from "yup";
 import { t } from "@app/i18n";
-import { Account } from "@app/stores";
+import { Account } from "@app/entities";
 
 type TransferForm = {
   title: string;

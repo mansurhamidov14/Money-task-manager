@@ -1,7 +1,7 @@
-import { Account } from "@app/stores"
-import { ScreenHeader, VerticalScroll } from "..";
+import { Account } from "@app/entities"
 import { For } from "solid-js";
 import { AccountsSlideSelectItem } from "./AccountsSlideSelectItem";
+import { ScreenHeader, VerticalScroll } from "..";
 
 export type ExpandedAccountSelectProps = {
   accounts: Account[];

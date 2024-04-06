@@ -1,8 +1,10 @@
-import { accountService, transactionService } from "@app/services";
-import { createContext, createEffect, ParentProps } from "solid-js";
-import {tasksStore, user } from "../../stores";
-import { Account, DataContextType, Transaction } from "./types";
-import { useAsyncData } from "./hooks";
+import { Account } from "@app/entities";
+import { useAsyncData } from "@app/hooks";
+import { accountService } from "@app/services";
+import { createContext, onMount, ParentProps } from "solid-js";
+import { DataContextType } from "./types";
+import { tasksStore, user } from "../../stores";
+import { BottomNavigation } from "@app/components";
 
 export const DataContext = createContext<DataContextType>();
 
@@ -12,43 +14,25 @@ export function DataProvider(props: ParentProps) {
     accounts,
     fetchAccounts,
     setAccounts,
-    resetAccounts
+    setAccountsLoading
   ] = useAsyncData<Account[]>();
-  const [
-    transactionsForMonth,
-    fetchTransactionsForMonth,
-    setTransactionsForMonth,
-    resetTransactionsForMonth
-  ] = useAsyncData<Transaction[]>();
 
-  createEffect(() => {
+  const refetchAccounts = () => fetchAccounts(() => accountService.getUserAccounts());
+
+  onMount(() => {
     if (accounts().status === "loading") {
-      fetchAccounts(accountService.getUserAccounts)
+      refetchAccounts();
     }
-  });
 
-  createEffect(() => {
-    if (transactionsForMonth().status === "loading") {
-      fetchTransactionsForMonth(transactionService.getUserTransactions);
-    }
-  });
-
-  createEffect(async () => {
     if (tasksStore.tasks().status === "loading") {
-      await tasksStore.fetchUserTasks(userId);
+      tasksStore.fetchUserTasks(userId);
     }
   });
 
   return (
-    <DataContext.Provider value={{
-      accounts,
-      setAccounts,
-      resetAccounts,
-      transactionsForMonth,
-      setTransactionsForMonth,
-      resetTransactionsForMonth
-    }}>
+    <DataContext.Provider value={{ accounts, setAccounts, setAccountsLoading, refetchAccounts }}>
       {props.children}
+      <BottomNavigation />
     </DataContext.Provider>
   );
 }

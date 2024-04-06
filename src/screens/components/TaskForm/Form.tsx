@@ -4,9 +4,11 @@ import { yupSchema } from "solid-form-handler/yup";
 import { FaRegularCalendarMinus, FaRegularCalendarPlus } from "solid-icons/fa";
 
 import { Button, Loading } from "@app/components";
+import { OneTimeTask, RecurringTask } from "@app/entities";
 import { Action, Message, t } from "@app/i18n";
 import { getTaskFormSchema } from "@app/schemas";
-import { OneTimeTask, RecurringTask, tasksStore, toastStore, user } from "@app/stores";
+import { taskService } from "@app/services";
+import { tasksStore, toastStore, user } from "@app/stores";
 
 import {
   DateInput,
@@ -15,7 +17,6 @@ import {
   DaySelect,
 } from ".";
 import { TitleInput } from "../shared";
-import { taskService } from "@app/services";
 
 export type Props = {
   task?: RecurringTask | OneTimeTask;

@@ -1,14 +1,15 @@
 import { Field } from "solid-form-handler";
 import { AccountSlideSelect } from "@app/components";
 import { t } from "@app/i18n";
-import { accountsStore } from "@app/stores";
 import { InputProps } from "../shared";
+import { useAccounts } from "@app/hooks";
 
 type Props = InputProps & {
   name: string;
 }
 
 export function AccountSelect(props: Props) {
+  const { accounts } = useAccounts();
   return (
     <Field
       mode="input"
@@ -20,7 +21,7 @@ export function AccountSelect(props: Props) {
           id={props.name}
           label={t(`TransferBetweenAccountsScreen.FormFields.${props.name}`)}
           errorMessage={field.helpers.errorMessage}
-          accounts={accountsStore.accounts().data!}
+          accounts={accounts().data!}
           {...field.props}
         />
       )}

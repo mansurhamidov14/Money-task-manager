@@ -2,11 +2,12 @@ import { useNavigate } from "@solidjs/router";
 import { createMemo } from "solid-js";
 import { HiOutlinePencilSquare } from "solid-icons/hi";
 import { IoTrash } from "solid-icons/io";
-import type { CurrencyCode } from "@app/entities";
+import type { CategoryId, CurrencyCode, Transaction } from "@app/entities";
 import { Message, t } from "@app/i18n";
-import { categoryService, CategoryId, currencyService } from "@app/services";
-import { Transaction, accountsStore, confirmationStore, toastStore, transactionsStore } from "@app/stores";
+import { accountService, categoryService, currencyService, transactionService } from "@app/services";
+import { confirmationStore, toastStore } from "@app/stores";
 import { ListItem } from "../ListItem";
+import { useAccounts } from "@app/hooks";
 
 export type TransactionListItemProps = {
   category: CategoryId;
@@ -26,6 +27,7 @@ function getTransactionValue(
 }
 
 export function TransactionListItem(props: Transaction) {
+  const { refetchAccounts } = useAccounts()
   const navigate = useNavigate();
   const categoryIcon = createMemo(() => {
     const Icon = categoryService.getIcon(props.category);
@@ -34,9 +36,10 @@ export function TransactionListItem(props: Transaction) {
 
   const handleTransactionDelete = async (transaction: Transaction) => {
     const { id, account, amount, type } = transaction;
-    await transactionsStore.deleteTransaction(id);
-    await accountsStore.changeBalance(account, amount * -1, type);
-    accountsStore.reload();
+    await transactionService.delete(id);
+    const balanceChange = type === "expense" ? amount : (amount * -1);
+    await accountService.changeBalance(account.id, balanceChange);
+    refetchAccounts();
     toastStore.pushToast("success", t("ConfirmationRequest.transactionDeletion.success"));
   };
 
@@ -69,7 +72,7 @@ export function TransactionListItem(props: Transaction) {
       rightElement={(
         <>
           <div class={`text font-bold text-${props.type}`}>
-            {getTransactionValue(props.amount, props.currency, props.type)}
+            {getTransactionValue(props.amount, props.account.currency, props.type)}
           </div>
           <div class="text-muted text-xs mt-1.5">
             {new Date(props.transactionDateTime).toLocaleTimeString("en-GB", { hour: '2-digit', minute:'2-digit' })}

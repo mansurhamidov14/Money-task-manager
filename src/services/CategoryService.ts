@@ -12,7 +12,7 @@ import {
 import { RiHealthMedicalHeartPulseLine } from "solid-icons/ri";
 import { BiSolidPlaneAlt } from "solid-icons/bi";
 import { BsLightbulb, BsScissors } from "solid-icons/bs";
-import { Category, CategoryId } from "@app/services";
+import { Category, CategoryId } from "@app/entities";
 
 export class CategoryService {
   private categoriesMap: Record<CategoryId, Category>;

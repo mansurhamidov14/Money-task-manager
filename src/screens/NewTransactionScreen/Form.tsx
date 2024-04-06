@@ -2,9 +2,11 @@ import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 
 import { Button } from "@app/components";
+import { useAccounts } from "@app/hooks";
 import { Action, t } from "@app/i18n";
 import { getTransactionFormSchema } from "@app/schemas";
-import { accountsStore, transactionsStore, toastStore, user } from "@app/stores";
+import { accountService, transactionService } from "@app/services";
+import { toastStore } from "@app/stores";
 
 import {
   AmountInput,
@@ -15,12 +17,13 @@ import {
 import { DateTimeInput, TitleInput } from "../components/shared";
 
 export function Form() {
+  const { accounts, refetchAccounts } = useAccounts();
   const formHandler = useFormHandler(yupSchema(getTransactionFormSchema({
     date: new Date().toLocaleDateTimePickerString(),
-    account: accountsStore.accounts().data!.find(account => account.primary)?.id,
+    account: accounts().data!.find(account => account.primary)?.id,
     category: "market",
     type: "expense"
-  }, accountsStore.accounts().data!)), {
+  }, accounts().data!)), {
     validateOn: ["blur"],
   });
 
@@ -29,31 +32,21 @@ export function Form() {
     try {
       await formHandler.validateForm();
       const formData = formHandler.formData();
-      const affectedAccount = accountsStore.accounts()
+      const affectedAccount = accounts()
         .data!.find(account => account.id === formData.account)!;
-      const userId = user.currentUser().data!.id;
-      const currency = affectedAccount.currency;
       const type = formData.type;
       const amount = formData.amount;
-      const transactionDateTime = new Date(formData.date).toISOString();
-      const transactionDate = transactionDateTime.split("T")[0];
-      const transactionData = {
-        user: userId,
-        account: formData.account,
-        title: formData.title,
-        category: formData.category,
-        type,
-        currency,
-        amount,
-        transactionDate,
-        transactionDateTime,
-      };
-      await transactionsStore.addTransaction(transactionData);
-      accountsStore.changeBalance(affectedAccount.id, amount, type);
+      let changeAmount = amount;
+      if (type === "expense") {
+        changeAmount *= -1;
+      }
+      await transactionService.create(formHandler.formData());
+      accountService.changeBalance(affectedAccount.id, changeAmount);
+      refetchAccounts();
       toastStore.pushToast("success", t("NewTransactionScreen.success"));
       history.back();
     } catch (e: any) {
-      if (e.message) {
+      if (e.message && e.status !== 401) {
         toastStore.pushToast("error", t("NewTransactionScreen.error", undefined, { error: e.message }));
       }
     }

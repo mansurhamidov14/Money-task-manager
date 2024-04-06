@@ -1,6 +1,5 @@
-import type { CurrencyCode } from "@app/entities";
-import { AsyncStore } from "../types";
-import { User } from "..";
+import { CurrencyCode } from ".";
+import { User } from "./User";
 
 export type Account = {
   id: string;
@@ -13,5 +12,3 @@ export type Account = {
   createdAt: number;
   updatedAt: number;
 }
-
-export type AccountsStore = AsyncStore<Account[]>;

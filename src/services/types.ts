@@ -1,6 +1,13 @@
-import type { Currency, CurrencyCode } from "@app/entities";
-import { Task, User } from "@app/stores";
-import { IconTypes } from "solid-icons";
+import type { CategoryId, Currency, CurrencyCode, User } from "@app/entities";
+import { Task } from "@app/entities";
+
+export type TransactionFilter = {
+  fromDate?: string;
+  toDate?: string;
+  limit?: number;
+  offset?: number;
+  category?: CategoryId
+}
 
 export type TokenResponse = {
   access_token: string;
@@ -40,32 +47,6 @@ export type ClientDataResponse = {
   country_name: string;
   city: string;
   timezone: string;
-}
-
-export type CategoryId =
-  | "market"
-  | "utility"
-  | "education"
-  | "entertainment"
-  | "health"
-  | "beauty"
-  | "clothing"
-  | "electronics"
-  | "restaurant"
-  | "transfer"
-  | "transport"
-  | "travel"
-  | "gift"
-  | "transferBetweenAccounts"
-  | "other";
-
-export type Category = {
-  id: CategoryId,
-  icon: IconTypes,
-  colors: {
-    accent: string;
-    icon: string;
-  }
 }
 
 export type Skin = {

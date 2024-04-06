@@ -1,6 +1,6 @@
-import { Account } from "@app/providers/DataProvider/types";
-import type { HttpService } from "./HttpService";
+import { Account } from "@app/entities";
 import { AccountForm } from "@app/schemas";
+import type { HttpService } from "./HttpService";
 
 export class AccountService {
   constructor (private httpClient: HttpService) {}

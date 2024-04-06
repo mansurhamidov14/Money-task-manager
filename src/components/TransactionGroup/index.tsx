@@ -1,4 +1,4 @@
-import { TransactionGroupSum } from "@app/stores";
+import { TransactionGroupSum } from "@app/entities";
 import { For, JSXElement, Show } from "solid-js";
 
 export type TransactionGroupProps = {
@@ -27,7 +27,6 @@ export function TransactionGroup(props: TransactionGroupProps) {
               )}
             </For>
           </div>
-          
         </Show>
       </div>
       {props.children}

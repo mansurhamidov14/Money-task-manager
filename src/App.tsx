@@ -1,9 +1,8 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
-import { Match, Show, Switch, createEffect, createSignal, onCleanup, onMount } from "solid-js";
+import { Match, Switch, createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import {
   AppLoading,
-  BottomNavigation,
   ConfirmationModal,
   Layout,
   NetworkError,
@@ -52,9 +51,6 @@ function App(props: RouteSectionProps) {
           {props.children}
         </DateProcessorProvider>
       </RerenderOnLangChange>
-      <Show when={user.currentUser().status === "authorized"}>
-        <BottomNavigation />
-      </Show>
     </Layout>
   );
 }
@@ -93,7 +89,7 @@ export default function() {
 
   onCleanup(() => {
     clientService.off("connectionSuccess", connectionSuccesHandler);
-    clientService.off("connectionError", connectionErrorHandler);
+    // clientService.off("connectionError", connectionErrorHandler);
     authUserHttpClient.off(HttpStatus.UNAUTHORIZED, user.logOut);
   });
 
@@ -109,7 +105,7 @@ export default function() {
   });
 
   return (
-    <div class="app-container">
+    <div class= "app-container">
       <QueryClientProvider client={queryClient}>
         <Switch fallback={<AppLoading />}>
           <Match when={networkStatus() === "success" && user.currentUser().status !== "loading"}>

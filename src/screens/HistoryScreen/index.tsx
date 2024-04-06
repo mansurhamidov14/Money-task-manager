@@ -1,9 +1,10 @@
-import { createMemo, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
 import { PickerValue } from "@rnwonder/solid-date-picker";
 import { Loading, ScreenHeader, VerticalScroll } from "@app/components";
+import { CategoryId } from "@app/entities";
 import { t } from "@app/i18n";
 import { getDateFilters } from "./helpers";
-import { Await, accountsStore, transactionsStore } from "@app/stores";
+import { Await } from "@app/stores";
 import { initialDateRange } from "./consts";
 import {
   CategoryFilter,
@@ -13,19 +14,19 @@ import {
   TransactionListSkeleton
 } from "./components";
 import { DateFilter as TDateFilter, DateFilterTab } from "./types";
-import { CategoryId } from "@app/services";
+import { useAccounts, useTransactions } from "@app/hooks";
 
 export function HistoryScreen() {
+  const { accounts } = useAccounts();
   const [prevDateFilterTab, setPrevDateFilterTab] = createSignal<DateFilterTab>("month");
   const [dateFilterTab, setDateFilterTab] = createSignal<DateFilterTab>("month");
   const [filterDateRanges, setFilterDateRanges] = createSignal<PickerValue>(initialDateRange);
   const [categoryFilter, setCategoryFilter] = createSignal<CategoryId | null>(null);
   const [dateFilter, setDateFilter] = createSignal<TDateFilter>(getDateFilters(dateFilterTab()));
-  const filteredTransactions = createMemo(() => (
-    transactionsStore.transactions().status === "success"
-      ? transactionsStore.getFilteredTransactions(categoryFilter(), dateFilter())
-      : []
-  ));
+  const { transactions } = useTransactions({
+    ...dateFilter(),
+    category: categoryFilter() ?? undefined
+  });
 
   return (
     <>
@@ -42,17 +43,17 @@ export function HistoryScreen() {
             setDateFilter={setDateFilter}
           />
           <Await
-            for={[transactionsStore.transactions(), accountsStore.accounts()]}
+            for={[transactions(), accounts()]}
             fallback={<div class="min-h-[7rem]"><Loading /></div>}
           >
             <PieCharts
-              transactions={filteredTransactions}
+              transactions={transactions().data!}
               dateFilter={dateFilter}
             />
           </Await>
           <CategoryFilter filter={categoryFilter} setFilter={setCategoryFilter} />
-          <Await for={[transactionsStore.transactions()]} fallback={<TransactionListSkeleton />}>
-            <FilteredTransactions transactions={filteredTransactions} />
+          <Await for={[transactions()]} fallback={<TransactionListSkeleton />}>
+            <FilteredTransactions transactions={transactions().data!} />
           </Await>
         </main>
       </VerticalScroll>

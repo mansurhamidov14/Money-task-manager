@@ -1,7 +1,6 @@
+import { Account, Transaction } from "@app/entities";
 import { TransactionForm } from "@app/schemas";
-import { Transaction } from "@app/providers/DataProvider/types";
-import { Account } from "@app/stores";
-import { CategoryId } from "./types";
+import { TransactionFilter } from "./types";
 import { type HttpService } from "./HttpService";
 
 export class TransactionService {
@@ -15,13 +14,15 @@ export class TransactionService {
     return this.httpClient.get<Transaction>(`/transaction/${id}`);
   }
 
-  getUserTransactions(startDate?: string, endDate?: string, category?: CategoryId) {
-    const endDataObj = endDate ? new Date(endDate) : undefined;
+  getUserTransactions({ fromDate, toDate, limit, offset, category }: TransactionFilter) {
+    const endDataObj = toDate ? new Date(toDate) : undefined;
     endDataObj?.setHours(23, 59, 59, 999);
     const params = {
-      startDate: startDate ? new Date(startDate).toISOString() : undefined,
+      startDate: fromDate ? new Date(fromDate).toISOString() : undefined,
       endDate: endDataObj?.toISOString(),
-      category
+      category,
+      limit,
+      offset
     };
     return this.httpClient.get<Transaction[]>('/transaction/list', { params });
   }

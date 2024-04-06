@@ -1,10 +1,10 @@
 import { FaSolidChartSimple, FaSolidHouseChimney } from "solid-icons/fa";
+import { t } from "@app/i18n";
 import { NavLink } from "./NavLink";
 import "./style.css";
 import { CreateButton } from "./CreateButton";
 import { OcTasklist2 } from "solid-icons/oc";
 import { VsSettings } from "solid-icons/vs";
-import { t } from "@app/i18n";
 
 export function BottomNavigation() {
   return (

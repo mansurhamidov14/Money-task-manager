@@ -1,5 +1,5 @@
 import { t } from "@app/i18n";
-import { RecurringTaskDay } from "@app/stores";
+import { RecurringTaskDay } from "@app/entities";
 import { array, mixed, number, object, string } from "yup";
 
 export type TaskFormSchema = {

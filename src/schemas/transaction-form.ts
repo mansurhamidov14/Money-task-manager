@@ -1,7 +1,7 @@
-import * as yup from "yup";
+import { number, object, Schema, string } from "yup";
 import { t } from "@app/i18n";
-import { Account, TransactionType } from "@app/stores";
-import { CategoryId, categoryService } from "@app/services";
+import { Account, CategoryId, TransactionType } from "@app/entities";
+import { categoryService } from "@app/services";
 
 export type TransactionForm = {
   title: string;
@@ -15,31 +15,31 @@ export type TransactionForm = {
 export function getTransactionFormSchema(
   defaults: Partial<TransactionForm>,
   userAccounts: Account[]
-): yup.Schema<TransactionForm> {
+): Schema<TransactionForm> {
   const userAccountIds = userAccounts.map(account => account.id);
 
-  return yup.object({
-    title: yup.string()
+  return object({
+    title: string()
       .required(t("common.FormFields.required"))
       .default(defaults.title),
-    type: yup.string()
+    type: string()
       .required(t("common.FormFields.required"))
       .oneOf(["income", "expense"] as const)
       .default(defaults.type),
-    category: yup.string()
+    category: string()
       .required()
       .oneOf(categoryService.ids)
       .default(defaults.category),
-    amount: yup.number()
+    amount: number()
       .required(t("common.FormFields.required"))
       .typeError(t("NewTransactionScreen.FormFields.amount.invalidFormat"))
       .default(defaults.amount),
-    account: yup.string()
+    account: string()
       .required()
       .typeError(t("common.FormFields.required"))
       .oneOf(userAccountIds)
       .default(defaults.account),
-    date: yup.string()
+    date: string()
       .required(t("common.FormFields.required"))
       .default(defaults.date)
   });

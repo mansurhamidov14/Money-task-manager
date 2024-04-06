@@ -1,19 +1,20 @@
-import { Accessor, For, Show, createMemo } from "solid-js";
+import {  For, Show, createMemo } from "solid-js";
 import { EmptyList, List, TransactionGroup, TransactionListItem } from "@app/components";
-import { Transaction, groupTransactionsByDate, sumAmountByCurrency } from "@app/stores";
+import { Transaction } from "@app/entities";
+import { groupTransactionsByDate, sumAmountByCurrency } from "@app/hooks";
 import { FaSolidFilterCircleXmark } from "solid-icons/fa";
 import { Message } from "@app/i18n";
 import { useDateProcessor } from "@app/providers";
 
 type FilteredTransactionsProps = {
-  transactions: Accessor<Transaction[]>;
+  transactions: Transaction[];
 }
 
 export function FilteredTransactions(props: FilteredTransactionsProps) {
   const dateProcessor = useDateProcessor();
   const filteredTransactions = createMemo(() => (
     Object.entries(groupTransactionsByDate(
-      props.transactions()
+      props.transactions
     ))
   ));
 

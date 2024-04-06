@@ -4,9 +4,10 @@ import { BiRegularTaskX } from "solid-icons/bi";
 import { BsArrowRepeat } from "solid-icons/bs";
 import { IoCalendarNumberOutline, IoTrash } from "solid-icons/io";
 import { EmptyList, List, ListItem, ScreenHeader, VerticalScroll } from "@app/components";
+import { Task } from "@app/entities";
 import { t } from "@app/i18n";
 import { useDateProcessor } from "@app/providers";
-import { Await, Task, confirmationStore, tasksStore, toastStore } from "@app/stores";
+import { Await, confirmationStore, tasksStore, toastStore } from "@app/stores";
 import { TaskListSkeleton } from "./TaskListSkeleton";
 import { HiOutlinePencilSquare } from "solid-icons/hi";
 

@@ -1,31 +1,24 @@
-import { ParentProps, Show, createSignal } from "solid-js";
+import { Show, createSignal } from "solid-js";
 import { IoPencil, IoTrash } from "solid-icons/io";
-import {
-  Account,
-  Link,
-  accountsStore,
-  confirmationStore,
-  counters,
-  toastStore,
-  transactionsStore
-} from "@app/stores";
+import { Account } from "@app/entities";
 import { Action, Message, t } from "@app/i18n";
 import { currencyService, skinService } from "@app/services";
-
-import { AmountCard, Button } from "../index";
+import { Link, confirmationStore } from "@app/stores";
+import { Button } from "../index";
 import "./style.css";
 import "./skins.css";
 
 export type AccountCardProps = {
   account: Account;
   hasBackSide?: boolean;
+  handleDelete?: (id: string) => void;
 }
 
 export type AccountCardDumbProps = AccountCardProps & {
   onDelete?: (id: Account["id"]) => void;
 }
 
-export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
+export function AccountCard(props: AccountCardDumbProps) {
   const [flipped, setFlipped] = createSignal(false);
 
 
@@ -40,6 +33,16 @@ export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
       setFlipped(false);
     }
   };
+
+  const requestDeletion = (id: Account["id"]) => {
+    if (props.onDelete) {
+      confirmationStore.requestConfirmation({
+        text: t("ConfirmationRequest.accountDeletion.text"),
+        onConfirm: () => props.onDelete!(id),
+        confirmButton: { label: t("ConfirmationRequest.accountDeletion.confirm") }
+      });
+    }
+  }
 
   return (
     <div class="px-5 py-6 max-w-md mx-auto">
@@ -65,9 +68,6 @@ export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
                 </div>
               </div>
             </div>
-            <div class="account-card-content absolute left-0 bottom-2 px-8 w-full flex gap-3 justify-center">
-              {props.children}
-            </div>
           </div>
           <Show when={props.hasBackSide}>
             <div class="account-card-face account-card-face--back">
@@ -89,7 +89,7 @@ export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
                   </span>
                 </Link>
                 <Show when={!props.account.primary}>
-                  <Button variant="danger" size="lg" class="px-5" onClick={() => props.onDelete?.(props.account.id)}>
+                  <Button variant="danger" size="lg" class="px-5" onClick={() => requestDeletion(props.account.id)}>
                     <IoTrash size={24} />
                     <span class="sr-only">
                       <Action>Delete</Action>
@@ -102,37 +102,5 @@ export function AccountCardDumb(props: ParentProps<AccountCardDumbProps>) {
         </div>
       </div>
     </div>
-  );
-}
-
-export function AccountCard(props: AccountCardProps) {
-  const deleteAccount = async (id: Account["id"]) => {
-    await accountsStore.deleteAccount(id);
-    await transactionsStore.deleteByAccountId(id);
-    accountsStore.reload();
-    toastStore.pushToast("success", t("ConfirmationRequest.accountDeletion.success"));
-  }
-
-  const requestDeletion = (id: Account["id"]) => {
-    confirmationStore.requestConfirmation({
-      text: t("ConfirmationRequest.accountDeletion.text"),
-      onConfirm: () => deleteAccount(id),
-      confirmButton: { label: t("ConfirmationRequest.accountDeletion.confirm") }
-    });
-  }
-
-  return (
-    <AccountCardDumb account={props.account} hasBackSide={props.hasBackSide} onDelete={requestDeletion}>
-      <AmountCard
-        amount={counters[props.account.id].totalIncome()}
-        currency={props.account.currency}
-        type="income"
-      />
-      <AmountCard
-        amount={-counters[props.account.id].totalExpense()}
-        currency={props.account.currency}
-        type="expense"
-      />
-    </AccountCardDumb>
   );
 }

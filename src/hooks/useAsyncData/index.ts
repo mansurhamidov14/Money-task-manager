@@ -8,6 +8,7 @@ export function useAsyncData<T = unknown>() {
   });
 
   const fetchAsyncData = async (callback: () => Promise<HttpResponse<T>>): Promise<void> => {
+    setAsyncData({ status: "loading" });
     try {
       const response = await callback();
       setAsyncData({
@@ -22,9 +23,9 @@ export function useAsyncData<T = unknown>() {
     }
   }
 
-  const reset = () => {
+  const reload = () => {
     setAsyncData({ status: "loading" });
   }
 
-  return [asyncData, fetchAsyncData, setAsyncData, reset] as const;
+  return [asyncData, fetchAsyncData, setAsyncData, reload] as const;
 }

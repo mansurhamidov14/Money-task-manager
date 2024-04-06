@@ -1,4 +1,4 @@
-import { Task } from "./types";
+import { Task } from "@app/entities";
 
 export const withUniqueFilter = (filterFn: (task: Task) => any) => {
   return (task: Task) =>  {

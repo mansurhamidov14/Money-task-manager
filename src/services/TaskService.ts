@@ -1,7 +1,13 @@
 import { type IDBCollection, SearchCondition } from "@app/adapters/IDB";
-import { OneTimeTask, RecurringTask, RecurringTaskDay, Task, User } from "@app/stores";
 import { TaskFormSchema } from "@app/schemas";
 import { NewTask } from "./types";
+import {
+  OneTimeTask,
+  RecurringTask,
+  RecurringTaskDay,
+  Task,
+  User,
+} from "@app/entities";
 
 export class TaskService {
   constructor (private collection: IDBCollection<Task>) { }

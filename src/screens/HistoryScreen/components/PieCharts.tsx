@@ -2,31 +2,32 @@ import { createQuery } from "@tanstack/solid-query";
 import { ApexChartProps, SolidApexCharts } from "solid-apexcharts";
 import { Accessor, Show, createMemo } from "solid-js";
 import { Loading, SectionTitle } from "@app/components";
-import { useDateProcessor } from "@app/providers";
+import { CategoryId, CurrencyCode, Transaction } from "@app/entities";
 import { groupBy } from "@app/helpers";
+import { useAccounts } from "@app/hooks";
 import { Message, t } from "@app/i18n";
+import { useDateProcessor } from "@app/providers";
 import {
   categoryService,
-  CategoryId,
   currencyService,
 } from "@app/services";
-import { Transaction, accountsStore, themeStore } from "@app/stores";
+import { themeStore } from "@app/stores";
 import { DateFilter } from "../types";
-import { CurrencyCode } from "@app/entities";
 
 export function PieCharts(props: {
-  transactions: Accessor<Transaction[]>;
+  transactions: Transaction[];
   dateFilter: Accessor<DateFilter>
 }) {
   const { theme } = themeStore;
+  const { primaryAccount } = useAccounts();
   const dateProcessor = useDateProcessor();
   const processedTransactions = createMemo(() => (
-    props.transactions().filter(t => t.type === "expense" && t.category !== "transferBetweenAccounts")
+    props.transactions.filter(t => t.type === "expense" && t.category !== "transferBetweenAccounts")
   ));
-  const primaryCurrency = createMemo(() => accountsStore.primaryAccount()!.currency);
+  const primaryCurrency = createMemo(() => primaryAccount()!.currency);
   const currencyRatesQuery = createQuery(() => {
     const _primaryCurrency = primaryCurrency();
-    const lastFilterDate = props.dateFilter().endDate;
+    const lastFilterDate = props.dateFilter().toDate;
     const todayDate = dateProcessor.today.date.toDatePickerString();
     const ratesDate = lastFilterDate > todayDate ? todayDate : lastFilterDate;
     const currencies = processedTransactions().reduce((result, transaction) => {

@@ -3,9 +3,12 @@ import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 
 import { Button, Loading } from "@app/components";
+import { Transaction } from "@app/entities";
+import { useAccounts } from "@app/hooks";
 import { Action, t } from "@app/i18n";
+import { accountService, transactionService } from "@app/services";
 import { getTransactionFormSchema } from "@app/schemas";
-import { accountsStore, transactionsStore, toastStore, Transaction } from "@app/stores";
+import { toastStore } from "@app/stores";
 
 import {
   AmountInput,
@@ -16,16 +19,17 @@ import {
 import { DateTimeInput, TitleInput } from "../components/shared";
 
 export function Form(props: Transaction) {
+  const { accounts, refetchAccounts } = useAccounts();
   const [loading, setLoading] = createSignal(false);
   const formHandler = useFormHandler(
     yupSchema(getTransactionFormSchema({
       title: props.title,
       type: props.type,
       amount: props.amount,
-      account: props.account,
+      account: props.account.id,
       category: props.category,
       date: new Date(props.transactionDateTime).toLocaleDateTimePickerString()
-    }, accountsStore.accounts().data!)),
+    }, accounts().data!)),
     { validateOn: ["blur"]}
   );
 
@@ -36,30 +40,19 @@ export function Form(props: Transaction) {
       await formHandler.validateForm();
       const prevData = props;
       const formData = formHandler.formData();
-      const affectedAccount = accountsStore.accounts()
+      const affectedAccount = accounts()
         .data!.find(account => account.id === formData.account)!;
-      const currency = affectedAccount.currency;
-      const type = formData.type;
       const amount = formData.amount;
-      const transactionDateTime = new Date(formData.date).toISOString();
-      const transactionDate = transactionDateTime.split("T")[0];
-      const transactionData = {
-        account: formData.account,
-        title: formData.title,
-        category: formData.category,
-        type,
-        currency,
-        amount,
-        transactionDate,
-        transactionDateTime,
-      };
-      await transactionsStore.updateTransaction(prevData.id, transactionData);
-      await accountsStore.changeBalance(prevData.account, prevData.amount * -1, prevData.type);
-      await accountsStore.changeBalance(affectedAccount.id, amount, type);
+      await transactionService.update(prevData.id, formData);
+      const prevAccountAmountChange = prevData.type === "expense" ? prevData.amount : (prevData.amount * -1);
+      const affectedAccountAmountChange = formData.type === "income" ? amount : (amount * -1);
+      await accountService.changeBalance(prevData.account.id, prevAccountAmountChange);
+      await accountService.changeBalance(affectedAccount.id, affectedAccountAmountChange);
+      refetchAccounts();
       toastStore.pushToast("success", t("EditTransactionScreen.success"));
       history.back();
     } catch (e: any) {
-      if (e.message) {
+      if (e.message && e.status !== 401) {
         toastStore.pushToast("error", t("EditTransactionScreen.error", undefined, { error: e.message }));
       }
     }
