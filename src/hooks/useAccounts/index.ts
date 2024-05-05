@@ -12,25 +12,26 @@ export function useAccounts() {
     throw new Error('`useAccounts` hook can not be called outside of `<DataProvider />`');
   }
 
-  const { accounts, setAccounts, setAccountsLoading, refetchAccounts } = context;
+  const { accounts, setAccounts, reloadAccounts, waitForAccountsUpdate } = context;
 
   const primaryAccount = createMemo(() => {
-    if (accounts().status === "loading") {
+    if (accounts().status !== "success") {
       return null;
     }
 
     return accounts().data!.find(account => account.primary);
-  })
+  });
 
   const deleteAccount = async (id: Account['id']) => {
     const currentState = accounts();
-    setAccountsLoading();
+    waitForAccountsUpdate();
     let success = false;
     try {
       await accountService.delete(id);
       currentState.data = currentState.data?.filter(account => account.id !== id);
       success = true;
     } catch (e: any) {
+      console.error(e);
       toastStore.handleServerError(e);
     } finally {
       setAccounts(currentState);
@@ -38,11 +39,26 @@ export function useAccounts() {
     }
   }
 
+  const patchAccount = (data: Account) => {
+    if (accounts().status !== "success") return;
+
+    setAccounts(state => ({
+      status: "success",
+      data: state.data?.map(account => (
+        account.id !== data.id
+          ? account
+          : ({ ...account, ...data })
+      ))
+    }));
+  }
+
   return {
     accounts,
     setAccounts,
-    refetchAccounts,
+    reloadAccounts,
     deleteAccount,
-    primaryAccount
+    primaryAccount,
+    waitForAccountsUpdate,
+    patchAccount
   };
 }

@@ -15,7 +15,7 @@ import { TransactionListSkeleton } from "./TransactionListSkeleton";
 
 export function LatestTransactions() {
   const dateProcessor = useDateProcessor();
-  const { transactions } = useTransactions({ limit: 5 });
+  const { transactions, deleteTransaction } = useTransactions(() => ({ limit: 5 }));
   const latestTransactions = createMemo(() => {
     const list = transactions().data;
     if (!list) {
@@ -45,7 +45,7 @@ export function LatestTransactions() {
               {Object.entries(latestTransactions()).map(([date, transactions]) => (
                 <TransactionGroup date={dateProcessor.humanize(new Date(date))}>
                   {transactions.map(transaction => (
-                    <TransactionListItem {...transaction} />
+                    <TransactionListItem transaction={transaction} onDelete={deleteTransaction} />
                   ))}
                 </TransactionGroup>
               ))}

@@ -12,35 +12,6 @@ const structure: Structure = {
   version: DB_VERSION,
   collections: [
     {
-      name: "transactions",
-      config: defaultTableConfig,
-      version: 1,
-      fields: [
-        createColumn("title"),
-        createColumn("user"),
-        createColumn("category"),
-        createColumn("amount"),
-        createColumn("type"),
-        createColumn("account"),
-        createColumn("currency"),
-        createColumn("transactionDate"),
-        createColumn("transactionDateTime"),
-        createColumn("createdAt"),
-        createColumn("updatedAt"),
-      ],
-      complexIndices: [
-        createMultiColumnIndex(["category", "user"]),
-        createMultiColumnIndex(["tranactionDate", "user"]),
-        createMultiColumnIndex(["account", "tranactionDate"]),
-        createMultiColumnIndex(["type", "user"]),
-        createMultiColumnIndex(["category", "type", "user"]),
-        createMultiColumnIndex(["account", "category", "user"]),
-        createMultiColumnIndex(["account", "user"]),
-        createMultiColumnIndex(["account", "type", "user"]),
-        createMultiColumnIndex(["account", "category", "type", "user"]),
-      ]
-    },
-    {
       name: "tasks",
       config: defaultTableConfig,
       version: 1,

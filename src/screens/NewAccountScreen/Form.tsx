@@ -17,7 +17,7 @@ import { TitleInput } from "../components/shared";
 import { useAccounts } from "@app/hooks";
 
 export function Form() {
-  const { refetchAccounts } = useAccounts();
+  const { reloadAccounts } = useAccounts();
   const formHandler = useFormHandler(yupSchema(getAccountFormSchema({
     currency: user.currentUser().data?.primaryCurrency,
   })), {
@@ -31,7 +31,7 @@ export function Form() {
 
       const accountData = formHandler.formData();
       await accountService.create(accountData);
-      refetchAccounts();
+      reloadAccounts();
       toastStore.pushToast("success", t("NewAccountScreen.success"));
       history.back();
     } catch (e: any) {

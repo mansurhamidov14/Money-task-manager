@@ -23,10 +23,10 @@ export function HistoryScreen() {
   const [filterDateRanges, setFilterDateRanges] = createSignal<PickerValue>(initialDateRange);
   const [categoryFilter, setCategoryFilter] = createSignal<CategoryId | null>(null);
   const [dateFilter, setDateFilter] = createSignal<TDateFilter>(getDateFilters(dateFilterTab()));
-  const { transactions } = useTransactions({
+  const { transactions, deleteTransaction } = useTransactions(() => ({
     ...dateFilter(),
     category: categoryFilter() ?? undefined
-  });
+  }));
 
   return (
     <>
@@ -53,7 +53,7 @@ export function HistoryScreen() {
           </Await>
           <CategoryFilter filter={categoryFilter} setFilter={setCategoryFilter} />
           <Await for={[transactions()]} fallback={<TransactionListSkeleton />}>
-            <FilteredTransactions transactions={transactions().data!} />
+            <FilteredTransactions transactions={transactions} onDelete={deleteTransaction} />
           </Await>
         </main>
       </VerticalScroll>

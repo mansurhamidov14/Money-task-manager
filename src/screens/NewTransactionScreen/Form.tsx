@@ -17,7 +17,7 @@ import {
 import { DateTimeInput, TitleInput } from "../components/shared";
 
 export function Form() {
-  const { accounts, refetchAccounts } = useAccounts();
+  const { accounts, waitForAccountsUpdate, patchAccount } = useAccounts();
   const formHandler = useFormHandler(yupSchema(getTransactionFormSchema({
     date: new Date().toLocaleDateTimePickerString(),
     account: accounts().data!.find(account => account.primary)?.id,
@@ -41,8 +41,9 @@ export function Form() {
         changeAmount *= -1;
       }
       await transactionService.create(formHandler.formData());
-      accountService.changeBalance(affectedAccount.id, changeAmount);
-      refetchAccounts();
+      waitForAccountsUpdate();
+      const accountUpdate = await accountService.changeBalance(affectedAccount.id, changeAmount);
+      patchAccount(accountUpdate.data);
       toastStore.pushToast("success", t("NewTransactionScreen.success"));
       history.back();
     } catch (e: any) {

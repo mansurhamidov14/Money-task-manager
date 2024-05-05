@@ -6,10 +6,10 @@ import { taskService } from "@app/services";
 import { dateProcessor } from "@app/providers";
 import { withUniqueFilter } from "./helpers";
 import { toastStore } from "..";
-import { AsyncStore } from "../types";
+import { AsyncData } from "@app/hooks";
 
 export function initTasksStore() {
-  const [tasks, setTasks] = createSignal<AsyncStore<Task[]>>({ status: "loading" });
+  const [tasks, setTasks] = createSignal<AsyncData<Task[]>>({ status: "initial" });
 
   const fetchUserTasks = async (user: string) => {
     try {
@@ -99,7 +99,7 @@ export function initTasksStore() {
   const todayTasks = createMemo(() => {
     const weekday = new Date().getWeekDay();
 
-    if (tasks().status === "loading") {
+    if (tasks().status !== "success") {
       return [];
     }
 

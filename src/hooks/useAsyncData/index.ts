@@ -4,11 +4,10 @@ import { HttpResponse } from "@app/services";
 
 export function useAsyncData<T = unknown>() {
   const [asyncData, setAsyncData] = createSignal<AsyncData<T>>({
-    status: "loading"
+    status: "initial"
   });
 
   const fetchAsyncData = async (callback: () => Promise<HttpResponse<T>>): Promise<void> => {
-    setAsyncData({ status: "loading" });
     try {
       const response = await callback();
       setAsyncData({
@@ -16,16 +15,22 @@ export function useAsyncData<T = unknown>() {
         data: response.data 
       });
     } catch (e: any) {
+      console.error(e);
       setAsyncData({
         status: "error",
         error: e.message
       });
     }
   }
+  
 
   const reload = () => {
+    setAsyncData({ status: "initial" });
+  }
+
+  const waitForUpdate = () => {
     setAsyncData({ status: "loading" });
   }
 
-  return [asyncData, fetchAsyncData, setAsyncData, reload] as const;
+  return [asyncData, fetchAsyncData, setAsyncData, reload, waitForUpdate] as const;
 }

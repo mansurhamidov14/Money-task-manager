@@ -12,7 +12,7 @@ import { useAccounts } from "@app/hooks";
 import { accountService, transactionService } from "@app/services";
 
 export function Form() {
-  const { accounts, primaryAccount, refetchAccounts } = useAccounts()
+  const { accounts, primaryAccount, reloadAccounts } = useAccounts()
   const primaryAccountId = primaryAccount()!.id;
   const formHandler = useFormHandler(yupSchema(getTransferFormSchema({
     date: new Date().toLocaleDateTimePickerString(),
@@ -50,7 +50,7 @@ export function Form() {
       await accountService.changeBalance(formData.fromAccount, formData.expenseAmount * -1);
       await accountService.changeBalance(formData.toAccount, formData.incomeAmount);
       toastStore.pushToast("success", t("TransferBetweenAccountsScreen.success"));
-      refetchAccounts();
+      reloadAccounts();
       history.back();
     } catch (e: any) {
       if (e.message && e.status !== 401) {

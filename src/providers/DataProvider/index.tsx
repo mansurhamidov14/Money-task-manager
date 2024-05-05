@@ -1,38 +1,46 @@
 import { Account } from "@app/entities";
 import { useAsyncData } from "@app/hooks";
 import { accountService } from "@app/services";
-import { createContext, onMount, ParentProps } from "solid-js";
+import { createContext, createEffect, ParentProps, Show } from "solid-js";
 import { DataContextType } from "./types";
-import { tasksStore, user } from "../../stores";
-import { BottomNavigation } from "@app/components";
+import { tasksStore, user } from "@app/stores";
 
 export const DataContext = createContext<DataContextType>();
 
-export function DataProvider(props: ParentProps) {
-  const userId = user.currentUser().data!.id;
+function DataProviderInner(props: ParentProps) {
   const [
     accounts,
     fetchAccounts,
     setAccounts,
-    setAccountsLoading
+    reloadAccounts,
+    waitForAccountsUpdate
   ] = useAsyncData<Account[]>();
 
-  const refetchAccounts = () => fetchAccounts(() => accountService.getUserAccounts());
-
-  onMount(() => {
-    if (accounts().status === "loading") {
-      refetchAccounts();
+  createEffect(() => {
+    if (accounts().status === "initial") {
+      fetchAccounts(() => accountService.getUserAccounts());
     }
-
-    if (tasksStore.tasks().status === "loading") {
-      tasksStore.fetchUserTasks(userId);
-    }
+    
   });
+  createEffect(() => {
+    if (tasksStore.tasks().status === "initial") {
+      tasksStore.fetchUserTasks(user.currentUser().data!.id);
+    }
+  })
 
   return (
-    <DataContext.Provider value={{ accounts, setAccounts, setAccountsLoading, refetchAccounts }}>
+    <DataContext.Provider value={{ accounts, setAccounts, reloadAccounts, waitForAccountsUpdate }}>
       {props.children}
-      <BottomNavigation />
     </DataContext.Provider>
   );
 }
+
+export const DataProvider = (props: ParentProps) => {
+  return (
+    <Show when={user.currentUser().status === "authorized"} fallback={props.children}>
+      <DataProviderInner>
+        {props.children}
+      </DataProviderInner>
+    </Show>
+  );
+};

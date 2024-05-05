@@ -3,13 +3,15 @@ import { memoize } from "@app/helpers";
 import { useAsyncData } from "@app/hooks";
 import { TransactionFilter, transactionService } from "@app/services";
 import { toastStore } from "@app/stores";
-import { createEffect } from "solid-js";
+import { Accessor, createEffect } from "solid-js";
 
-export function useTransactions(filter: TransactionFilter) {
+export function useTransactions(filter: Accessor<TransactionFilter>) {
   const [
     transactions,
     fetchTransactions,
-    setTransactions
+    _,
+    reloadTransactions,
+    waitForTransactionsUpdate
   ] = useAsyncData<Transaction[]>();
 
   const [memoizeTransactionFetch, forgetMemo] = memoize(
@@ -17,16 +19,22 @@ export function useTransactions(filter: TransactionFilter) {
   );
 
   createEffect(() => {
-    fetchTransactions(() => memoizeTransactionFetch(filter))
+    if (transactions().status === "initial") {
+      fetchTransactions(() => memoizeTransactionFetch(filter()))
+    }
+  });
+
+  createEffect(() => {
+    if (filter()) {
+      reloadTransactions();
+    }
   });
 
   const deleteTransaction = (id: Transaction['id']) => {
     forgetMemo();
+    waitForTransactionsUpdate();
     transactionService.delete(id)
-      .then(() => setTransactions(state => ({
-        status: state.status,
-        data: state.data?.filter(t => t.id !== id)
-      })))
+      .then(() => reloadTransactions())
       .catch(toastStore.handleServerError);
   }
 

@@ -36,6 +36,7 @@ function initToastStore() {
   }
 
   const handleServerError = (error: { message?: string, status?: number }) => {
+    console.error(error);
     if (error.message && error.status !== HttpStatus.UNAUTHORIZED) {
       pushToast("error", t(error.message, "Exceptions"));
     }

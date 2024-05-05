@@ -22,7 +22,7 @@ export class AccountService {
   }
 
   changeBalance(id: Account["id"], balanceChange: number) {
-    return this.httpClient.patch<boolean, { difference: number}>(
+    return this.httpClient.patch<Account, { difference: number}>(
       `/account/change-balance/${id}`,
       { difference: balanceChange}
     )

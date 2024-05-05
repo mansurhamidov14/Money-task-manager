@@ -1,9 +1,10 @@
-import { Show, createSignal } from "solid-js";
-import { IoPencil, IoTrash } from "solid-icons/io";
 import { Account } from "@app/entities";
 import { Action, Message, t } from "@app/i18n";
 import { currencyService, skinService } from "@app/services";
 import { Link, confirmationStore } from "@app/stores";
+import { Show, createSignal } from "solid-js";
+import { IoPencil, IoTrash } from "solid-icons/io";
+
 import { Button } from "../index";
 import "./style.css";
 import "./skins.css";

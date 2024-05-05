@@ -1,12 +1,12 @@
 import { AccountCard } from "@app/components";
 import { useAccounts } from "@app/hooks";
-import { For, Show, onCleanup, onMount } from "solid-js";
+import { For, Show, createEffect, onCleanup, onMount } from "solid-js";
 import { createSlider } from "solid-slider";
 
 export function AccountsSlider() {
   const { accounts, deleteAccount } = useAccounts();
   let sliderRef: HTMLDivElement | undefined = undefined;
-  const [slider, { current, moveTo, destroy }] = createSlider({
+  const [slider, { current, moveTo, destroy, update }] = createSlider({
     slides: { origin: "center" },
     initial: accounts().data!.findIndex(a => a.primary),
     breakpoints: {
@@ -16,9 +16,15 @@ export function AccountsSlider() {
     }
   });
 
-  onMount(async () => {
+  onMount(() => {
     slider(sliderRef!);
   });
+
+  createEffect(() => {
+    if (accounts().status === 'success') {
+      update();
+    }
+  })
 
   onCleanup(() => {
     destroy();

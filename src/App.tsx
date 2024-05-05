@@ -1,8 +1,9 @@
 import { Navigate, Route, RouteSectionProps, HashRouter as Router } from "@solidjs/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
-import { Match, Switch, createEffect, createSignal, onCleanup, onMount } from "solid-js";
+import { Match, Show, Switch, createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import {
   AppLoading,
+  BottomNavigation,
   ConfirmationModal,
   Layout,
   NetworkError,
@@ -31,7 +32,7 @@ import {
   ChangePinScreen,
   PersonalInfoScreen
 } from "@app/screens/SettingsScreen/pages";
-import { DateProcessorProvider } from "@app/providers";
+import { DataProvider, DateProcessorProvider } from "@app/providers";
 import { HttpStatus, authService, authUserHttpClient, clientService, userService } from "@app/services";
 import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
@@ -47,9 +48,14 @@ function App(props: RouteSectionProps) {
   return (
     <Layout>
       <RerenderOnLangChange>
-        <DateProcessorProvider>
-          {props.children}
-        </DateProcessorProvider>
+        <DataProvider>
+          <DateProcessorProvider>
+            {props.children}
+            <Show when={user.currentUser().status === "authorized"}>
+              <BottomNavigation />
+            </Show>
+          </DateProcessorProvider>
+        </DataProvider>
       </RerenderOnLangChange>
     </Layout>
   );
@@ -72,9 +78,13 @@ export default function() {
         data: authorizedUser
       });
     } catch (e: any) {
-      if (e.status !== HttpStatus.UNAUTHORIZED) {
-        setNetworkStatus("error");
+      console.error(e);
+      if (e.status === HttpStatus.UNAUTHORIZED) {
+        return user.setCurrentUser({
+          status: "unauthorized"
+        });
       }
+      setNetworkStatus("error");
     }
   }
 
@@ -89,7 +99,7 @@ export default function() {
 
   onCleanup(() => {
     clientService.off("connectionSuccess", connectionSuccesHandler);
-    // clientService.off("connectionError", connectionErrorHandler);
+    clientService.off("connectionError", connectionErrorHandler);
     authUserHttpClient.off(HttpStatus.UNAUTHORIZED, user.logOut);
   });
 

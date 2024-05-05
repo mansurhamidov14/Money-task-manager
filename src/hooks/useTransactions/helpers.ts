@@ -7,7 +7,7 @@ export const groupTransactionsByDate = (transactions: Transaction[]) => {
 }
 
 export const sumAmountByCurrency = (transactions: Transaction[]): TransactionGroupSum[] => {
-  const groups = groupBy(transactions, ({ currency }) => currency);
+  const groups = groupBy(transactions, ({ account }) => account.currency);
 
   return Object.entries(groups).map(([currencyCode, _transactions]) => {
     const currency = currencyService.getCurrency(currencyCode as CurrencyCode);

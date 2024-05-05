@@ -31,10 +31,10 @@ export function PieCharts(props: {
     const todayDate = dateProcessor.today.date.toDatePickerString();
     const ratesDate = lastFilterDate > todayDate ? todayDate : lastFilterDate;
     const currencies = processedTransactions().reduce((result, transaction) => {
-      if (transaction.currency === _primaryCurrency || result.includes(transaction.currency)) {
+      if (transaction.account.currency === _primaryCurrency || result.includes(transaction.account.currency)) {
         return result;
       }
-      return [...result, transaction.currency]
+      return [...result, transaction.account.currency]
     }, [] as CurrencyCode[]);
     const accessKey = [ratesDate, _primaryCurrency, currencies.join("")];
     return ({
@@ -61,9 +61,9 @@ export function PieCharts(props: {
         series.push(
           transactions
             .reduce(
-              (sum, transaction) => transaction.currency === primaryCurrency()
+              (sum, transaction) => transaction.account.currency === primaryCurrency()
                 ? sum + transaction.amount
-                : sum + transaction.amount / currencyRates[transaction.currency],
+                : sum + transaction.amount / currencyRates[transaction.account.currency],
               0
             )
         );

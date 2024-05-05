@@ -19,7 +19,7 @@ import {
 import { DateTimeInput, TitleInput } from "../components/shared";
 
 export function Form(props: Transaction) {
-  const { accounts, refetchAccounts } = useAccounts();
+  const { accounts, waitForAccountsUpdate, reloadAccounts } = useAccounts();
   const [loading, setLoading] = createSignal(false);
   const formHandler = useFormHandler(
     yupSchema(getTransactionFormSchema({
@@ -44,11 +44,12 @@ export function Form(props: Transaction) {
         .data!.find(account => account.id === formData.account)!;
       const amount = formData.amount;
       await transactionService.update(prevData.id, formData);
+      waitForAccountsUpdate();
       const prevAccountAmountChange = prevData.type === "expense" ? prevData.amount : (prevData.amount * -1);
       const affectedAccountAmountChange = formData.type === "income" ? amount : (amount * -1);
       await accountService.changeBalance(prevData.account.id, prevAccountAmountChange);
       await accountService.changeBalance(affectedAccount.id, affectedAccountAmountChange);
-      refetchAccounts();
+      reloadAccounts();
       toastStore.pushToast("success", t("EditTransactionScreen.success"));
       history.back();
     } catch (e: any) {

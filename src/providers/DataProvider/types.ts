@@ -9,6 +9,6 @@ export type TransactionsData = AsyncData<TransactionsData[]>;
 export type DataContextType = {
   accounts: Accessor<AccountsData>;
   setAccounts: Setter<AccountsData>;
-  setAccountsLoading: () => void;
-  refetchAccounts: () => Promise<void>;
+  waitForAccountsUpdate: () => void;
+  reloadAccounts: () => void;
 }

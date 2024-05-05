@@ -1,13 +1,13 @@
+import { AccountCard, Button, Loading } from "@app/components";
+import { Account } from "@app/entities";
+import { useAccounts } from "@app/hooks";
+import { Action, t } from "@app/i18n";
+import { getAccountFormSchema } from "@app/schemas";
+import { accountService } from "@app/services";
+import { toastStore } from "@app/stores";
 import { Show, createSignal } from "solid-js";
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
-
-import { AccountCard, Button, Loading } from "@app/components";
-import { Account } from "@app/entities";
-import { Action, t } from "@app/i18n";
-import { accountService } from "@app/services";
-import { getAccountFormSchema } from "@app/schemas";
-import { toastStore } from "@app/stores";
 
 import {
   CurrencySelect,
@@ -16,11 +16,10 @@ import {
   SkinSelect
 } from "../components/AccountForm";
 import { TitleInput } from "../components/shared";
-import { useAccounts } from "@app/hooks";
 
 export function Form(props: Account) {
   const [loading, setLoading] = createSignal(false);
-  const { refetchAccounts } = useAccounts();
+  const { reloadAccounts } = useAccounts();
   const formHandler = useFormHandler(yupSchema(getAccountFormSchema({
     title: props.title,
     currency: props.currency,
@@ -40,7 +39,7 @@ export function Form(props: Account) {
       const formData = formHandler.formData();
 
       await accountService.update(oldValues.id, formData);
-      await refetchAccounts();
+      reloadAccounts();
       toastStore.pushToast("success", t("EditAccountScreen.success"));
       history.back();
     } catch (e: any) {
