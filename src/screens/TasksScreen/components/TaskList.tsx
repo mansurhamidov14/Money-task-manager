@@ -20,7 +20,7 @@ export function TaskList(props: TasksListProps) {
   const dateProcessor = useDateProcessor();
   const navigate = useNavigate();
 
-  const deleteTask = async (id: number) => {
+  const deleteTask = async (id: Task['id']) => {
     await tasksStore.deleteByOriginalId(id);
     toastStore.pushToast("success", t("ConfirmationRequest.taskDeletion.success"));
   }

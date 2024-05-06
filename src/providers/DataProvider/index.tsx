@@ -24,7 +24,7 @@ function DataProviderInner(props: ParentProps) {
   });
   createEffect(() => {
     if (tasksStore.tasks().status === "initial") {
-      tasksStore.fetchUserTasks(user.currentUser().data!.id);
+      tasksStore.fetchUserTasks();
     }
   })
 

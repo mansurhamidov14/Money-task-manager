@@ -4,7 +4,7 @@ import { ScreenHeader, VerticalScroll } from "@app/components";
 import { OneTimeTask, RecurringTask } from "@app/entities";
 import { t } from "@app/i18n";
 import { taskService } from "@app/services";
-import { Await } from "@app/stores";
+import { Await, toastStore } from "@app/stores";
 import { Form } from "../components/TaskForm/Form";
 
 export function EditTaskScreen() {
@@ -13,12 +13,13 @@ export function EditTaskScreen() {
   const [editedTask, setEditedTask] = createSignal<RecurringTask | OneTimeTask | null>(null);
 
   onMount(async () => {
-    const task = await taskService.getById(Number(params.id));
-    if (!task) {
+    try {
+      const { data: task} = await taskService.getById(params.id); 
+      setEditedTask(task);
+    } catch (e: any) {
+      toastStore.handleServerError(e);
       navigate("/home");
     }
-
-    setEditedTask(task);
   });
   
   return (

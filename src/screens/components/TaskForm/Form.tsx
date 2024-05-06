@@ -8,7 +8,7 @@ import { OneTimeTask, RecurringTask } from "@app/entities";
 import { Action, Message, t } from "@app/i18n";
 import { getTaskFormSchema } from "@app/schemas";
 import { taskService } from "@app/services";
-import { tasksStore, toastStore, user } from "@app/stores";
+import { tasksStore, toastStore } from "@app/stores";
 
 import {
   DateInput,
@@ -40,15 +40,13 @@ export function Form({ task }: Props) {
     }
     
     try {
-      if (task) {
-        if (task.isRecurring) {
-          await taskService.deleteByOriginaId(task.id);
-        } else {
-          await taskService.delete(task.id);
-        }
-      }
       await formHandler.validateForm();
-      await tasksStore.addTask(user.currentUser().data!.id, formHandler.formData());
+      if (task) {
+        await taskService.update(task.id, formHandler.formData())
+      } else {
+        await tasksStore.addTask(formHandler.formData());
+      }
+
       toastStore.pushToast("success", t(`${screenTranslationPrefix}.success`));
       history.back();
     } catch (e: any) {

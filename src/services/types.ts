@@ -1,5 +1,4 @@
 import type { CategoryId, Currency, CurrencyCode, User } from "@app/entities";
-import { Task } from "@app/entities";
 
 export type TransactionFilter = {
   fromDate?: string;
@@ -17,9 +16,6 @@ export type TokenResponse = {
 export type AuthResponse = TokenResponse & {
   user: User;
 }
-
-export type CreationRequestData<T> = Omit<T, "id" | "createdAt" | "updatedAt">;
-export type NewTask = CreationRequestData<Task>;
 
 export type Currencies = Record<CurrencyCode, Currency>;
 

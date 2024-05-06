@@ -11,17 +11,17 @@ import { AsyncData } from "@app/hooks";
 export function initTasksStore() {
   const [tasks, setTasks] = createSignal<AsyncData<Task[]>>({ status: "initial" });
 
-  const fetchUserTasks = async (user: string) => {
+  const fetchUserTasks = async () => {
     try {
-      const data = await taskService.getUserTasks(user);
-      setTasks({ status: "success", data });
+      const { data } = await taskService.getList();
+      setTasks({ status: "success", data: data });
     } catch (e: any) {
       setTasks({ status: "error", error: e.message });
     } 
   }
 
-  const addTask = async (user: string, task: TaskFormSchema) => {
-    await taskService.create(user, task);
+  const addTask = async (task: TaskFormSchema) => {
+    await taskService.create(task);
     putIntoLoadingState();
   }
 
@@ -50,7 +50,7 @@ export function initTasksStore() {
     return {};
   });
 
-  const updateTask = (id: number, updateData: Partial<Task>) => {
+  const updateTask = (id: Task['id'], updateData: Partial<Task>) => {
     setTasks(prevValue => ({
       ...prevValue,
       data: prevValue.data?.map(task => {
@@ -62,7 +62,7 @@ export function initTasksStore() {
     }));
   }
 
-  const deleteTask = async (id: number) => {
+  const deleteTask = async (id: Task['id']) => {
     await taskService.delete(id);
     setTasks(prevValue => ({
       ...prevValue,
@@ -70,8 +70,8 @@ export function initTasksStore() {
     }));
   }
 
-  const deleteByOriginalId = async (id: number) => {
-    await taskService.deleteByOriginaId(id);
+  const deleteByOriginalId = async (id: Task['id']) => {
+    await taskService.delete(id, true);
     setTasks(prevValue => ({
       ...prevValue,
       data: prevValue.data?.filter(task => task.id !== id && task.originalId !== id)
@@ -81,9 +81,9 @@ export function initTasksStore() {
   const toggleDone = async (task: Task, done: boolean) => {
     const doneAt = done ? Date.now() : 0;
     let prevDoneAt = task.doneAt;
-    updateTask(task.id, { doneAt });
+    updateTask(task.id, { doneAt: new Date(doneAt).toISOString() });
     try {
-      await taskService.update(task.id, { doneAt });
+      await taskService.toggleDone(task.id, doneAt);
     } catch (e: any) {
       if (e.message) {
         updateTask(task.id, { doneAt: prevDoneAt });
@@ -93,7 +93,7 @@ export function initTasksStore() {
   }
 
   const putIntoLoadingState = () => {
-    setTasks({ status: "loading" });
+    setTasks({ status: "initial" });
   }
 
   const todayTasks = createMemo(() => {

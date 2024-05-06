@@ -1,5 +1,4 @@
 import { API_BASE_URL, API_KEY_SALT } from "@app/constants";
-import { taskCollection } from "@app/db";
 import { refreshToken } from "@app/storage";
 import md5 from "md5";
 
@@ -35,7 +34,7 @@ function buildServices() {
   const cacheService = new CacheService();
   const currencyService = new CurrencyService(authUserHttpClient, cacheService, clientService);
   const skinService = new SkinService();
-  const taskService = new TaskService(taskCollection);
+  const taskService = new TaskService(authUserHttpClient);
   const transactionService = new TransactionService(authUserHttpClient);
   const userService = new UserService(authUserHttpClient);
 

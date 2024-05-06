@@ -1,22 +1,22 @@
 import { User } from "./User";
 
 export type Task = {
-  id: number;
-  originalId?: number;
-  user: User["id"];
+  id: string;
+  originalId?: string;
+  userId: User["id"];
   title: string;
-  isRecurring: 1 | 0;
+  isRecurring: boolean;
   startDate: string;
   endDate?: string;
   time: string;
   weekday: number;
-  doneAt: number;
-  createdAt: number;
-  updatedAt: number;
+  doneAt: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 type TaskBase = {
-  id: number;
+  id: string;
   originalId?: number;
   title: string;
   user: string;

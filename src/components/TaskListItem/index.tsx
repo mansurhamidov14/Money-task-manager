@@ -45,7 +45,7 @@ export function TaskListItem(props: Task) {
     };
   });
 
-  const deleteTask = async (id: number) => {
+  const deleteTask = async (id: Task['id']) => {
     await tasksStore.deleteTask(id);
     toastStore.pushToast("success", t("ConfirmationRequest.taskDeletion.success"));
   }
