@@ -17,13 +17,14 @@ import {
 import { MS_IN_DAY } from "@app/constants";
 import { t } from "@app/i18n";
 import { useDateProcessor } from "@app/providers";
-import { tasksStore } from "@app/stores";
 import { WeekDayButton } from "./components";
+import { useTasks } from "@app/hooks";
 
 let sliderRef: HTMLDivElement;
 
 export function TasksScreen() {
   const dateProcessor = useDateProcessor();
+  const { tasksByWeekDay } = useTasks();
   const options = { duration: 1000 };
   const [slider, { current, moveTo, destroy }] = createSlider(options);
 
@@ -84,14 +85,14 @@ export function TasksScreen() {
             {date => (
               <div class="py-1 px-5">
                 <Show
-                  when={tasksStore.tasksByWeekDay()[date.getWeekDay()]}
+                  when={tasksByWeekDay()[date.getWeekDay()]}
                   fallback={(
                     <EmptyList icon={<BiRegularTaskX />}>
                       {t("TasksScreen.emptyList")}
                     </EmptyList>
                   )}
                 >
-                  <For each={tasksStore.tasksByWeekDay()[date.getWeekDay()]!}>
+                  <For each={tasksByWeekDay()[date.getWeekDay()]!}>
                     {task => <TaskListItem {...task} />}
                   </For>
                 </Show>

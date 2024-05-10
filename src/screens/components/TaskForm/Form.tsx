@@ -1,20 +1,19 @@
-import { For, Show, createSignal, onMount } from "solid-js";
+import { Button, Loading } from "@app/components";
+import { OneTimeTask, RecurringTask } from "@app/entities";
+import { useTasks } from "@app/hooks";
+import { Action, Message, t } from "@app/i18n";
+import { getTaskFormSchema } from "@app/schemas";
+import { toastStore } from "@app/stores";
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 import { FaRegularCalendarMinus, FaRegularCalendarPlus } from "solid-icons/fa";
-
-import { Button, Loading } from "@app/components";
-import { OneTimeTask, RecurringTask } from "@app/entities";
-import { Action, Message, t } from "@app/i18n";
-import { getTaskFormSchema } from "@app/schemas";
-import { taskService } from "@app/services";
-import { tasksStore, toastStore } from "@app/stores";
+import { For, Show, createSignal, onMount } from "solid-js";
 
 import {
   DateInput,
+  DaySelect,
   RecurringCheckbox,
   TimeInput,
-  DaySelect,
 } from ".";
 import { TitleInput } from "../shared";
 
@@ -24,6 +23,7 @@ export type Props = {
 
 export function Form({ task }: Props) {
   const screenTranslationPrefix = task ? "EditTaskScreen" : "NewTaskScreen";
+  const { addTask, updateTask } = useTasks();
   const [loading, setLoading] = createSignal(false);
   const formHandler = useFormHandler(yupSchema(getTaskFormSchema()), {
     validateOn: ["blur"],
@@ -42,9 +42,9 @@ export function Form({ task }: Props) {
     try {
       await formHandler.validateForm();
       if (task) {
-        await taskService.update(task.id, formHandler.formData())
+        await updateTask(task.id, formHandler.formData())
       } else {
-        await tasksStore.addTask(formHandler.formData());
+        await addTask(formHandler.formData());
       }
 
       toastStore.pushToast("success", t(`${screenTranslationPrefix}.success`));

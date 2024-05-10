@@ -1,6 +1,5 @@
 import { StorageItem } from "@app/entities";
 import { SignUpForm } from "@app/schemas";
-
 import type { HttpService } from "./HttpService";
 import { AuthResponse, TokenResponse } from "./types";
 

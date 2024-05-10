@@ -1,12 +1,13 @@
-import { JSX, Match, Show, Switch, createMemo } from "solid-js";
+import { Task, TaskStatus } from "@app/entities";
+import { useTasks } from "@app/hooks";
+import { Message, t } from "@app/i18n";
+import { useDateProcessor } from "@app/providers";
 import { useNavigate } from "@solidjs/router";
+import { confirmationStore, toastStore } from "@app/stores";
+import { JSX, Match, Show, Switch, createMemo } from "solid-js";
 import { FaRegularCircleDot, FaSolidCalendarCheck, FaSolidCalendarXmark } from "solid-icons/fa";
 import { HiOutlinePencilSquare } from "solid-icons/hi";
 import { IoCheckmark, IoClose, IoTrash } from "solid-icons/io";
-import { Task, TaskStatus } from "@app/entities";
-import { Message, t } from "@app/i18n";
-import { confirmationStore, tasksStore, toastStore } from "@app/stores";
-import { useDateProcessor } from "@app/providers";
 
 import { Button, ButtonProps } from "../Button";
 import "./style.css";
@@ -14,6 +15,7 @@ import "./style.css";
 export function TaskListItem(props: Task) {
   const dateProcessor = useDateProcessor();
   const navigate = useNavigate();
+  const { toggleDone, deleteTask } = useTasks();
   const taskStatus = createMemo((): TaskStatus => {
     const doneWithThisWeek = dateProcessor.withinThisWeek(props.doneAt);
     if (doneWithThisWeek) {
@@ -45,14 +47,14 @@ export function TaskListItem(props: Task) {
     };
   });
 
-  const deleteTask = async (id: Task['id']) => {
-    await tasksStore.deleteTask(id);
+  const handleTaskDelete = async (id: Task['id']) => {
+    await deleteTask(id);
     toastStore.pushToast("success", t("ConfirmationRequest.taskDeletion.success"));
   }
 
   const requestDeletion = (task: Task) => {
     confirmationStore.requestConfirmation({
-      onConfirm: () => deleteTask(task.id),
+      onConfirm: () => handleTaskDelete(task.id),
       text: t("ConfirmationRequest.taskDeletion.text.partial", undefined, { title: task.title }),
       confirmButton: { label: t("ConfirmationRequest.taskDeletion.confirm")}
     });
@@ -89,7 +91,7 @@ export function TaskListItem(props: Task) {
         <Button
           variant={getToggleButtonProps().variant}
           class="rounded-none h-12 w-12"
-          onClick={() => tasksStore.toggleDone(props, getToggleButtonProps().nextValue)}
+          onClick={() => toggleDone(props, getToggleButtonProps().nextValue)}
         >
           {getToggleButtonProps().icon}
         </Button>

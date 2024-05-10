@@ -1,11 +1,13 @@
-import { tasksStore } from "@app/stores"
-import { TaskList } from "./components"
-import { t } from "@app/i18n"
+import { useTasks } from "@app/hooks";
+import { t } from "@app/i18n";
+import { TaskList } from "./components";
 
 export const TasksArchiveScreen = () => {
-  return <TaskList title={t("TasksScreen.archive")} tasks={tasksStore.archiveTasks()} />;
+  const { archiveTasks } = useTasks();
+  return <TaskList title={t("TasksScreen.archive")} tasks={archiveTasks()} />;
 }
 
 export const FutureTasksScreen = () => {
-  return <TaskList title={t("TasksScreen.futureTasks")} tasks={tasksStore.futureTasks()} />;
+  const { futureTasks } = useTasks();
+  return <TaskList title={t("TasksScreen.futureTasks")} tasks={futureTasks()} />;
 }

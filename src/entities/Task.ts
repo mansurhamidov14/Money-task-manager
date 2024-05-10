@@ -1,10 +1,12 @@
-import { User } from "./User";
 
-export type Task = {
-  id: string;
-  originalId?: string;
-  userId: User["id"];
+type TaskBase = {
+  id: string | number;
+  originalId?: string | number;
   title: string;
+  userId: string;
+}
+
+export type Task = TaskBase & {
   isRecurring: boolean;
   startDate: string;
   endDate?: string;
@@ -13,13 +15,6 @@ export type Task = {
   doneAt: string;
   createdAt: string;
   updatedAt: string;
-}
-
-type TaskBase = {
-  id: string;
-  originalId?: number;
-  title: string;
-  user: string;
 }
 
 export type RecurringTask = TaskBase & {

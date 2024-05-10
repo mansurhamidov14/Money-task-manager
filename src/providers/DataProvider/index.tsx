@@ -1,9 +1,9 @@
-import { Account } from "@app/entities";
+import { Account, Task } from "@app/entities";
 import { useAsyncData } from "@app/hooks";
-import { accountService } from "@app/services";
-import { createContext, createEffect, ParentProps, Show } from "solid-js";
+import { accountService, taskService } from "@app/services";
+import { user } from "@app/stores";
+import { ParentProps, Show, createContext, createEffect } from "solid-js";
 import { DataContextType } from "./types";
-import { tasksStore, user } from "@app/stores";
 
 export const DataContext = createContext<DataContextType>();
 
@@ -16,20 +16,39 @@ function DataProviderInner(props: ParentProps) {
     waitForAccountsUpdate
   ] = useAsyncData<Account[]>();
 
+  const [
+    tasks,
+    fetchTasks,
+    setTasks,
+    reloadTasks,
+    waitForTasksUpdate
+  ] = useAsyncData<Task[]>();
+
   createEffect(() => {
     if (accounts().status === "initial") {
       fetchAccounts(() => accountService.getUserAccounts());
     }
-    
   });
+
   createEffect(() => {
-    if (tasksStore.tasks().status === "initial") {
-      tasksStore.fetchUserTasks();
+    if (tasks().status === "initial") {
+      fetchTasks(() => taskService.getList());
     }
-  })
+  });
 
   return (
-    <DataContext.Provider value={{ accounts, setAccounts, reloadAccounts, waitForAccountsUpdate }}>
+    <DataContext.Provider
+      value={{
+        accounts,
+        setAccounts,
+        reloadAccounts,
+        waitForAccountsUpdate,
+        tasks,
+        setTasks,
+        reloadTasks,
+        waitForTasksUpdate
+      }}
+    >
       {props.children}
     </DataContext.Provider>
   );

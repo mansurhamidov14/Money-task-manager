@@ -1,12 +1,12 @@
 import { IconTypes } from "solid-icons";
+import type { Currency, User } from ".";
 import { Account } from "./Account";
-import type { Currency } from ".";
 
 export type TransactionType = "expense" | "income";
 export type Transaction = {
-  id: string;
+  id: number | string;
   account: Pick<Account, "id" | "currency">;
-  user: string; 
+  userId: User['id']; 
   title: string;
   category: CategoryId;
   type: TransactionType;
