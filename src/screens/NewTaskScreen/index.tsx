@@ -1,6 +1,6 @@
 import { ScreenHeader, VerticalScroll } from "@app/components";
 import { t } from "@app/i18n";
-import { Form } from "../components/TaskForm";
+import { Form } from "../components/TaskForm/Form";
 
 export function NewTaskScreen() {
   return (

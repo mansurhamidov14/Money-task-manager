@@ -1,31 +1,41 @@
-import { type IDBCollection, SearchCondition } from "@app/adapters/IDB";
-import { Account, Transaction } from "@app/stores";
-import { NewTransaction } from "./types";
+import { Account, Transaction } from "@app/entities";
+import { TransactionForm } from "@app/schemas";
+import { TransactionFilter } from "./types";
+import { type HttpService } from "./HttpService";
 
 export class TransactionService {
-  constructor (private collection: IDBCollection<Transaction>) { }
+  constructor (private httpClient: HttpService) { }
 
-  create(transaction: NewTransaction) {
-    return this.collection.create(transaction);
+  create(data: TransactionForm) {
+    return this.httpClient.post<Transaction, TransactionForm>('/transaction/new', data);
   }
 
-  getById(id: number) {
-    return this.collection.queryOne(id);
+  getById(id: Transaction["id"]) {
+    return this.httpClient.get<Transaction>(`/transaction/${id}`);
   }
 
-  getUserTransactions(user: string) {
-    return this.collection.queryAll({ user });
+  getUserTransactions({ fromDate, toDate, limit, offset, category }: TransactionFilter) {
+    const endDataObj = toDate ? new Date(toDate) : undefined;
+    endDataObj?.setHours(23, 59, 59, 999);
+    const params = {
+      startDate: fromDate ? new Date(fromDate).toISOString() : undefined,
+      endDate: endDataObj?.toISOString(),
+      category,
+      limit,
+      offset
+    };
+    return this.httpClient.get<Transaction[]>('/transaction/list', { params });
   }
 
-  update(id: SearchCondition<Transaction>, data: Partial<Transaction>) {
-    return this.collection.update(id, data);
+  update(id: Transaction["id"], data: TransactionForm) {
+    return this.httpClient.patch<Transaction, TransactionForm>(`/transaction/${id}`, data);
   }
 
-  delete(id: number) {
-    return this.collection.delete(id);
+  delete(id: Transaction["id"]) {
+    return this.httpClient.delete(`/transaction/${id}`);
   }
-
-  deleteByAccountId(account: Account['id']) {
-    return this.collection.delete({ account });
+  
+  deleteByAccountId(accountId: Account["id"]) {
+    return this.httpClient.delete(`/by-account/${accountId}`);
   }
 }

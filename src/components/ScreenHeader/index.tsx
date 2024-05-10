@@ -12,7 +12,7 @@ export function ScreenHeader(props: ScreenHeaderProps) {
   return (
     <div class="screen-header flex gap-3 h-14 content-center relative items-center border-b bg-white border-secondary-200/30 dark:bg-gray-900/40 px-3 shadow dark:border-gray-700">
       <Show when={props.withGoBackButton}>
-        <Button class="absolute" variant="transparent" size="sm" square onClick={() => history.back()}>
+        <Button type="button" class="absolute" variant="transparent" size="sm" square onClick={() => history.back()}>
           <FaSolidChevronLeft size={20} />
         </Button>
       </Show>

@@ -1,4 +1,4 @@
-import { DataWithEventHandlers } from ".";
+import { EventHandler } from ".";
 import { StorageEvent, StorageEventHandler } from "./types";
 
 export type StorageItemOptions<T> = {
@@ -7,14 +7,14 @@ export type StorageItemOptions<T> = {
   storage?: Storage;
 }
 
-export class StorageItem<T extends any> extends DataWithEventHandlers<StorageEvent, StorageEventHandler<T>> {
+export class StorageItem<T extends any> extends EventHandler<StorageEvent, StorageEventHandler<T>> {
   private initialValue: T extends any ? (T | (() => T)) : never;
   private currentValue: T;
   private storage: Storage;
   private accessor: string;
 
   constructor(options: StorageItemOptions<T>) {
-    super(["change"]);
+    super();
     this.storage = options.storage ?? window.localStorage;
     this.initialValue = options.initialValue;
     const storageItem = this.storage.getItem(options.accessor);
@@ -39,10 +39,12 @@ export class StorageItem<T extends any> extends DataWithEventHandlers<StorageEve
   clear() {
     this.currentValue = typeof this.initialValue !== 'function' ? this.initialValue : this.initialValue();
     this.storage.removeItem(this.accessor);
+    this.dispatchEvent("change", this.currentValue);
   }
 
   private parseStorageValue(value?: string | null) {
     if (!value) return value;
+
     try {
       const parsed = JSON.parse(value);
       return parsed;

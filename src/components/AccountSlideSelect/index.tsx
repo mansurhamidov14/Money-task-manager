@@ -1,13 +1,14 @@
-import { Account } from "@app/stores";
+import { Account } from "@app/entities";
+import { Message } from "@app/i18n";
 import { useSearchParams } from "@solidjs/router";
 import { For, JSX, Show, createMemo, onCleanup, onMount, splitProps } from "solid-js";
 import { createSlider } from "solid-slider";
+
 import { AccountsSlideSelectItem } from "./AccountsSlideSelectItem";
 import { ExpandedAccountSelect } from "./ExpandedAccountSelect";
 import "./style.css";
 import { MAXIMIZE_PARAM_KEY } from "./consts";
 import { Button } from "..";
-import { Message } from "@app/i18n";
 
 export type AccountSlideSelectProps = Omit<
   JSX.InputHTMLAttributes<HTMLInputElement>,

@@ -1,5 +1,5 @@
+import { Account } from "@app/entities"
 import { currencyService, skinService } from "@app/services"
-import { Account } from "@app/stores"
 
 export type AccountsSlideSelectItemProps = {
   account: Account;
@@ -28,5 +28,5 @@ export function AccountsSlideSelectItem(props: AccountsSlideSelectItemProps) {
         </div>
       </div>
     </a>
-  )
+  );
 }

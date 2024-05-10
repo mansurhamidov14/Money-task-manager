@@ -63,6 +63,7 @@ export class CurrencyService {
       this.cacheService.writeToSection("currencyRates", cachedRates)
       return { ...INITIAL_CURRENCY_RATES, ...cachedRates[key] };
     } catch (e: any) {
+      console.error(e);
       return INITIAL_CURRENCY_RATES;
     };
   }

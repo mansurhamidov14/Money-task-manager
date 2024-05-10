@@ -2,6 +2,7 @@ import { createRoot, createSignal } from "solid-js";
 import { ToastData } from "./types";
 import { ToastVariant } from "@app/components";
 import { t } from "@app/i18n";
+import { HttpStatus } from "@app/services";
 
 function initToastStore() {
   const TIMEOUT_SHORT = 1000;
@@ -34,8 +35,9 @@ function initToastStore() {
     ]);
   }
 
-  const handleServerError = (error: { message?: string }) => {
-    if (error.message) {
+  const handleServerError = (error: { message?: string, status?: number }) => {
+    console.error(error);
+    if (error.message && error.status !== HttpStatus.UNAUTHORIZED) {
       pushToast("error", t(error.message, "Exceptions"));
     }
   }

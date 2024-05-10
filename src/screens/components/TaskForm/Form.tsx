@@ -1,21 +1,21 @@
-import { For, Show, createSignal, onMount } from "solid-js";
+import { Button, Loading } from "@app/components";
+import { OneTimeTask, RecurringTask } from "@app/entities";
+import { useTasks } from "@app/hooks";
+import { Action, Message, t } from "@app/i18n";
+import { getTaskFormSchema } from "@app/schemas";
+import { toastStore } from "@app/stores";
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 import { FaRegularCalendarMinus, FaRegularCalendarPlus } from "solid-icons/fa";
-
-import { Button, Loading } from "@app/components";
-import { Action, Message, t } from "@app/i18n";
-import { getTaskFormSchema } from "@app/schemas";
-import { OneTimeTask, RecurringTask, tasksStore, toastStore, user } from "@app/stores";
+import { For, Show, createSignal, onMount } from "solid-js";
 
 import {
   DateInput,
+  DaySelect,
   RecurringCheckbox,
   TimeInput,
-  DaySelect,
 } from ".";
 import { TitleInput } from "../shared";
-import { taskService } from "@app/services";
 
 export type Props = {
   task?: RecurringTask | OneTimeTask;
@@ -23,6 +23,7 @@ export type Props = {
 
 export function Form({ task }: Props) {
   const screenTranslationPrefix = task ? "EditTaskScreen" : "NewTaskScreen";
+  const { addTask, updateTask } = useTasks();
   const [loading, setLoading] = createSignal(false);
   const formHandler = useFormHandler(yupSchema(getTaskFormSchema()), {
     validateOn: ["blur"],
@@ -39,15 +40,13 @@ export function Form({ task }: Props) {
     }
     
     try {
-      if (task) {
-        if (task.isRecurring) {
-          await taskService.deleteByOriginaId(task.id);
-        } else {
-          await taskService.delete(task.id);
-        }
-      }
       await formHandler.validateForm();
-      await tasksStore.addTask(user.currentUser().data!.id, formHandler.formData());
+      if (task) {
+        await updateTask(task.id, formHandler.formData())
+      } else {
+        await addTask(formHandler.formData());
+      }
+
       toastStore.pushToast("success", t(`${screenTranslationPrefix}.success`));
       history.back();
     } catch (e: any) {

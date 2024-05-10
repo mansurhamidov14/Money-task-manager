@@ -1,23 +1,30 @@
 import { AccountCard } from "@app/components";
-import { Account } from "@app/stores";
-import { For, Show, onCleanup, onMount } from "solid-js";
+import { useAccounts } from "@app/hooks";
+import { For, Show, createEffect, onCleanup, onMount } from "solid-js";
 import { createSlider } from "solid-slider";
 
-export function AccountsSlider(props: { accounts: Account[] }) {
+export function AccountsSlider() {
+  const { accounts, deleteAccount } = useAccounts();
   let sliderRef: HTMLDivElement | undefined = undefined;
-  const [slider, { current, moveTo, destroy }] = createSlider({
+  const [slider, { current, moveTo, destroy, update }] = createSlider({
     slides: { origin: "center" },
-    initial: props.accounts.findIndex(a => a.primary),
+    initial: accounts().data!.findIndex(a => a.primary),
     breakpoints: {
       "(min-width: 768px)": {
-        slides: { origin: "center", perView: props.accounts.length > 1 ? 2 : 1 }
+        slides: { origin: "center", perView: accounts().data!.length > 1 ? 2 : 1 }
       }
     }
   });
 
-  onMount(async () => {
+  onMount(() => {
     slider(sliderRef!);
   });
+
+  createEffect(() => {
+    if (accounts().status === 'success') {
+      update();
+    }
+  })
 
   onCleanup(() => {
     destroy();
@@ -26,13 +33,19 @@ export function AccountsSlider(props: { accounts: Account[] }) {
   return (
     <div class="-mx-3 md:-mx-9 lg:-mx-14 relative">
       <div ref={sliderRef}>
-        <For each={props.accounts}>
-          {account => <AccountCard hasBackSide account={account} />}
+        <For each={accounts().data!}>
+          {account => (
+            <AccountCard
+              hasBackSide
+              account={account}
+              onDelete={deleteAccount}
+            />
+          )}
         </For>
       </div>
-      <Show when={props.accounts.length > 1}>
+      <Show when={accounts().data!.length > 1}>
         <div class="absolute w-full bottom-1 flex justify-center gap-2">
-          <For each={props.accounts}>
+          <For each={accounts().data!}>
             {(_, index) => (
               <button
                 type="button"

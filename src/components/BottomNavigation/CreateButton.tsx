@@ -1,16 +1,16 @@
-import { Show, createMemo } from "solid-js";
+import { useAccounts } from "@app/hooks";
+import { Message, t } from "@app/i18n";
 import { FaSolidCreditCard, FaSolidMoneyBillTransfer } from "solid-icons/fa";
 import { TbReportMoney } from "solid-icons/tb";
 import { BiRegularTask } from "solid-icons/bi";
-import { Message, t } from "@app/i18n";
-import { accountsStore } from "@app/stores";
+import { Show, createMemo } from "solid-js";
+
 import { CreateMenuItem } from "./CreateMenuItem";
 import { Dropdown, DropdownMenu, DropdownToggleButton } from "../Dropdown";
 
 export function CreateButton() {
-  const canTransfer = createMemo(() => {
-    return accountsStore.accounts().status === "success" && accountsStore.accounts().data!.length > 1
-  });
+  const { accounts } = useAccounts();
+  const canTransfer = createMemo(() => accounts().status === "success" && accounts().data!.length > 1);
 
   return (
     <div class="flex items-center justify-center relative">

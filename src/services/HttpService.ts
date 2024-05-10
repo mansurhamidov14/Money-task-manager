@@ -1,13 +1,29 @@
-import { HttpError, HttpMethod, HttpRequestOptions, HttpResponse } from ".";
+import { EventHandler } from "@app/entities";
+import {
+  HttpError,
+  HttpMethod,
+  HttpRequestOptions,
+  HttpResponse,
+  type HttpStatus
+} from ".";
 
-export class HttpService {
-  private errorHandlers: Record<number, () => void> = {};
-  headers: Record<string, string | null> = {}
+export class HttpService extends EventHandler<HttpStatus, () => void> {
+  headers: Record<string, string | null> = {};
+
   constructor(
     public baseUrl: string,
     headers: Record<string, string> = {}
   ) {
+    super();
     this.headers = { ...headers, 'Content-Type': 'application/json' }
+  }
+
+  set accessToken(value: string | null | undefined) {
+    if (!value) {
+      delete this.headers.Authorization;
+    } else {
+      this.headers.Authorization = `Bearer ${value}`;
+    }
   }
 
   public async fetch<T = unknown, B = unknown>(
@@ -19,13 +35,14 @@ export class HttpService {
     try {
       const headers = Object.assign(options?.headers || {}, this.headers);
       const parseMode = options?.parseMode || "json";
-      const fetchUrl = this.isAbsolute(url) ? url : `${this.baseUrl}${url}`;
+      const fetchUrl = HttpService.buildUrlWithSearchParams(this.baseUrl, url, options?.params);
       const response = await fetch(fetchUrl, {
         headers,
         body: JSON.stringify(body),
         method
       });
-  
+      this.dispatchEvent(response.status);
+
       if (response.ok) {
         const resp = {
           status: response.status,
@@ -43,7 +60,6 @@ export class HttpService {
       const errorMessage = (await response.json()).message
       const error = new Error(errorMessage) as any;
       error.status = response.status;
-      this.errorHandlers[response.status]?.();
       throw error as HttpError;
     } catch (e) {
       throw e;
@@ -74,12 +90,36 @@ export class HttpService {
     return this.fetch<T, B>(url, "PATCH", body, options);
   }
 
-  private isAbsolute(url: string) {
+  private static arrayFromParams = (params: HttpRequestOptions['params']): string[] => {
+    const result = params
+      ? Object.entries(params).reduce((acc, [key, value]) => {
+        if (value == undefined) return acc;
+        if (typeof value !== 'object' && typeof value !== 'function') {
+          return [...acc, `${key}=${value}`];
+        } else if (Array.isArray(value)) {
+          return [...acc, ...value.map(item => HttpService.buildParams({ [`${key}[]`]: item }))];
+        } else if (typeof value === 'object') {
+          return [...acc, ...Object.entries(value).map(([valKey, valVal]) => HttpService.buildParams({ [`${key}[${valKey}]`]: valVal }))]
+        }
+        return acc;
+      }, [] as string[])
+      : [];
+    return result;
+  }
+  
+  private static isAbsolute = (url: string) => {
     var regExp = new RegExp('^(?:[a-z+]+:)?//', 'i');
     return regExp.test(url);
   }
-
-  public registerErrorHandler(statusCode: number, callback: () => void) {
-    this.errorHandlers[statusCode] = callback;
+  
+  private static buildParams(params: HttpRequestOptions['params']): string {
+    return HttpService.arrayFromParams(params).join('&')
+  }
+  
+  private static buildUrlWithSearchParams = (baseUrl: string, path: string, params: HttpRequestOptions['params']) => {
+    const searchParams = HttpService.buildParams(params);
+    const paramsPrefix = searchParams && (path.indexOf('?') !== -1 ? '&' : '?');
+    const derivedPath = `${path}${paramsPrefix}${searchParams}`;
+    return HttpService.isAbsolute(derivedPath) ? derivedPath : `${baseUrl}${derivedPath}`;
   }
 }

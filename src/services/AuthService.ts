@@ -1,6 +1,5 @@
 import { StorageItem } from "@app/entities";
 import { SignUpForm } from "@app/schemas";
-
 import type { HttpService } from "./HttpService";
 import { AuthResponse, TokenResponse } from "./types";
 
@@ -53,6 +52,7 @@ export class AuthService {
       this.refreshToken.value = data.refresh_token;
       return data;
     } catch (e) {
+      this.refreshToken.clear();
       throw e;
     }
   }

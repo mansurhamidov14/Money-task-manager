@@ -3,7 +3,7 @@ import { getAppropriateLanguageFromUserAgent } from "@app/i18n/helpers";
 import { Lang } from "@app/i18n/types";
 import { Theme } from "@app/stores";
 
-export const refreshTokenItem = new StorageItem<string | null>({
+export const refreshToken = new StorageItem<string | null>({
   accessor: "refresh_token",
   initialValue: null,
 });

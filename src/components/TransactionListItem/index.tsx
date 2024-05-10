@@ -2,41 +2,36 @@ import { useNavigate } from "@solidjs/router";
 import { createMemo } from "solid-js";
 import { HiOutlinePencilSquare } from "solid-icons/hi";
 import { IoTrash } from "solid-icons/io";
-import type { CurrencyCode } from "@app/entities";
+import type { CurrencyCode, Transaction } from "@app/entities";
 import { Message, t } from "@app/i18n";
-import { categoryService, CategoryId, currencyService } from "@app/services";
-import { Transaction, accountsStore, confirmationStore, toastStore, transactionsStore } from "@app/stores";
+import { accountService, categoryService, currencyService } from "@app/services";
+import { confirmationStore, toastStore } from "@app/stores";
 import { ListItem } from "../ListItem";
-
-export type TransactionListItemProps = {
-  category: CategoryId;
-  title: string;
-  amount: number;
-  currency: CurrencyCode;
-  transactionType: "expense" | "income";
-  date: string;
-}
+import { useAccounts } from "@app/hooks";
+import { TransactionListItemProps } from "./types";
 
 function getTransactionValue(
   amount: number,
   currency: CurrencyCode,
-  transactionType: TransactionListItemProps["transactionType"]
+  transactionType: Transaction['type']
 ) {
   return `${(transactionType === "expense" ? "-" : "+")}${currencyService.formatValue(currency, amount)}`;
 }
 
-export function TransactionListItem(props: Transaction) {
+export function TransactionListItem(props: TransactionListItemProps) {
+  const { patchAccount } = useAccounts()
   const navigate = useNavigate();
   const categoryIcon = createMemo(() => {
-    const Icon = categoryService.getIcon(props.category);
+    const Icon = categoryService.getIcon(props.transaction.category);
     return <Icon size={28} />;
   });
 
   const handleTransactionDelete = async (transaction: Transaction) => {
     const { id, account, amount, type } = transaction;
-    await transactionsStore.deleteTransaction(id);
-    await accountsStore.changeBalance(account, amount * -1, type);
-    accountsStore.reload();
+    props.onDelete(id);
+    const balanceChange = type === "expense" ? amount : (amount * -1);
+    const updateResponse = await accountService.changeBalance(account.id, balanceChange);
+    patchAccount(updateResponse.data);
     toastStore.pushToast("success", t("ConfirmationRequest.transactionDeletion.success"));
   };
 
@@ -57,22 +52,22 @@ export function TransactionListItem(props: Transaction) {
         <div
           class="h-full flex justify-center items-center"
           style={{
-            "background-color": categoryService.getColors(props.category).accent,
-            "color": categoryService.getColors(props.category).icon
+            "background-color": categoryService.getColors(props.transaction.category).accent,
+            "color": categoryService.getColors(props.transaction.category).icon
           }}
         >
           {categoryIcon()}
         </div>
       )}
-      title={props.title}
-      description={<Message>{`Category.${props.category}`}</Message>}
+      title={props.transaction.title}
+      description={<Message>{`Category.${props.transaction.category}`}</Message>}
       rightElement={(
         <>
-          <div class={`text font-bold text-${props.type}`}>
-            {getTransactionValue(props.amount, props.currency, props.type)}
+          <div class={`text font-bold text-${props.transaction.type}`}>
+            {getTransactionValue(props.transaction.amount, props.transaction.account.currency, props.transaction.type)}
           </div>
           <div class="text-muted text-xs mt-1.5">
-            {new Date(props.transactionDateTime).toLocaleTimeString("en-GB", { hour: '2-digit', minute:'2-digit' })}
+            {new Date(props.transaction.transactionDateTime).toLocaleTimeString("en-GB", { hour: '2-digit', minute:'2-digit' })}
           </div>
         </>
       )}
@@ -81,13 +76,13 @@ export function TransactionListItem(props: Transaction) {
           label: t("Edit", "Actions"),
           icon: HiOutlinePencilSquare,
           variant: "primary",
-          onClick: () => navigate(`/edit-transaction/${props.id}`)
+          onClick: () => navigate(`/edit-transaction/${props.transaction.id}`)
         },
         {
           label: t("Delete", "Actions"),
           icon: IoTrash,
           variant: "danger",
-          onClick: () => requestTransactionDelete(props)
+          onClick: () => requestTransactionDelete(props.transaction)
         },
       ]}
     />

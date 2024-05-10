@@ -1,11 +1,11 @@
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 
-import { AccountCardDumb, Button } from "@app/components";
+import { AccountCard, Button } from "@app/components";
 import { Action, t } from "@app/i18n";
 import { getAccountFormSchema } from "@app/schemas";
 import { accountService } from "@app/services";
-import { user, toastStore, accountsStore, counters, initCountersStore } from "@app/stores";
+import { user, toastStore } from "@app/stores";
 
 import {
   CurrencySelect,
@@ -14,8 +14,10 @@ import {
   SkinSelect
 } from "../components/AccountForm";
 import { TitleInput } from "../components/shared";
+import { useAccounts } from "@app/hooks";
 
 export function Form() {
+  const { reloadAccounts } = useAccounts();
   const formHandler = useFormHandler(yupSchema(getAccountFormSchema({
     currency: user.currentUser().data?.primaryCurrency,
   })), {
@@ -28,9 +30,8 @@ export function Form() {
       await formHandler.validateForm();
 
       const accountData = formHandler.formData();
-      const { data: newAccount } = await accountService.create(accountData);
-      counters[newAccount.id] = initCountersStore([]);
-      accountsStore.setAccountsLoading();
+      await accountService.create(accountData);
+      reloadAccounts();
       toastStore.pushToast("success", t("NewAccountScreen.success"));
       history.back();
     } catch (e: any) {
@@ -42,7 +43,7 @@ export function Form() {
 
   return (
     <>
-      <AccountCardDumb
+      <AccountCard
         account={{
           id: "0",
           title: formHandler.getFieldValue("title"),

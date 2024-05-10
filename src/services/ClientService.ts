@@ -1,14 +1,13 @@
-import { CurrencyCode, DataWithEventHandlers } from "@app/entities";
+import { CurrencyCode, EventHandler } from "@app/entities";
 import type { HttpService } from "./HttpService";
 import { ClientDataResponse, ClientServiceEvent, ClientServiceEventHandler } from "./types";
 
-const events: ClientServiceEvent[] = ["connectionError", "connectionSuccess"];
-export class ClientService extends DataWithEventHandlers<ClientServiceEvent, ClientServiceEventHandler> {
+export class ClientService extends EventHandler<ClientServiceEvent, ClientServiceEventHandler> {
   ip = "0.0.0.0";
   localCurrency: CurrencyCode = CurrencyCode.USD;
 
   constructor(private http: HttpService) {
-    super(events);
+    super();
     this.fetchClientData();
     window.addEventListener("online", this.fetchClientData);
   }

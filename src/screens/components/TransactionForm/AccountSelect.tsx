@@ -1,10 +1,11 @@
 import { Field } from "solid-form-handler";
 import { AccountSlideSelect } from "@app/components";
 import { t } from "@app/i18n";
-import { accountsStore } from "@app/stores";
 import { InputProps } from "../shared";
+import { useAccounts } from "@app/hooks";
 
 export function AccountSelect(props: InputProps) {
+  const { accounts } = useAccounts();
   return (
     <Field
       mode="input"
@@ -14,7 +15,7 @@ export function AccountSelect(props: InputProps) {
         <AccountSlideSelect
           label={t("NewTransactionScreen.FormFields.account")}
           errorMessage={field.helpers.errorMessage}
-          accounts={accountsStore.accounts().data!}
+          accounts={accounts().data!}
           {...field.props}
         />
       )}

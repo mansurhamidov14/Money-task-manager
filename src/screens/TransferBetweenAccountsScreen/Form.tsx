@@ -4,19 +4,22 @@ import { yupSchema } from "solid-form-handler/yup";
 import { Button } from "@app/components";
 import { Action, t } from "@app/i18n";
 import { getTransferFormSchema } from "@app/schemas";
-import { accountsStore, toastStore, transactionsStore, user } from "@app/stores";
+import { toastStore } from "@app/stores";
 
 import { AmountInput, AccountSelect } from "../components/TransferForm";
 import { DateTimeInput, TitleInput } from "../components/shared";
+import { useAccounts } from "@app/hooks";
+import { accountService, transactionService } from "@app/services";
 
 export function Form() {
-  const primaryAccountId = accountsStore.primaryAccount()!.id;
+  const { accounts, primaryAccount, reloadAccounts } = useAccounts()
+  const primaryAccountId = primaryAccount()!.id;
   const formHandler = useFormHandler(yupSchema(getTransferFormSchema({
     date: new Date().toLocaleDateTimePickerString(),
     title: t("TransferBetweenAccountsScreen.title"),
     fromAccount: primaryAccountId,
-    toAccount: accountsStore.accounts().data!.find(account => account.id !== primaryAccountId)?.id
-  }, accountsStore.accounts().data!)), {
+    toAccount: accounts().data!.find(account => account.id !== primaryAccountId)?.id
+  }, accounts().data!)), {
     validateOn: ["blur"],
   });
 
@@ -24,41 +27,33 @@ export function Form() {
     event.preventDefault();
     try {
       await formHandler.validateForm();
-      const userId = user.currentUser().data!.id;
       const formData = formHandler.formData();
-      const accounts = accountsStore.accounts().data!;
-      const expenseAccount = accounts.find(account => account.id === formData.fromAccount)!;
-      const incomeAccount = accounts.find(account => account.id === formData.toAccount)!;
       const transactionDateTime = new Date(formData.date).toISOString();
       const transactionDate = transactionDateTime.split("T")[0];
-      await transactionsStore.addTransaction({
-        title: formData.title,
+      await transactionService.create({
         account: formData.fromAccount,
-        user: userId,
-        type: "expense",
-        category: "transferBetweenAccounts",
         amount: formData.expenseAmount,
-        currency: expenseAccount.currency,
-        transactionDate,
-        transactionDateTime,
-      });
-      await transactionsStore.addTransaction({
-        title: formData.title,
-        account: formData.toAccount,
-        user: userId,
-        type: "income",
         category: "transferBetweenAccounts",
-        amount: formData.incomeAmount,
-        currency: incomeAccount.currency,
-        transactionDate,
-        transactionDateTime,
+        date: transactionDate,
+        title: formData.title,
+        type: "expense",
       });
-      await accountsStore.changeBalance(expenseAccount.id, formData.expenseAmount, "expense");
-      await accountsStore.changeBalance(incomeAccount.id, formData.incomeAmount, "income");
+      
+      await transactionService.create({
+        account: formData.toAccount,
+        amount: formData.incomeAmount,
+        category: "transferBetweenAccounts",
+        date: transactionDate,
+        title: formData.title,
+        type: "income",
+      });
+      await accountService.changeBalance(formData.fromAccount, formData.expenseAmount * -1);
+      await accountService.changeBalance(formData.toAccount, formData.incomeAmount);
       toastStore.pushToast("success", t("TransferBetweenAccountsScreen.success"));
+      reloadAccounts();
       history.back();
     } catch (e: any) {
-      if (e.message) {
+      if (e.message && e.status !== 401) {
         toastStore.pushToast("error", t("TransferBetweenAccountsScreen.error", undefined, { error: e.message }));
       }
     }

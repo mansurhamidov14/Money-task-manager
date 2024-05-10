@@ -1,14 +1,16 @@
-import { useNavigate } from "@solidjs/router";
-import { For, Show } from "solid-js";
-import { BiRegularTaskX } from "solid-icons/bi";
-import { BsArrowRepeat } from "solid-icons/bs";
-import { IoCalendarNumberOutline, IoTrash } from "solid-icons/io";
 import { EmptyList, List, ListItem, ScreenHeader, VerticalScroll } from "@app/components";
+import { Task } from "@app/entities";
+import { useTasks } from "@app/hooks";
 import { t } from "@app/i18n";
 import { useDateProcessor } from "@app/providers";
-import { Await, Task, confirmationStore, tasksStore, toastStore } from "@app/stores";
-import { TaskListSkeleton } from "./TaskListSkeleton";
+import { Await, confirmationStore, toastStore } from "@app/stores";
+import { useNavigate } from "@solidjs/router";
+import { BiRegularTaskX } from "solid-icons/bi";
+import { BsArrowRepeat } from "solid-icons/bs";
 import { HiOutlinePencilSquare } from "solid-icons/hi";
+import { IoCalendarNumberOutline, IoTrash } from "solid-icons/io";
+import { For, Show } from "solid-js";
+import { TaskListSkeleton } from "./TaskListSkeleton";
 
 export type TasksListProps = {
   tasks: Task[];
@@ -17,16 +19,17 @@ export type TasksListProps = {
 
 export function TaskList(props: TasksListProps) {
   const dateProcessor = useDateProcessor();
+  const { tasks, deleteTask } = useTasks();
   const navigate = useNavigate();
 
-  const deleteTask = async (id: number) => {
-    await tasksStore.deleteByOriginalId(id);
+  const handleTaskDelete = async (id: Task['id']) => {
+    await deleteTask(id, true);
     toastStore.pushToast("success", t("ConfirmationRequest.taskDeletion.success"));
   }
 
   const requestDeletion = (task: Task) => {
     confirmationStore.requestConfirmation({
-      onConfirm: () => deleteTask(task.id),
+      onConfirm: () => handleTaskDelete(task.id),
       text: t("ConfirmationRequest.taskDeletion.text.complete", undefined, { title: task.title }),
       confirmButton: { label: t("ConfirmationRequest.taskDeletion.confirm")}
     });
@@ -37,7 +40,7 @@ export function TaskList(props: TasksListProps) {
       <ScreenHeader title={props.title} withGoBackButton />
       <VerticalScroll hasBottomNavigation hasHeader>
         <div class="px-3 py-4">
-          <Await for={[tasksStore.tasks()]} fallback={<TaskListSkeleton elementsCount={4} />}>
+          <Await for={[tasks()]} fallback={<TaskListSkeleton elementsCount={4} />}>
             <Show
               when={props.tasks.length}
               fallback={<EmptyList icon={<BiRegularTaskX />} children={t("common.emptyList")} />}

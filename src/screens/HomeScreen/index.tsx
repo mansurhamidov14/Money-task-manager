@@ -1,10 +1,12 @@
 import { ThemeToggleButton, VerticalScroll } from "@app/components";
 import { Message } from "@app/i18n";
-import { Await, accountsStore, user } from "@app/stores";
+import { Await, user } from "@app/stores";
 import { AccountsSlider, LatestTransactions, TasksOfTheDay } from "./components";
+import { useAccounts } from "@app/hooks";
 
 export function HomeScreen() {
   const currentUser = user.currentUser().data!;
+  const { accounts } = useAccounts();
 
   return (
     <VerticalScroll hasBottomNavigation>
@@ -16,8 +18,8 @@ export function HomeScreen() {
           </div>
           <ThemeToggleButton />
         </div>
-        <Await for={[accountsStore.accounts()]}>
-          <AccountsSlider accounts={accountsStore.accounts().data!} />
+        <Await for={[accounts()]}>
+          <AccountsSlider />
         </Await>
         <LatestTransactions />
         <TasksOfTheDay />

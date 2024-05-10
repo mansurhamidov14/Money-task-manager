@@ -32,8 +32,8 @@ import {
   ChangePinScreen,
   PersonalInfoScreen
 } from "@app/screens/SettingsScreen/pages";
-import { DateProcessorProvider } from "@app/providers";
-import { authService, clientService, userService } from "@app/services";
+import { DataProvider, DateProcessorProvider } from "@app/providers";
+import { HttpStatus, authService, authUserHttpClient, clientService, userService } from "@app/services";
 import { user } from "@app/stores";
 import { ProtectedRoute } from "@app/stores/navigation/components";
 
@@ -48,13 +48,15 @@ function App(props: RouteSectionProps) {
   return (
     <Layout>
       <RerenderOnLangChange>
-        <DateProcessorProvider>
-          {props.children}
-        </DateProcessorProvider>
+        <DataProvider>
+          <DateProcessorProvider>
+            {props.children}
+            <Show when={user.currentUser().status === "authorized"}>
+              <BottomNavigation />
+            </Show>
+          </DateProcessorProvider>
+        </DataProvider>
       </RerenderOnLangChange>
-      <Show when={user.currentUser().status === "authorized"}>
-        <BottomNavigation />
-      </Show>
     </Layout>
   );
 }
@@ -65,7 +67,7 @@ export default function() {
   const initApp = async () => {
     try {
       const { access_token } = await authService.getRefreshToken();
-      userService.setAccessToken(access_token);
+      authUserHttpClient.accessToken = access_token;
       const { data: authorizedUser } = await userService.getUser();
       if (authorizedUser.hasPinProtection) {
         const currentUrl = window.location.hash.slice(1);
@@ -76,10 +78,12 @@ export default function() {
         data: authorizedUser
       });
     } catch (e: any) {
-      if (e.status === 401) {
-        return user.logOut();
+      console.error(e);
+      if (e.status === HttpStatus.UNAUTHORIZED) {
+        return user.setCurrentUser({
+          status: "unauthorized"
+        });
       }
-
       setNetworkStatus("error");
     }
   }
@@ -90,12 +94,14 @@ export default function() {
   onMount(() => {
     clientService.on("connectionSuccess", connectionSuccesHandler);
     clientService.on("connectionError", connectionErrorHandler);
+    authUserHttpClient.on(HttpStatus.UNAUTHORIZED, user.logOut);
   });
 
   onCleanup(() => {
     clientService.off("connectionSuccess", connectionSuccesHandler);
     clientService.off("connectionError", connectionErrorHandler);
-  })
+    authUserHttpClient.off(HttpStatus.UNAUTHORIZED, user.logOut);
+  });
 
   const refetchClientData = () => {
     setNetworkStatus("idle");
@@ -109,7 +115,7 @@ export default function() {
   });
 
   return (
-    <div class="app-container">
+    <div class= "app-container">
       <QueryClientProvider client={queryClient}>
         <Switch fallback={<AppLoading />}>
           <Match when={networkStatus() === "success" && user.currentUser().status !== "loading"}>

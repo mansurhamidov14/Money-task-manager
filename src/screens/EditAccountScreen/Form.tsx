@@ -1,11 +1,13 @@
+import { AccountCard, Button, Loading } from "@app/components";
+import { Account } from "@app/entities";
+import { useAccounts } from "@app/hooks";
+import { Action, t } from "@app/i18n";
+import { getAccountFormSchema } from "@app/schemas";
+import { accountService } from "@app/services";
+import { toastStore } from "@app/stores";
 import { Show, createSignal } from "solid-js";
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
-
-import { AccountCardDumb, Button, Loading } from "@app/components";
-import { Action, t } from "@app/i18n";
-import { getAccountFormSchema } from "@app/schemas";
-import { user, toastStore, accountsStore, Account, transactionsStore } from "@app/stores";
 
 import {
   CurrencySelect,
@@ -14,11 +16,10 @@ import {
   SkinSelect
 } from "../components/AccountForm";
 import { TitleInput } from "../components/shared";
-import { accountService } from "@app/services";
 
 export function Form(props: Account) {
-  const userId = user.currentUser().data!.id;
   const [loading, setLoading] = createSignal(false);
+  const { reloadAccounts } = useAccounts();
   const formHandler = useFormHandler(yupSchema(getAccountFormSchema({
     title: props.title,
     currency: props.currency,
@@ -37,16 +38,11 @@ export function Form(props: Account) {
       const oldValues = props;
       const formData = formHandler.formData();
 
-      if (oldValues.currency !== formData.currency) {
-        await transactionsStore.updateCurrencyByAccount(userId, oldValues.id, formData.currency);
-      }
-
       await accountService.update(oldValues.id, formData);
-      accountsStore.setAccountsLoading();
+      reloadAccounts();
       toastStore.pushToast("success", t("EditAccountScreen.success"));
       history.back();
     } catch (e: any) {
-      console.log(e);
       if (e.message) {
         toastStore.pushToast("error", t("EditAccountScreen.error", undefined, { error: e.message }));
       }
@@ -55,7 +51,7 @@ export function Form(props: Account) {
 
   return (
     <Show when={!loading()} fallback={<Loading />}>
-      <AccountCardDumb
+      <AccountCard
         account={{
           id: "0",
           title: formHandler.getFieldValue("title"),

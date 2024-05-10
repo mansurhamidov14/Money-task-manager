@@ -15,8 +15,8 @@ export function getDateFilters(filterType: DateFilterTab, ranges?: PickerValue):
     endDate.setHours(23, 59, 59, 999);
 
     return {
-      startDate: startDate.toDatePickerString(),
-      endDate: endDate.toDatePickerString()
+      fromDate: startDate.toDatePickerString(),
+      toDate: endDate.toDatePickerString()
     }
   };
 
@@ -37,7 +37,7 @@ export function getDateFilters(filterType: DateFilterTab, ranges?: PickerValue):
 
   startDate.setHours(0, 0, 0, 0);
   return {
-    startDate: startDate.toDatePickerString(),
-    endDate: new Date(currentTimestamp).toDatePickerString()
+    fromDate: startDate.toDatePickerString(),
+    toDate: new Date(currentTimestamp).toDatePickerString()
   };
 }

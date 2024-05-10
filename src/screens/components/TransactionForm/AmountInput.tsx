@@ -3,14 +3,13 @@ import { Field } from "solid-form-handler";
 import { TextInput } from "@app/components";
 import { t } from "@app/i18n";
 import { currencyService } from "@app/services";
-import { accountsStore } from "@app/stores";
 import { InputProps } from "../shared";
+import { useAccounts } from "@app/hooks";
 
 export function AmountInput(props: InputProps) {
+  const { accounts } = useAccounts();
   const selectedAccountCurrency = createMemo(() => {
-    const selectedAccount = accountsStore
-      .accounts()
-      .data!
+    const selectedAccount = accounts().data!
       .find(account => account.id === props.formHandler.getFieldValue("account"));
     
     return selectedAccount && currencyService.getSign(selectedAccount.currency);

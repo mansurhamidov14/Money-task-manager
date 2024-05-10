@@ -1,4 +1,4 @@
-import { User } from "@app/stores";
+import { User } from "@app/entities";
 import type { HttpService } from "./HttpService";
 
 export class UserService {
@@ -17,7 +17,6 @@ export class UserService {
       await this.httpClient.post<boolean>('/user/validate-pin', { pinCode });
       return true;
     } catch (e: any) {
-      console.log(JSON.stringify(e));
       throw(e);
     }
   }
@@ -35,9 +34,5 @@ export class UserService {
 
   resetPassword(password: string, newPassword: string) {
     return this.httpClient.post<boolean>('/user/reset-password', { password, newPassword });
-  }
-
-  setAccessToken(accessToken: string) {
-    this.httpClient.headers.Authorization = `Bearer ${accessToken}`;
   }
 }
