@@ -1,7 +1,7 @@
 import { CurrencyCode } from ".";
 
 export type User = {
-  id: string | number;
+  id: number;
   avatar: string;
   firstName: string;
   lastName: string;

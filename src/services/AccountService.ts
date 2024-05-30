@@ -13,7 +13,7 @@ export class AccountService {
     return this.httpClient.get<Account[]>('/account/list');
   }
 
-  getById(id: Account["id"]) {
+  getById(id: string) {
     return this.httpClient.get<Account>(`/account/${id}`);
   }
 

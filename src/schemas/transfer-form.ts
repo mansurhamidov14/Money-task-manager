@@ -1,13 +1,13 @@
-import { string, number, object, Schema, ref } from "yup";
-import { t } from "@app/i18n";
 import { Account } from "@app/entities";
+import { t } from "@app/i18n";
+import { Schema, number, object, ref, string } from "yup";
 
 type TransferForm = {
   title: string;
   expenseAmount: number;
   incomeAmount: number;
-  fromAccount: string;
-  toAccount: string;
+  fromAccount: number;
+  toAccount: number;
   date: string;
 }
 
@@ -29,12 +29,12 @@ export function getTransferFormSchema(
       .required(t("common.FormFields.required"))
       .typeError(t("NewTransactionScreen.FormFields.amount.invalidFormat"))
       .default(defaults.incomeAmount),
-    fromAccount: string()
+    fromAccount: number()
       .required(t("common.FormFields.required"))
       .typeError(t("common.FormFields.required"))
       .oneOf(userAccountIds)
       .default(defaults.fromAccount),
-    toAccount: string()
+    toAccount: number()
       .required(t("common.FormFields.required"))
       .typeError(t("common.FormFields.required"))
       .oneOf(userAccountIds)

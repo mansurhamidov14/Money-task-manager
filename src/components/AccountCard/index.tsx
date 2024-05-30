@@ -2,12 +2,12 @@ import { Account } from "@app/entities";
 import { Action, Message, t } from "@app/i18n";
 import { currencyService, skinService } from "@app/services";
 import { Link, confirmationStore } from "@app/stores";
-import { Show, createSignal } from "solid-js";
 import { IoPencil, IoTrash } from "solid-icons/io";
+import { Show, createSignal } from "solid-js";
 
 import { Button } from "../index";
-import "./style.css";
 import "./skins.css";
+import "./style.css";
 
 export type AccountCardProps = {
   account: Account;
@@ -79,7 +79,7 @@ export function AccountCard(props: AccountCardDumbProps) {
                 <div class="h-0.5 bg-cyan-100"></div>
                 <div class="h-0.5 bg-cyan-100"></div>
                 <div class="text-black pt-1 pb-1 pr-4 font-semibold absolute right-0">
-                  {props.account.id.slice(-3).toUpperCase()}
+                  {`000${props.account.id}`.slice(-3).toUpperCase()}
                 </div>
               </div>
               <div class="mt-5 flex justify-around px-14 opacity-80">

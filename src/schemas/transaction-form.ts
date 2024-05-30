@@ -1,7 +1,7 @@
-import { number, object, Schema, string } from "yup";
-import { t } from "@app/i18n";
 import { Account, CategoryId, TransactionType } from "@app/entities";
+import { t } from "@app/i18n";
 import { categoryService } from "@app/services";
+import { Schema, number, object, string } from "yup";
 
 export type TransactionForm = {
   title: string;
@@ -34,7 +34,7 @@ export function getTransactionFormSchema(
       .required(t("common.FormFields.required"))
       .typeError(t("NewTransactionScreen.FormFields.amount.invalidFormat"))
       .default(defaults.amount),
-    account: string()
+    account: number()
       .required()
       .typeError(t("common.FormFields.required"))
       .oneOf(userAccountIds)
