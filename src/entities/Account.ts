@@ -2,7 +2,7 @@ import { CurrencyCode } from ".";
 import { User } from "./User";
 
 export type Account = {
-  id: string | number;
+  id: number;
   userId: User["id"];
   title: string;
   balance: number;

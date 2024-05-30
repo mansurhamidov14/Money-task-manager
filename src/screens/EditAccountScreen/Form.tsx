@@ -5,13 +5,13 @@ import { Action, t } from "@app/i18n";
 import { getAccountFormSchema } from "@app/schemas";
 import { accountService } from "@app/services";
 import { toastStore } from "@app/stores";
-import { Show, createSignal } from "solid-js";
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
+import { Show, createSignal } from "solid-js";
 
 import {
-  CurrencySelect,
   BalanceInput,
+  CurrencySelect,
   PrimaryCheckbox,
   SkinSelect
 } from "../components/AccountForm";
@@ -53,13 +53,13 @@ export function Form(props: Account) {
     <Show when={!loading()} fallback={<Loading />}>
       <AccountCard
         account={{
-          id: "0",
+          id: 0,
           title: formHandler.getFieldValue("title"),
           primary: formHandler.getFieldValue("primary"),
           skin: formHandler.getFieldValue("skin"),
           balance: formHandler.getFieldValue("balance"),
           currency: formHandler.getFieldValue("currency"),
-          userId: "0",
+          userId: 0,
           createdAt: 0,
           updatedAt: 0
         }}

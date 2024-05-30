@@ -1,7 +1,7 @@
 
 type TaskBase = {
-  id: string | number;
-  originalId?: string | number;
+  id: number;
+  originalId?: number;
   title: string;
   userId: string;
 }

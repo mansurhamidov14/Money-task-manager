@@ -69,7 +69,7 @@ export function Form({ task }: Props) {
         endDate: task.isRecurring ? task.endDate : task.date,
         time: task.isRecurring ? undefined : task.time,
         isRecurring: task.isRecurring.toString() as "0" | "1",
-        days: task.isRecurring ? task.days : undefined
+        days: task.isRecurring ? task.days : [{ doneAt: 0, time: '', day: 1 }]
       })
     }
   });
@@ -115,7 +115,7 @@ export function Form({ task }: Props) {
               {(_, i) => (
                 <div class="flex gap-3">
                   <div class="flex-1">
-                  <DaySelect formHandler={formHandler} name={`days.${i()}.day`} />
+                    <DaySelect formHandler={formHandler} name={`days.${i()}.day`} />
                   </div>
                   <div class="flex-1">
                     <TimeInput formHandler={formHandler} name={`days.${i()}.time`} label={t("TaskFormFields.time")} />

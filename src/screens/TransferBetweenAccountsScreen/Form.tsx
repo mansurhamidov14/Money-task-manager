@@ -6,10 +6,10 @@ import { Action, t } from "@app/i18n";
 import { getTransferFormSchema } from "@app/schemas";
 import { toastStore } from "@app/stores";
 
-import { AmountInput, AccountSelect } from "../components/TransferForm";
-import { DateTimeInput, TitleInput } from "../components/shared";
 import { useAccounts } from "@app/hooks";
 import { accountService, transactionService } from "@app/services";
+import { AccountSelect, AmountInput } from "../components/TransferForm";
+import { DateTimeInput, TitleInput } from "../components/shared";
 
 export function Form() {
   const { accounts, primaryAccount, reloadAccounts } = useAccounts()

@@ -1,7 +1,7 @@
 import { Account, Transaction } from "@app/entities";
 import { TransactionForm } from "@app/schemas";
-import { TransactionFilter } from "./types";
 import { type HttpService } from "./HttpService";
+import { TransactionFilter } from "./types";
 
 export class TransactionService {
   constructor (private httpClient: HttpService) { }
@@ -10,7 +10,7 @@ export class TransactionService {
     return this.httpClient.post<Transaction, TransactionForm>('/transaction/new', data);
   }
 
-  getById(id: Transaction["id"]) {
+  getById(id: string) {
     return this.httpClient.get<Transaction>(`/transaction/${id}`);
   }
 

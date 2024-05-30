@@ -9,15 +9,15 @@ import { accountService, transactionService } from "@app/services";
 import { toastStore } from "@app/stores";
 
 import {
+  AccountSelect,
   AmountInput,
   CategorySelect,
-  AccountSelect,
   TypeSelect
 } from "../components/TransactionForm";
 import { DateTimeInput, TitleInput } from "../components/shared";
 
 export function Form() {
-  const { accounts, waitForAccountsUpdate, patchAccount } = useAccounts();
+  const { accounts, patchAccount } = useAccounts();
   const formHandler = useFormHandler(yupSchema(getTransactionFormSchema({
     date: new Date().toLocaleDateTimePickerString(),
     account: accounts().data!.find(account => account.primary)?.id,
@@ -41,7 +41,6 @@ export function Form() {
         changeAmount *= -1;
       }
       await transactionService.create(formHandler.formData());
-      waitForAccountsUpdate();
       const accountUpdate = await accountService.changeBalance(affectedAccount.id, changeAmount);
       patchAccount(accountUpdate.data);
       toastStore.pushToast("success", t("NewTransactionScreen.success"));

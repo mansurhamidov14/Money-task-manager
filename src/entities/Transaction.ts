@@ -4,7 +4,7 @@ import { Account } from "./Account";
 
 export type TransactionType = "expense" | "income";
 export type Transaction = {
-  id: number | string;
+  id: number;
   account: Pick<Account, "id" | "currency">;
   userId: User['id']; 
   title: string;
