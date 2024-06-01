@@ -1,19 +1,19 @@
-import { Show, createSignal } from "solid-js";
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
+import { Show, createSignal } from "solid-js";
 
 import { Button, Loading } from "@app/components";
 import { Transaction } from "@app/entities";
 import { useAccounts } from "@app/hooks";
 import { Action, t } from "@app/i18n";
-import { accountService, transactionService } from "@app/services";
 import { getTransactionFormSchema } from "@app/schemas";
+import { accountService, transactionService } from "@app/services";
 import { toastStore } from "@app/stores";
 
 import {
+  AccountSelect,
   AmountInput,
   CategorySelect,
-  AccountSelect,
   TypeSelect
 } from "../components/TransactionForm";
 import { DateTimeInput, TitleInput } from "../components/shared";
@@ -43,7 +43,10 @@ export function Form(props: Transaction) {
       const affectedAccount = accounts()
         .data!.find(account => account.id === formData.account)!;
       const amount = formData.amount;
-      await transactionService.update(prevData.id, formData);
+      await transactionService.update(prevData.id, {
+        ...formData,
+        date: new Date(formData.date).toISOString()
+      });
       waitForAccountsUpdate();
       const prevAccountAmountChange = prevData.type === "expense" ? prevData.amount : (prevData.amount * -1);
       const affectedAccountAmountChange = formData.type === "income" ? amount : (amount * -1);

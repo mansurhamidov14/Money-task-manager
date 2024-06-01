@@ -29,12 +29,11 @@ export function Form() {
       await formHandler.validateForm();
       const formData = formHandler.formData();
       const transactionDateTime = new Date(formData.date).toISOString();
-      const transactionDate = transactionDateTime.split("T")[0];
       await transactionService.create({
         account: formData.fromAccount,
         amount: formData.expenseAmount,
         category: "transferBetweenAccounts",
-        date: transactionDate,
+        date: transactionDateTime,
         title: formData.title,
         type: "expense",
       });
@@ -43,7 +42,7 @@ export function Form() {
         account: formData.toAccount,
         amount: formData.incomeAmount,
         category: "transferBetweenAccounts",
-        date: transactionDate,
+        date: transactionDateTime,
         title: formData.title,
         type: "income",
       });

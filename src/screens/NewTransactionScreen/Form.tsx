@@ -40,7 +40,10 @@ export function Form() {
       if (type === "expense") {
         changeAmount *= -1;
       }
-      await transactionService.create(formHandler.formData());
+      await transactionService.create({
+        ...formData,
+        date: new Date(formData.date).toISOString()
+      });
       const accountUpdate = await accountService.changeBalance(affectedAccount.id, changeAmount);
       patchAccount(accountUpdate.data);
       toastStore.pushToast("success", t("NewTransactionScreen.success"));
