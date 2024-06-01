@@ -2,7 +2,7 @@
   "name": "com.wfo.app",
   "displayName": "WealthFlow Organizer",
   "private": true,
-  "version": "0.9.1",
+  "version": "1.0.0",
   "type": "commonjs",
   "keywords": [
     "ecosystem:cordova"
