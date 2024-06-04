@@ -7,11 +7,31 @@
     inline-flex
     justify-center
     items-center
-    px-3
-    disabled:opacity-50;
+    px-3;
 }
 
-.btn-full {
+.btn.disabled,
+.btn:disabled {
+  cursor: not-allowed;
+  @apply opacity-50;
+}
+
+.btn.loading {
+  cursor: wait;
+}
+
+.btn.loading svg {
+  color: inherit !important;
+  fill: currentColor !important;
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.btn.loading path:first-child {
+  color: transparent !important;
+}
+
+.btn-full { 
   @apply w-full;
 }
 
@@ -36,7 +56,15 @@
 }
 
 button[type].btn-primary, .btn-primary {
-  @apply text-white bg-primary-700 hover:bg-primary-800 dark:bg-primary-600 dark:hover:bg-primary-700;
+  @apply
+    text-white
+    bg-primary-700
+    dark:bg-primary-600;
+}
+
+button[type].btn-primary:not(:disabled),  
+.btn-primary:not(.disabled) {
+  @apply hover:bg-primary-800 dark:hover:bg-primary-700;
 }
 
 button[type].btn-secondary, .btn-secondary {
@@ -44,26 +72,46 @@ button[type].btn-secondary, .btn-secondary {
     text-sky-950
     dark:text-secondary-50
     bg-secondary-200/70
-    hover:bg-secondary-200
     dark:bg-secondary-700/60
-    dark:hover:bg-secondary-700
+}
+
+button[type].btn-secondary:not(:disabled),
+.btn-secondary:not(.disabled) {
+  @apply hover:bg-secondary-200 dark:hover:bg-secondary-700;
 }
 
 button[type].btn-transparent, .btn-transparent {
-  @apply
-    dark:text-secondary-200
-    hover:bg-gray-200
-    dark:hover:bg-gray-900/30;
+  @apply dark:text-secondary-200;
+}
+
+button[type].btn-transparent:not(:disabled),
+.btn-transparent:not(.disabled) {
+  @apply hover:bg-gray-200 dark:hover:bg-gray-900/30;
 }
 
 button[type].btn-ghost, .btn-ghost {
-  @apply text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300;
+  @apply text-primary-600 dark:text-primary-400;
+}
+
+button[type].btn-ghost:not(:disabled),
+.btn-ghost:not(.disabled) {
+  @apply hover:text-primary-700 dark:hover:text-primary-300;
 }
 
 button[type].btn-danger, .btn-danger {
-  @apply bg-red-600 hover:bg-red-700 text-white;
+  @apply bg-red-600 text-white;
+}
+
+button[type].btn-danger:not(:disabled),
+.btn-danger:not(.disabled) {
+  @apply hover:bg-red-700;
 }
 
 button[type].btn-success, .btn-success {
-  @apply bg-green-600 hover:bg-green-700 text-white;
+  @apply bg-green-600  text-white;
+}
+
+button[type].btn-success:not(:disabled),
+.btn-success:not(.disabled) {
+  @apply hover:bg-green-700;
 }

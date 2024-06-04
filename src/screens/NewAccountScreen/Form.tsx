@@ -8,6 +8,7 @@ import { accountService } from "@app/services";
 import { toastStore, user } from "@app/stores";
 
 import { useAccounts } from "@app/hooks";
+import { createSignal } from "solid-js";
 import {
   BalanceInput,
   CurrencySelect,
@@ -17,6 +18,7 @@ import {
 import { TitleInput } from "../components/shared";
 
 export function Form() {
+  const [submitLoading, setSubmitLoading] = createSignal(false);
   const { reloadAccounts } = useAccounts();
   const formHandler = useFormHandler(yupSchema(getAccountFormSchema({
     currency: user.currentUser().data?.primaryCurrency,
@@ -27,14 +29,15 @@ export function Form() {
   const handleSubmit = async (event: Event) => {
     event.preventDefault();
     try {
+      setSubmitLoading(true);
       await formHandler.validateForm();
-
       const accountData = formHandler.formData();
       await accountService.create(accountData);
       reloadAccounts();
       toastStore.pushToast("success", t("NewAccountScreen.success"));
       history.back();
     } catch (e: any) {
+      setSubmitLoading(false);
       if (e.message) {
         toastStore.pushToast("error", t("NewAccountScreen.error", undefined, { error: e.message }));
       }
@@ -68,7 +71,7 @@ export function Form() {
         </div>
         <SkinSelect formHandler={formHandler} />
         <PrimaryCheckbox formHandler={formHandler} />
-        <Button type="submit" variant="primary" size="lg">
+        <Button type="submit" variant="primary" size="lg" loading={submitLoading()}>
           <Action>Add</Action>
         </Button>
       </form>

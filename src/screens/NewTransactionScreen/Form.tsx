@@ -8,6 +8,7 @@ import { getTransactionFormSchema } from "@app/schemas";
 import { accountService, transactionService } from "@app/services";
 import { toastStore } from "@app/stores";
 
+import { createSignal } from "solid-js";
 import {
   AccountSelect,
   AmountInput,
@@ -18,6 +19,7 @@ import { DateTimeInput, TitleInput } from "../components/shared";
 
 export function Form() {
   const { accounts, patchAccount } = useAccounts();
+  const [submitLoading, setSubmitLoading] = createSignal(false);
   const formHandler = useFormHandler(yupSchema(getTransactionFormSchema({
     date: new Date().toLocaleDateTimePickerString(),
     account: accounts().data!.find(account => account.primary)?.id,
@@ -28,6 +30,7 @@ export function Form() {
   });
 
   const handleSubmit = async (event: Event) => {
+    setSubmitLoading(true);
     event.preventDefault();
     try {
       await formHandler.validateForm();
@@ -52,6 +55,8 @@ export function Form() {
       if (e.message && e.status !== 401) {
         toastStore.pushToast("error", t("NewTransactionScreen.error", undefined, { error: e.message }));
       }
+    } finally {
+      setSubmitLoading(false);
     }
   }
 
@@ -63,7 +68,7 @@ export function Form() {
       <CategorySelect formHandler={formHandler} />
       <AmountInput formHandler={formHandler} />
       <DateTimeInput formHandler={formHandler} />
-      <Button type="submit" variant="primary" size="lg">
+      <Button type="submit" variant="primary" size="lg" loading={submitLoading()}>
         <Action>Add</Action>
       </Button>
     </form>

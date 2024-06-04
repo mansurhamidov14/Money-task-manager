@@ -1,8 +1,8 @@
 import { useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
-import { Show, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
 
-import { Button, Loading } from "@app/components";
+import { Button } from "@app/components";
 import { Transaction } from "@app/entities";
 import { useAccounts } from "@app/hooks";
 import { Action, t } from "@app/i18n";
@@ -20,7 +20,7 @@ import { DateTimeInput, TitleInput } from "../components/shared";
 
 export function Form(props: Transaction) {
   const { accounts, waitForAccountsUpdate, reloadAccounts } = useAccounts();
-  const [loading, setLoading] = createSignal(false);
+  const [submitLoading, setSubmitLoading] = createSignal(false);
   const formHandler = useFormHandler(
     yupSchema(getTransactionFormSchema({
       title: props.title,
@@ -34,7 +34,7 @@ export function Form(props: Transaction) {
   );
 
   const handleSubmit = async (event: Event) => {
-    setLoading(true);
+    setSubmitLoading(true);
     event.preventDefault();
     try {
       await formHandler.validateForm();
@@ -56,6 +56,7 @@ export function Form(props: Transaction) {
       toastStore.pushToast("success", t("EditTransactionScreen.success"));
       history.back();
     } catch (e: any) {
+      setSubmitLoading(false);
       if (e.message && e.status !== 401) {
         toastStore.pushToast("error", t("EditTransactionScreen.error", undefined, { error: e.message }));
       }
@@ -63,18 +64,16 @@ export function Form(props: Transaction) {
   }
 
   return (
-    <Show when={!loading()} fallback={<Loading />}>
-      <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
-        <AccountSelect formHandler={formHandler} />
-        <TitleInput formHandler={formHandler} />
-        <TypeSelect formHandler={formHandler} />
-        <CategorySelect formHandler={formHandler} />
-        <AmountInput formHandler={formHandler} />
-        <DateTimeInput formHandler={formHandler} />
-        <Button type="submit" variant="primary" size="lg">
-          <Action>Save</Action>
-        </Button>
-      </form>
-    </Show>
+    <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
+      <AccountSelect formHandler={formHandler} />
+      <TitleInput formHandler={formHandler} />
+      <TypeSelect formHandler={formHandler} />
+      <CategorySelect formHandler={formHandler} />
+      <AmountInput formHandler={formHandler} />
+      <DateTimeInput formHandler={formHandler} />
+      <Button type="submit" variant="primary" size="lg" loading={submitLoading()}>
+        <Action>Save</Action>
+      </Button>
+    </form>
   );
 }

@@ -8,11 +8,13 @@ import { toastStore } from "@app/stores";
 
 import { useAccounts } from "@app/hooks";
 import { accountService, transactionService } from "@app/services";
+import { createSignal } from "solid-js";
 import { AccountSelect, AmountInput } from "../components/TransferForm";
 import { DateTimeInput, TitleInput } from "../components/shared";
 
 export function Form() {
-  const { accounts, primaryAccount, reloadAccounts } = useAccounts()
+  const [submitLoading, setSubmitLoading] = createSignal(false);
+  const { accounts, primaryAccount, reloadAccounts } = useAccounts();
   const primaryAccountId = primaryAccount()!.id;
   const formHandler = useFormHandler(yupSchema(getTransferFormSchema({
     date: new Date().toLocaleDateTimePickerString(),
@@ -26,6 +28,7 @@ export function Form() {
   const handleSubmit = async (event: Event) => {
     event.preventDefault();
     try {
+      setSubmitLoading(true);
       await formHandler.validateForm();
       const formData = formHandler.formData();
       const transactionDateTime = new Date(formData.date).toISOString();
@@ -52,6 +55,7 @@ export function Form() {
       reloadAccounts();
       history.back();
     } catch (e: any) {
+      setSubmitLoading(false);
       if (e.message && e.status !== 401) {
         toastStore.pushToast("error", t("TransferBetweenAccountsScreen.error", undefined, { error: e.message }));
       }
@@ -76,7 +80,7 @@ export function Form() {
         linkedAccountField="toAccount"
       />
       <DateTimeInput formHandler={formHandler} />
-      <Button type="submit" variant="primary" size="lg">
+      <Button type="submit" variant="primary" size="lg" loading={submitLoading()}>
         <Action>Add</Action>
       </Button>
     </form>

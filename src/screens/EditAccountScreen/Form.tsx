@@ -1,4 +1,4 @@
-import { AccountCard, Button, Loading } from "@app/components";
+import { AccountCard, Button } from "@app/components";
 import { Account } from "@app/entities";
 import { useAccounts } from "@app/hooks";
 import { Action, t } from "@app/i18n";
@@ -18,7 +18,7 @@ import {
 import { TitleInput } from "../components/shared";
 
 export function Form(props: Account) {
-  const [loading, setLoading] = createSignal(false);
+  const [submitLoading, setSubmitLoading] = createSignal(false);
   const { reloadAccounts } = useAccounts();
   const formHandler = useFormHandler(yupSchema(getAccountFormSchema({
     title: props.title,
@@ -33,7 +33,7 @@ export function Form(props: Account) {
   const handleSubmit = async (event: Event) => {
     event.preventDefault();
     try {
-      setLoading(true);
+      setSubmitLoading(true);
       await formHandler.validateForm();
       const oldValues = props;
       const formData = formHandler.formData();
@@ -43,6 +43,7 @@ export function Form(props: Account) {
       toastStore.pushToast("success", t("EditAccountScreen.success"));
       history.back();
     } catch (e: any) {
+      setSubmitLoading(false);
       if (e.message) {
         toastStore.pushToast("error", t("EditAccountScreen.error", undefined, { error: e.message }));
       }
@@ -50,7 +51,7 @@ export function Form(props: Account) {
   }
 
   return (
-    <Show when={!loading()} fallback={<Loading />}>
+    <>
       <AccountCard
         account={{
           id: 0,
@@ -78,10 +79,10 @@ export function Form(props: Account) {
         <Show when={!props.primary}>
           <PrimaryCheckbox formHandler={formHandler} />
         </Show>
-        <Button type="submit" variant="primary" size="lg">
+        <Button type="submit" variant="primary" size="lg" loading={submitLoading()}>
           <Action>Edit</Action>
         </Button>
       </form>
-    </Show>
+    </>
   );
 }
