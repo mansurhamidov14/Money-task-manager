@@ -1,11 +1,10 @@
-import type { CategoryId, Currency, CurrencyCode, User } from "@app/entities";
+import type { Currency, CurrencyCode, User } from "@app/entities";
 
 export type TransactionFilter = {
   fromDate?: string;
   toDate?: string;
   limit?: number;
   offset?: number;
-  category?: CategoryId
 }
 
 export type TokenResponse = {

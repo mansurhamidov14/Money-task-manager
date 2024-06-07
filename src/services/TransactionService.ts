@@ -14,13 +14,12 @@ export class TransactionService {
     return this.httpClient.get<Transaction>(`/transaction/${id}`);
   }
 
-  getUserTransactions({ fromDate, toDate, limit, offset, category }: TransactionFilter) {
+  getUserTransactions = ({ fromDate, toDate, limit, offset }: TransactionFilter) => {
     const endDataObj = toDate ? new Date(toDate) : undefined;
     endDataObj?.setHours(23, 59, 59, 999);
     const params = {
       startDate: fromDate ? new Date(fromDate).toISOString() : undefined,
       endDate: endDataObj?.toISOString(),
-      category,
       limit,
       offset
     };

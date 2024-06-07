@@ -9,13 +9,13 @@ export function useTransactions(filter: Accessor<TransactionFilter>) {
   const [
     transactions,
     fetchTransactions,
-    _,
+    ,
     reloadTransactions,
     waitForTransactionsUpdate
   ] = useAsyncData<Transaction[]>();
 
   const [memoizeTransactionFetch, forgetMemo] = memoize(
-    transactionService.getUserTransactions.bind(transactionService)
+    transactionService.getUserTransactions
   );
 
   createEffect(() => {

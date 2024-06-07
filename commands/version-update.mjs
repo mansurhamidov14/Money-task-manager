@@ -1,6 +1,6 @@
 import fs from "fs";
 import inquirer from "inquirer";
-import * as xml2js from "xml2js"
+import * as xml2js from "xml2js";
 
 async function main() {
   const cwd = process.cwd();
@@ -11,7 +11,7 @@ async function main() {
   const [major, minor, bugfix] = pkg.version.split(".").map(Number);
   const nextMajorVersion = `${major + 1}.0.0`;
   const nextMinorVersion = `${major}.${minor + 1}.0`;
-  const nextBugFixVersion = `${major}.${minor}.${bugfix + 1}`;
+  const nextPatchVersion = `${major}.${minor}.${bugfix + 1}`;
 
   const { nextVersion } = await inquirer.prompt([
     {
@@ -19,9 +19,9 @@ async function main() {
       name: "nextVersion",
       message: "Choose next version",
       choices: [
-        nextMajorVersion,
+        nextPatchVersion,
         nextMinorVersion,
-        nextBugFixVersion
+        nextMajorVersion,
       ]
     }
   ]);

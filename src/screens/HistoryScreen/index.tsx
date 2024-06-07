@@ -1,11 +1,10 @@
-import { createSignal } from "solid-js";
-import { PickerValue } from "@rnwonder/solid-date-picker";
 import { Loading, ScreenHeader, VerticalScroll } from "@app/components";
 import { CategoryId } from "@app/entities";
+import { useAccounts, useTransactions } from "@app/hooks";
 import { t } from "@app/i18n";
-import { getDateFilters } from "./helpers";
 import { Await } from "@app/stores";
-import { initialDateRange } from "./consts";
+import { PickerValue } from "@rnwonder/solid-date-picker";
+import { createMemo, createSignal } from "solid-js";
 import {
   CategoryFilter,
   DateFilter,
@@ -13,8 +12,9 @@ import {
   PieCharts,
   TransactionListSkeleton
 } from "./components";
-import { DateFilter as TDateFilter, DateFilterTab } from "./types";
-import { useAccounts, useTransactions } from "@app/hooks";
+import { initialDateRange } from "./consts";
+import { getDateFilters } from "./helpers";
+import { DateFilterTab, DateFilter as TDateFilter } from "./types";
 
 export function HistoryScreen() {
   const { accounts } = useAccounts();
@@ -23,10 +23,14 @@ export function HistoryScreen() {
   const [filterDateRanges, setFilterDateRanges] = createSignal<PickerValue>(initialDateRange);
   const [categoryFilter, setCategoryFilter] = createSignal<CategoryId | null>(null);
   const [dateFilter, setDateFilter] = createSignal<TDateFilter>(getDateFilters(dateFilterTab()));
-  const { transactions, deleteTransaction } = useTransactions(() => ({
-    ...dateFilter(),
-    category: categoryFilter() ?? undefined
-  }));
+  const { transactions, deleteTransaction } = useTransactions(dateFilter);
+  const transactionsWithCategoryFilter = createMemo(() => {
+    if (!categoryFilter()) {
+      return transactions().data!;
+    }
+
+    return transactions().data!.filter(({ category }) => category === categoryFilter());
+  });
 
   return (
     <>
@@ -53,7 +57,7 @@ export function HistoryScreen() {
           </Await>
           <CategoryFilter filter={categoryFilter} setFilter={setCategoryFilter} />
           <Await for={[transactions()]} fallback={<TransactionListSkeleton />}>
-            <FilteredTransactions transactions={transactions} onDelete={deleteTransaction} />
+            <FilteredTransactions transactions={transactionsWithCategoryFilter} onDelete={deleteTransaction} />
           </Await>
         </main>
       </VerticalScroll>

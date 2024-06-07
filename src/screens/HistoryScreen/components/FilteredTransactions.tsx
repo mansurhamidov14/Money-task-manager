@@ -1,27 +1,27 @@
-import {  Accessor, For, Show, createMemo } from "solid-js";
 import { EmptyList, List, TransactionGroup, TransactionListItem } from "@app/components";
 import { Transaction } from "@app/entities";
-import { AsyncData, groupTransactionsByDate, sumAmountByCurrency } from "@app/hooks";
-import { FaSolidFilterCircleXmark } from "solid-icons/fa";
+import { groupTransactionsByDate, sumAmountByCurrency } from "@app/hooks";
 import { Message } from "@app/i18n";
 import { useDateProcessor } from "@app/providers";
+import { FaSolidFilterCircleXmark } from "solid-icons/fa";
+import { Accessor, For, Show, createMemo } from "solid-js";
 
 type FilteredTransactionsProps = {
-  transactions: Accessor<AsyncData<Transaction[]>>;
+  transactions: Accessor<Transaction[]>;
   onDelete: (id: Transaction['id']) => void;
 }
 
 export function FilteredTransactions(props: FilteredTransactionsProps) {
   const dateProcessor = useDateProcessor();
-  const filteredTransactions = createMemo(() => (
+  const dateGroups = createMemo(() => (
     Object.entries(groupTransactionsByDate(
-      props.transactions().data!
+      props.transactions()
     ))
   ));
 
   return (
     <Show
-      when={props.transactions().data!.length}
+      when={dateGroups().length}
       fallback={(
         <EmptyList icon={<FaSolidFilterCircleXmark />}>
           <Message>HistoryScreen.noTransactionForTheFilter</Message>
@@ -29,7 +29,7 @@ export function FilteredTransactions(props: FilteredTransactionsProps) {
       )}
     >
       <List>
-        <For each={filteredTransactions()}>
+        <For each={dateGroups()}>
           {([date, transactions]) => {
             const amountsByCurrencies = sumAmountByCurrency(transactions);
             return (
