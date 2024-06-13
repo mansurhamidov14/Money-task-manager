@@ -1,6 +1,6 @@
+import { MS_IN_DAY } from "@app/constants";
 import { PickerValue } from "@rnwonder/solid-date-picker";
 import { DateFilter, DateFilterTab } from "./types";
-import { MS_IN_DAY } from "@app/constants";
 
 export function getDateFilters(filterType: DateFilterTab, ranges?: PickerValue): DateFilter {
   if (filterType === "custom" && !ranges) {
@@ -31,7 +31,7 @@ export function getDateFilters(filterType: DateFilterTab, ranges?: PickerValue):
       break;
     case "day":
     default:
-      startDate = new Date(currentTimestamp - 7 * MS_IN_DAY);
+      startDate = new Date(currentTimestamp - 1 * MS_IN_DAY);
       break;
   }
 
