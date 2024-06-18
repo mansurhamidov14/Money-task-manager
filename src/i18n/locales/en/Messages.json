@@ -95,7 +95,8 @@
   "HistoryScreen": {
     "title": "Transactions History",
     "charts": {
-      "expensesStatistics": "Statistics of expenses"
+      "expensesStatistics": "Statistics of expenses",
+      "totalExpenses": "Total:"
     },
     "noTransactionForTheFilter": "No transactions were found for the filter",
     "DateFilters": {

@@ -95,7 +95,8 @@
   "HistoryScreen": {
     "title": "Əməliyyat tarixçəsi",
     "charts": {
-      "expensesStatistics": "Xərclərin statistikası"
+      "expensesStatistics": "Xərclərin statistikası",
+      "totalExpenses": "Cəmi"
     },
     "noTransactionForTheFilter": "Filtr üzrə heç bir əməliyyat tapılmadı",
     "DateFilters": {

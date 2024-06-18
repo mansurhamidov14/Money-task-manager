@@ -1,6 +1,3 @@
-import { createQuery } from "@tanstack/solid-query";
-import { ApexChartProps, SolidApexCharts } from "solid-apexcharts";
-import { Accessor, Show, createMemo } from "solid-js";
 import { Loading, SectionTitle } from "@app/components";
 import { CategoryId, CurrencyCode, Transaction } from "@app/entities";
 import { groupBy } from "@app/helpers";
@@ -12,6 +9,9 @@ import {
   currencyService,
 } from "@app/services";
 import { themeStore } from "@app/stores";
+import { createQuery } from "@tanstack/solid-query";
+import { ApexChartProps, SolidApexCharts } from "solid-apexcharts";
+import { Accessor, Show, createMemo } from "solid-js";
 import { DateFilter } from "../types";
 
 export function PieCharts(props: {
@@ -77,7 +77,7 @@ export function PieCharts(props: {
           },
           chart: {
             foreColor: theme() === "dark" ? "#FFF" : "#000",
-            height: 300
+            height: 360
           },
           tooltip: {
             y: {
@@ -92,6 +92,9 @@ export function PieCharts(props: {
           fill: { colors },
           legend: {
             position: "bottom",
+            formatter(legendName, opts) {
+              return `${legendName} (<strong>${currencyService.formatValue(primaryCurrency(), opts.w.config.series[opts.seriesIndex])}</strong>)`;
+            },
           },
         },
         series,
@@ -105,6 +108,15 @@ export function PieCharts(props: {
       <Show when={currencyRatesQuery.isSuccess} fallback={<div class="min-h-[7rem]"><Loading /></div>}>
         <Show when={chartData() && processedTransactions().length}>
           <SolidApexCharts {...chartData()!} />
+          <div class="text-center mt-1 font-semibold">
+            <Message>HistoryScreen.charts.totalExpenses</Message>
+            <span class="font-bold">
+              &nbsp;&nbsp;{currencyService.formatValue(
+                primaryCurrency(),
+                (chartData()!.series as number[]).reduce((a, b) => a + b, 0)
+              )}
+            </span>
+          </div>
           <SectionTitle>
             <Message>HistoryScreen.charts.expensesStatistics</Message>
           </SectionTitle>

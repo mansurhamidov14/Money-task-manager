@@ -95,7 +95,8 @@
   "HistoryScreen": {
     "title": "Історія транзакцій",
     "charts": {
-      "expensesStatistics": "Статистика витрат"
+      "expensesStatistics": "Статистика витрат",
+      "totalExpenses": "Усього:"
     },
     "noTransactionForTheFilter": "Не знайдено транзакцій по заданому фільтру",
     "DateFilters": {
