@@ -81,7 +81,7 @@
 }
 
 .flselect-error {
-  @apply mt-1 text-xs text-red-600 dark:text-red-400;
+  @apply absolute mt-0.5 text-xs text-red-600 dark:text-red-400;
 }
 
 .flselect-help {

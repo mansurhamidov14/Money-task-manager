@@ -1,10 +1,10 @@
-import { Field, useFormHandler } from "solid-form-handler";
-import { yupSchema } from "solid-form-handler/yup";
-import { Button, ScreenHeader, VerticalScroll, TextInput } from "@app/components";
+import { Button, ScreenHeader, TextInput, VerticalScroll } from "@app/components";
 import { Action, t } from "@app/i18n";
 import { getChangePasswordSchema } from "@app/schemas";
-import { toastStore } from "@app/stores";
 import { userService } from "@app/services";
+import { toastStore } from "@app/stores";
+import { Field, useFormHandler } from "solid-form-handler";
+import { yupSchema } from "solid-form-handler/yup";
 
 export function ChangePasswordScreen() {
   const formHandler = useFormHandler(yupSchema(getChangePasswordSchema()), {
@@ -28,7 +28,7 @@ export function ChangePasswordScreen() {
     <main>
       <ScreenHeader withGoBackButton title={t("SettingsScreen.changePassword.title")} />
       <VerticalScroll hasHeader hasBottomNavigation>
-        <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
+        <form class="flex flex-col gap-2 mt-4 px-5" onSubmit={handleSubmit}>
           <Field
             mode="input"
             name="password"

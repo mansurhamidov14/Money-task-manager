@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { JSX, ParentProps, Show, createMemo, mergeProps, splitProps } from "solid-js";
 import "./style.css";
 
@@ -30,7 +31,7 @@ export function Select(props: ParentProps<SelectProps>) {
   const hasError = createMemo(() => Boolean(localProps.errorMessage));
   
   return (
-    <div class={localProps.containerClass}>
+    <div class={classNames("relative mb-5", localProps.containerClass)}>
       <div class="relative">
         <select
           aria-describedby={localProps.assistiveText && `assistiveText-${props.id}`}

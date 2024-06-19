@@ -64,8 +64,10 @@ export function Form(props: Transaction) {
   }
 
   return (
-    <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
-      <AccountSelect formHandler={formHandler} />
+    <form class="flex flex-col gap-2 mt-4 px-5" onSubmit={handleSubmit}>
+      <div class="mb-2">
+        <AccountSelect formHandler={formHandler} />
+      </div>
       <TitleInput formHandler={formHandler} />
       <TypeSelect formHandler={formHandler} />
       <CategorySelect formHandler={formHandler} />

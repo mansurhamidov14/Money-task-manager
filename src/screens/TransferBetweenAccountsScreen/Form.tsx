@@ -63,8 +63,8 @@ export function Form() {
   }
 
   return (
-    <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
-      <div>
+    <form class="flex flex-col gap-2 mt-4 px-5" onSubmit={handleSubmit}>
+      <div class="mb-2">
         <AccountSelect formHandler={formHandler} name="fromAccount" />
         <AccountSelect formHandler={formHandler} name="toAccount" />
       </div>

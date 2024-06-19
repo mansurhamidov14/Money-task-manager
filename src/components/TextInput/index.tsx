@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { JSX, Show, createMemo, mergeProps, splitProps } from "solid-js";
 import "./style.css";
 
@@ -34,7 +35,7 @@ export function TextInput(props: TextInputProps) {
   const hasError = createMemo(() => Boolean(localProps.errorMessage));
   
   return (
-    <div class={localProps.containerClass}>
+    <div class={classNames("mb-5 relative", localProps.containerClass)}>
       <div class="relative">
         <input
           aria-describedby={localProps.assistiveText && `assistiveText-${props.id}`}
@@ -53,7 +54,7 @@ export function TextInput(props: TextInputProps) {
             </div>
           </div>
         </Show>
-        <label for={nativeProps.id}>
+        <label class="pointer-events-none" for={nativeProps.id}>
           {props.label}
         </label>
       </div>

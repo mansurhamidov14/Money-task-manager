@@ -75,10 +75,10 @@ export function Form({ task }: Props) {
   });
 
   return (
-    <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
+    <form class="flex flex-col gap-2 mt-4 px-5" onSubmit={handleSubmit}>
       <TitleInput formHandler={formHandler} />
       <div class="flex flex-wrap gap-3">
-        <div class="w-full mb-3">
+        <div class="w-full -mt-1 mb-3">
           <RecurringCheckbox formHandler={formHandler} />
         </div>
         <div class="flex-1">
@@ -128,7 +128,7 @@ export function Form({ task }: Props) {
             )}
           </For>
           <Button
-            class="gap-1"
+            class="gap-1 mb-2"
             type="button"
             variant="success"
             onClick={() => formHandler.addFieldset({ basePath: "days" })}

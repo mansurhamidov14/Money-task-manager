@@ -1,11 +1,11 @@
 import { Field, useFormHandler } from "solid-form-handler";
 import { yupSchema } from "solid-form-handler/yup";
 
-import { Button, ScreenHeader, VerticalScroll, TextInput } from "@app/components";
+import { Button, ScreenHeader, TextInput, VerticalScroll } from "@app/components";
 import { Action, t } from "@app/i18n";
 import { getPersonalInfoSchema } from "@app/schemas";
-import { toastStore, user } from "@app/stores";
 import { userService } from "@app/services";
+import { toastStore, user } from "@app/stores";
 
 export function PersonalInfoScreen() {
   const currentUser = user.currentUser().data!
@@ -31,7 +31,7 @@ export function PersonalInfoScreen() {
     <main>
       <ScreenHeader withGoBackButton title={t("SettingsScreen.personalInfo.title")} />
       <VerticalScroll hasHeader hasBottomNavigation>
-        <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
+        <form class="flex flex-col gap-2 mt-4 px-5" onSubmit={handleSubmit}>
           <Field
             mode="input"
             name="firstName"

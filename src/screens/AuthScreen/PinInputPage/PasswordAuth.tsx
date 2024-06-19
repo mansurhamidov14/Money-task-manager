@@ -8,8 +8,8 @@ import { getLoginFormSchema } from "@app/schemas";
 import { userService } from "@app/services";
 import { user } from "@app/stores";
 
-import { AuthLayout } from "../AuthLayout";
 import { createSignal } from "solid-js";
+import { AuthLayout } from "../AuthLayout";
 
 export type PasswordAuthProps = {
   onRememberPin: () => void;
@@ -25,7 +25,7 @@ export function PasswordAuth(props: PasswordAuthProps) {
   const handleSubmit = async (event: Event) => {
     event.preventDefault();
     try {
-      await formHandler.validateField();
+      await formHandler.validateForm();
       const { password } = formHandler.formData();
       await userService.removePinProtectionByPassword(password);
       user.setCurrentUser({
@@ -33,7 +33,7 @@ export function PasswordAuth(props: PasswordAuthProps) {
         data: { ...user.currentUser().data!, hasPinProtection: 0 }
       });
     } catch (e: any) {
-      setPasswordError(e.message);
+      setPasswordError(t(e.message, "Exceptions"));
     }
   }
 
@@ -44,13 +44,14 @@ export function PasswordAuth(props: PasswordAuthProps) {
 
   return (
     <AuthLayout>
-      <form onSubmit={handleSubmit} class="flex flex-col gap-5 justify-around px-5 max-w-md mx-auto">
+      <form onSubmit={handleSubmit} class="flex flex-col gap-2 justify-around px-5 max-w-md mx-auto">
         <div class="text-center">
           {user.currentUser().data!.email}
         </div>
         <Field
           mode="input"
           name="password"
+          onInput={() => setPasswordError(null)}
           formHandler={formHandler}
           render={(field) => (
             <TextInput

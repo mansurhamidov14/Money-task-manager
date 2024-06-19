@@ -65,7 +65,7 @@ export function Form(props: Account) {
           updatedAt: 0
         }}
       />
-      <form class="flex flex-col gap-6 mt-4 px-5" onSubmit={handleSubmit}>
+      <form class="flex flex-col gap-2 mt-4 px-5" onSubmit={handleSubmit}>
         <TitleInput formHandler={formHandler} />
         <div class="flex gap-3">
           <div class="w-2/3">
@@ -77,7 +77,9 @@ export function Form(props: Account) {
         </div>
         <SkinSelect formHandler={formHandler} />
         <Show when={!props.primary}>
-          <PrimaryCheckbox formHandler={formHandler} />
+          <div class="mb-2">
+            <PrimaryCheckbox formHandler={formHandler} />
+          </div>
         </Show>
         <Button type="submit" variant="primary" size="lg" loading={submitLoading()}>
           <Action>Edit</Action>

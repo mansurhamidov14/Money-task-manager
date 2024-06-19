@@ -1,20 +1,20 @@
 import { Navigate, useNavigate } from "@solidjs/router";
-import { For, Show } from "solid-js";
-import { yupSchema } from "solid-form-handler/yup";
 import { Field, useFormHandler } from "solid-form-handler";
-import { IoKey } from "solid-icons/io";
+import { yupSchema } from "solid-form-handler/yup";
 import { FiAtSign } from "solid-icons/fi";
+import { IoKey } from "solid-icons/io";
+import { For, Show } from "solid-js";
 
 import { Button, Select, TextInput } from "@app/components";
-import { avatars } from "@app/screens/SettingsScreen/constants";
 import { getRandomElement } from "@app/helpers";
 import { Action, Message, t } from "@app/i18n";
 import { getSignUpFormSchema } from "@app/schemas";
-import { authService, accountService, currencyService, authUserHttpClient } from "@app/services";
+import { avatars } from "@app/screens/SettingsScreen/constants";
+import { accountService, authService, authUserHttpClient, currencyService } from "@app/services";
 import { Link, user } from "@app/stores";
 
-import { AuthLayout } from "../AuthLayout";
 import { firstRunHappened } from "@app/storage";
+import { AuthLayout } from "../AuthLayout";
 
 export function SignUpPage() {
   const formHandler = useFormHandler(yupSchema(getSignUpFormSchema()), {
@@ -55,7 +55,7 @@ export function SignUpPage() {
   return (
     <Show when={user.currentUser().status === "unauthorized"} fallback={<Navigate href="/auth/pin" />}>
       <AuthLayout>
-        <form onSubmit={handleSubmit} class="flex flex-col gap-5 justify-around px-5 max-w-md mx-auto">
+        <form onSubmit={handleSubmit} class="flex flex-col gap-2 justify-around px-5 max-w-md mx-auto">
           <Field
             mode="input"
             name="firstName"

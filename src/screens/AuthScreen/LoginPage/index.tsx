@@ -1,9 +1,9 @@
 import { Navigate, useNavigate } from "@solidjs/router";
 import { Field, useFormHandler } from "solid-form-handler";
-import { Show } from "solid-js";
 import { yupSchema } from "solid-form-handler/yup";
-import { IoKey } from "solid-icons/io";
 import { FiAtSign } from "solid-icons/fi";
+import { IoKey } from "solid-icons/io";
+import { Show } from "solid-js";
 
 import { Button, TextInput } from "@app/components";
 import { Action, Message, t } from "@app/i18n";
@@ -11,8 +11,8 @@ import { getLoginFormSchema } from "@app/schemas";
 import { authService, authUserHttpClient } from "@app/services";
 import { Link, toastStore, user } from "@app/stores";
 
-import { AuthLayout } from "../AuthLayout";
 import { firstRunHappened } from "@app/storage";
+import { AuthLayout } from "../AuthLayout";
 
 export function LoginPage() {
   const formHandler = useFormHandler(yupSchema(getLoginFormSchema()), {
@@ -38,7 +38,7 @@ export function LoginPage() {
   return (
     <Show when={user.currentUser().status === "unauthorized"} fallback={<Navigate href="/auth/pin" />}>
       <AuthLayout>
-        <form onSubmit={handleSubmit} class="flex flex-col gap-5 justify-around px-5 max-w-md mx-auto">
+        <form onSubmit={handleSubmit} class="flex flex-col gap-2 justify-around px-5 max-w-md mx-auto">
           <Field
             mode="input"
             name="email"

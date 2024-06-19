@@ -1,7 +1,7 @@
-import { Accessor, For, Setter, createEffect, createMemo, onCleanup, onMount } from "solid-js";
-import { Row } from "./Row";
-import { Key } from "./Key";
 import { IoBackspaceOutline } from "solid-icons/io";
+import { Accessor, For, Setter, createEffect, createMemo, onCleanup, onMount } from "solid-js";
+import { Key } from "./Key";
+import { Row } from "./Row";
 
 const validPinLength = 6;
 export type PinInputProps = {
